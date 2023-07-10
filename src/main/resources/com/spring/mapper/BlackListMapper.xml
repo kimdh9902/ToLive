@@ -7,8 +7,10 @@
   		SELECT blist_no, block_account FROM blacklist WHERE user_id=#{user_id}
   	</select>
   	<insert id="insertBlackList">
+  	<!--  
   		INSERT INTO blacklist (blist_no, user_id, block_account)
-  			VALUES (seq_blist_no.nextval, #{user_id}, #{block_account})
+  			VALUES (seq_blist_no.nextval, #{user_id}, #{block_account})-->
+  			INSERT INTO blacklist VALUES (seq_blist_no.nextval, #{user_id}, #{block_account})
   	</insert>
   	<delete id="deleteBlackList">
   		DELETE FROM blacklist WHERE user_id = #{user_id} 
