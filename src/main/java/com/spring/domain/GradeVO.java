@@ -7,8 +7,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class BlackListVO {
-	private int blist_no;
-	private String user_id;
-	private String block_account;
+public class GradeVO {
+	private int grade_level;
+	private String grade_name;
 }

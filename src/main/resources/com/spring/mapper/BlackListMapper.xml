@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.spring.mapper.BlackListMapper">
+  	<select id="selectAllBlackList" resultType="com.spring.domain.BlackListVO">
+  		SELECT blist_no, block_account FROM blacklist WHERE user_id=#{user_id}
+  	</select>
+  	<insert id="insertBlackList">
+  		INSERT INTO blacklist (blist_no, user_id, block_account)
+  			VALUES (seq_blist_no.nextval, #{user_id}, #{block_account})
+  	</insert>
+  	<delete id="deleteBlackList">
+  		DELETE FROM blacklist WHERE user_id = #{user_id} 
+  			and block_account= #{block_account}
+  	</delete>
+  </mapper>
