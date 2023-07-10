@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="com.spring.mapper.IdMapper">
-  	<select id="selectId">
+  <mapper namespace="com.spring.mapper.SearchMapper">
+  	<select id="selectId" resultType="com.spring.mapper.SearchIdVO">
   		SELECT id, name FROM users WHERE name LIKE #{\%name\%} or id like #{\%name\%}
   	</select>
   </mapper>
