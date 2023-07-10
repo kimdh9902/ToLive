@@ -31,8 +31,8 @@ public class testMapper {
 	@Test
 	public void test() {
 		List<SearchIdVO> list = mapper.selectId("김옥수");
+		log.info("name@@@@@@@@@@@@@@@"+list.get(0).getName());
 		assertNotNull(list);
-		log.info(list);
 	}
 
 }
