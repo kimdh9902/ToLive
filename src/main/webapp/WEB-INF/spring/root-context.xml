@@ -35,6 +35,9 @@
    <!-- Persistence Scan -->
    <mybatis-spring:scan base-package="com.spring.mapper" />
 	
+	<context:component-scan base-package="com.spring.controller"></context:component-scan>
+	
+	<context:component-scan base-package="com.spring.service"></context:component-scan>
 	
 
 </beans>
