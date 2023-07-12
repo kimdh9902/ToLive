@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.spring.mapper.StarBoardMapper">
+		<select id="selectStarBoards" resultType="com.spring.domain.StarBoardVO">
+			select * from star_board
+		</select>
+		
+		<insert id="insertStarBoard">
+			 <![CDATA[
+		        INSERT INTO star_board (b_no, title, user_id, views) 
+		        SELECT tb.trav_b_no, tb.title, tb.user_id, tb.views 
+		        FROM (SELECT * FROM trav_board WHERE is_hidden=0 ORDER BY views DESC ) tb 
+		        WHERE ROWNUM <= 10
+    		]]>
+		</insert>
+		
+		<delete id="deleteAllBoard">
+			delete from star_board
+		</delete>
+		
+	</mapper>

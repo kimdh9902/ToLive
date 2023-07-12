@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.spring.mapper.AlarmMapper"> <!-- 맵퍼적기 -->
+		<select id="select10Alarm" resultType="com.spring.domain.AlarmVO">
+			SELECT alarm_no, msg FROM alarm
+				ORDER BY alarm_no DESC
+				FETCH FIRST 10 ROWS ONLY
+		</select>
+		
+		<update id="updateAlarm">
+			UPDATE alarm SET is_open=1 WHERE alarm_no = #{alarm_no}
+		</update>
+		
+		<insert id="insertAlarm">
+			INSERT INTO alarm (alarm_no, user_id, b_no, msg)
+			VALUES (seq_alarm_no.nextval, #{user_id}, #{b_no}, #{msg})
+		</insert>
+	</mapper>
