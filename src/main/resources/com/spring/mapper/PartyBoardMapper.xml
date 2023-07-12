@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.spring.mapper.PartyBoardMapper">
+  <insert id="insertPartyBoard">
+  INSERT INTO party_board 
+  (party_b_no,title ,max_people,user_id) 
+   VALUES
+  (seq_total_b_no.nextval,#{title},#{max_people},#{user_id})
+  </insert>
+  <select id="selectAllPartyBoard" resultType="com.spring.domain.PartyBoardVO">
+  select party_b_no,title, now_people,max_people, user_id 
+  from party_board 
+  where is_hidden=0 order by party_b_no desc
+  </select>
+  <select id="selectPartyBoardByPartyBNo" resultType="com.spring.domain.PartyBoardVO">
+  select party_b_no,title, now_people,max_people, user_id 
+ from party_board 
+ where is_hidden=0 
+ and party_b_no=#{party_b_no}
+ </select>
+ <select id="selectPartyBoardById" resultType="com.spring.domain.PartyBoardVO">
+ select party_b_no,title, now_people,max_people, user_id 
+ from party_board 
+ where is_hidden=0 
+ and user_id=#{user_id}
+ order by party_b_no desc
+ </select>
+  <update id="updatePartyBoard">
+  update party_board set title= #{title}
+	, max_people=#{max_people}
+	where party_b_no=#{party_b_no}
+  </update>
+  <update id="updatePartyBoardPlusMember">
+  update party_board set now_people= now_people+1 where party_b_no=#{party_b_no}
+  </update>
+ <delete id="deletePartyBoard">
+ delete from party_board where party_b_no=#{party_b_no}
+ </delete> 
+ <delete id="deletePartyBoardWhenRecruitComplete">
+ delete from party_board where now_people>=max_people
+ </delete>  
+  </mapper>

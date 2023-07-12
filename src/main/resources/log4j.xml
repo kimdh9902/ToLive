@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<!-- <!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd"> -->
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
    <!-- Appenders -->
@@ -10,32 +11,82 @@
       </layout>
    </appender>
    
+   <appender name="LOGFILE-DAILY" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="C:/STS3/logs/test-daily.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%t] %-17c{2} (%13F:%L) %3x - %m%n"/>
+        </layout>
+    </appender>
+   
    <!-- Application Loggers -->
    <logger name="com.spring.controller">
       <level value="info" />
+      <appender-ref ref = "LOGFILE-DAILY" />
+   </logger>
+   
+   <logger name="com.spring.mapper">
+      <level value="info" />
+      <appender-ref ref = "LOGFILE-DAILY" />
    </logger>
    
    <!-- 3rdparty Loggers -->
    <logger name="org.springframework.core">
       <level value="info" />
+      <appender-ref ref = "LOGFILE-DAILY" />
    </logger>
    
    <logger name="org.springframework.beans">
       <level value="info" />
+      <appender-ref ref = "LOGFILE-DAILY" />
    </logger>
    
    <logger name="org.springframework.context">
       <level value="info" />
+      <appender-ref ref = "LOGFILE-DAILY" />
    </logger>
 
    <logger name="org.springframework.web">
       <level value="info" />
+      <appender-ref ref = "LOGFILE-DAILY" />
    </logger>
+   
+   <!-- 설정추가 -->
+   <logger name="jdbc.sqlonly" additivity="false"> 
+      <level value="info"/> 
+      <appender-ref ref="console"/> 
+      <appender-ref ref = "LOGFILE-DAILY" />
+   </logger>
+   <logger name="jdbc.sqltiming" additivity="false">
+      <level value="warn" />
+      <appender-ref ref="console"/> 
+      <appender-ref ref = "LOGFILE-DAILY" />
+   </logger>
+   <logger name="jdbc.audit" additivity="false"> 
+      <level value="warn"/>  
+      <appender-ref ref="console"/> 
+      <appender-ref ref = "LOGFILE-DAILY" />
+   </logger> 
+
+   <logger name="jdbc.resultset" additivity="false">
+      <level value="warn" />
+      <appender-ref ref="console"/>
+      <appender-ref ref = "LOGFILE-DAILY" /> 
+   </logger>
+
+   <logger name="jdbc.resultsettable" additivity="false"> 
+      <level value="info"/>  
+      <appender-ref ref="console"/> 
+      <appender-ref ref = "LOGFILE-DAILY" />
+   </logger> 
+   
 
    <!-- Root Logger -->
    <root>
       <priority value="warn" />
       <appender-ref ref="console" />
+      <appender-ref ref = "LOGFILE-DAILY" />
    </root>
    
 </log4j:configuration>
