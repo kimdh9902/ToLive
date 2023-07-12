@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.spring.mapper.ProfileMapper">
+		<select id="selectProfile" resultType="com.spring.domain.ProfileVO">
+			select user_id, user_name, contents, 
+				(select count(follower_id) from follow f1 where f1.user_id = p.user_id) as follower, 
+				(select count(user_id) from follow f2 where f2.follower_id = p.user_id) as following, 
+				(select count(tb.trav_b_no) from trav_board tb where tb.user_id = p.user_id) as board_count 
+				from profile p
+				where user_id = #{user_id}
+		</select>
+		
+		<insert id="insertProfile">
+			insert into profile(user_id, contents) values(#{user_id}, ' ')
+		</insert>
+		
+		<update id="updateProfile">
+			update set profile contents = #{contents} 
+		</update>
+		
+	</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.spring.mapper.UsersMapper">
+    	<select id="selectAccount" resultType="com.spring.domain.UsersVO">
+    		select * from users where id = #{id} and pw = #{pw}
+    	</select>
+    	
+    	<!-- <insert id="insertAccount">
+    		insert into users (id, pw, name, grade_lelvel, birthday, phone_number, location_id)
+    		values(#{}, #{}, #{}, 3, #{}, #{}, #{})
+    	</insert> -->
+    	
+    </mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.spring.mapper.FollowMapper">
+    
+		<select id="selectFollower" resultType="String"> 
+  			select follower_id from follow where user_id = #{user_id}
+  		</select> 
+  		<select id="selectFollowerCount" resultType="int"> 
+  			select count(f_no) from follow where user_id = #{user_id}
+  		</select> 
+  		<select id="selectFollowingCount" resultType="int"> 
+  			select count(f_no) from follow where follower_id = #{user_id}
+  		</select> 
+  		
+  		<insert id="insertFollow">
+  			INSERT INTO follow(f_no, user_id, follower_id) VALUES(seq_f_no.nextval, #{user_id}, #{follower_id})
+  		</insert>
+  		
+  		<delete id="deleteUnFollow">
+  			delete follow where user_id = #{user_id} and follower_id = #{follower_id}
+  		</delete>
+  		
+	</mapper>
