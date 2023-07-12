@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.spring.domain.AlarmVO;
 import com.spring.domain.ProfileVO;
 import com.spring.domain.SearchIdVO;
 import com.spring.service.AlarmService;
@@ -60,8 +61,8 @@ public class MenuController {
 	}
 	
 	@GetMapping("/alarm")
-	public String alarm(Model model) {
-	
-		return "alarm";
+	public List<AlarmVO> alarm(Model model, String id) {
+		List<AlarmVO> alarmList = alaramService.getAlarmByUser(id);
+		return alarmList;
 	}
 }

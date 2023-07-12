@@ -7,9 +7,9 @@
     		select * from users where id = #{id} and pw = #{pw}
     	</select>
     	
-    	<!-- <insert id="insertAccount">
+    	<insert id="insertAccount">
     		insert into users (id, pw, name, grade_lelvel, birthday, phone_number, location_id)
-    		values(#{}, #{}, #{}, 3, #{}, #{}, #{})
-    	</insert> -->
+    		values(#{id}, #{pw}, #{name}, 3, #{birth}, #{phone}, #{location})
+    	</insert>
     	
     </mapper>
