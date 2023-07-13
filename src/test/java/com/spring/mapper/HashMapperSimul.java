@@ -1,6 +1,7 @@
 package com.spring.mapper;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import static org.junit.Assert.*;
 
 import java.util.List;
 
