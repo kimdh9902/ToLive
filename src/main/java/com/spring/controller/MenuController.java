@@ -1,8 +1,10 @@
 package com.spring.controller;
 
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.http.HttpRequest;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -55,10 +57,10 @@ public class MenuController {
 	
 	@PostMapping("/search")
 	@ResponseBody
-	public ResponseEntity<String> searchUser(Model model, @RequestBody Htt request) {
-		log.info("user------"+request.);
+	public ResponseEntity<String> searchUser(Model model, @RequestBody Map<String, String> data) {
+		log.info("user------"+data.get("user"));
 		
-		List<SearchIdVO> list = searchService.findByIdAndName(user);
+		List<SearchIdVO> list = searchService.findByIdAndName(data.get("user"));
 		System.out.println("list:" + list);
 		
 		Gson gson = new Gson(); // Gson 라이브러리를 이용해 JSON 형태로 변환

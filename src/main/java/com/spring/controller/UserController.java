@@ -1,5 +1,5 @@
 package com.spring.controller;
 
-public class AlarmController {
-
+public class UserController {
+	
 }

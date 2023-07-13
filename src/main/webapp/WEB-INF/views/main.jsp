@@ -146,12 +146,12 @@
 				<li class="nav-item profile">
 					<div class="profile-desc">
 						<a
-							href="<%=request.getContextPath()%>/profile?user_id=<%=session.getAttribute("SESS_ID")%>">
+							href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=<%=session.getAttribute("SESS_ID")%>">
 							<!-- 프로필 링크 -->
 							<div class="profile-pic">
 								<div class="count-indicator">
 									<img class="img-xs rounded-circle "
-										src="${pageContext.request.contextPath}/img/images.jpg" alt="">
+										src="${pageContext.request.contextPath}/resources/img/images.jpg" alt="">
 									<span class="count bg-success"></span>
 								</div>
 								<div class="profile-name">

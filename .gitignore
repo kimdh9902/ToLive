@@ -3,3 +3,4 @@
 .settings/
 .springBeans
 target/
+src/main/log4j.xml
