@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 public class AdminController {
-	
+//	여행 경쟁 모드, 여행 관련 퀴즈 및 경품 이벤트, 여행 통계 및 도전 과제
 	private final StarBoardService starService;
 	
 	@GetMapping("/star-set")
@@ -26,5 +26,6 @@ public class AdminController {
 		starService.removeAllBoard();
 		return null;
 	}
+	
 	
 }

@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
-
+// 계정 연동 및 통합 관리
 	private final UsersService service;
 	
 	@GetMapping("/login")
@@ -32,10 +32,10 @@ public class AuthController {
 		String path;
 		UsersVO resultVO = service.checkAccount(user);
 		if(resultVO != null) {
-			session.setAttribute("SESS_ID", userId);
+			session.setAttribute("SESS_ID", resultVO.getId());
 			session.setAttribute("SESS_AUTH", true);
-			session.setAttribute("SESS_NAME", user.getName());
-			session.setAttribute("SESS_GRADE", user.getGrade_level());
+			session.setAttribute("SESS_NAME", resultVO.getName());
+			session.setAttribute("SESS_GRADE", resultVO.getGrade_level());
 			if (user.getGrade_level() != 7) {
 				System.out.println(user.getGrade_level());
 				path = "redirect:/main/";
