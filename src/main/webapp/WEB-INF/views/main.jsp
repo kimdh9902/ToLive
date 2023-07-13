@@ -146,7 +146,7 @@
 				<li class="nav-item profile">
 					<div class="profile-desc">
 						<a
-							href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=<%=session.getAttribute("SESS_ID")%>">
+							href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=${sessionScope.SESS_ID}">
 							<!-- 프로필 링크 -->
 							<div class="profile-pic">
 								<div class="count-indicator">
