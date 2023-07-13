@@ -30,6 +30,6 @@ public interface PartyBoardMapper {
 	int deletePartyBoard(int party_b_no);
 
 	// 파티 모집 게시판 글 삭제(모집 인원 충족 시)
-	int deletePartyBoardWhenRecruitComplete(int party_b_no);
+	int deletePartyBoardWhenRecruitComplete(PartyBoardVO vo);
 
 }
