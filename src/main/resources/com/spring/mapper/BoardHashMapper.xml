@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.BoardHashMapper">
+	<insert id="insertBoardHash">
+		INSERT INTO board_hash
+		(b_h_no, b_no, hash_id) VALUES
+		(seq_b_h_no.nextval,#{b_no} , #{hash_id})
+	</insert>
+	<insert id="insertDefaultHash">
+		insert into board_hash values(seq_b_h_no.nextval,#{b_no} , 0)
+	</insert>
+	<update id="updateBoardHash">
+		update board_hash set hash_id=#{hash_id} where b_h_no=#{b_h_no}
+	</update>
+	<delete id="deleteBoardHash">
+	delete from board_hash where b_h_no =#{b_h_no}
+	</delete>
+</mapper>

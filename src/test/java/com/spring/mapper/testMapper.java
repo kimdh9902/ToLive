@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class testMapper {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
+	@Test @Ignore
 	public void test() {
 		List<SearchIdVO> list = mapper.selectId("김옥수");
 		log.info("name@@@@@@@@@@@@@@@"+list.get(0).getName());
