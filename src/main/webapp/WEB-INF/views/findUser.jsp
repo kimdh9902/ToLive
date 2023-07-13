@@ -161,15 +161,14 @@
 		var inpBox = document.getElementById("user");
 			console.log(typeof inpBox.value);
             let data =  { user: inpBox.value};
-            console.log("data:"+data);
+            console.log("data"+JSON.stringify(data));
             $.ajax(
                 {//json
-                url: "${pageContext.request.contextPath}" +"/search",
+                url: "${pageContext.request.contextPath}" +"/menu/search",
                 async:true,
-                headers:{"content-type":"application/json"},
                 contentType:"application/json;charset=UTF-8",
-                data: data,
-                method:"GET",
+                data: JSON.stringify(data),
+                method:"POST",
                 dataType:"JSON",
                 success:function(data, textStatus, jqXHR)
                 {

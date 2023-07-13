@@ -88,59 +88,42 @@
 	document.querySelector("#no")
 </script>
 <!-- plugins:css -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/vendors/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/vendors/mdi/css/materialdesignicons.min.css.map">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/vendors/css/vendor.bundle.base.css">
-<!-- endinject -->
-<!-- Plugin css for this page -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/vendors/jvectormap/jquery-jvectormap.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/vendors/flag-icon-css/css/flag-icon.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/vendors/owl-carousel-2/owl.carousel.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
-<!-- End plugin css for this page -->
-<!-- inject:css -->
-<!-- endinject -->
-<!-- Layout styles -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/style.css">
+        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/mdi/css/materialdesignicons.min.css">
+        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/css/vendor.bundle.base.css">
+        <!-- endinject -->
+        <!-- Plugin css for this page -->
+        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/jvectormap/jquery-jvectormap.css">
+        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/flag-icon-css/css/flag-icon.min.css">
+        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/owl-carousel-2/owl.carousel.min.css">
+        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
+        <!-- End plugin css for this page -->
+        <!-- inject:css -->
+        <!-- endinject -->
+        <!-- Layout styles -->
+        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/css/style.css">
 
-<!-- End layout styles -->
-<link rel="shortcut icon"
-	href="${pageContext.request.contextPath}/assets/images/favicon.png" />
-<!-- plugins:js -->
-<script
-	src="${pageContext.request.contextPath}/assets/vendors/js/vendor.bundle.base.js"></script>
-<!-- endinject -->
-<!-- Plugin js for this page -->
-<script
-	src="${pageContext.request.contextPath}/assets/vendors/chart.js/Chart.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/assets/vendors/progressbar.js/progressbar.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<script
-	src="${pageContext.request.contextPath}/assets/vendors/owl-carousel-2/owl.carousel.min.js"></script>
-<!-- End plugin js for this page -->
-<!-- inject:js -->
-<script src="${pageContext.request.contextPath}/assets/js/off-canvas.js"></script>
-<script
-	src="${pageContext.request.contextPath}/assets/js/hoverable-collapse.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/misc.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/settings.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/todolist.js"></script>
-<!-- endinject -->
-<!-- Custom js for this page -->
-<script src="${pageContext.request.contextPath}/assets/js/dashboard.js"></script>
-<!-- End custom js for this page -->
+        <!-- End layout styles -->
+        <link rel="shortcut icon" href="${ pageContext.servletContext.contextPath }/resources/assets/images/favicon.png" />
+        <!-- plugins:js -->
+        <script src="${ pageContext.servletContext.contextPath }/resources/assets/vendors/js/vendor.bundle.base.js"></script>
+        <!-- endinject -->
+        <!-- Plugin js for this page -->
+        <script src="${ pageContext.servletContext.contextPath }/resources/assets/vendors/chart.js/Chart.min.js"></script>
+        <script src="${ pageContext.servletContext.contextPath }/resources/assets/vendors/progressbar.js/progressbar.min.js"></script>
+        <script src="${ pageContext.servletContext.contextPath }/resources/assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
+        <script src="${ pageContext.servletContext.contextPath }/resources/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+        <script src="${ pageContext.servletContext.contextPath }/resources/assets/vendors/owl-carousel-2/owl.carousel.min.js"></script>
+        <!-- End plugin js for this page -->
+        <!-- inject:js -->
+        <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/off-canvas.js"></script>
+        <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/hoverable-collapse.js"></script>
+        <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/misc.js"></script>
+        <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/settings.js"></script>
+        <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/todolist.js"></script>
+        <!-- endinject -->
+        <!-- Custom js for this page -->
+        <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/dashboard.js"></script>
+        <!-- End custom js for this page -->
 
 </head>
 <body>
@@ -222,28 +205,28 @@
 				</li>
 				<!-- 메인 -->
 				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/main"> <span
+					href="${pageContext.request.contextPath}/main/"> <span
 						class="menu-icon"> <i class="mdi mdi-airballoon"></i>
 					</span> <span class="menu-title">여행 후기글</span>
 				</a></li>
 
-				<!-- 친구 검색 -->
+				<!-- 파티 찾기 -->
 				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/partyBoard"> <span
+					href="${pageContext.request.contextPath}/menu/partyBoard"> <span
 						class="menu-icon"> <i class="mdi mdi-account-search"></i></span> <span
 						class="menu-title">파티 찾기</span>
 				</a></li>
 
-				<!-- 파티 찾기 -->
+				<!-- 친구 검색 -->				
 				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/findUser"> <span
+					href="${pageContext.request.contextPath}/menu/findUser"> <span
 						class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span>
 						<span class="menu-title">친구 검색</span>
 				</a></li>
 
 				<!-- 명예의 전당 -->
 				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/starBoard"> <span
+					href="${pageContext.request.contextPath}/menu/starBoard"> <span
 						class="menu-icon"> <i class="mdi mdi-trophy-variant"></i></span> <span
 						class="menu-title">명예의 전당</span>
 				</a></li>

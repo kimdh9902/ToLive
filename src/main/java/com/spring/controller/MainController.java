@@ -26,7 +26,7 @@ public class MainController {
 		if(isAuth) {
 			path = "main"; 
 		}else {
-			path = "redirect:/users/login?msg=You are Not allowed, Plz login!";
+			path = "redirect:/auth/login?msg=You are Not allowed, Plz login!";
 		}
 		return path;
 	}
