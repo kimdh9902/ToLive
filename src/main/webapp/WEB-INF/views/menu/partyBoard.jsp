@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>여행 후기글</title>
+<title>파티 모집 게시판</title>
 <script src="https://code.jquery.com/jquery-3.7.0.js"
 	integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
 	crossorigin="anonymous"></script>
@@ -88,42 +88,56 @@
 	document.querySelector("#no")
 </script>
 <!-- plugins:css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/mdi/css/materialdesignicons.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/css/vendor.bundle.base.css">
-        <!-- endinject -->
-        <!-- Plugin css for this page -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/jvectormap/jquery-jvectormap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/flag-icon-css/css/flag-icon.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/owl-carousel-2/owl.carousel.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
-        <!-- End plugin css for this page -->
-        <!-- inject:css -->
-        <!-- endinject -->
-        <!-- Layout styles -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/css/style.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/vendors/css/vendor.bundle.base.css">
+<!-- endinject -->
+<!-- Plugin css for this page -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/vendors/jvectormap/jquery-jvectormap.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/vendors/flag-icon-css/css/flag-icon.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/vendors/owl-carousel-2/owl.carousel.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<!-- endinject -->
+<!-- Layout styles -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/style.css">
 
-        <!-- End layout styles -->
-        <link rel="shortcut icon" href="${ pageContext.servletContext.contextPath }/resources/assets/images/favicon.png" />
-        <!-- plugins:js -->
-        <script src="${ pageContext.servletContext.contextPath }/resources/assets/vendors/js/vendor.bundle.base.js"></script>
-        <!-- endinject -->
-        <!-- Plugin js for this page -->
-        <script src="${ pageContext.servletContext.contextPath }/resources/assets/vendors/chart.js/Chart.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/assets/vendors/progressbar.js/progressbar.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/assets/vendors/owl-carousel-2/owl.carousel.min.js"></script>
-        <!-- End plugin js for this page -->
-        <!-- inject:js -->
-        <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/off-canvas.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/hoverable-collapse.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/misc.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/settings.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/todolist.js"></script>
-        <!-- endinject -->
-        <!-- Custom js for this page -->
-        <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/dashboard.js"></script>
-        <!-- End custom js for this page -->
+<!-- End layout styles -->
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/resources/assets/images/favicon.png" />
+<!-- plugins:js -->
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendors/chart.js/Chart.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendors/progressbar.js/progressbar.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<script src="../resources/assets/vendors/owl-carousel-2/owl.carousel.min.js"></script>
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script src="${pageContext.request.contextPath}/resources/assets/js/off-canvas.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/js/hoverable-collapse.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/js/misc.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/js/settings.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/js/todolist.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page -->
+<script src="${pageContext.request.contextPath}/resources/assets/js/dashboard.js"></script>
+<!-- End custom js for this page -->
 
 </head>
 <body>
@@ -137,16 +151,17 @@
 					href="${pageContext.request.contextPath}/main">TriptoLive</a> <a
 					class="sidebar-brand brand-logo-mini"
 					href="${pageContext.request.contextPath}/main"> <img
-					src="${pageContext.request.contextPath}/assets/images/logo-mini.svg"
+					src="${pageContext.request.contextPath}/resources/assets/images/logo-mini.svg"
 					alt="logo" /></a>
 				<!-- ---------------------------------------------------------------------------- -->
 			</div>
 			<!-- 슬라이드바 리스트 -->
 			<ul class="nav">
+
 				<li class="nav-item profile">
 					<div class="profile-desc">
 						<a
-							href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=${sessionScope.SESS_ID}">
+							href="<%=request.getContextPath()%>/profile?user_id=<%=session.getAttribute("SESS_ID")%>">
 							<!-- 프로필 링크 -->
 							<div class="profile-pic">
 								<div class="count-indicator">
@@ -205,28 +220,28 @@
 				</li>
 				<!-- 메인 -->
 				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/main/"> <span
+					href="${pageContext.request.contextPath}/main"> <span
 						class="menu-icon"> <i class="mdi mdi-airballoon"></i>
 					</span> <span class="menu-title">여행 후기글</span>
 				</a></li>
 
-				<!-- 파티 찾기 -->
+				<!-- 친구 검색 -->
 				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/menu/partyBoard"> <span
-						class="menu-icon"> <i class="mdi mdi-account-search"></i></span> <span
+					href="${pageContext.request.contextPath}/partyBoard"> <span
+						class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span> <span
 						class="menu-title">파티 찾기</span>
 				</a></li>
 
-				<!-- 친구 검색 -->				
+				<!-- 파티 찾기 -->
 				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/menu/findUser"> <span
-						class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span>
+					href="${pageContext.request.contextPath}/findUser"> <span
+						class="menu-icon"> <i class="mdi mdi-account-search"></i></span>
 						<span class="menu-title">친구 검색</span>
 				</a></li>
 
 				<!-- 명예의 전당 -->
 				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/menu/starBoard"> <span
+					href="${pageContext.request.contextPath}/starBoard"> <span
 						class="menu-icon"> <i class="mdi mdi-trophy-variant"></i></span> <span
 						class="menu-title">명예의 전당</span>
 				</a></li>
@@ -238,7 +253,7 @@
 					class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
 					<a class="navbar-brand brand-logo-mini"
 						href="${pageContext.request.contextPath}/main"> <img
-						src="${pageContext.request.contextPath}/assets/images/logo-mini.svg"
+						src="${pageContext.request.contextPath}/resources/assets/images/logo-mini.svg"
 						alt="logo" /></a>
 				</div>
 				<div
@@ -266,7 +281,7 @@
 							id="profileDropdown" href="#" data-toggle="dropdown">
 								<div class="navbar-profile">
 									<img class="img-xs rounded-circle"
-										src="${pageContext.request.contextPath}/img/images.jpg" alt="">
+										src="${pageContext.request.contextPath}/resources/img/images.jpg" alt="">
 									<p class="mb-0 d-none d-sm-block navbar-profile-name">${sessionScope.SESS_NAME }</p>
 									<i class="mdi mdi-menu-down d-none d-sm-block"></i>
 								</div>
@@ -319,40 +334,39 @@
 						<div class="col-12 grid-margin">
 							<div class="card">
 								<div class="card-body">
-									<h3 class="card-title">여행 후기글</h3>
+									<h3 class="card-title">파티 모집 게시판</h3>
 									<div class="table-responsive">
 										<table class="table">
 											<thead>
 												<tr>
 													<th>글 번호</th>
 													<th>제목</th>
-													<th>아이디</th>
-													<th>조회수</th>
+													<th>현재 모집된 인원</th>
+													<th>죄대 인원</th>
+													<th>작성자</th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach var="travBoardList"
-													items="${requestScope.travBoardList}">
+												<c:forEach var="partyBoardVO"
+													items="${requestScope.partyBoardVO}">
 													<tr>
-														<td>${travBoardList.trav_b_no}</td>
+														<td>${partyBoardVO.party_b_no }</td>
 														<td><a
-															href="${pageContext.request.contextPath}/travBoard?trav_b_no=${travBoardList.trav_b_no}">
-																${travBoardList.title}</a></td>
-														<td>${travBoardList.user_id}</td>
-														<td>${travBoardList.views}</td>
+															href="${pageContext.request.contextPath}/partyBoard?party_b_no=${partyBoardVO.party_b_no}">
+																${partyBoardVO.title}</a></td>
+														<td>${partyBoardVO.now_people}</td>
+														<td>${partyBoardVO.max_people }</td>
+														<td>${partyBoardVO.user_id }</td>
 													</tr>
 												</c:forEach>
 											</tbody>
 										</table>
 									</div>
 								</div>
-								<!-- 버튼만들기 -->
 								<div style="text-align: right;" class="card-footer">
-									<a href="${pageContext.request.contextPath}/view/boardwrite.jsp">
-										<button class="btn btn-outline-primary"
-											style="width: 90px; height: 26px; margin-top: 10px;"
-											type="button">글 쓰기1</button>
-									</a>
+									<button class="btn btn-outline-primary"
+										style="width: 90px; height: 26px; margin-top: 10px;"
+										type="button">글 쓰기</button>
 								</div>
 							</div>
 						</div>
