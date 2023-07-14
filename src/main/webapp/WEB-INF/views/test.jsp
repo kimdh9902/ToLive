@@ -1,15 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>upload-action</title>
+
 </head>
 <body>
-	<c:forEach var="name" items="${list}">
-		${name}<br>
-	</c:forEach>
+   <form action="${pageContext.servletContext.contextPath }/file/board" method="post" enctype="multipart/form-data">
+      <input type="file" name="uploadFile" accept="image/*"/>
+      <input type="hidden" name="b_no" value="22">
+      <input type="submit" ></input>
+   </form> 
+<%--    ${msg }
+   <br>
+   <a href="${pageContext.servletContext.contextPath }/upload/uploadForm">파일업로드 계속하기</a>
+   
+   <br>
+   업로드된 이미지 파일
+   <div >
+      <img src="${pageContext.servletContext.contextPath }/file/attach?fileName=${originalFileName}"
+         style="border: 1px solid red" />
+   </div> --%>
+   
 </body>
 </html>
+   <%-- <form action="${pageContext.servletContext.contextPath }/upload/uploadFormAction" method="post" enctype="multipart/form-data">
+      <input type="file" name="uploadFile" multiple="multiple"/>
+      <input type="submit" ></input>
+   </form>  --%>
+   
