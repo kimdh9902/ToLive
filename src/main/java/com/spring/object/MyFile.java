@@ -40,7 +40,8 @@ public class MyFile {
 //	        File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
 	        // multipartFile.getOriginalFilename() 클라이언트의 파일 시스템에서 원래 파일 이름을 반환합니다.
 	        // File(File parent, String child) 폴더 밑에 자식
-	        File saveFile = new File(this.getUploadFolder(), this.getFileName()+"_"+multipartFile.getOriginalFilename());
+	        this.setFileName(this.getFileName()+"_"+multipartFile.getOriginalFilename());
+	        File saveFile = new File(this.getUploadFolder(), this.getFileName());
 	        if(!saveFile.exists()) {
 	        	saveFile.getParentFile().mkdirs();
 	        }

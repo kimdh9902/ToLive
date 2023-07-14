@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -38,15 +39,17 @@ public class MenuController {
 	private final PartyBoardService partyBoardService;
 	
 	@GetMapping("/profile")
-	public String profile(Model model, String user_id) {
+	public String profile(Model model, @RequestParam String user_id) {
+		log.info("TESTTTTTTTTTTTTTTTTTTTTT"+user_id);
 		ProfileVO profileVO = profileService.getProfileByID(user_id);
-		System.out.println(profileVO.getFollower());
+		log.info("profileVOOOOOOOOOOOOOOOO"+profileVO);
 		/* request.setAttribute("profileVO", profileVO); */
-		model.addAttribute("name", profileVO.getUser_name());
-		model.addAttribute("id", profileVO.getUser_id());
-		model.addAttribute("follower", profileVO.getFollower());
-		model.addAttribute("follwing", profileVO.getFollowing());
-		model.addAttribute("boardCount", profileVO.getBoard_count());
+		model.addAttribute("profileVO", profileVO);
+//		model.addAttribute("name", profileVO.getUser_name());
+//		model.addAttribute("id", profileVO.getUser_id());
+//		model.addAttribute("follower", profileVO.getFollower());
+//		model.addAttribute("follwing", profileVO.getFollowing());
+//		model.addAttribute("boardCount", profileVO.getBoard_count());
 		return "profile";
 	}
 	

@@ -339,22 +339,22 @@
 							<div class="card">
 								<div class="card-body" style="overflow: hidden;">
 									<div class="image">
-										<img src="<%=request.getContextPath()%>/img/images.jpg"
+										<img src="${path}/profile/images.jpg"
 											alt="error">
 										<div class="contents">
 											<div class="contents2">
 												<p style="padding-right: 100px">
-													이름:<%=request.getParameter("name")%></p>
+													이름:${profileVO.user_name}</p> <!-- <%=request.getParameter("name")%> -->
 												<p>
-													ID:<%=request.getParameter("id")%></p>
+													ID:${profileVO.user_id}</p><!-- <%=request.getParameter("id")%> -->
 											</div>
 											<div class="contents2" style="margin-top: 80px;">
 												<p>
-													팔로워<br> <br><%=request.getParameter("follower")%></p>
+													팔로워<br> <br>${profileVO.follower }</p> <!-- <%=request.getParameter("follower")%> -->
 												<p>
-													팔로잉<br> <br><%=request.getParameter("following")%></p>
+													팔로잉<br> <br>${profileVO.following }</p> <!-- <%=request.getParameter("following")%> -->
 												<p>
-													게시글 수<br> <br><%=request.getParameter("boardCount")%></p>
+													게시글 수<br> <br>${profileVO.board_count}</p> <!-- <%=request.getParameter("boardCount")%> -->
 											</div>
 										</div>
 									</div>

@@ -24,7 +24,7 @@ public class ProfileTest {
 	@Test
 	public void test() {
 //		mapper.insertProfile("celeb01");
-		ProfileVO vo = mapper.selectProfile("celeb01");
+		ProfileVO vo = mapper.selectProfile("user01");
 		log.info(vo);
 	}
 

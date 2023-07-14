@@ -1,16 +1,22 @@
 package com.spring.controller;
 
 import java.io.File;
+import java.nio.file.Files;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.object.MyFile;
@@ -23,7 +29,7 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/file/*")
 public class FileController {
 	
-	private MyFile uploader = new MyFile();
+	private MyFile uploader = null;
 	
 	@GetMapping("/board")
 	public String board() {
@@ -32,6 +38,7 @@ public class FileController {
 	
 	@PostMapping("/board")
 	public String boardImg(@RequestParam("uploadFile") MultipartFile[] uploadFile, Model model, HttpSession session, int b_no) {
+		uploader = new MyFile();
 		log.info(uploader);
 	    String id = (String)session.getAttribute("SESS_ID");
 	    if(id != null) {
@@ -41,6 +48,8 @@ public class FileController {
 			uploader.setFileName(String.valueOf(b_no));
 			log.info(uploader.getUploadFolder());
 			uploader.uploadFile(uploadFile); // Unexpected output data
+	    }else {
+	    	log.info("no log");
 	    }
 	    
 		return "test";
@@ -48,44 +57,35 @@ public class FileController {
 	
 	@GetMapping("/profile")
 	public String profileImg() {
-		
+		uploader = new MyFile();
+		log.info(uploader);
+//	    String id = (String)session.getAttribute("SESS_ID");
+	    if(id != null) {
+//	    	log.info(uploader.getUploadFolder());
+//		    uploader.setUploadFolderPlus(id);
+//			uploader.setUploadFolderPlus("board");
+//			uploader.setFileName(String.valueOf(b_no));
+//			log.info(uploader.getUploadFolder());
+//			uploader.uploadFile(uploadFile); // Unexpected output data
+	    }else {
+	    	log.info("no log");
+	    }
 		return null;
 	}
-	
-//	@PostMapping("/upload")
-//	   public String uploadFormPost(@RequestParam("uploadFile") MultipartFile[] uploadFile, Model model, HttpSession session) {
-//	      log.info("uploadFormAction");
-//	      String id = (String)session.getAttribute("SESS_ID"); 
-//	      log.info(id);
-//	      uploader.setUploadFolderPlus(id);
-//	      uploader.setUploadFolderPlus();
-//	      log.info(uploader.getUploadFolder());
-//	      
-//	      for(MultipartFile multipartFile : uploadFile) {
-//	         log.info("----------------------------");
-//	         log.info("upload File Name : " + multipartFile.getOriginalFilename() );
-//	         log.info("upload File Size : " + multipartFile.getSize() );
-//	         
-////	         File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
-//	         File saveFile = new File(uploader.getUploadFolder(), multipartFile.getOriginalFilename());
-//	         try {
-//	            multipartFile.transferTo(saveFile);
-//	            
-//	            model.addAttribute("msg", "success file uploaded-" + multipartFile.getOriginalFilename());
-//	            model.addAttribute("originalFileName", multipartFile.getOriginalFilename());
-//	            
-//	         } catch (Exception e) {
-//	            log.error(e.getMessage());
-//	            model.addAttribute("msg", "fail file uploaded-" + multipartFile.getOriginalFilename());
-//	         }
-//	         
-//	      }
-//	      return "upload/upload-action";
-//	   }
-	
+
 	@GetMapping("/attach")
-	public String pullImg() {
-		
-		return null;
+	@ResponseBody
+	public ResponseEntity<byte[]> pullImg(String fileName) {
+		log.info(uploader.getUploadFolder());
+		File file = new File(uploader.getUploadFolder()+File.separatorChar, uploader.getFileName());
+		ResponseEntity<byte[]> result = null;
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Type", Files.probeContentType(file.toPath()));
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }
