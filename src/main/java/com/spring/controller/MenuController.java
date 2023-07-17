@@ -43,13 +43,7 @@ public class MenuController {
 		log.info("TESTTTTTTTTTTTTTTTTTTTTT"+user_id);
 		ProfileVO profileVO = profileService.getProfileByID(user_id);
 		log.info("profileVOOOOOOOOOOOOOOOO"+profileVO);
-		/* request.setAttribute("profileVO", profileVO); */
 		model.addAttribute("profileVO", profileVO);
-//		model.addAttribute("name", profileVO.getUser_name());
-//		model.addAttribute("id", profileVO.getUser_id());
-//		model.addAttribute("follower", profileVO.getFollower());
-//		model.addAttribute("follwing", profileVO.getFollowing());
-//		model.addAttribute("boardCount", profileVO.getBoard_count());
 		return "profile";
 	}
 	
