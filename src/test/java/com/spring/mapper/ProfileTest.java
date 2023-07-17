@@ -23,9 +23,10 @@ public class ProfileTest {
 	
 	@Test
 	public void test() {
-//		mapper.insertProfile("celeb01");
-		ProfileVO vo = mapper.selectProfile("user01");
-		log.info(vo);
+		ProfileVO vo = new ProfileVO();
+		vo.setUser_id("user01");
+		vo.setManner_ondo(37.4);
+		mapper.updateOndo(vo);
 	}
 
 }

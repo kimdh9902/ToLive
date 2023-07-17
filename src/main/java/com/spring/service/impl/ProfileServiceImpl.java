@@ -31,4 +31,9 @@ public class ProfileServiceImpl implements ProfileService{
 		mapper.updateProfile(img, contents);
 	}
 
+	@Override
+	public void retouchOndo(ProfileVO vo) {
+		mapper.updateOndo(vo);
+	}
+
 }
