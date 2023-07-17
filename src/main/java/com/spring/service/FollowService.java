@@ -5,7 +5,8 @@ import java.util.List;
 import com.spring.domain.FollowVO;
 
 public interface FollowService {
-	public List<String> followerNameList(String user_id);
+	public List<String> getfollowerNameList(String user_id);
+	public List<String> getFollowingNameList(String user_id);
 	public int getFollowerCount(String user_id);
 	public int getFollowingCount(String user_id);
 	

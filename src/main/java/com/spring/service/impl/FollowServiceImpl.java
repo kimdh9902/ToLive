@@ -15,13 +15,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FollowServiceImpl implements FollowService{
 
-	private FollowMapper mapper;
+	private final FollowMapper mapper;
 
 	@Override
-	public List<String> followerNameList(String user_id) {
+	public List<String> getfollowerNameList(String user_id) {
 		return mapper.selectFollower(user_id);
 	}
 
+	@Override
+	public List<String> getFollowingNameList(String user_id) {
+		return mapper.selectFollowing(user_id);
+	}
+	
 	@Override
 	public int getFollowerCount(String user_id) {
 		return mapper.selectFollowingCount(user_id);
