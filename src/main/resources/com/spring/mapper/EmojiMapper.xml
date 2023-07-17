@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.spring.mapper.EmojiMapper">
+  	<insert id="insertEmoji">
+  		INSERT INTO emoji(id, b_no, emoji_record) VALUES(#{id}, #{b_no}, #{emoji_record})
+  	</insert>
+  	<delete id="deleteEmoji">
+  		DELETE FROM emoji WHRER id = #{id} AND b_no = #{b_no} AND emoji_record = #{emoji_record}
+  	</delete>
+
+  </mapper>
