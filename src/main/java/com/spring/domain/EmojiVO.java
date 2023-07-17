@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class EmojiVO {
-	private String id;
+	private String user_id;
 	private int b_no;
-	private String emoji_record;
+	private int emoji_record;
 }
