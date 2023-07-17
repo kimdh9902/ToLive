@@ -56,17 +56,17 @@ public class FileController {
 	}
 	
 	@GetMapping("/profile")
-	public String profileImg() {
+	public String profileImg(@RequestParam("uploadFile") MultipartFile uploadFile, HttpSession session) {
 		uploader = new MyFile();
 		log.info(uploader);
-//	    String id = (String)session.getAttribute("SESS_ID");
+	    String id = (String)session.getAttribute("SESS_ID");
 	    if(id != null) {
 //	    	log.info(uploader.getUploadFolder());
-//		    uploader.setUploadFolderPlus(id);
-//			uploader.setUploadFolderPlus("board");
-//			uploader.setFileName(String.valueOf(b_no));
+		    uploader.setUploadFolderPlus(id);
+			uploader.setUploadFolderPlus("profile");
+			uploader.setFileName("now");
 //			log.info(uploader.getUploadFolder());
-//			uploader.uploadFile(uploadFile); // Unexpected output data
+			uploader.uploadFile(uploadFile); // Unexpected output data
 	    }else {
 	    	log.info("no log");
 	    }
