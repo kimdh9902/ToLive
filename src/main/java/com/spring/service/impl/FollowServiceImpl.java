@@ -43,16 +43,20 @@ public class FollowServiceImpl implements FollowService{
 	}
 
 	@Override
-	public int UnFollow(FollowVO vo) {
+	public int unFollow(FollowVO vo) {
 		return mapper.deleteUnFollow(vo);
 	}
 
 	@Override
 	public boolean isFollow(FollowVO vo) {
+		boolean isFollow;
 		if(mapper.isFollow(vo) > 0) {
-			return true;
+			isFollow = true;
+		}else {
+			isFollow = false;
 		}
-		return false;
+		
+		return isFollow;
 	}
-
+	
 }

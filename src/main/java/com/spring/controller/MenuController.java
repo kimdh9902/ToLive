@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.spring.domain.AlarmVO;
+import com.spring.domain.FollowVO;
 import com.spring.domain.PartyBoardVO;
 import com.spring.domain.ProfileVO;
 import com.spring.domain.SearchIdVO;
 import com.spring.service.AlarmService;
+import com.spring.service.FollowService;
 import com.spring.service.PartyBoardService;
 import com.spring.service.ProfileService;
 import com.spring.service.SearchService;
@@ -39,17 +41,23 @@ public class MenuController {
 	private final SearchService searchService;
 	private final AlarmService alaramService;
 	private final PartyBoardService partyBoardService;
+	private final FollowService followService;
 	
 	@GetMapping("/profile")
 	public String profile(Model model, @RequestParam String user_id, HttpSession session) {
 		boolean isSame = false;
 		ProfileVO profileVO = profileService.getProfileByID(user_id);
-		if(( (String)session.getAttribute("SESS_ID")).equals(profileVO.getUser_id() )) {
+		String sess_id = (String)session.getAttribute("SESS_ID");
+		if( sess_id.equals(profileVO.getUser_id() )) {
 			isSame = true;
 		}
 		model.addAttribute("path", profileVO.getProfile_img());
 		model.addAttribute("isSame", isSame);
 		model.addAttribute("profileVO", profileVO);
+		FollowVO vo = new FollowVO();
+		vo.setUser_id(user_id);
+		vo.setFollower_id(sess_id);
+		model.addAttribute("isFollow", followService.isFollow(vo));
 		return "profile";
 	}
 	
