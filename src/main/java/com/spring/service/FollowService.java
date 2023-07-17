@@ -12,5 +12,7 @@ public interface FollowService {
 	
 //	public int insertFollow(String user_id, String follower_id);
 	public int follow(FollowVO vo);
-	public int UnFollow(String user_id, String follower_id);
+	public int UnFollow(FollowVO vo);
+	
+	public boolean isFollow(FollowVO vo);
 }

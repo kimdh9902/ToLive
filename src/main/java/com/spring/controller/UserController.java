@@ -7,9 +7,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.domain.FollowVO;
 import com.spring.service.FollowService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,5 +32,25 @@ public class UserController {
 		
 		
 		return result;
+	}
+	
+//	@GetMapping(value = "/onFollow", produces = {MediaType.APPLICATION_JSON_VALUE})
+//	public boolean followCheck(String user_id, HttpSession session) {
+//		boolean isFollow = false;
+//		FollowVO vo = new FollowVO();
+//		vo.setUser_id(user_id);
+//		vo.setFollower_id((String)session.getAttribute("SESS_ID"));
+//		isFollow = followService.isFollow(vo);
+//		
+//		return isFollow;
+//	}
+//	
+	@PostMapping(value = "/onFollow", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public boolean followCheck(@RequestBody FollowVO vo, HttpSession session) {
+	    boolean isFollow = false;
+	    vo.setFollower_id((String)session.getAttribute("SESS_ID"));
+	    isFollow = followService.isFollow(vo);
+	    
+	    return isFollow;
 	}
 }

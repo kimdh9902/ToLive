@@ -43,8 +43,16 @@ public class FollowServiceImpl implements FollowService{
 	}
 
 	@Override
-	public int UnFollow(String user_id, String follower_id) {
-		return mapper.deleteUnFollow(user_id, follower_id);
+	public int UnFollow(FollowVO vo) {
+		return mapper.deleteUnFollow(vo);
+	}
+
+	@Override
+	public boolean isFollow(FollowVO vo) {
+		if(mapper.isFollow(vo) > 0) {
+			return true;
+		}
+		return false;
 	}
 
 }

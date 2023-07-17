@@ -12,6 +12,7 @@ public interface FollowMapper {
 	
 //	public int insertFollow(String user_id, String follower_id);
 	public int insertFollow(FollowVO vo);
-	public int deleteUnFollow(String user_id, String follower_id);
-
+	public int deleteUnFollow(FollowVO vo);
+	
+	public int isFollow(FollowVO vo);
 }

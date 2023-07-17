@@ -3,6 +3,8 @@ package com.spring.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,10 +41,14 @@ public class MenuController {
 	private final PartyBoardService partyBoardService;
 	
 	@GetMapping("/profile")
-	public String profile(Model model, @RequestParam String user_id) {
-		log.info("TESTTTTTTTTTTTTTTTTTTTTT"+user_id);
+	public String profile(Model model, @RequestParam String user_id, HttpSession session) {
+		boolean isSame = false;
 		ProfileVO profileVO = profileService.getProfileByID(user_id);
-		log.info("profileVOOOOOOOOOOOOOOOO"+profileVO);
+		if(( (String)session.getAttribute("SESS_ID")).equals(profileVO.getUser_id() )) {
+			isSame = true;
+		}
+		model.addAttribute("path", profileVO.getProfile_img());
+		model.addAttribute("isSame", isSame);
 		model.addAttribute("profileVO", profileVO);
 		return "profile";
 	}
