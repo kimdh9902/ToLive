@@ -1,7 +1,8 @@
 package com.spring.mapper;
 
+import com.spring.domain.EmojiVO;
+
 public interface EmojiMapper {
-	public void insertEmoji(String id, int b_no, String emoji_record);
-	public void deleteEmoji(String id, int b_no, String emoji_record);
-	public void updateEmoji(int i, int b_no);
+	public void insertEmoji(EmojiVO vo);
+	public void updateEmoji(EmojiVO vo);
 }
