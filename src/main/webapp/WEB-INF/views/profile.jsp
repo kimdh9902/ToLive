@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
@@ -102,6 +103,39 @@
 				alarm.removeChild(alarm.children[i]);
         	}
 		}
+	}
+	function followToggle() {
+		let data = {user_id : "${profileVO.user_id}"};
+		console.log(data);
+		console.log(JSON.stringify(data)); // stringify 문자열로 바꿔줌
+		$.ajax(
+			{//json
+                url: "${pageContext.request.contextPath}"+"/user/onFollow",
+                async:true,
+                contentType:"application/json;charset=UTF-8",
+                data: JSON.stringify(data), // data
+                method:"POST", // GET
+                dataType:"JSON",
+                success:function(data, textStatus, jqXHR)
+                {
+                	console.log(data);
+                	buttonToggle(data);
+                },
+                error:function(jqXHR, textStatus, errorThrown ){
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            }
+		)
+	}
+	buttonToggle(data){
+		let follow_btn = document.getElementById("follow-btn");
+		console.log(data);
+		if(data){
+			follow_btn.innerText = ""
+		}
+			
 	}
     document.querySelector("#no")
     </script>
@@ -339,22 +373,26 @@
 							<div class="card">
 								<div class="card-body" style="overflow: hidden;">
 									<div class="image">
-										<img src="<%=request.getContextPath()%>/img/images.jpg"
-											alt="error">
+										<img src="${pageContext.request.servletContext.contextPath }${path}" alt="error">
 										<div class="contents">
 											<div class="contents2">
 												<p style="padding-right: 100px">
-													이름:<%=request.getParameter("name")%></p>
+													이름:${profileVO.user_name}</p> <!-- <%=request.getParameter("name")%> -->
 												<p>
-													ID:<%=request.getParameter("id")%></p>
+													ID:${profileVO.user_id}</p><!-- <%=request.getParameter("id")%> -->
 											</div>
-											<div class="contents2" style="margin-top: 80px;">
+											<div class="contents2">
+												<c:if test="${not isSame}" >
+													<button id="follow-btn" onclick="followToggle()" style="width: 200px">팔로우</button>
+												</c:if>
+											</div>
+											<div class="contents2" style="margin-top: 40px;">
 												<p>
-													팔로워<br> <br><%=request.getParameter("follower")%></p>
+													팔로워<br> <br>${profileVO.follower }</p> <!-- <%=request.getParameter("follower")%> -->
 												<p>
-													팔로잉<br> <br><%=request.getParameter("following")%></p>
+													팔로잉<br> <br>${profileVO.following }</p> <!-- <%=request.getParameter("following")%> -->
 												<p>
-													게시글 수<br> <br><%=request.getParameter("boardCount")%></p>
+													게시글 수<br> <br>${profileVO.board_count}</p> <!-- <%=request.getParameter("boardCount")%> -->
 											</div>
 										</div>
 									</div>

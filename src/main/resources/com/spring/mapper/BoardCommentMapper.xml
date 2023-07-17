@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.spring.mapper.BoardCommentMapper">
+  	<insert id="insertComment">
+  		INSERT INTO board_comments values(#{b_no}, #{user_id}, #{contents})
+  	</insert>
+  	<select id="selectComments" resultType="com.spring.domain.BoardCommentVO">
+  		SELECT contents FROM board_comments WHERE b_no = #{b_no}
+  	</select>
+  </mapper>

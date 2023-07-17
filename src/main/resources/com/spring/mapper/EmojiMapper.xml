@@ -4,10 +4,9 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.spring.mapper.EmojiMapper">
   	<insert id="insertEmoji">
-  		INSERT INTO emoji(id, b_no, emoji_record) VALUES(#{id}, #{b_no}, #{emoji_record})
+  		 INSERT INTO emoji(b_no, comment_id) VALUES( #{b_no}, #{user_id} )
   	</insert>
-  	<delete id="deleteEmoji">
-  		DELETE FROM emoji WHRER id = #{id} AND b_no = #{b_no} AND emoji_record = #{emoji_record}
-  	</delete>
-
+  	<update id="updateEmoji">
+  		UPDATE emoji SET emoji_record = #{emoji_record} WHERE b_no = #{b_no} AND comment_id = #{user_id}
+  	</update>
   </mapper>

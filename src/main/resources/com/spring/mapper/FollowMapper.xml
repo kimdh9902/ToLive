@@ -6,7 +6,11 @@
     
 		<select id="selectFollower" resultType="String"> 
   			select follower_id from follow where user_id = #{user_id}
+  		</select>
+  		<select id="selectFollowing" resultType="String"> 
+  			select user_id from follow where follower_id = #{user_id}
   		</select> 
+  		 
   		<select id="selectFollowerCount" resultType="int"> 
   			select count(f_no) from follow where user_id = #{user_id}
   		</select> 
@@ -22,4 +26,7 @@
   			delete follow where user_id = #{user_id} and follower_id = #{follower_id}
   		</delete>
   		
+  		<select id="isFollow" resultType="int">
+  			select count(f_no) from follow where follower_id = #{follower_id} and user_id = #{user_id} 
+  		</select>
 	</mapper>

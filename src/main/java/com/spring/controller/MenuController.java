@@ -3,9 +3,10 @@ package com.spring.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,18 +14,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.spring.domain.AlarmVO;
+import com.spring.domain.PartyBoardVO;
 import com.spring.domain.ProfileVO;
 import com.spring.domain.SearchIdVO;
 import com.spring.service.AlarmService;
+import com.spring.service.PartyBoardService;
 import com.spring.service.ProfileService;
 import com.spring.service.SearchService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j;
 
 @Controller
@@ -35,17 +38,18 @@ public class MenuController {
 	private final ProfileService profileService;
 	private final SearchService searchService;
 	private final AlarmService alaramService;
+	private final PartyBoardService partyBoardService;
 	
 	@GetMapping("/profile")
-	public String profile(Model model, String user_id) {
+	public String profile(Model model, @RequestParam String user_id, HttpSession session) {
+		boolean isSame = false;
 		ProfileVO profileVO = profileService.getProfileByID(user_id);
-		System.out.println(profileVO.getFollower());
-		/* request.setAttribute("profileVO", profileVO); */
-		model.addAttribute("name", profileVO.getUser_name());
-		model.addAttribute("id", profileVO.getUser_id());
-		model.addAttribute("follower", profileVO.getFollower());
-		model.addAttribute("follwing", profileVO.getFollowing());
-		model.addAttribute("boardCount", profileVO.getBoard_count());
+		if(( (String)session.getAttribute("SESS_ID")).equals(profileVO.getUser_id() )) {
+			isSame = true;
+		}
+		model.addAttribute("path", profileVO.getProfile_img());
+		model.addAttribute("isSame", isSame);
+		model.addAttribute("profileVO", profileVO);
 		return "profile";
 	}
 	
@@ -78,5 +82,13 @@ public class MenuController {
 	@GetMapping("/starBoard")
 	public String starBoard() {
 		return "starBoard";
+	}
+	
+	@GetMapping("/partyBoard")
+	public List<PartyBoardVO> selectAllPartyBoard(Model model){
+		List<PartyBoardVO> partyBoardVO= partyBoardService.getAllPartyBoard();
+		model.addAttribute("partyBoardVO",partyBoardVO);
+		return partyBoardVO;
+		
 	}
 }

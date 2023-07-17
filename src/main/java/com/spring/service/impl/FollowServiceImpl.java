@@ -15,13 +15,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FollowServiceImpl implements FollowService{
 
-	private FollowMapper mapper;
+	private final FollowMapper mapper;
 
 	@Override
-	public List<String> followerNameList(String user_id) {
+	public List<String> getfollowerNameList(String user_id) {
 		return mapper.selectFollower(user_id);
 	}
 
+	@Override
+	public List<String> getFollowingNameList(String user_id) {
+		return mapper.selectFollowing(user_id);
+	}
+	
 	@Override
 	public int getFollowerCount(String user_id) {
 		return mapper.selectFollowingCount(user_id);
@@ -38,8 +43,16 @@ public class FollowServiceImpl implements FollowService{
 	}
 
 	@Override
-	public int UnFollow(String user_id, String follower_id) {
-		return mapper.deleteUnFollow(user_id, follower_id);
+	public int UnFollow(FollowVO vo) {
+		return mapper.deleteUnFollow(vo);
+	}
+
+	@Override
+	public boolean isFollow(FollowVO vo) {
+		if(mapper.isFollow(vo) > 0) {
+			return true;
+		}
+		return false;
 	}
 
 }

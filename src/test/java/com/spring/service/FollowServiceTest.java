@@ -1,4 +1,4 @@
-package com.spring.mapper;
+package com.spring.service;
 
 import static org.junit.Assert.*;
 
@@ -18,10 +18,10 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class FollowTest {
+public class FollowServiceTest {
 	
 	@Setter (onMethod_ = @Autowired)
-	private FollowMapper mapper;
+	private FollowService service;
 	
 	@Test
 	public void test() {
@@ -40,7 +40,7 @@ public class FollowTest {
 //		log.info("flw------"+follower);
 //		log.info("flwn------"+following);
 //		log.info("flL--------"+folN);
-		List<String> list = mapper.selectFollower("user01");
+		List<String> list = service.getfollowerNameList("user01");
 		for(int i = 0; i < list.size(); i++) {
 			System.out.println(list.get(i));
 		}
