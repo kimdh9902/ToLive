@@ -10,16 +10,19 @@ SELECT CONCAT('#', hash_tag) AS hash_tag FROM hash
   ]]>
 	</select>
 	<select id="selectHash" resultType="com.spring.domain.HashVO">
-		select hash_id, hash_tag from hash where hash_id= #{hash_id}
+		select hash_id, hash_tag from
+		hash where hash_id= #{hash_id}
 	</select>
 	<insert id="insertHash">
-		insert into hash (hash_id ,hash_tag) values (seq_hash_id.nextval,
+		insert into hash (hash_id ,hash_tag) values
+		(seq_hash_id.nextval,
 		#{hash_tag})
 	</insert>
 	<update id="updateHashTag">
 		UPDATE hash
 		SET hash_tag = #{hash_tag}
-		WHERE hash_id = 0
+		WHERE hash_id =
+		0
 	</update>
 	<delete id="deleteHash">
 		delete from hash where hash_id=#{hash_id}

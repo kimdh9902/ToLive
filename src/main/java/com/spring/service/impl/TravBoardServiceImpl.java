@@ -2,6 +2,9 @@ package com.spring.service.impl;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.domain.TravBoardVO;
@@ -17,8 +20,8 @@ public class TravBoardServiceImpl implements TravBoardService {
 	private final TravBoardMapper mapper;
 
 	@Override
-	public int registerTravBoard(String title, String contents, String user_id) {
-		return mapper.insertTravBoard(title, contents, user_id);
+	public int registerTravBoard(TravBoardVO vo) {
+		return mapper.insertTravBoard(vo);
 	}
 
 	@Override

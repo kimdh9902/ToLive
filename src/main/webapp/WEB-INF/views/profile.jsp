@@ -30,43 +30,58 @@
 	margin-top: 30px;
 }
 
-.contents2 :not(:nth-child(1)) {
+.contents2 :not(:nth-child(1), span){
 	margin-left: 100px;
+}
+
+.follow{
+	background-color: aqua
+	
+}
+
+.unfollow{
+	background-color: red
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"
 	integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
 	crossorigin="anonymous"></script>
 <script>
-        function ajaxCall(){ 
-            let data = { id: '${sessionScope.SESS_ID }'};
-            $.ajax(
-                {//json
-                url: "${pageContext.request.contextPath}"+"/alarm",
-                async:true,
-                headers:{"content-type":"application/json"},
-                contentType:"application/json;charset=UTF-8",
-                data: data,
-                method:"GET",
-                dataType:"JSON",
-                success:function(data, textStatus, jqXHR)
-                {
-                	console.log(data);
-                	printAlarm(data);
-					/* console.log("data:" + data.jsonList); */
-					/* var userList = JSON.parse(data); */
-					/* console.log("uL"+userList); */
-					
-                },
-                error:function(jqXHR, textStatus, errorThrown ){
-                    console.log(jqXHR);
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                }
-                }
-            )
-        }
-        
+	
+	window.onload = function(){
+		buttonToggle(${not isFollow});
+		let inform_box = document.getElementById("inform");
+		console.log(inform_box.children[0].children[2].innerHTML);
+	}
+	function ajaxCall(){ 
+		let data = { id: '${sessionScope.SESS_ID }'};
+		$.ajax(
+			{//json
+			url: "${pageContext.request.contextPath}"+"/alarm",
+			async:true,
+			headers:{"content-type":"application/json"},
+			contentType:"application/json;charset=UTF-8",
+			data: data,
+			method:"GET",
+			dataType:"JSON",
+			success:function(data, textStatus, jqXHR)
+			{
+				console.log(data);
+				printAlarm(data);
+				/* console.log("data:" + data.jsonList); */
+				/* var userList = JSON.parse(data); */
+				/* console.log("uL"+userList); */
+				
+			},
+			error:function(jqXHR, textStatus, errorThrown ){
+				console.log(jqXHR);
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+			}
+		)
+	}
+	
     function make(msg){
         let alarm = document.getElementById("alarm");
               
@@ -119,7 +134,7 @@
                 success:function(data, textStatus, jqXHR)
                 {
                 	console.log(data);
-                	buttonToggle(data);
+                	followUpAndDown(data);
                 },
                 error:function(jqXHR, textStatus, errorThrown ){
                     console.log(jqXHR);
@@ -129,11 +144,34 @@
             }
 		)
 	}
-	buttonToggle(data){
+	
+	function followUpAndDown(data) {
+		let inform_box = document.getElementById("inform");
+		// console.log(inform_box.children[0].children[0].innerHTML);
+		// console.log(typeof inform_box.children[0].children[0].innerHTML);
+		let span = inform_box.children[0].children[2];
+		console.log(span.innerHTML);
+		// console.log("-1 = "+Number.parseInt(num)-1);
+		// console.log("+1 = "+(Number.parseInt(num)+1));
+		// console.log(typeof Number.parseInt(num));
+		if(data){
+			span.innerHTML = (Number.parseInt(span.innerHTML)-1);
+		}else{
+			span.innerHTML = (Number.parseInt(span.innerHTML)+1);
+		}
+		console.log(span.innerHTML);
+		buttonToggle(data);
+	}
+	
+	function buttonToggle(data){
 		let follow_btn = document.getElementById("follow-btn");
 		console.log(data);
 		if(data){
-			follow_btn.innerText = ""
+			follow_btn.innerText = "Follow";
+			follow_btn.className = "follow";
+		}else{
+			follow_btn.innerText = "unFollow";
+			follow_btn.className = "unfollow";
 		}
 			
 	}
@@ -377,22 +415,22 @@
 										<div class="contents">
 											<div class="contents2">
 												<p style="padding-right: 100px">
-													이름:${profileVO.user_name}</p> <!-- <%=request.getParameter("name")%> -->
+													이름:${profileVO.user_name}</p>
 												<p>
-													ID:${profileVO.user_id}</p><!-- <%=request.getParameter("id")%> -->
+													ID:${profileVO.user_id}</p>
 											</div>
 											<div class="contents2">
 												<c:if test="${not isSame}" >
 													<button id="follow-btn" onclick="followToggle()" style="width: 200px">팔로우</button>
 												</c:if>
 											</div>
-											<div class="contents2" style="margin-top: 40px;">
+											<div id="inform" class="contents2" style="margin-top: 40px;">
 												<p>
-													팔로워<br> <br>${profileVO.follower }</p> <!-- <%=request.getParameter("follower")%> -->
+													팔로워<br> <br><span>${profileVO.follower }</span></p>
 												<p>
-													팔로잉<br> <br>${profileVO.following }</p> <!-- <%=request.getParameter("following")%> -->
+													팔로잉<br> <br><span>${profileVO.following }</span></p>
 												<p>
-													게시글 수<br> <br>${profileVO.board_count}</p> <!-- <%=request.getParameter("boardCount")%> -->
+													게시글 수<br> <br><span>${profileVO.board_count}</span></p>
 											</div>
 										</div>
 									</div>

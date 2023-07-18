@@ -49,10 +49,14 @@ public class UserController {
 //	
 	@PostMapping(value = "/onFollow", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public boolean followCheck(@RequestBody FollowVO vo, HttpSession session) {
-	    boolean isFollow = false;
+	    boolean isFollow;
 	    vo.setFollower_id((String)session.getAttribute("SESS_ID"));
 	    isFollow = followService.isFollow(vo);
-	    
+	    if(isFollow) {
+	    	followService.unFollow(vo);
+	    }else {
+	    	followService.follow(vo);
+	    }
 	    return isFollow;
 	}
 	

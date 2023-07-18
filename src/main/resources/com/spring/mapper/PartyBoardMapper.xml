@@ -15,7 +15,7 @@
   where is_hidden=0 order by party_b_no desc
   </select>
   <select id="selectPartyBoardByPartyBNo" resultType="com.spring.domain.PartyBoardVO">
-  select party_b_no,title, now_people,max_people, user_id 
+  select party_b_no,title,contents, now_people,max_people, user_id 
  from party_board 
  where is_hidden=0 
  and party_b_no=#{party_b_no}

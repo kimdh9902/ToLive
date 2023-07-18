@@ -19,13 +19,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.spring.domain.AlarmVO;
+import com.spring.domain.FollowVO;
 import com.spring.domain.PartyBoardVO;
 import com.spring.domain.ProfileVO;
 import com.spring.domain.SearchIdVO;
+import com.spring.domain.TravBoardVO;
 import com.spring.service.AlarmService;
+import com.spring.service.FollowService;
 import com.spring.service.PartyBoardService;
 import com.spring.service.ProfileService;
 import com.spring.service.SearchService;
+import com.spring.service.TravBoardService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -39,17 +43,24 @@ public class MenuController {
 	private final SearchService searchService;
 	private final AlarmService alaramService;
 	private final PartyBoardService partyBoardService;
+	private final FollowService followService;
+	private final TravBoardService travBoardService; 
 	
 	@GetMapping("/profile")
 	public String profile(Model model, @RequestParam String user_id, HttpSession session) {
 		boolean isSame = false;
 		ProfileVO profileVO = profileService.getProfileByID(user_id);
-		if(( (String)session.getAttribute("SESS_ID")).equals(profileVO.getUser_id() )) {
+		String sess_id = (String)session.getAttribute("SESS_ID");
+		if( sess_id.equals(profileVO.getUser_id() )) {
 			isSame = true;
 		}
 		model.addAttribute("path", profileVO.getProfile_img());
 		model.addAttribute("isSame", isSame);
 		model.addAttribute("profileVO", profileVO);
+		FollowVO vo = new FollowVO();
+		vo.setUser_id(user_id);
+		vo.setFollower_id(sess_id);
+		model.addAttribute("isFollow", followService.isFollow(vo));
 		return "profile";
 	}
 	
@@ -84,11 +95,26 @@ public class MenuController {
 		return "starBoard";
 	}
 	
+	//파티 모집 게시판으로 이동
 	@GetMapping("/partyBoard")
-	public List<PartyBoardVO> selectAllPartyBoard(Model model){
+	public String selectAllPartyBoard(Model model){
 		List<PartyBoardVO> partyBoardVO= partyBoardService.getAllPartyBoard();
 		model.addAttribute("partyBoardVO",partyBoardVO);
-		return partyBoardVO;
-		
+		return "partyBoard";		
+	}
+	
+	//여행 후기글로 이동
+	@GetMapping("/travBoard")
+	public String selectTravBoardList(Model model){
+		List<TravBoardVO> travBoardList = travBoardService.getTravBoardList();
+		model.addAttribute("travBoardList", travBoardList);
+		return "travBoard";		
+	}
+	
+	@GetMapping("/friendList")
+	public String frined(Model model, HttpSession session) {
+		List<String> result = followService.getFollowingNameList((String)session.getAttribute("SESS_ID"));
+		model.addAttribute("friendList", result);
+		return "friend";
 	}
 }
