@@ -12,6 +12,7 @@ public class ReportVO {
 	private int b_no;
 	private String title;
 	private String contents;
-	private String report_user_id;
+	private String reported_id;
+	private int report_num;
 	private String report_comment;
 }
