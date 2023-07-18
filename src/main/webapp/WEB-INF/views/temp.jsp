@@ -1,26 +1,27 @@
 <!-- 왼쪽 슬라이드바 -->
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
-    <div
-        class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+    <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
         <!-- 이미지를 링크화 한것 -->
         <a class="card-title text-primary" style="text-align: left;"
-            href="${pageContext.request.contextPath}/main">TriptoLive</a> <a
+            href="${pageContext.request.contextPath}/main">TriptoLive</a>
+        <a
             class="sidebar-brand brand-logo-mini"
-            href="${pageContext.request.contextPath}/main"> <img
+            href="${pageContext.request.contextPath}/main"> 
+            <img
             src="${pageContext.request.contextPath}/assets/images/logo-mini.svg"
-            alt="logo" /></a>
+            alt="logo" />
+        </a>
         <!-- ---------------------------------------------------------------------------- -->
     </div>
     <!-- 슬라이드바 리스트 -->
     <ul class="nav">
         <li class="nav-item profile">
             <div class="profile-desc">
-                <a
-                    href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=${sessionScope.SESS_ID}">
+                <a href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=${sessionScope.SESS_ID}">
                     <!-- 프로필 링크 -->
                     <div class="profile-pic">
                         <div class="count-indicator">
-                            <img class="img-xs rounded-circle "
+                            <img class="img-xs rounded-circle"
                                 src="${pageContext.request.contextPath}/resources/img/images.jpg" alt="">
                             <span class="count bg-success"></span>
                         </div>
@@ -32,9 +33,7 @@
                 <!-- 프로필 링크 끝 -->
                 <a href="#" id="profile-dropdown" data-toggle="dropdown"><i
                     class="mdi mdi-dots-vertical"></i></a>
-                <div
-                    class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list"
-                    aria-labelledby="profile-dropdown">
+                <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
                     <a href="#" class="dropdown-item preview-item">
                         <div class="preview-thumbnail">
                             <div class="preview-icon bg-dark rounded-circle">

@@ -12,5 +12,5 @@ public interface BlackListService {
 	//출력
 	public List<BlackListVO> getBlackList(String user_id);
 	//삭제
-	public void removelackList(String user_id, String block_account);
+	public void removeBlackList(String user_id, String block_account);
 }
