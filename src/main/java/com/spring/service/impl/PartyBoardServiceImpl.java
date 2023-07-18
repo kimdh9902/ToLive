@@ -27,7 +27,7 @@ public class PartyBoardServiceImpl implements PartyBoardService {
 	}
 
 	@Override
-	public PartyBoardVO gettPartyBoardByPartyBNo(int party_b_no) {
+	public PartyBoardVO getPartyBoardByPartyBNo(int party_b_no) {
 		return mapper.selectPartyBoardByPartyBNo(party_b_no);
 	}
 
