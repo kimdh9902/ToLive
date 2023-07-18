@@ -55,7 +55,7 @@
 		div_thumb.className = "preview-thumbnail";
 		var prf_img = document.createElement("img");
 		prf_img.className = "rounded-circle profile-pic";
-		prf_img.src = "${pageContext.request.contextPath}/img/images.jpg";
+		prf_img.src = "${pageContext.request.contextPath}/resources/img/images.jpg";
 		div_thumb.appendChild(prf_img);
 		a_drop.appendChild(div_thumb);
 		//----------------------------------------------------
@@ -137,7 +137,7 @@
 					href="${pageContext.request.contextPath}/main/">TriptoLive</a> 
 					<a class="sidebar-brand brand-logo-mini"
 					href="${pageContext.request.contextPath}/main"> <img
-					src="${pageContext.request.contextPath}/assets/images/logo-mini.svg"
+					src="${pageContext.request.contextPath}/resources/assets/images/logo-mini.svg"
 					alt="logo" /></a>
 				<!-- ---------------------------------------------------------------------------- -->
 			</div>
@@ -267,7 +267,7 @@
 					class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
 					<a class="navbar-brand brand-logo-mini"
 						href="${pageContext.request.contextPath}/main/"> 
-						<img src="${pageContext.request.contextPath}/assets/images/logo-mini.svg" alt="logo" /></a>
+						<img src="${pageContext.request.contextPath}/resources/assets/images/logo-mini.svg" alt="logo" /></a>
 				</div>
 				<div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
 					<button class="navbar-toggler navbar-toggler align-self-center"
@@ -293,7 +293,7 @@
 							id="profileDropdown" href="#" data-toggle="dropdown">
 								<div class="navbar-profile">
 									<img class="img-xs rounded-circle"
-										src="${pageContext.request.contextPath}/img/images.jpg" alt="">
+										src="${pageContext.request.contextPath}/resources/img/images.jpg" alt="">
 									<p class="mb-0 d-none d-sm-block navbar-profile-name">${sessionScope.SESS_NAME }</p>
 									<i class="mdi mdi-menu-down d-none d-sm-block"></i>
 								</div>

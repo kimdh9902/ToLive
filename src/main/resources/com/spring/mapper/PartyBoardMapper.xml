@@ -5,9 +5,9 @@
   <mapper namespace="com.spring.mapper.PartyBoardMapper">
   <insert id="insertPartyBoard">
   INSERT INTO party_board 
-  (party_b_no,title ,max_people,user_id) 
+  (party_b_no,title ,contents, max_people,user_id) 
    VALUES
-  (seq_total_b_no.nextval,#{title},#{max_people},#{user_id})
+  (seq_total_b_no.nextval,#{title},#{contents},#{max_people},#{user_id})
   </insert>
   <select id="selectAllPartyBoard" resultType="com.spring.domain.PartyBoardVO">
   select party_b_no,title, now_people,max_people, user_id 

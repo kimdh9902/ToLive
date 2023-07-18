@@ -1,6 +1,6 @@
 package com.spring.mapper;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -29,7 +29,12 @@ public class PartyBoardMapperSimul {
 	@Ignore
 	public void tesinsertPartyBoard() {// 파티 모집 게시판 등록
 		log.info(mapper);
-		assertNotNull(mapper.insertPartyBoard("광주팟 3명 구함", 3, "user04"));
+		PartyBoardVO vo = new PartyBoardVO();
+		vo.setTitle("광주팟 3명 구함");
+		vo.setContents("광주 고깃집 파티원 3명 모집합니다~");
+		vo.setMax_people(3);
+		vo.setUser_id("user04");
+		assertNotNull(mapper.insertPartyBoard(vo));
 
 	}
 

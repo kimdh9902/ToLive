@@ -368,8 +368,7 @@
 													items="${requestScope.travBoardList}">
 													<tr>
 														<td>${travBoardList.trav_b_no}</td>
-														<td><a
-															href="${pageContext.request.contextPath}/travBoard/detail?trav_b_no=${travBoardList.trav_b_no}">
+														<td><a href="${pageContext.request.contextPath}/travBoard/detail?trav_b_no=${travBoardList.trav_b_no}">
 																${travBoardList.title}</a></td>
 														<td>${travBoardList.user_id}</td>
 														<td>${travBoardList.views}</td>

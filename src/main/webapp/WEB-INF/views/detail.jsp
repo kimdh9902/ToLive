@@ -86,6 +86,11 @@
 		}
 	}
 	document.querySelector("#no")
+
+	function goUpdate() {
+		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-update?trav_b_no=trav_b_no";
+
+	}
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet"
@@ -377,6 +382,12 @@
 											</tbody>
 										</table>
 									</div>
+								</div>
+								<!--글 수정 버튼-->
+								<div style="text-align: center;" class="card-footer">
+									<button class="btn btn-outline-primary" style="width: 90px; height: 26px; margin-top: 10px;" type="button" onclick="goUpdate(${trav_b_no});">글 수정</button>
+									
+																		
 								</div>
 							</div>
 						</div>
