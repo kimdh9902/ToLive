@@ -41,8 +41,8 @@ public class PartyBoardServiceSimul {
 	@Test
 	@Ignore
 	public void testgetPartyBoardByPartyBNo() {// 파티 모집 게시판 글번호로 조회
-		assertNotNull(service.gettPartyBoardByPartyBNo(39));
-		log.info(service.gettPartyBoardByPartyBNo(39));
+		assertNotNull(service.getPartyBoardByPartyBNo(39));
+		log.info(service.getPartyBoardByPartyBNo(39));
 	}
 
 	@Test

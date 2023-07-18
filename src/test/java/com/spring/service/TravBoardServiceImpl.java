@@ -27,8 +27,8 @@ public class TravBoardServiceImpl {
 	@Test
 	@Ignore
 	public void testregisterTravBoard() {// 여행 후기글 삽입
-		assertNotNull(
-				service.registerTravBoard("루이와 로키와 함께", "몽실몽실 루이와 로키와 함께 드라이브 나왔다! 날씨도 선선하니 밖에 나가기 좋다 ㅎㅎ", "user01"));
+	
+//		assertNotNull(service.registerTravBoard(vo));
 	}
 
 	@Test

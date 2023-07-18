@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>파티 모집 게시판</title>
+<title>여행 후기글 목록</title>
 <script src="https://code.jquery.com/jquery-3.7.0.js"
 	integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
 	crossorigin="anonymous"></script>
@@ -86,6 +86,11 @@
 		}
 	}
 	document.querySelector("#no")
+
+	function goWrite() {
+		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-write";
+
+	}
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet"
@@ -125,18 +130,24 @@
 	src="${pageContext.request.contextPath}/resources/assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<script src="../resources/assets/vendors/owl-carousel-2/owl.carousel.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendors/owl-carousel-2/owl.carousel.min.js"></script>
 <!-- End plugin js for this page -->
 <!-- inject:js -->
-<script src="${pageContext.request.contextPath}/resources/assets/js/off-canvas.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/js/off-canvas.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/assets/js/hoverable-collapse.js"></script>
-<script src="${pageContext.request.contextPath}/resources/assets/js/misc.js"></script>
-<script src="${pageContext.request.contextPath}/resources/assets/js/settings.js"></script>
-<script src="${pageContext.request.contextPath}/resources/assets/js/todolist.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/js/misc.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/js/settings.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/js/todolist.js"></script>
 <!-- endinject -->
 <!-- Custom js for this page -->
-<script src="${pageContext.request.contextPath}/resources/assets/js/dashboard.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/js/dashboard.js"></script>
 <!-- End custom js for this page -->
 
 </head>
@@ -148,7 +159,7 @@
 				class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
 				<!-- 이미지를 링크화 한것 -->
 				<a class="card-title text-primary" style="text-align: left;"
-					href="${pageContext.request.contextPath}/main">TriptoLive</a> <a
+					href="${pageContext.request.contextPath}/main/">TriptoLive</a> <a
 					class="sidebar-brand brand-logo-mini"
 					href="${pageContext.request.contextPath}/main"> <img
 					src="${pageContext.request.contextPath}/resources/assets/images/logo-mini.svg"
@@ -166,8 +177,8 @@
 							<div class="profile-pic">
 								<div class="count-indicator">
 									<img class="img-xs rounded-circle "
-										src="${pageContext.request.contextPath}/resources/img/images.jpg" alt="">
-									<span class="count bg-success"></span>
+										src="${pageContext.request.contextPath}/resources/img/images.jpg"
+										alt=""> <span class="count bg-success"></span>
 								</div>
 								<div class="profile-name">
 									<h5 class="mb-0 font-weight-normal">${sessionScope.SESS_NAME }</h5>
@@ -220,28 +231,34 @@
 				</li>
 				<!-- 메인 -->
 				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/main"> <span
+					href="${pageContext.request.contextPath}/main/"> <span
+						class="menu-icon"> <i class="mdi mdi-bulletin-board"></i>
+					</span> <span class="menu-title">메인</span>
+				</a></li>
+				<!-- 메인 -->
+				<li class="nav-item menu-items"><a class="nav-link"
+					href="${pageContext.request.contextPath}/menu/travBoard/"> <span
 						class="menu-icon"> <i class="mdi mdi-airballoon"></i>
 					</span> <span class="menu-title">여행 후기글</span>
 				</a></li>
 
 				<!-- 친구 검색 -->
 				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/partyBoard"> <span
-						class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span> <span
-						class="menu-title">파티 찾기</span>
+					href="${pageContext.request.contextPath}/menu/partyBoard/"> <span
+						class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span>
+						<span class="menu-title">파티 찾기</span>
 				</a></li>
 
 				<!-- 파티 찾기 -->
 				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/findUser"> <span
-						class="menu-icon"> <i class="mdi mdi-account-search"></i></span>
-						<span class="menu-title">친구 검색</span>
+					href="${pageContext.request.contextPath}/menu/findUser"> <span
+						class="menu-icon"> <i class="mdi mdi-account-search"></i></span> <span
+						class="menu-title">친구 검색</span>
 				</a></li>
 
 				<!-- 명예의 전당 -->
 				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/starBoard"> <span
+					href="${pageContext.request.contextPath}/menu/starBoard"> <span
 						class="menu-icon"> <i class="mdi mdi-trophy-variant"></i></span> <span
 						class="menu-title">명예의 전당</span>
 				</a></li>
@@ -252,7 +269,7 @@
 				<div
 					class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
 					<a class="navbar-brand brand-logo-mini"
-						href="${pageContext.request.contextPath}/main"> <img
+						href="${pageContext.request.contextPath}/main/"> <img
 						src="${pageContext.request.contextPath}/resources/assets/images/logo-mini.svg"
 						alt="logo" /></a>
 				</div>
@@ -281,7 +298,8 @@
 							id="profileDropdown" href="#" data-toggle="dropdown">
 								<div class="navbar-profile">
 									<img class="img-xs rounded-circle"
-										src="${pageContext.request.contextPath}/resources/img/images.jpg" alt="">
+										src="${pageContext.request.contextPath}/resources/img/images.jpg"
+										alt="">
 									<p class="mb-0 d-none d-sm-block navbar-profile-name">${sessionScope.SESS_NAME }</p>
 									<i class="mdi mdi-menu-down d-none d-sm-block"></i>
 								</div>
@@ -334,39 +352,38 @@
 						<div class="col-12 grid-margin">
 							<div class="card">
 								<div class="card-body">
-									<h3 class="card-title">파티 모집 게시판</h3>
+									<h3 class="card-title">여행 후기글</h3>
 									<div class="table-responsive">
 										<table class="table">
 											<thead>
 												<tr>
 													<th>글 번호</th>
 													<th>제목</th>
-													<th>현재 모집된 인원</th>
-													<th>죄대 인원</th>
-													<th>작성자</th>
+													<th>아이디</th>
+													<th>조회수</th>
 												</tr>
 											</thead>
 											<tbody>
-												<c:forEach var="partyBoardVO"
-													items="${requestScope.partyBoardVO}">
+												<c:forEach var="travBoardList"
+													items="${requestScope.travBoardList}">
 													<tr>
-														<td>${partyBoardVO.party_b_no }</td>
+														<td>${travBoardList.trav_b_no}</td>
 														<td><a
-															href="${pageContext.request.contextPath}/partyBoard?party_b_no=${partyBoardVO.party_b_no}">
-																${partyBoardVO.title}</a></td>
-														<td>${partyBoardVO.now_people}</td>
-														<td>${partyBoardVO.max_people }</td>
-														<td>${partyBoardVO.user_id }</td>
+															href="${pageContext.request.contextPath}/travBoard/detail?trav_b_no=${travBoardList.trav_b_no}">
+																${travBoardList.title}</a></td>
+														<td>${travBoardList.user_id}</td>
+														<td>${travBoardList.views}</td>
 													</tr>
 												</c:forEach>
 											</tbody>
 										</table>
 									</div>
 								</div>
+								<!--글 쓰기 버튼-->
 								<div style="text-align: right;" class="card-footer">
 									<button class="btn btn-outline-primary"
 										style="width: 90px; height: 26px; margin-top: 10px;"
-										type="button">글 쓰기</button>
+										type="button" onclick="goWrite();">글 쓰기</button>
 								</div>
 							</div>
 						</div>

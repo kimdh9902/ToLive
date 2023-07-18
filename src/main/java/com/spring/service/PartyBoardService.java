@@ -15,7 +15,7 @@ public interface PartyBoardService {
 	public List<PartyBoardVO> getAllPartyBoard();
 
 	// 파티 모집 게시판 글번호로 조회
-	PartyBoardVO gettPartyBoardByPartyBNo(int party_b_no);
+	PartyBoardVO getPartyBoardByPartyBNo(int party_b_no);
 
 	// 파티 모집 게시판 글 조회(사용자 아이디)
 	public List<PartyBoardVO> getPartyBoardById(String user_id);

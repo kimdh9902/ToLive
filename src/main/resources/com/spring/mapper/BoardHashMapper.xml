@@ -7,10 +7,25 @@
 		INSERT INTO board_hash
 		(b_h_no, b_no, hash_id) VALUES
 		(seq_b_h_no.nextval,#{b_no} , #{hash_id})
-	</insert>
+	</insert>	
 	<insert id="insertDefaultHash">
 		insert into board_hash values(seq_b_h_no.nextval,#{b_no} , 0)
 	</insert>
+	<select id="selectBoardHashByBNo" resultType="com.spring.domain.BoardHashVO">
+	SELECT b.b_no
+			, t.title
+			, t.contents
+			, LISTAGG(h.hash_tag, ', ') 
+			WITHIN GROUP (ORDER BY h.hash_tag) 
+			AS hash_tags
+			, t.user_id
+			, t.views
+            FROM board_hash b
+            JOIN trav_board t ON b.b_no = t.trav_b_no
+            JOIN hash h ON b.hash_id = h.hash_id
+            WHERE b.b_no =#{b.b_no}
+            GROUP BY b.b_no, t.title, t.contents, t.user_id, t.views
+	</select>
 	<update id="updateBoardHash">
 		update board_hash set hash_id=#{hash_id} where b_h_no=#{b_h_no}
 	</update>

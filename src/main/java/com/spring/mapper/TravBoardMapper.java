@@ -9,9 +9,9 @@ import com.spring.domain.TravBoardVO;
 public interface TravBoardMapper {
 
 	// 여행 후기글 삽입
-	public int insertTravBoard(@Param("title") String title, @Param("contents") String contents,@Param("user_id") String user_id);
+	public int insertTravBoard(TravBoardVO vo);
 	
-	// 여행 후기글 전체 출력(해쉬태그 x)
+	// 여행 후기글 전체 출력(해쉬태그 x) -> dummy data 전체 출력
 	public List<TravBoardVO> selectTravBoardList();
 
 	// 글 상세조회

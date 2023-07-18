@@ -4,14 +4,14 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mapper.TravBoardMapper">
 	<insert id="insertTravBoard">
-	<![CDATA[
 		insert into trav_board
-		(trav_b_no, title,contents,user_id) 
+		(trav_b_no,
+		title,contents,user_id)
 		values
-		(seq_total_b_no.nextval ,#{title} ,#{contents} ,#{user_id})
-	]]>
+		(seq_total_b_no.nextval ,#{title} ,#{contents} ,#{user_id,jdbcType=VARCHAR})
 	</insert>
-	<select id="selectTravBoardList" resultType="com.spring.domain.TravBoardVO">
+	<select id="selectTravBoardList"
+		resultType="com.spring.domain.TravBoardVO">
 		select trav_b_no
 		, title
 		, user_id
@@ -20,36 +20,29 @@
 		where is_hidden=0
 		order by trav_b_no desc
 	</select>
-	<select id="selectBoard" resultType="com.spring.domain.TravBoardVO">
-		SELECT b.b_no
-		, t.title
-		, t.contents
-		, LISTAGG(h.hash_tag, ', ')
-		WITHIN GROUP (ORDER BY
-		h.hash_tag)
-		AS hash_tags
-		, t.user_id
-		, t.views
-		FROM board_hash b
-		JOIN trav_board t ON b.b_no = t.trav_b_no
-		JOIN hash h ON b.hash_id =h.hash_id
-		WHERE b.b_no = #{b.b_no}
-		AND is_hidden = 0
-		GROUP BY b.b_no,t.title, t.contents, t.user_id, t.views
+	<select id="selectBoard"
+		resultType="com.spring.domain.TravBoardVO">
+		select trav_b_no, title, contents, user_id,emoji1_is_check,
+		emoji2_is_check,emoji3_is_check,views
+		from trav_board
+		where trav_b_no=#{trav_b_no}
+		and is_hidden=0
 	</select>
 	<update id="updateTravBoard">
-		update trav_board set title=#{title},contents=#{contents}
+		update trav_board set
+		title=#{title},contents=#{contents}
 		where trav_b_no =#{trav_b_no}
 	</update>
 	<update id="updateTravBoardByIsHidden">
-		update trav_board set is_hidden=1 
+		update trav_board set is_hidden=1
 		where trav_b_no=#{trav_b_no}
 	</update>
 	<update id="updateTravBoardToPublic">
-		update trav_board set is_hidden=0 where trav_b_no=#{trav_b_no}
+		update trav_board set is_hidden=0 where
+		trav_b_no=#{trav_b_no}
 	</update>
 	<update id="updateTravBoardPlusView">
-		update trav_board set views= views+1 
+		update trav_board set views= views+1
 		where trav_b_no=#{trav_b_no}
 	</update>
 	<delete id="deleteTravBoard">
@@ -59,6 +52,7 @@
 	<select id="selectAllBoard"
 		resultType="com.spring.domain.TravBoardVO">
 		select trav_b_no,title, contents, user_id,views
-		from trav_board where user_id =#{user_id} order by trav_b_no desc 
+		from
+		trav_board where user_id =#{user_id} order by trav_b_no desc
 	</select>
 </mapper>

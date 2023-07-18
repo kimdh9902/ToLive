@@ -15,5 +15,9 @@ public class TravBoardVO {
 	int views;// 조회수
 	String Hash_tag;//해쉬태그명 (join)
 	int hash_id;//해쉬태그 아이디 (join)
+	int emoji1_is_check; // 이모티콘 1 체크                  
+	int emoji2_is_check;// 이모티콘 2 체크                  
+	int emoji3_is_check;//이모티콘 3 체크
 	int is_hidden;// 글 숨김 여부
+	
 }

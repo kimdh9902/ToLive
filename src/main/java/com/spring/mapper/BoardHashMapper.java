@@ -9,6 +9,9 @@ public interface BoardHashMapper {
 	
 	//글 쓰고 default 해쉬 추가해주기
 	public int insertDefaultHash(int b_no);
+	
+	// 여행후기글 해쉬태그 글 번호로 조회
+	BoardHashVO selectBoardHashByBNo(int b_no);
 
 	// 여행후기글 해쉬태그 수정
 	int updateBoardHash(BoardHashVO vo);

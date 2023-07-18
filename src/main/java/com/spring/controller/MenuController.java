@@ -23,11 +23,13 @@ import com.spring.domain.FollowVO;
 import com.spring.domain.PartyBoardVO;
 import com.spring.domain.ProfileVO;
 import com.spring.domain.SearchIdVO;
+import com.spring.domain.TravBoardVO;
 import com.spring.service.AlarmService;
 import com.spring.service.FollowService;
 import com.spring.service.PartyBoardService;
 import com.spring.service.ProfileService;
 import com.spring.service.SearchService;
+import com.spring.service.TravBoardService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -42,6 +44,7 @@ public class MenuController {
 	private final AlarmService alaramService;
 	private final PartyBoardService partyBoardService;
 	private final FollowService followService;
+	private final TravBoardService travBoardService; 
 	
 	@GetMapping("/profile")
 	public String profile(Model model, @RequestParam String user_id, HttpSession session) {
@@ -92,12 +95,20 @@ public class MenuController {
 		return "starBoard";
 	}
 	
+	//파티 모집 게시판으로 이동
 	@GetMapping("/partyBoard")
-	public List<PartyBoardVO> selectAllPartyBoard(Model model){
+	public String selectAllPartyBoard(Model model){
 		List<PartyBoardVO> partyBoardVO= partyBoardService.getAllPartyBoard();
 		model.addAttribute("partyBoardVO",partyBoardVO);
-		return partyBoardVO;
-		
+		return "partyBoard";		
+	}
+	
+	//여행 후기글로 이동
+	@GetMapping("/travBoard")
+	public String selectTravBoardList(Model model){
+		List<TravBoardVO> travBoardList = travBoardService.getTravBoardList();
+		model.addAttribute("travBoardList", travBoardList);
+		return "travBoard";		
 	}
 	
 	@GetMapping("/friendList")

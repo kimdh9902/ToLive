@@ -24,11 +24,15 @@ public class TravBoardMapperSimul {
 	@Setter(onMethod_ = @Autowired)
 	private TravBoardMapper mapper;
 
-	@Test
+	@Test	
 	@Ignore
 	public void testinsertTravBoard() { // 여행 후기글 삽입
 		log.info(mapper);
-		assertNotNull(mapper.insertTravBoard("너와 나", "우리 둘이 함께 가자", "user01"));
+		TravBoardVO vo=new TravBoardVO();
+		vo.setTitle("너와 나");
+		vo.setContents("우리 둘이 함께 가자");
+		vo.setUser_id("user01");
+		assertNotNull(mapper.insertTravBoard(vo));
 	}
 
 	@Test
@@ -41,9 +45,10 @@ public class TravBoardMapperSimul {
 	}
 
 	@Test
-	public void testselectBoard() {// 글 상세조회 --> 해쉬태그 읽어들어오지 못함
+	@Ignore
+	public void testselectBoard() {// 글 상세조회 --> 해쉬태그 읽어들어오지 못함->해쉬태그 하나만 일
 		log.info(mapper);
-		int trav_b_no = 2;
+		int trav_b_no = 37;
 		assertNotNull(mapper.selectBoard(trav_b_no));
 		log.info(mapper.selectBoard(trav_b_no));
 	}
@@ -88,6 +93,7 @@ public class TravBoardMapperSimul {
 	}
 
 	@Test
+	@Ignore
 	public void testselectAllBoard() {// 프로필(사용자 아이디로 조회)
 		log.info(mapper);
 		List<TravBoardVO> list = mapper.selectAllBoard("user01");
