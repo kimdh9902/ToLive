@@ -99,4 +99,11 @@ public class MenuController {
 		return partyBoardVO;
 		
 	}
+	
+	@GetMapping("/friendList")
+	public String frined(Model model, HttpSession session) {
+		List<String> result = followService.getFollowingNameList((String)session.getAttribute("SESS_ID"));
+		model.addAttribute("friendList", result);
+		return "friend";
+	}
 }
