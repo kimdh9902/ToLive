@@ -160,6 +160,7 @@
 							</div>
 						</a>
 						<!-- 프로필 링크 끝 -->
+						<!-- 프로필 추가메뉴 -->
 						<a href="#" id="profile-dropdown" data-toggle="dropdown"><i
 							class="mdi mdi-dots-vertical"></i></a>
 						<div
@@ -201,6 +202,7 @@
 								</div>
 							</a>
 						</div>
+						<!-- 프로필 추가메뉴 끝-->
 					</div> <!-- 프로필 끝 -->
 				</li>
 				<!-- 메인 -->
