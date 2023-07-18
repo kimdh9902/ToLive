@@ -87,10 +87,16 @@
 	}
 	document.querySelector("#no")
 
+	
 	function goUpdate() {
-		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-update?trav_b_no=trav_b_no";
-
+	var trav_b_no = "<%=request.getParameter("trav_b_no")%>";
+	location.href = "${pageContext.servletContext.contextPath}/travBoard/board-update?trav_b_no=" + trav_b_no;
 	}
+	
+	function goDelete() {
+		var trav_b_no = "<%=request.getParameter("trav_b_no")%>";
+		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?trav_b_no=" + trav_b_no;
+		}
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet"
@@ -371,7 +377,7 @@
 											<tbody>
 												<tr>
 													<td><%=request.getParameter("trav_b_no")%></td>
-													<td>${title}</td>												
+													<td>${title}</td>
 													<td>${contents}</td>
 													<td>${user_id}</td>
 													<td>${emoji1_is_check}</td>
@@ -385,9 +391,14 @@
 								</div>
 								<!--글 수정 버튼-->
 								<div style="text-align: center;" class="card-footer">
-									<button class="btn btn-outline-primary" style="width: 90px; height: 26px; margin-top: 10px;" type="button" onclick="goUpdate(${trav_b_no});">글 수정</button>
-									
-																		
+									<button class="btn btn-outline-primary"
+										style="width: 90px; height: 26px; margin-top: 10px;"
+										type="button" onclick="goUpdate();">글 수정</button>
+								
+								<!--글 삭제 버튼-->								
+								<button class="btn btn-outline-primary"
+										style="width: 90px; height: 26px; margin-top: 10px;"
+										type="button" onclick="goDelete();">글 삭제</button>
 								</div>
 							</div>
 						</div>

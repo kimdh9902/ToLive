@@ -90,7 +90,7 @@
 <body>
    <div class="container mt-3">
       <h2 style="text-align: center;">게시글 수정 페이지</h2>
-      <form action="${pageContext.request.contextPath}/travBoard/board-tupdate" method="post">
+      <form action="${pageContext.request.contextPath}/travBoard/board-tupdate" method="post" accept-charset="UTF-8">
             <div class="row">
             <input type="hidden" name="trav_b_no" value="${travBoard.trav_b_no}">
             <div class="mb-3 mt-3 col p-3">

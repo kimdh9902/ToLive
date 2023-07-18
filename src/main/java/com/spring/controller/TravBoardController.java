@@ -35,8 +35,8 @@ public class TravBoardController {
 	// 여행 후기글 글 상세 페이지로 이동
 	// localhost:8080/trip/travBoard/detail
 	@GetMapping("/detail")
-	public String openBoard(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session)
-			throws IOException {
+	public String openBoard(@RequestParam("trav_b_no") int trav_b_no, HttpServletRequest request,
+			HttpServletResponse response, Model model, HttpSession session) throws IOException {
 		int SESS_GRADE = (int) session.getAttribute("SESS_GRADE");
 		if (request.getParameter("trav_b_no") != null) {
 			if (SESS_GRADE != 7) {
@@ -100,14 +100,25 @@ public class TravBoardController {
 	}
 
 	// 수정 처리
-	@RequestMapping(value = "/board-tupdate", method = RequestMethod.POST)
+	@RequestMapping(value = "/board-tupdate", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
 	public String updateBoard(TravBoardVO vo) {
 		int result = mapper.updateTravBoard(vo);
 		if (result > 0) {
-			return "redirect:travBoard/detail?trav_b_no=" + vo.getTrav_b_no();
+			return "redirect:detail?trav_b_no=" + vo.getTrav_b_no();
 		} else {
 			return "redirect:travBoard/board-update?trav_b_no=" + vo.getTrav_b_no();
 		}
-
 	}
+
+	// 삭제 처리
+	@RequestMapping(value = "/board-delete", method = RequestMethod.GET)
+	public String delete(int trav_b_no) {
+		boolean success = mapper.deleteTravBoard(trav_b_no);
+		if (success) {
+			return "redirect:/menu/travBoard/";
+		} else {
+			return "redirect:detail?trav_b_no=" + trav_b_no;
+		}
+	}
+
 }
