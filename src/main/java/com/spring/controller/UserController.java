@@ -61,20 +61,18 @@ public class UserController {
 	}
 	
 	@GetMapping("/blacklist-add")
-	public String addBlackList(String user_id, String block_account) {
+	public void addBlackList(String user_id, String block_account) {
 		blackService.addBlackList(user_id, block_account);
-		return null;
 	}
 	
 	@GetMapping("/blacklist-get")
 	public String getBlackList(String user_id) {
-		blackService.getBlackList(user_id);
-		return null;
+//		blackService.getBlackList(user_id);
+		return "blacklist";
 	}
 	
 	@GetMapping("/blacklist-remove")
-	public String getBlackList(String user_id, String block_account) {
+	public void getBlackList(String user_id, String block_account) {
 		blackService.removeBlackList(user_id, block_account);
-		return null;
 	}
 }
