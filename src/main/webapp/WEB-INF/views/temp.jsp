@@ -73,11 +73,12 @@
             </div> <!-- 프로필 끝 -->
         </li>
         <!-- 메인 -->
-        <li class="nav-item menu-items"><a class="nav-link"
-            href="${pageContext.request.contextPath}/main/"> <span
-                class="menu-icon"> <i class="mdi mdi-airballoon"></i>
-            </span> <span class="menu-title">여행 후기글</span>
-        </a></li>
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="${pageContext.request.contextPath}/main/"> 
+                <span class="menu-icon"> <i class="mdi mdi-airballoon"></i></span>
+                <span class="menu-title">여행 후기글</span>
+            </a>
+        </li>
 
         <%-- <!-- 파티 찾기 -->
         <li class="nav-item menu-items"><a class="nav-link"
@@ -100,18 +101,21 @@
                 class="menu-title">명예의 전당</span>
         </a></li>
         <li class="nav-item menu-items">
-            <a class="nav-link" href="#auth" data-toggle="collapse" aria-expanded="false" aria-controls="auth"> <!--  -->
+            <a class="nav-link" href="#friend" data-toggle="collapse" aria-expanded="false" aria-controls="friend"> <!--  -->
                 <span class="menu-icon">
                     <i class="mdi mdi-account-multiple-outline"></i>
                 </span>
                 <span class="menu-title">친구</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="auth">
+            <div class="collapse" id="friend">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/menu/findUser"> 
-                    <span class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span> <span class="menu-title">유저 검색</span>
-                    </a></li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="${pageContext.request.contextPath}/menu/findUser"> 
+                            <span class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span>
+                            <span class="menu-title">유저 검색</span>
+                        </a>
+                    </li>
                   <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/menu/friendList"> 
                     <span class="menu-icon"> <i class="mdi mdi-folder-account"></i></span> <span class="menu-title">친구 목록</span>
                     </a></li>
@@ -122,12 +126,9 @@
 </nav>
 <!-- 상단바 -->
 <nav class="navbar p-0 fixed-top d-flex flex-row">
-    <div
-        class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo-mini"
-            href="${pageContext.request.contextPath}/main"> <img
-            src="${pageContext.request.contextPath}/assets/images/logo-mini.svg"
-            alt="logo" /></a>
+    <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo-mini" href="${pageContext.request.contextPath}/main"> 
+            <img src="${pageContext.request.contextPath}/assets/images/logo-mini.svg" alt="logo" /></a>
     </div>
     <div
         class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
