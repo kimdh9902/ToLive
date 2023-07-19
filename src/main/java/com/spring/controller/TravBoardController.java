@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.domain.TravBoardVO;
@@ -34,8 +35,8 @@ public class TravBoardController {
 	// 여행 후기글 글 상세 페이지로 이동
 	// localhost:8080/trip/travBoard/detail
 	@GetMapping("/detail")
-	public String openBoard(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session)
-			throws IOException {
+	public String openBoard(@RequestParam("trav_b_no") int trav_b_no, HttpServletRequest request,
+			HttpServletResponse response, Model model, HttpSession session) throws IOException {
 		int SESS_GRADE = (int) session.getAttribute("SESS_GRADE");
 		if (request.getParameter("trav_b_no") != null) {
 			if (SESS_GRADE != 7) {
@@ -80,7 +81,6 @@ public class TravBoardController {
 		vo.setTitle(new String(vo.getTitle().getBytes("iso-8859-1"), "UTF-8"));
 		vo.setContents(new String(vo.getContents().getBytes("iso-8859-1"), "UTF-8"));
 		vo.setUser_id((String) session.getAttribute("SESS_ID"));
-		System.out.println();
 
 		int result = mapper.insertTravBoard(vo);
 
@@ -90,4 +90,35 @@ public class TravBoardController {
 			return "redirect:/travBoard/board-write";
 		}
 	}
+
+	// 수정 페이지로 이동
+	@RequestMapping(value = "/board-update", method = RequestMethod.GET)
+	public String update(Model model, @RequestParam("trav_b_no") int trav_b_no) {
+		System.out.println("trav_b_no: " + trav_b_no); // 디버깅을 위한 출력 코드
+		model.addAttribute("travBoard", mapper.selectBoard(trav_b_no));
+		return "board-update";
+	}
+
+	// 수정 처리
+	@RequestMapping(value = "/board-tupdate", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+	public String updateBoard(TravBoardVO vo) {
+		int result = mapper.updateTravBoard(vo);
+		if (result > 0) {
+			return "redirect:detail?trav_b_no=" + vo.getTrav_b_no();
+		} else {
+			return "redirect:travBoard/board-update?trav_b_no=" + vo.getTrav_b_no();
+		}
+	}
+
+	// 삭제 처리
+	@RequestMapping(value = "/board-delete", method = RequestMethod.GET)
+	public String delete(int trav_b_no) {
+		boolean success = mapper.deleteTravBoard(trav_b_no);
+		if (success) {
+			return "redirect:/menu/travBoard/";
+		} else {
+			return "redirect:detail?trav_b_no=" + trav_b_no;
+		}
+	}
+
 }

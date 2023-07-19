@@ -86,6 +86,11 @@
 		}
 	}
 	document.querySelector("#no")
+	
+	function goWrite() {
+		location.href = "${pageContext.servletContext.contextPath}/partyBoard/pboard-write";
+	}
+	
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet"
@@ -375,7 +380,7 @@
 								<div style="text-align: right;" class="card-footer">
 									<button class="btn btn-outline-primary"
 										style="width: 90px; height: 26px; margin-top: 10px;"
-										type="button">글 쓰기</button>
+										type="button" onclick="goWrite();">글 쓰기</button>
 								</div>
 							</div>
 						</div>

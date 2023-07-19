@@ -25,9 +25,14 @@ public class PartyBoardServiceSimul {
 	private PartyBoardService service;
 
 	@Test
-	@Ignore
 	public void tesregisterPartyBoard() {// 파티 모집 게시판 등록
-		assertNotNull(service.registerPartyBoard("광주팟 7명 구함", 7, "user02"));
+		PartyBoardVO vo = new PartyBoardVO();
+
+		vo.setTitle("에버랜드에 같이 놀러갈 사람~ ");
+		vo.setContents("에버랜드에서 놀이기구 같이 타고 사진 찍으면서 놀러갈 사람~! 만나서 이야기도 많이 나누고 싶어요!!");
+		vo.setMax_people(3);
+		vo.setUser_id("user02");
+		assertNotNull(service.registerPartyBoard(vo));
 	}
 
 	@Test
@@ -74,7 +79,7 @@ public class PartyBoardServiceSimul {
 
 	@Test
 	@Ignore
-	public void testdeletePartyBoardWhenRecruitComplete() {
+	public void testdeletePartyBoardWhenRecruitComplete() {// 최대 인원에 도달하면 자동으로 삭제 되게 만들기
 		PartyBoardVO vo = new PartyBoardVO();
 		assertNotNull(service.removePartyBoardWhenRecruitComplete(vo));
 
