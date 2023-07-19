@@ -61,7 +61,12 @@ public class PartyBoardServiceSimul {
 	@Test
 	@Ignore
 	public void testmodifyPartyBoard() {// 파티 모집 게시판 글 수정(본인에 한하여 제목,최대 인원 사이즈 조정)
-		service.modifyPartyBoard("카페투어 함께하실 4분~", 4, 81);
+		PartyBoardVO vo=new PartyBoardVO();
+		vo.setTitle("빵가마 마을 같이 둘러볼 사람 3분 모집합니다!");
+		vo.setContents("맛있는 빵을 함께 즐겨요~");
+		vo.setMax_people(3);
+		vo.setParty_b_no(106);
+		service.modifyPartyBoard(vo);
 
 	}
 

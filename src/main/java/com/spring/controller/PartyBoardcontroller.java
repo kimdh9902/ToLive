@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.domain.PartyBoardVO;
@@ -77,8 +78,8 @@ public class PartyBoardcontroller {
 	// 등록 처리
 	@RequestMapping(value = "/pboard-insert", method = RequestMethod.POST)
 	public String insertPartyBoard(PartyBoardVO vo, HttpSession session) throws UnsupportedEncodingException {
-		vo.setTitle(new String(vo.getTitle().getBytes("iso-8859-1"), "UTF-8"));
-		vo.setContents(new String(vo.getContents().getBytes("iso-8859-1"), "UTF-8"));
+		vo.setTitle(new String(vo.getTitle()));
+		vo.setContents(new String(vo.getContents()));
 		vo.setUser_id((String) session.getAttribute("SESS_ID"));
 
 		System.out.println(vo);
@@ -90,7 +91,39 @@ public class PartyBoardcontroller {
 		} else {
 			return "redirect:/partyBoard/pboard-write";
 		}
+	}
 
+	// 수정 페이지로 이동
+	@RequestMapping(value = "/pboard-update", method = RequestMethod.GET)
+	public String pupdate(Model model, @RequestParam("party_b_no") int party_b_no) {
+		model.addAttribute("partyBoard", mapper.selectPartyBoardByPartyBNo(party_b_no));
+		return "pboard-update";
+
+	}
+
+	// 수정 처리
+	@RequestMapping(value = "/board-pupdate", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+	public String updatePBoard(PartyBoardVO vo) {
+		System.out.println("여기-" + vo);
+		int result = mapper.updatePartyBoard(vo);
+		if (result > 0) {
+			return "redirect:Pdetail?party_b_no=" + vo.getParty_b_no();
+		} else {
+			return "redirect:partyBoard/pboard-update?party_b_no=" + vo.getParty_b_no();
+		}
+	}
+
+	// 삭제 처리
+	@GetMapping(value = "/pboard-delete")
+	public String delete(int party_b_no) {
+				
+		boolean success = mapper.deletePartyBoard(party_b_no);
+		System.out.println(mapper.deletePartyBoard(party_b_no));
+		if (success) {
+			return "redirect:/menu/partyBoard/";
+		} else {
+			return "redirect:Pdetail?party_b_no=" + party_b_no;
+		}
 	}
 
 }
