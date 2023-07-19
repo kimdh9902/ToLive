@@ -76,12 +76,15 @@ public class TravBoardController {
 	}
 
 	// 등록 처리
-	@RequestMapping(value = "/board-insert", method = RequestMethod.POST)
+	@RequestMapping(value = "/board-insert", method = RequestMethod.POST,produces = "text/html; charset=UTF-8")
 	public String insertBoard(TravBoardVO vo, HttpSession session) throws UnsupportedEncodingException {
-		vo.setTitle(new String(vo.getTitle().getBytes("iso-8859-1"), "UTF-8"));
-		vo.setContents(new String(vo.getContents().getBytes("iso-8859-1"), "UTF-8"));
+		vo.setTitle(new String(vo.getTitle()));
+		vo.setContents(new String(vo.getContents()));
 		vo.setUser_id((String) session.getAttribute("SESS_ID"));
-
+		
+		//확인용
+		System.out.println("여기-"+vo);
+		
 		int result = mapper.insertTravBoard(vo);
 
 		if (result > 0) {
@@ -94,7 +97,6 @@ public class TravBoardController {
 	// 수정 페이지로 이동
 	@RequestMapping(value = "/board-update", method = RequestMethod.GET)
 	public String update(Model model, @RequestParam("trav_b_no") int trav_b_no) {
-		System.out.println("trav_b_no: " + trav_b_no); // 디버깅을 위한 출력 코드
 		model.addAttribute("travBoard", mapper.selectBoard(trav_b_no));
 		return "board-update";
 	}
@@ -102,7 +104,9 @@ public class TravBoardController {
 	// 수정 처리
 	@RequestMapping(value = "/board-tupdate", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
 	public String updateBoard(TravBoardVO vo) {
+		System.out.println("여기-"+vo);
 		int result = mapper.updateTravBoard(vo);
+		System.out.println("여기2-"+result);
 		if (result > 0) {
 			return "redirect:detail?trav_b_no=" + vo.getTrav_b_no();
 		} else {

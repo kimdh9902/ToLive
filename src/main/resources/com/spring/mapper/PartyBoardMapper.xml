@@ -28,9 +28,11 @@
  order by party_b_no desc
  </select>
   <update id="updatePartyBoard">
-  update party_board set title= #{title}
-	, max_people=#{max_people}
-	where party_b_no=#{party_b_no}
+  update party_board 
+  set title= #{title}
+  ,contents=#{contents}
+  ,max_people=#{max_people}
+  where party_b_no=#{party_b_no}
   </update>
   <update id="updatePartyBoardPlusMember">
   update party_board set now_people= now_people+1 where party_b_no=#{party_b_no}

@@ -60,7 +60,7 @@ public class TravBoardMapperSimul {
 		TravBoardVO vo = new TravBoardVO();
 		vo.setTitle("사랑스러운 우리 마고");
 		vo.setContents("오랜만의 바다여행에 한껏 신난 살랑살랑 꼬리");
-		vo.setTrav_b_no(21);
+		vo.setTrav_b_no(119);
 		System.out.println(mapper.updateTravBoard(vo));
 	}
 
