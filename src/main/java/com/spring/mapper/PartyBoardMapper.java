@@ -9,7 +9,7 @@ import com.spring.domain.PartyBoardVO;
 public interface PartyBoardMapper {
 
 	// 파티 모집 게시판 등록
-	int insertPartyBoard(@Param("title") String title,@Param("max_people") int max_people,@Param("user_id") String user_id);
+	int insertPartyBoard(PartyBoardVO vo);
 
 	// 파티 모집 게시판 글 전체 출력
 	public List<PartyBoardVO> selectAllPartyBoard();

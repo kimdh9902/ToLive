@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.domain.FollowVO;
+import com.spring.service.BlackListService;
 import com.spring.service.FollowService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ import lombok.Setter;
 public class UserController {
 	
 	private final FollowService followService;
+	private final BlackListService blackService;
 	
 	@GetMapping(value = "/friend", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<String> friendList(HttpSession session){
@@ -56,5 +58,23 @@ public class UserController {
 	    	followService.follow(vo);
 	    }
 	    return isFollow;
+	}
+	
+	@GetMapping("/blacklist-add")
+	public String addBlackList(String user_id, String block_account) {
+		blackService.addBlackList(user_id, block_account);
+		return null;
+	}
+	
+	@GetMapping("/blacklist-get")
+	public String getBlackList(String user_id) {
+		blackService.getBlackList(user_id);
+		return null;
+	}
+	
+	@GetMapping("/blacklist-remove")
+	public String getBlackList(String user_id, String block_account) {
+		blackService.removeBlackList(user_id, block_account);
+		return null;
 	}
 }

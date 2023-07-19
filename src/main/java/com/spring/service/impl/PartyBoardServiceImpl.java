@@ -17,8 +17,8 @@ public class PartyBoardServiceImpl implements PartyBoardService {
 	private final PartyBoardMapper mapper;
 
 	@Override
-	public int registerPartyBoard(String title, int max_people, String user_id) {
-		return mapper.insertPartyBoard(title, max_people, user_id);
+	public int registerPartyBoard(PartyBoardVO vo) {
+		return mapper.insertPartyBoard(vo);
 	}
 
 	@Override

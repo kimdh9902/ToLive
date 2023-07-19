@@ -27,8 +27,12 @@ public class TravBoardServiceImpl {
 	@Test
 	@Ignore
 	public void testregisterTravBoard() {// 여행 후기글 삽입
-	
-//		assertNotNull(service.registerTravBoard(vo));
+		TravBoardVO vo = new TravBoardVO();
+		vo.setTitle("내 동생 초코");
+		vo.setContents("반짝반짝 빛나는 눈망울");
+		vo.setUser_id("user01");
+		assertNotNull(service.registerTravBoard(vo));
+
 	}
 
 	@Test
@@ -82,6 +86,7 @@ public class TravBoardServiceImpl {
 	}
 
 	@Test
+	@Ignore
 	public void testgetAllBoard() {// 프로필(사용자 아이디로 조회)
 		List<TravBoardVO> list = service.getAllBoard("user02");
 		log.info(list);

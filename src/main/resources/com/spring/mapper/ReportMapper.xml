@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.spring.mapper.ReportMapper">
+  	<select id="selectAllReportBoard" resultType="com.spring.domain.ReportVO">
+  		SELECT r.report_no, r.b_no, r.reported_id, r.title, rd.report_comment
+			FROM report r
+			LEFT JOIN report_details rd ON r.report_num = rd.report_num
+		ORDER BY r.report_no DESC
+  	</select>
+  	<insert id="insertReportBoard">
+  		INSERT INTO report (report_no, b_no, reported_id, title, report_num)
+			VALUES (seq_report_no, #{b_no}, 
+			( SELECT user_id FROM board WHERE b_no = #{b_no} ),
+			( SELECT title FROM board WHERE b_no = #{b_no} ),
+		#{report_num})
+  	</insert>
+  	<delete id="deleteReportBoard">
+  		DELETE FROM report WHERE b_no = #{b_no}
+  	</delete>
+  	<update id="updateReportBoard">
+  		UPDATE board SET is_hidden = 1 WHERE b_no = #{b_no}
+  	</update>
+  	<update id="updateReportPost">
+  		UPDATE board SET is_hidden = 0 WHERE b_no = #{b_no}
+  	</update>
+  </mapper>
