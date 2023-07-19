@@ -303,8 +303,11 @@ function makeTopNavBar(path, sess_id, sess_name){
     
     
     let iconList_li1_a_span = document.createElement("span");
+    iconList_li1_a_span.classList.add("count");
+    iconList_li1_a_span.id = "alarm_state";
+    // iconList_li1_a_span.className = "bg-danger";
+    // iconList_li1_a_span.style.height = "9px";
     let iconList_li1_div = document.createElement("div");
-    iconList_li1_a_span.className = "count bg-danger";
     iconList_li1_div.className = "dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
     iconList_li1_div.setAttribute("aria-labelledby", "notificationDropdown");
     iconList_li1_div.id = "alarm";
@@ -436,10 +439,10 @@ function makeTopNavBar(path, sess_id, sess_name){
 
 function alarmAjax(path, sess_id) {
     let data = {
-        id : sess_id
+        user_id : sess_id
     };
     $.ajax({//json
-        url : path+"/alarm",
+        url : path+"/user/alarm",
         async : true,
         contentType : "application/json;charset=UTF-8",
         data : data,
@@ -496,4 +499,27 @@ function printAlarm(userList){
             alarm.removeChild(alarm.children[i]);
         }
     }
+}
+
+function createIcon(id, name, color, text){
+    let iconList_li1_a_span = document.createElement("span");
+    iconList_li1_a_span.className = "count";
+    iconList_li1_a_span.style.backgroundColor = color;
+    if(text != null || text != undefined){
+        
+    }
+    let iconList_li1_div = document.createElement("div");
+    iconList_li1_div.className = "dropdown-menu dropdown-menu-right navbar-dropdown preview-list";
+    iconList_li1_div.setAttribute("aria-labelledby", "notificationDropdown");
+    iconList_li1_div.id = id;//"alarm";
+    let iconList_li1_div_h6 = document.createElement("h6");
+    iconList_li1_div_h6.className = "p-3 mb-0";
+    iconList_li1_div_h6.innerText = name;//"알림";
+    let iconList_li1_div_div = document.createElement("div");
+    iconList_li1_div_div.className = "dropdown-divider";
+}
+
+function alarmStateChange(){
+    let alarm_span = document.getElementById("alarm_state");
+    alarm_span.classList.toggle()
 }
