@@ -262,7 +262,7 @@
 				</li>
 			</ul>
 		</nav>
-		<div class="container-fluid page-body-wrapper">
+		<div class="container-fluid page-body-wrapper" id="container-body-wrapper">
 			<nav class="navbar p-0 fixed-top d-flex flex-row">
 				<div
 					class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
