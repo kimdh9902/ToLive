@@ -21,8 +21,9 @@ public class AdminController {
 	private final ReportService reportService;
 	
 	@GetMapping("/report-selectAll")
-	public List<ReportVO> selectAllReportBoard() {
-		return reportService.selectAllReportBoard();
+	public String selectAllReportBoard() {
+//		reportService.selectAllReportBoard();
+		return "report";
 	}
 	
 	@GetMapping("/report-add")
@@ -44,4 +45,5 @@ public class AdminController {
 	public void reassignReportPost(int b_no) {
 		reportService.reassignReportPost(b_no);
 	}
+
 }
