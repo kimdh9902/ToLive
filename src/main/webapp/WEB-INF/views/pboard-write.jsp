@@ -92,8 +92,8 @@
 
                   <div class="mb-3 mt-3 col p-3">
                      <label for="id">작성자:</label>
-                     <div class="form-control" id="id">${requestScope.travBoardList.user_id == null ?
-                        sessionScope.SESS_ID : requestScope.travBoardList.user_id}</div>
+                     <div class="form-control" id="id">${requestScope.partyBoardVO.user_id == null ?
+                        sessionScope.SESS_ID : requestScope.partyBoardVO.user_id}</div>
                   </div>
                </div>
                <div>
@@ -142,7 +142,7 @@
                   </div>
                </div>
                <input type="hidden" name="id"
-                  value="${requestScope.travBoardList.user_id == null ? sessionScope.SESS_ID : requestScope.travBoardList.user_id}">
+                  value="${requestScope.partyBoardVO.user_id == null ? sessionScope.SESS_ID : requestScope.partyBoardVO.user_id}">
             </form>
          </div>
       </body>

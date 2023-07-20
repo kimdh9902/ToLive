@@ -61,14 +61,18 @@ public class PartyBoardMapperSimul {
 		List<PartyBoardVO> list = mapper.selectPartyBoardById("user01");
 		log.info(list);
 		assertNotNull(list);
-
 	}
 
 	@Test
 	@Ignore
 	public void testupdatePartyBoard() {// 파티 모집 게시판 글 수정(본인에 한하여 제목,최대 인원 사이즈 조정)
 		log.info(mapper);
-		mapper.updatePartyBoard("헤이리 예술마을 같이 둘러볼 사람 4분 모집합니다!", 4, 44);
+		PartyBoardVO vo=new PartyBoardVO();
+		vo.setTitle("헤이리 예술마을 같이 둘러볼 사람 4분 모집합니다!");
+		vo.setContents("헤이리 예술마을 같이 둘러볼 사람 4분 모집해요~!");
+		vo.setMax_people(4);
+		vo.setParty_b_no(44);
+		mapper.updatePartyBoard(vo);
 	}
 
 	@Test
@@ -80,10 +84,10 @@ public class PartyBoardMapperSimul {
 	}
 
 	@Test
-	@Ignore
+	@Ignore	
 	public void testdeletePartyBoard() {
 		log.info(mapper);
-		mapper.deletePartyBoard(85);
+		mapper.deletePartyBoard(115);
 	}
 
 	@Test

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport"
@@ -86,6 +86,16 @@
 		}
 	}
 	document.querySelector("#no")
+	
+	function goUpdate() {
+	var party_b_no = "<%=request.getParameter("party_b_no")%>";
+	location.href = "${pageContext.servletContext.contextPath}/partyBoard/pboard-update?party_b_no=" + party_b_no;
+	}
+	
+	function goDelete() {
+		var party_b_no = "<%=request.getParameter("party_b_no")%>";
+		location.href = "${pageContext.servletContext.contextPath}/partyBoard/pboard-delete?party_b_no="+ party_b_no;
+		}
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet"
@@ -374,6 +384,18 @@
 											</tbody>
 										</table>
 									</div>
+								</div>
+								<!--글 수정 버튼-->
+								<div style="text-align: center;" class="card-footer">
+								<button class="btn btn-outline-primary"
+								style="width: 90px; height: 26px; margin-top: 10px;"
+								type="button" onclick="goUpdate();">글 수정</button>
+								
+								<!--글 삭제 버튼-->
+								<button class="btn btn-outline-primary"
+								style="width: 90px; height: 26px; margin-top: 10px;"
+								type="button" onclick="goDelete();">글 삭제</button>
+								
 								</div>
 							</div>
 						</div>

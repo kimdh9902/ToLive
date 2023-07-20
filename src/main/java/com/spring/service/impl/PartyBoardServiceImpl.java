@@ -37,8 +37,8 @@ public class PartyBoardServiceImpl implements PartyBoardService {
 	}
 
 	@Override
-	public int modifyPartyBoard(String title, int max_people, int party_b_no) {
-		return mapper.updatePartyBoard(title, max_people, party_b_no);
+	public int modifyPartyBoard(PartyBoardVO vo) {
+		return mapper.updatePartyBoard(vo);
 	}
 
 	@Override
@@ -47,13 +47,15 @@ public class PartyBoardServiceImpl implements PartyBoardService {
 	}
 
 	@Override
-	public int removePartyBoard(int party_b_no) {
+	public boolean removePartyBoard(int party_b_no) {
 		return mapper.deletePartyBoard(party_b_no);
 	}
+
 
 	@Override
 	public int removePartyBoardWhenRecruitComplete(PartyBoardVO vo) {
 		return mapper.deletePartyBoardWhenRecruitComplete(vo);
 	}
 
+	
 }

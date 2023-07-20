@@ -48,6 +48,20 @@ public class AuthController {
 		}
 		return path;
 	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		System.out.println("before"+session);
+		session.invalidate();
+		
+		System.out.println("after"+session);
+//		response.sendRedirect(request.getContextPath()+"/login?msg=logout success");
+		if(session.getAttributeNames() == null) {
+			return "redirect:auth/login?msg=logout success";
+		} else {
+			return "redirect:auth/login?msg=logout fail";
+		}
+	}
 	/*
 	 * UsersVO user = new UsersVO();
 		String id = request.getParameter("userId");

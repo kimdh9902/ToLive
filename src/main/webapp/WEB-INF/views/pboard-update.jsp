@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>여행 후기글 수정 페이지</title>
+<title>파티 모집 게시글 수정 페이지</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
  <link
@@ -88,38 +88,63 @@
 </head>
 <body>
    <div class="container mt-3">
-      <h2 style="text-align: center;"> 여행 후기글 수정 페이지</h2>
-      <form action="${pageContext.request.contextPath}/travBoard/board-tupdate" method="post" accept-charset="UTF-8">
+      <h2 style="text-align: center;">파티 모집 게시글 수정 페이지</h2>
+      <form action="${pageContext.request.contextPath}/partyBoard/board-pupdate" method="post" accept-charset="UTF-8">
             <div class="row">
-            <input type="hidden" name="trav_b_no" value="${travBoard.trav_b_no}">
+            <input type="hidden" name="party_b_no" value="${partyBoard.party_b_no}">
             <div class="mb-3 mt-3 col p-3">
                <label for="title">제목:</label> 
-               <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요" value="${travBoard.title}" >
+               <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요" value="${partyBoard.title}" >
             </div>
             <div class="mb-3 mt-3 col p-3">
                <label for="id">작성자:</label>
-               <div class="form-control" id="id">${requestScope.travBoardList.user_id == null ? sessionScope.SESS_ID : requestScope.travBoardList.user_id}</div>
+               <div class="form-control" id="id">${requestScope.partyBoardVO.user_id == null ? sessionScope.SESS_ID : requestScope.partyBoardVO.user_id}</div>
             </div>
          </div>
+          <div>
+                  <table>
+                     <tr>
+                        <td colspan="2">
+                           <label for="max_people">최대 모집 인원</label>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td valgn="top">
+                           <select name="max_people">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                           </select>
+                        </td>
+                     </tr>
+                  </table>
+               </div>
+         
          <div class="mb-3 mt-3">
             <label for="contents">내용:</label>
-            <textarea class="form-control" id="contents" name="contents" rows="5" placeholder="내용을 입력해주세요">${travBoard.contents}</textarea>
+            <textarea class="form-control" id="contents" name="contents" rows="5" placeholder="내용을 입력해주세요">${partyBoard.contents}</textarea>
          </div>
          <div class="row">
             <div class="col p-3">
-            <a href="${pageContext.request.contextPath}/menu/travBoard">
-               <button id="back" type="button" class="get col p-3 btn btn-primary">여행 후기글 목록</button>
+            <a href="${pageContext.request.contextPath}/menu/partyBoard">
+               <button id="back" type="button" class="get col p-3 btn btn-primary">파티모집게시판 목록</button><!-- onclick="goMain();" -->
             </a>
             </div>
             <div class="col p-3">
             <button type="reset" class="btn btn-warning">초기화</button>
             </div>
             <div class="col p-3">
-            <button id="sub" type="submit" 
-            class="register col p-3 btn btn-primary">수정 저장</button>
+            <button id="sub" type="submit" class="register col p-3 btn btn-primary">수정 저장</button>
             </div>
          </div>
-          <input type="hidden" name="id" value="${requestScope.travBoardList.user_id == null ? sessionScope.SESS_ID : requestScope.travBoardList.user_id}">
+          <input type="hidden" name="id" value="${requestScope.partyBoardVO.user_id == null ? sessionScope.SESS_ID : requestScope.partyBoardVO.user_id}">
       </form>
    </div>
 </body>
