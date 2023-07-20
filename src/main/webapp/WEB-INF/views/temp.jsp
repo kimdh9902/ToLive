@@ -130,8 +130,7 @@
         <a class="navbar-brand brand-logo-mini" href="${pageContext.request.contextPath}/main"> 
             <img src="${pageContext.request.contextPath}/assets/images/logo-mini.svg" alt="logo" /></a>
     </div>
-    <div
-        class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+    <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
         <button class="navbar-toggler navbar-toggler align-self-center"
             type="button" data-toggle="minimize">
             <span class="mdi mdi-menu"></span>
@@ -139,29 +138,29 @@
         <!-- 상단바 박스들-->
         <ul class="navbar-nav navbar-nav-right">
             <!-- 알림종 -->
-            <li id="isalarm" class="nav-item dropdown border-left"><a
-                class="nav-link count-indicator dropdown-toggle"
+            <li id="isalarm" class="nav-item dropdown border-left">
+                <a class="nav-link count-indicator dropdown-toggle"
                 id="notificationDropdown" href="#" data-toggle="dropdown"
-                onclick="ajaxCall()"> <i class="mdi mdi-bell"></i> <span
-                    class="count bg-danger"></span>
-            </a>
-                <div
-                    class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+                onclick="ajaxCall()"> 
+                    <i class="mdi mdi-bell"></i> 
+                    <span class="count bg-danger"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
                     aria-labelledby="notificationDropdown" id="alarm">
                     <h6 class="p-3 mb-0">Notifications</h6>
                     <div class="dropdown-divider"></div>
-                </div></li>
-            <li class="nav-item dropdown"><a class="nav-link"
-                id="profileDropdown" href="#" data-toggle="dropdown">
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                     <div class="navbar-profile">
                         <img class="img-xs rounded-circle"
                             src="${pageContext.request.contextPath}/img/images.jpg" alt="">
                         <p class="mb-0 d-none d-sm-block navbar-profile-name">${sessionScope.SESS_NAME }</p>
                         <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                     </div>
-            </a>
-                <div
-                    class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+                </a>
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
                     aria-labelledby="profileDropdown">
                     <h6 class="p-3 mb-0">Profile</h6>
                     <div class="dropdown-divider"></div>
@@ -190,7 +189,8 @@
                     </a>
                     <div class="dropdown-divider"></div>
                     <p class="p-3 mb-0 text-center">Advanced settings</p>
-                </div></li>
+                </div>
+            </li>
         </ul>
         <button
             class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"

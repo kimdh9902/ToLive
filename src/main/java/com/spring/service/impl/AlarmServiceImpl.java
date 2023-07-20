@@ -30,5 +30,16 @@ public class AlarmServiceImpl implements AlarmService{
 	public List<AlarmVO> getAlarmByUser(String user_id) {
 		return mapper.select10Alarm(user_id);
 	}
+
+	@Override
+	public boolean getIsOpenCount(String user_id) {
+		boolean result;
+		if(mapper.selectIsOpenCount(user_id) > 0) {
+			result = true;
+		}else {
+			result = false;
+		}
+		return result;
+	}
 	
 }

@@ -52,12 +52,29 @@
     		window.onload = function(){
     			init("${ pageContext.servletContext.contextPath}", "${sessionScope.SESS_ID}", "${sessionScope.SESS_NAME}");
     		}
+    		
 		</script>
 </head>
 <body>
 	<div class="container-scroller" id="container-scroller">
-        <p>테스트 노드이다@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@<br><br><br><br><br><br><br>
-        알겠느냐????</p>
+		<div class="container-fluid page-body-wrapper" id="container-body-wrapper">
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<div class="row">
+						<div class="col-12 grid-margin">
+							<div class="card">
+								<div class="card-body">
+									<p>테스트 노드이다@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@<br><br><br><br><br><br><br>
+					        		알겠느냐????</p>
+        						</div>
+        					</div>
+        				</div>
+        			</div>
+        		</div>
+			</div>
+		
+		</div>
+        
 	</div>
 </body>
 </html>

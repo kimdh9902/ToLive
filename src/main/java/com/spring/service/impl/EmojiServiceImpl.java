@@ -12,6 +12,12 @@ import lombok.RequiredArgsConstructor;
 public class EmojiServiceImpl implements EmojiService{
 	
 	private final EmojiMapper mapper;
+	
+	@Override
+	public Integer getEmoji(EmojiVO vo) {
+		return mapper.selectEmoji(vo);
+	}
+	
 	@Override
 	public void addEmoji(EmojiVO vo) {
 		mapper.insertEmoji(vo);

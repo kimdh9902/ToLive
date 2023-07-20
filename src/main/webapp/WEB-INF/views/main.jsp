@@ -136,7 +136,7 @@
 				<a class="card-title text-primary" style="text-align: left;"
 					href="${pageContext.request.contextPath}/main/">TriptoLive</a> 
 					<a class="sidebar-brand brand-logo-mini"
-					href="${pageContext.request.contextPath}/main"> <img
+					href="${pageContext.request.contextPath}/main/"> <img
 					src="${pageContext.request.contextPath}/resources/assets/images/logo-mini.svg"
 					alt="logo" /></a>
 				<!-- ---------------------------------------------------------------------------- -->
@@ -255,7 +255,7 @@
 				</li>
 			</ul>
 		</nav>
-		<div class="container-fluid page-body-wrapper">
+		<div class="container-fluid page-body-wrapper" id="container-body-wrapper">
 			<nav class="navbar p-0 fixed-top d-flex flex-row">
 				<div
 					class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
