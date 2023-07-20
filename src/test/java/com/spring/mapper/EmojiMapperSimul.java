@@ -31,12 +31,21 @@ public class EmojiMapperSimul {
 		mapper.insertEmoji(vo);
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testUpdate() {
 		EmojiVO vo = new EmojiVO();
 		vo.setEmoji_record(3);
 		vo.setB_no(1);
 		vo.setUser_id("user01");
 		mapper.updateEmoji(vo);
+	}
+	
+	@Test
+	public void testSelect() {
+		EmojiVO vo = new EmojiVO();
+		vo.setB_no(14);
+		vo.setUser_id("user01");
+		mapper.selectEmoji(vo);
+		log.info("123"+mapper.selectEmoji(vo));
 	}
 }
