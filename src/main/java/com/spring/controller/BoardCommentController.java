@@ -72,7 +72,26 @@ public class BoardCommentController {
             blackService.removeBlackList(user_id, block_account);
             break;
         default:
-            System.out.println("error");
+            System.out.println("???????????????????error???????????????????");
+            break;
+		}
+    }
+	
+	@GetMapping("/grade")
+	public void Grade(String mode) {
+		int result = -1;
+		switch(mode) {
+        case "":
+            result = 1;
+            break;
+        case "get":
+        	result = 2;
+            break;
+        case "remove":
+        	result = 3;
+            break;
+        default:
+            System.out.println("################error################");
             break;
 		}
     }
