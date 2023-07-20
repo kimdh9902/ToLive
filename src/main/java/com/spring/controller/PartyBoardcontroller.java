@@ -2,6 +2,7 @@ package com.spring.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.spring.domain.BoardVO;
 import com.spring.domain.PartyBoardVO;
+import com.spring.mapper.BoardMapper;
 import com.spring.mapper.PartyBoardMapper;
 import com.spring.service.PartyBoardService;
 
@@ -30,6 +33,9 @@ public class PartyBoardcontroller {
 
 	@Autowired
 	private PartyBoardMapper mapper;
+
+	@Autowired
+	private BoardMapper boardMapper;
 
 	// 파티 모집 게시판 상세 글 페이지로 이동
 	@GetMapping("/Pdetail")
@@ -78,16 +84,22 @@ public class PartyBoardcontroller {
 
 	// 등록 처리
 	@RequestMapping(value = "/pboard-insert", method = RequestMethod.POST)
-	public String insertPartyBoard(PartyBoardVO vo, HttpSession session) throws UnsupportedEncodingException {
-		vo.setTitle(new String(vo.getTitle()));
-		vo.setContents(new String(vo.getContents()));
-		vo.setUser_id((String) session.getAttribute("SESS_ID"));
+	public String insertPartyBoard(BoardVO bvo, PartyBoardVO pvo, HttpSession session)
+			throws UnsupportedEncodingException {
 
-		System.out.println(vo);
+		bvo.setUser_id((String) session.getAttribute("SESS_ID"));
+		bvo.setReg_date(new Date());		
 
-		int result = mapper.insertPartyBoard(vo);
+		int result = boardMapper.insertBoard(bvo);
+		
+		System.out.println("여기-"+result);
+		System.out.println("여기-"+boardMapper.insertBoard(bvo));
+		
+		int result2 = boardMapper.insertToParty(pvo);
+		
+		System.out.println("여기2-"+result2);
 
-		if (result > 0) {
+		if (result + result2 > 0) {
 			return "redirect:/menu/partyBoard/";
 		} else {
 			return "redirect:/partyBoard/pboard-write";
@@ -96,34 +108,35 @@ public class PartyBoardcontroller {
 
 	// 수정 페이지로 이동
 	@RequestMapping(value = "/pboard-update", method = RequestMethod.GET)
-	public String pupdate(Model model, @RequestParam("party_b_no") int party_b_no) {
-		model.addAttribute("partyBoard", mapper.selectOnePartyBoard(party_b_no));
+	public String pupdate(Model model, @RequestParam("b_no") int b_no) {
+		model.addAttribute("partyBoard", mapper.selectOnePartyBoard(b_no));
 		return "pboard-update";
 
 	}
 
 	// 수정 처리
 	@RequestMapping(value = "/board-pupdate", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-	public String updatePBoard(PartyBoardVO vo) {
-		System.out.println("여기-" + vo);
-		int result = mapper.updatePartyBoard(vo);
-		if (result > 0) {
-			return "redirect:Pdetail?party_b_no=" + vo.getParty_b_no();
+	public String updatePBoard(BoardVO bvo, PartyBoardVO pvo) {
+
+		int result = boardMapper.updateBoard(bvo);
+		int result2 = boardMapper.updatePartyBoard(pvo);
+
+		if (result + result2 > 0) {
+			return "redirect:Pdetail?b_no=" + bvo.getB_no();
 		} else {
-			return "redirect:partyBoard/pboard-update?party_b_no=" + vo.getParty_b_no();
+			return "redirect:partyBoard/pboard-update?b_no=" + bvo.getB_no();
 		}
 	}
 
 	// 삭제 처리
 	@GetMapping(value = "/pboard-delete")
-	public String delete(int party_b_no) {
+	public String delete(@RequestParam("b_no") int b_no) {
+		boolean success = mapper.deletePartyBoard(b_no);
 
-		boolean success = mapper.deletePartyBoard(party_b_no);
-		System.out.println(mapper.deletePartyBoard(party_b_no));
 		if (success) {
 			return "redirect:/menu/partyBoard/";
 		} else {
-			return "redirect:Pdetail?party_b_no=" + party_b_no;
+			return "redirect:Pdetail?b_no=" + b_no;
 		}
 	}
 

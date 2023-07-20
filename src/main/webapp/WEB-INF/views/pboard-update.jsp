@@ -91,7 +91,7 @@
       <h2 style="text-align: center;">파티 모집 게시글 수정 페이지</h2>
       <form action="${pageContext.request.contextPath}/partyBoard/board-pupdate" method="post" accept-charset="UTF-8">
             <div class="row">
-            <input type="hidden" name="party_b_no" value="${partyBoard.party_b_no}">
+            <input type="hidden" name="b_no" value="${partyBoard.b_no}">
             <div class="mb-3 mt-3 col p-3">
                <label for="title">제목:</label> 
                <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요" value="${partyBoard.title}" >

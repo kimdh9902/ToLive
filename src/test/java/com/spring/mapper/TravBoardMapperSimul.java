@@ -60,4 +60,13 @@ public class TravBoardMapperSimul {
 		assertNotNull(list);
 	}
 
+	
+	@Test
+
+	public void deleteTravBoard() {// 프로필(사용자 아이디로 조회)
+		log.info(mapper);
+		int b_no=56;		
+		assertNotNull(mapper.deleteTravBoard(b_no));
+		log.info(mapper.deleteTravBoard(b_no));
+	}
 }

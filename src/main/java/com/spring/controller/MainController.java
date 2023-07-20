@@ -23,8 +23,7 @@ public class MainController {
 	            isAuth = (boolean) auth;
 	        }
 		}
-		if(isAuth) {	
-			
+		if(isAuth) {				
 			path = "redirect:/menu/travBoard"; 
 		}else {
 			path = "redirect:/auth/login?msg=You are Not allowed, Plz login!";

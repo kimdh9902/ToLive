@@ -53,7 +53,7 @@
 		trav_b_no=#{trav_b_no}
 	</update>
 	<delete id="deleteTravBoard">
-	delete from trav_board where trav_b_no=#{trav_b_no}
+	delete from trav_board where trav_b_no=#{b_no}
 	</delete>
 	<!-- 프로필 -->
 	<select id="selectAllBoard"

@@ -18,11 +18,20 @@
 		(trav_b_no) values
 		(seq_b_no.currval)
 	</insert>
+		<insert id="insertToParty" parameterType="com.spring.domain.PartyBoardVO">
+		INSERT INTO party_board
+		(party_b_no, max_people) VALUES
+		(seq_b_no.currval, #{max_people})
+	</insert>
 	<update id="updateBoard">
 		update board
 		set title=#{title}
 		,contents=#{contents}		
 		where b_no =#{b_no}
+	</update>
+	<update id="updatePartyBoard">
+		update party_board set max_people=#{max_people}
+		where party_b_no=#{b_no}
 	</update>
 	<update id="updateBoardByIsHidden">
 		update board set is_hidden=1 where b_no =#{b_no}

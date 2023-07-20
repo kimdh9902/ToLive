@@ -88,14 +88,15 @@
 	document.querySelector("#no")
 	
 	function goUpdate() {
-	var party_b_no = "<%=request.getParameter("party_b_no")%>";
-	location.href = "${pageContext.servletContext.contextPath}/partyBoard/pboard-update?party_b_no=" + party_b_no;
+	var b_no = "<%=request.getParameter("b_no")%>";
+	location.href = "${pageContext.servletContext.contextPath}/partyBoard/pboard-update?b_no=" + b_no;
 	}
 	
 	function goDelete() {
-		var party_b_no = "<%=request.getParameter("party_b_no")%>";
-		location.href = "${pageContext.servletContext.contextPath}/partyBoard/pboard-delete?party_b_no="+ party_b_no;
-		}
+		var b_no = "<%=request.getParameter("b_no")%>";
+		location.href = "${pageContext.servletContext.contextPath}/partyBoard/pboard-delete?b_no="+ b_no;
+
+	}
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet"
@@ -233,57 +234,51 @@
 						</div>
 					</div> <!-- 프로필 끝 -->
 				</li>
-			
+
 				<!-- 여행 후기글 -->
-				<li class="nav-item menu-items">
-				<a class="nav-link" href="${pageContext.request.contextPath}/menu/travBoard/"> 
-				<span class="menu-icon"> <i class="mdi mdi-airballoon"></i></span> 
-				<span class="menu-title">여행 후기글</span>
+				<li class="nav-item menu-items"><a class="nav-link"
+					href="${pageContext.request.contextPath}/menu/travBoard/"> <span
+						class="menu-icon"> <i class="mdi mdi-airballoon"></i></span> <span
+						class="menu-title">여행 후기글</span>
 				</a></li>
 
 				<!-- 파티 찾기 -->
-				<li class="nav-item menu-items">
-				<a class="nav-link" href="${pageContext.request.contextPath}/menu/partyBoard/"> 
-				<span class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span>
-				<span class="menu-title">파티 찾기</span>
+				<li class="nav-item menu-items"><a class="nav-link"
+					href="${pageContext.request.contextPath}/menu/partyBoard/"> <span
+						class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span>
+						<span class="menu-title">파티 찾기</span>
 				</a></li>
 
 				<!-- 명예의 전당 -->
-				<li class="nav-item menu-items">
-				<a class="nav-link" href="${pageContext.request.contextPath}/menu/starBoard"> 
-				<span class="menu-icon"> <i class="mdi mdi-trophy-variant"></i></span> 
-				<span class="menu-title">명예의 전당</span>
+				<li class="nav-item menu-items"><a class="nav-link"
+					href="${pageContext.request.contextPath}/menu/starBoard"> <span
+						class="menu-icon"> <i class="mdi mdi-trophy-variant"></i></span> <span
+						class="menu-title">명예의 전당</span>
 				</a></li>
-		
+
 				<!-- 친구 -->
-				<li class="nav-item menu-items">
-					<a class="nav-link" href="#auth" data-toggle="collapse" aria-expanded="false" aria-controls="auth"> 
-						<span class="menu-icon">
-							<i class="mdi mdi-account-multiple-outline"></i>
-						</span>
-						<span class="menu-title">친구</span>
-						<i class="menu-arrow"></i>
-					</a>
-					
-					<!-- 유저 검색 -->
+				<li class="nav-item menu-items"><a class="nav-link"
+					href="#auth" data-toggle="collapse" aria-expanded="false"
+					aria-controls="auth"> <span class="menu-icon"> <i
+							class="mdi mdi-account-multiple-outline"></i>
+					</span> <span class="menu-title">친구</span> <i class="menu-arrow"></i>
+				</a> <!-- 유저 검색 -->
 					<div class="collapse" id="auth">
 						<ul class="nav flex-column sub-menu">
-							<li class="nav-item"> 
-							<a class="nav-link" href="${pageContext.request.contextPath}/menu/findUser"> 
-							<span class="menu-icon"> 
-							<i class="mdi mdi-account-multiple-plus"></i></span> 
-							<span class="menu-title">유저 검색</span>
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/menu/findUser"> <span
+									class="menu-icon"> <i
+										class="mdi mdi-account-multiple-plus"></i></span> <span
+									class="menu-title">유저 검색</span>
 							</a></li>
-						<!-- 친구 목록 -->	
-						  <li class="nav-item"> 
-						  <a class="nav-link" href="${pageContext.request.contextPath}/menu/friendList"> 
-							<span class="menu-icon"> 
-							<i class="mdi mdi-folder-account"></i></span> 
-							<span class="menu-title">친구 목록</span>
+							<!-- 친구 목록 -->
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/menu/friendList"> <span
+									class="menu-icon"> <i class="mdi mdi-folder-account"></i></span>
+									<span class="menu-title">친구 목록</span>
 							</a></li>
 						</ul>
-		            </div>
-				</li>
+					</div></li>
 			</ul>
 		</nav>
 		<div class="container-fluid page-body-wrapper">
@@ -386,7 +381,7 @@
 													<th>현재 모집된 인원</th>
 													<th>최대 인원</th>
 													<th>작성자</th>
-													<th>작성일</th>	
+													<th>작성일</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -397,7 +392,7 @@
 													<td>${now_people}</td>
 													<td>${max_people}</td>
 													<td>${user_id}</td>
-													<td>${reg_date}</td>		
+													<td>${reg_date}</td>
 													<td></td>
 												</tr>
 											</tbody>
@@ -406,15 +401,15 @@
 								</div>
 								<!--글 수정 버튼-->
 								<div style="text-align: center;" class="card-footer">
-								<button class="btn btn-outline-primary"
-								style="width: 90px; height: 26px; margin-top: 10px;"
-								type="button" onclick="goUpdate();">글 수정</button>
-								
-								<!--글 삭제 버튼-->
-								<button class="btn btn-outline-primary"
-								style="width: 90px; height: 26px; margin-top: 10px;"
-								type="button" onclick="goDelete();">글 삭제</button>
-								
+									<button class="btn btn-outline-primary"
+										style="width: 90px; height: 26px; margin-top: 10px;"
+										type="button" onclick="goUpdate();">글 수정</button>
+
+									<!--글 삭제 버튼-->
+									<button class="btn btn-outline-primary"
+										style="width: 90px; height: 26px; margin-top: 10px;"
+										type="button" onclick="goDelete();">글 삭제</button>
+
 								</div>
 							</div>
 						</div>

@@ -46,6 +46,7 @@ public class TravBoardController {
 		int SESS_GRADE = (int) session.getAttribute("SESS_GRADE");
 		if (request.getParameter("b_no") != null) {
 			if (SESS_GRADE != 7) {
+
 				travBoardService.modifyTravBoardPlusView(Integer.parseInt(request.getParameter("b_no"))); // 제목 클릭 시 조회수
 																											// 증가
 				TravBoardVO vo = travBoardService.getBoard(Integer.parseInt(request.getParameter("b_no")));
@@ -59,6 +60,7 @@ public class TravBoardController {
 				System.out.println(vo);
 
 				return "detail";
+
 			} else {
 				TravBoardVO vo = travBoardService.getBoard(Integer.parseInt(request.getParameter("b_no")));
 				model.addAttribute("title", vo.getTitle());
@@ -110,7 +112,7 @@ public class TravBoardController {
 
 	// 수정 처리
 	@RequestMapping(value = "/board-tupdate", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-	public String updateBoard(BoardVO bvo, TravBoardVO tvo) {		
+	public String updateBoard(BoardVO bvo, TravBoardVO tvo) {
 
 		int result = boardMapper.updateBoard(bvo);
 
@@ -123,12 +125,12 @@ public class TravBoardController {
 
 	// 삭제 처리
 	@RequestMapping(value = "/board-delete", method = RequestMethod.GET)
-	public String delete(int trav_b_no) {
-		boolean success = travBoardMapper.deleteTravBoard(trav_b_no);
+	public String delete(@RequestParam("b_no") int b_no) {
+		boolean success = travBoardMapper.deleteTravBoard(b_no);
 		if (success) {
 			return "redirect:/menu/travBoard/";
 		} else {
-			return "redirect:detail?trav_b_no=" + trav_b_no;
+			return "redirect:detail?b_no=" + b_no;
 		}
 	}
 

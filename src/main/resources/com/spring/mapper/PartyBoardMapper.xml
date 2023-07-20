@@ -3,10 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mapper.PartyBoardMapper">
-	<insert id="insertPartyBoard">
-		INSERT INTO party_board(party_b_no, max_people)
-		VALUES(#{party_b_no}, #{max_people})
-	</insert>
 	<select id="selectPartyBoardList"
 		resultType="com.spring.domain.PartyBoardVO">
 		SELECT 
@@ -64,7 +60,7 @@
 	</update>
 	<delete id="deletePartyBoard">
 		delete from party_board 
-		where party_b_no=#{party_b_no}
+		where party_b_no=#{b_no}
 	</delete>
 	<delete id="deletePartyBoardWhenRecruitComplete">
 		delete from party_board where now_people>=max_people

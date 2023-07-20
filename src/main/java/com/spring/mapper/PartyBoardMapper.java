@@ -25,7 +25,7 @@ public interface PartyBoardMapper {
 	int updatePartyBoardPlusMember(int party_b_no);
 
 	// 파티 모집 게시판 글 삭제
-	boolean deletePartyBoard(int party_b_no);
+	boolean deletePartyBoard(int b_no);
 
 	// 파티 모집 게시판 글 삭제(모집 인원 충족 시)
 	int deletePartyBoardWhenRecruitComplete(PartyBoardVO vo);

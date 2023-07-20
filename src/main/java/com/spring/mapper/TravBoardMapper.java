@@ -18,7 +18,7 @@ public interface TravBoardMapper {
 	int updateTravBoardPlusView(int trav_b_no);
 	
 	//글 삭제
-	boolean deleteTravBoard(int trav_b_no);
+	boolean deleteTravBoard(int b_no);
 
 // -------------------------------- 프로필 ----------------------------------
 

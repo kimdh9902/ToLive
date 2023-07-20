@@ -86,7 +86,6 @@
 		}
 	}
 	document.querySelector("#no")
-
 	
 	function goUpdate() {
 	var b_no = "<%=request.getParameter("b_no")%>";
@@ -94,9 +93,11 @@
 	}
 	
 	function goDelete() {
-		var trav_b_no = "<%=request.getParameter("b_no")%>";
-		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no=" + b_no;
-		}
+		var b_no = "<%=request.getParameter("b_no")%>
+	";
+		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no="
+				+ b_no;
+	}
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet"
@@ -233,58 +234,52 @@
 							</a>
 						</div>
 					</div> <!-- 프로필 끝 -->
-				</li>		
+				</li>
 
 				<!-- 여행 후기글 -->
-				<li class="nav-item menu-items">
-				<a class="nav-link" href="${pageContext.request.contextPath}/menu/travBoard/"> 
-				<span class="menu-icon"> <i class="mdi mdi-airballoon"></i></span> 
-				<span class="menu-title">여행 후기글</span>
+				<li class="nav-item menu-items"><a class="nav-link"
+					href="${pageContext.request.contextPath}/menu/travBoard/"> <span
+						class="menu-icon"> <i class="mdi mdi-airballoon"></i></span> <span
+						class="menu-title">여행 후기글</span>
 				</a></li>
 
 				<!-- 파티 찾기 -->
-				<li class="nav-item menu-items">
-				<a class="nav-link" href="${pageContext.request.contextPath}/menu/partyBoard/"> 
-				<span class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span>
-				<span class="menu-title">파티 찾기</span>
+				<li class="nav-item menu-items"><a class="nav-link"
+					href="${pageContext.request.contextPath}/menu/partyBoard/"> <span
+						class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span>
+						<span class="menu-title">파티 찾기</span>
 				</a></li>
 
 				<!-- 명예의 전당 -->
-				<li class="nav-item menu-items">
-				<a class="nav-link" href="${pageContext.request.contextPath}/menu/starBoard"> 
-				<span class="menu-icon"> <i class="mdi mdi-trophy-variant"></i></span> 
-				<span class="menu-title">명예의 전당</span>
+				<li class="nav-item menu-items"><a class="nav-link"
+					href="${pageContext.request.contextPath}/menu/starBoard"> <span
+						class="menu-icon"> <i class="mdi mdi-trophy-variant"></i></span> <span
+						class="menu-title">명예의 전당</span>
 				</a></li>
-		
+
 				<!-- 친구 -->
-				<li class="nav-item menu-items">
-					<a class="nav-link" href="#auth" data-toggle="collapse" aria-expanded="false" aria-controls="auth"> 
-						<span class="menu-icon">
-							<i class="mdi mdi-account-multiple-outline"></i>
-						</span>
-						<span class="menu-title">친구</span>
-						<i class="menu-arrow"></i>
-					</a>
-					
-					<!-- 유저 검색 -->
+				<li class="nav-item menu-items"><a class="nav-link"
+					href="#auth" data-toggle="collapse" aria-expanded="false"
+					aria-controls="auth"> <span class="menu-icon"> <i
+							class="mdi mdi-account-multiple-outline"></i>
+					</span> <span class="menu-title">친구</span> <i class="menu-arrow"></i>
+				</a> <!-- 유저 검색 -->
 					<div class="collapse" id="auth">
 						<ul class="nav flex-column sub-menu">
-							<li class="nav-item"> 
-							<a class="nav-link" href="${pageContext.request.contextPath}/menu/findUser"> 
-							<span class="menu-icon"> 
-							<i class="mdi mdi-account-multiple-plus"></i></span> 
-							<span class="menu-title">유저 검색</span>
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/menu/findUser"> <span
+									class="menu-icon"> <i
+										class="mdi mdi-account-multiple-plus"></i></span> <span
+									class="menu-title">유저 검색</span>
 							</a></li>
-						<!-- 친구 목록 -->	
-						  <li class="nav-item"> 
-						  <a class="nav-link" href="${pageContext.request.contextPath}/menu/friendList"> 
-							<span class="menu-icon"> 
-							<i class="mdi mdi-folder-account"></i></span> 
-							<span class="menu-title">친구 목록</span>
+							<!-- 친구 목록 -->
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/menu/friendList"> <span
+									class="menu-icon"> <i class="mdi mdi-folder-account"></i></span>
+									<span class="menu-title">친구 목록</span>
 							</a></li>
 						</ul>
-		            </div>
-				</li>
+					</div></li>
 			</ul>
 		</nav>
 		<div class="container-fluid page-body-wrapper">
@@ -375,64 +370,86 @@
 						<div class="col-12 grid-margin">
 							<div class="card">
 								<div class="card-body">
-									<h3 class="card-title"></h3>
-									<h3 class="card-title"></h3>
+									<h3 class="card-title"><%=request.getParameter("b_no")%></h3>
+									<h3 class="card-title">${title}</h3>
 									<div class="table-responsive">
 										<table class="table">
 											<thead>
 												<tr>
-													<th>글 번호</th>
-													<th>제목</th>
+													<!-- <th>글 번호</th> -->
+													<!-- <th>제목</th> -->
 													<th>내용</th>
 													<th>작성자</th>
-													<th>공감 수</th>	
-													<th>작성일</th>													
+													<th>공감 수</th>
+													<th>작성일</th>
 													<th>조회수</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
-													<td><%=request.getParameter("b_no")%></td>
-													<td>${title}</td>
+													<%-- <td><%=request.getParameter("b_no")%></td> --%>
+													<%-- <td>${title}</td> --%>
 													<td>${contents}</td>
 													<td>${user_id}</td>
-													<td>${total_emoji}</td>		
-													<td>${reg_date}</td>										
+													<td>${total_emoji}</td>
+													<td>${reg_date}</td>
 													<td>${views}</td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
 								</div>
-								<!--글 수정 버튼-->
-								<div style="text-align: center;" class="card-footer">
-								<button class="btn btn-outline-primary" style="width: 90px; height: 26px; margin-top: 10px;"
-								type="button" onclick="goUpdate();">글 수정</button>
-								
-								<!--글 삭제 버튼-->								
-								<button class="btn btn-outline-primary"
-										style="width: 90px; height: 26px; margin-top: 10px;"
-										type="button" onclick="goDelete();">글 삭제</button>
+								<!--댓글-->
+								<div class="card">
+									<div class="card-body">
+										<h3 class="card-title"></h3>
+										<div class="table-responsive">
+											<div>
+												<c:forEach var="boardCommentList"
+													items="${requestScope.boardCommentList}">
+													<div style="display: flex;">
+														<img
+															src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
+															style="margin-right: 20px; width: 47px; height: 47px;">
+														<span>${boardCommentList.user_id}<br>${boardCommentList.contents}</span>
+														<br>
+													</div>
+													<div class="dropdown-divider"></div>
+												</c:forEach>
+											</div>
+										</div>
+									</div>
+
+									<!--글 수정 버튼-->
+									<div style="text-align: center;" class="card-footer">
+										<button class="btn btn-outline-primary"
+											style="width: 90px; height: 26px; margin-top: 10px;"
+											type="button" onclick="goUpdate();">글 수정</button>
+
+										<!--글 삭제 버튼-->
+										<button class="btn btn-outline-primary"
+											style="width: 90px; height: 26px; margin-top: 10px;"
+											type="button" onclick="goDelete();">글 삭제</button>
+									</div>
 								</div>
 							</div>
+							<!-- 테이블 끝 -->
 						</div>
-						<!-- 테이블 끝 -->
+						<!-- 컨텐츠 박스 끝 -->
 					</div>
-					<!-- 컨텐츠 박스 끝 -->
+					<!-- 컨텐츠 컨테이너 끝-->
+					<footer class="footer">
+						<div
+							class="d-sm-flex justify-content-center justify-content-sm-between">
+							<span
+								class="text-muted d-block text-center text-sm-left d-sm-inline-block">3조
+								프로젝트</span>
+							<!-- <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates</a> from Bootstrapdash.com</span> -->
+						</div>
+					</footer>
 				</div>
-				<!-- 컨텐츠 컨테이너 끝-->
-				<footer class="footer">
-					<div
-						class="d-sm-flex justify-content-center justify-content-sm-between">
-						<span
-							class="text-muted d-block text-center text-sm-left d-sm-inline-block">3조
-							프로젝트</span>
-						<!-- <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin templates</a> from Bootstrapdash.com</span> -->
-					</div>
-				</footer>
+				<!-- 메인 패널 끝 -->
 			</div>
-			<!-- 메인 패널 끝 -->
 		</div>
-	</div>
 </body>
 </html>
