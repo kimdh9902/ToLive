@@ -25,7 +25,7 @@ public class BoardCommentSimul {
 
 	@Test
 	public void test() {
-		List<BoardCommentVO> list = mapper.selectComments(1);
+		List<BoardCommentVO> list = mapper.selectComments(14);
 		assertNotNull(list);
 	}
 
