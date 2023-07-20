@@ -10,6 +10,7 @@ import lombok.ToString;
 public class AlarmVO {
 	int alarm_no;
 	String user_id;
+	String prof_img;
 	int b_no;
 	String msg;
 	int is_open;

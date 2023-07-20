@@ -64,9 +64,14 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "/alarm", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public List<AlarmVO> getalarm(String user_id) {
+	public List<AlarmVO> getAlarm(String user_id) {
 		List<AlarmVO> alList = alarmService.getAlarmByUser(user_id);
 		return alList;
+	}
+	
+	@GetMapping(value = "/is-alarm", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public boolean getIsAlarm(String user_id) {
+		return alarmService.getIsOpenCount(user_id);
 	}
 	
 	@GetMapping("/blacklist-add")
