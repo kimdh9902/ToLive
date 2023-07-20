@@ -2,7 +2,10 @@ package com.spring.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,9 +30,13 @@ public class BoardCommentController {
 		commentService.addComment(vo);
 	}
 	
-	@GetMapping("/select-comments")
-	public List<BoardCommentVO> SelectComments(int b_no){
-		return commentService.getComments(b_no);
+	@GetMapping("/boardComment")
+	public String SelectComments(Model model, int b_no){
+		List<BoardCommentVO> boardCommentList = commentService.getComments(b_no);
+		System.out.println("ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ");
+		System.out.println(boardCommentList);
+		model.addAttribute("boardCommentList", boardCommentList);
+		return "boardComment";
 	}
 	
 	@GetMapping("/update-emoji")

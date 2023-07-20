@@ -7,6 +7,6 @@
   		INSERT INTO board_comments values(#{b_no}, #{user_id}, #{contents})
   	</insert>
   	<select id="selectComments" resultType="com.spring.domain.BoardCommentVO">
-  		SELECT contents FROM board_comments WHERE b_no = #{b_no}
+  		SELECT user_id, contents FROM board_comments WHERE b_no = #{b_no}
   	</select>
   </mapper>
