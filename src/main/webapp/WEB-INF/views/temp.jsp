@@ -142,8 +142,8 @@
                 <a class="nav-link count-indicator dropdown-toggle"
                 id="notificationDropdown" href="#" data-toggle="dropdown"
                 onclick="ajaxCall()"> 
-                <i class="mdi mdi-bell"></i> 
-                <span class="count bg-danger"></span>
+                    <i class="mdi mdi-bell"></i> 
+                    <span class="count bg-danger"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
                     aria-labelledby="notificationDropdown" id="alarm">

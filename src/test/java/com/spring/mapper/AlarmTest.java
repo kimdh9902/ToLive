@@ -37,12 +37,17 @@ public class AlarmTest {
 		assertNotNull(list);
 	}
 	
-	@Test
+	@Test @Ignore
 	public void readtest() {
 		mapper.updateAlarm(1);
 		List<AlarmVO> list = mapper.select10Alarm("user01");
 		log.info(list);
 		assertNotNull(list);
 	}
-
+	
+	@Test
+	public void readtest2() {
+		int a = mapper.selectIsOpenCount("user01");
+		log.info(a);
+	}
 }

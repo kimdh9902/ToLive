@@ -52,6 +52,7 @@
     		window.onload = function(){
     			init("${ pageContext.servletContext.contextPath}", "${sessionScope.SESS_ID}", "${sessionScope.SESS_NAME}");
     		}
+    		
 		</script>
 </head>
 <body>
