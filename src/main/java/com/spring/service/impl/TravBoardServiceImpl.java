@@ -20,33 +20,13 @@ public class TravBoardServiceImpl implements TravBoardService {
 	private final TravBoardMapper mapper;
 
 	@Override
-	public int registerTravBoard(TravBoardVO vo) {
-		return mapper.insertTravBoard(vo);
-	}
-
-	@Override
-	public List<TravBoardVO> getTravBoardList() {
-		return mapper.selectTravBoardList();
+	public List<TravBoardVO> getTravBoardList(String user_id) {
+		return mapper.selectTravBoardList(user_id);
 	}
 
 	@Override
 	public TravBoardVO getBoard(int trav_b_no) {
-		return mapper.selectBoard(trav_b_no);
-	}
-
-	@Override
-	public int modifyTravBoard(TravBoardVO vo) {
-		return mapper.updateTravBoard(vo);
-	}
-
-	@Override
-	public int modifyTravBoardByIsHidden(int trav_b_no) {
-		return mapper.updateTravBoardByIsHidden(trav_b_no);
-	}
-
-	@Override
-	public int modifyTravBoardToPublic(int trav_b_no) {
-		return mapper.updateTravBoardToPublic(trav_b_no);
+		return mapper.selectOneBoard(trav_b_no);
 	}
 
 	@Override
@@ -55,13 +35,13 @@ public class TravBoardServiceImpl implements TravBoardService {
 	}
 
 	@Override
-	public boolean removeTravBoard(int trav_b_no) {
-		return mapper.deleteTravBoard(trav_b_no);
+	public List<TravBoardVO> getAllBoard(String user_id) {// 프로필
+		return mapper.selectAllBoard(user_id);
 	}
 
 	@Override
-	public List<TravBoardVO> getAllBoard(String user_id) {
-		return mapper.selectAllBoard(user_id);
+	public boolean removeTravBoard(int trav_b_no) {
+		return mapper.deleteTravBoard(trav_b_no);
 	}
 
 }

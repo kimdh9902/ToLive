@@ -1,6 +1,6 @@
 package com.spring.mapper;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -24,58 +24,24 @@ public class TravBoardMapperSimul {
 	@Setter(onMethod_ = @Autowired)
 	private TravBoardMapper mapper;
 
-	@Test	
-	@Ignore
-	public void testinsertTravBoard() { // 여행 후기글 삽입
-		log.info(mapper);
-		TravBoardVO vo=new TravBoardVO();
-		vo.setTitle("너와 나");
-		vo.setContents("우리 둘이 함께 가자");
-		vo.setUser_id("user01");
-		assertNotNull(mapper.insertTravBoard(vo));
-	}
-
 	@Test
 	@Ignore
 	public void testselectTravBoardList() { // 여행 후기글 전체 출력(해쉬태그 x)
 		log.info(mapper);
-		List<TravBoardVO> list = mapper.selectTravBoardList();
+		List<TravBoardVO> list = mapper.selectTravBoardList("user03");
 		log.info(list);
 		assertNotNull(list);
 	}
 
 	@Test
 	@Ignore
-	public void testselectBoard() {// 글 상세조회 --> 해쉬태그 읽어들어오지 못함->해쉬태그 하나만 일
+	public void testselectBoard() {// 글 상세조회
 		log.info(mapper);
-		int trav_b_no = 37;
-		assertNotNull(mapper.selectBoard(trav_b_no));
-		log.info(mapper.selectBoard(trav_b_no));
-	}
-
-	@Test
-	@Ignore
-	public void testupdateTravBoard() {// 여행 후기글 수정(본인이 쓴 여행 후기글)
-		log.info(mapper);
+		int b_no = 19;
 		TravBoardVO vo = new TravBoardVO();
-		vo.setTitle("사랑스러운 우리 마고");
-		vo.setContents("오랜만의 바다여행에 한껏 신난 살랑살랑 꼬리");
-		vo.setTrav_b_no(119);
-		System.out.println(mapper.updateTravBoard(vo));
-	}
-
-	@Test
-	@Ignore
-	public void testupdateTravBoardByIsHidden() {// 여행 후기글 숨기기(해쉬태그 x)
-		log.info(mapper);
-		System.out.println(mapper.updateTravBoardByIsHidden(1));
-	}
-
-	@Test
-	@Ignore
-	public void testupdateTravBoardToPublic() {// 여행 후기글 공개로 전환(해쉬태그 x)
-		log.info(mapper);
-		System.out.println(mapper.updateTravBoardToPublic(1));
+		vo.setTrav_b_no(b_no);
+		assertNotNull(mapper.selectOneBoard(b_no));
+		log.info(mapper.selectOneBoard(b_no));
 	}
 
 	@Test
@@ -83,13 +49,6 @@ public class TravBoardMapperSimul {
 	public void testupdateTravBoardPlusView() {// 조회수 증가
 		log.info(mapper);
 		System.out.println(mapper.updateTravBoardPlusView(1));
-	}
-
-	@Test
-	@Ignore
-	public void testdeleteTravBoard() { // 여행 후기글 삭제
-		log.info(mapper);
-		System.out.println(mapper.deleteTravBoard(83));
 	}
 
 	@Test

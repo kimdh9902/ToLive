@@ -12,10 +12,10 @@ public interface PartyBoardService {
 	int registerPartyBoard(PartyBoardVO vo);
 
 	// 파티 모집 게시판 글 전체 출력
-	public List<PartyBoardVO> getAllPartyBoard();
+	public List<PartyBoardVO> getPartyBoardList();
 
-	// 파티 모집 게시판 글번호로 조회
-	PartyBoardVO getPartyBoardByPartyBNo(int party_b_no);
+	// 파티 모집 게시판 글 번호로 상세 조회
+	PartyBoardVO getOnePartyBoard(int party_b_no);
 
 	// 파티 모집 게시판 글 조회(사용자 아이디)
 	public List<PartyBoardVO> getPartyBoardById(String user_id);

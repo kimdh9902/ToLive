@@ -91,7 +91,7 @@
       <h2 style="text-align: center;"> 여행 후기글 수정 페이지</h2>
       <form action="${pageContext.request.contextPath}/travBoard/board-tupdate" method="post" accept-charset="UTF-8">
             <div class="row">
-            <input type="hidden" name="trav_b_no" value="${travBoard.trav_b_no}">
+            <input type="hidden" name="b_no" value="${travBoard.b_no}">
             <div class="mb-3 mt-3 col p-3">
                <label for="title">제목:</label> 
                <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요" value="${travBoard.title}" >
@@ -101,6 +101,7 @@
                <div class="form-control" id="id">${requestScope.travBoardList.user_id == null ? sessionScope.SESS_ID : requestScope.travBoardList.user_id}</div>
             </div>
          </div>
+
          <div class="mb-3 mt-3">
             <label for="contents">내용:</label>
             <textarea class="form-control" id="contents" name="contents" rows="5" placeholder="내용을 입력해주세요">${travBoard.contents}</textarea>

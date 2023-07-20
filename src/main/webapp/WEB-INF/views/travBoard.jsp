@@ -228,40 +228,57 @@
 							</a>
 						</div>
 					</div> <!-- 프로필 끝 -->
-				</li>
+				</li>				
 				<!-- 메인 -->
-				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/main/"> <span
-						class="menu-icon"> <i class="mdi mdi-bulletin-board"></i>
-					</span> <span class="menu-title">메인</span>
-				</a></li>
-				<!-- 메인 -->
-				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/menu/travBoard/"> <span
-						class="menu-icon"> <i class="mdi mdi-airballoon"></i>
-					</span> <span class="menu-title">여행 후기글</span>
-				</a></li>
-
-				<!-- 친구 검색 -->
-				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/menu/partyBoard/"> <span
-						class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span>
-						<span class="menu-title">파티 찾기</span>
+				<li class="nav-item menu-items">
+				<a class="nav-link" href="${pageContext.request.contextPath}/menu/travBoard/"> 
+					<span class="menu-icon"> <i class="mdi mdi-airballoon"></i></span> 
+					<span class="menu-title">여행 후기글</span>
 				</a></li>
 
 				<!-- 파티 찾기 -->
-				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/menu/findUser"> <span
-						class="menu-icon"> <i class="mdi mdi-account-search"></i></span> <span
-						class="menu-title">친구 검색</span>
-				</a></li>
+				<li class="nav-item menu-items">
+				<a class="nav-link" href="${pageContext.request.contextPath}/menu/partyBoard/"> 
+				<span class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span>
+					<span class="menu-title">파티 찾기</span>
+				</a></li>			
 
 				<!-- 명예의 전당 -->
-				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/menu/starBoard"> <span
-						class="menu-icon"> <i class="mdi mdi-trophy-variant"></i></span> <span
-						class="menu-title">명예의 전당</span>
+				<li class="nav-item menu-items">
+				<a class="nav-link" href="${pageContext.request.contextPath}/menu/starBoard"> 
+				<span class="menu-icon"> <i class="mdi mdi-trophy-variant"></i></span> 
+				<span class="menu-title">명예의 전당</span>
 				</a></li>
+				
+				<!-- 친구 -->
+				<li class="nav-item menu-items">
+					<a class="nav-link" href="#auth" data-toggle="collapse" aria-expanded="false" aria-controls="auth"> 
+						<span class="menu-icon">
+							<i class="mdi mdi-account-multiple-outline"></i>
+						</span>
+						<span class="menu-title">친구</span>
+						<i class="menu-arrow"></i>
+					</a>
+					
+					<!-- 유저 검색 -->
+					<div class="collapse" id="auth">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"> 
+							<a class="nav-link" href="${pageContext.request.contextPath}/menu/findUser"> 
+							<span class="menu-icon"> 
+							<i class="mdi mdi-account-multiple-plus"></i></span> 
+							<span class="menu-title">유저 검색</span>
+							</a></li>
+						<!-- 친구 목록 -->	
+						  <li class="nav-item"> 
+						  <a class="nav-link" href="${pageContext.request.contextPath}/menu/friendList"> 
+							<span class="menu-icon"> 
+							<i class="mdi mdi-folder-account"></i></span> 
+							<span class="menu-title">친구 목록</span>
+							</a></li>
+						</ul>
+		            </div>
+				</li>
 			</ul>
 		</nav>
 		<div class="container-fluid page-body-wrapper">
@@ -359,7 +376,8 @@
 												<tr>
 													<th>글 번호</th>
 													<th>제목</th>
-													<th>아이디</th>
+													<th>작성자</th>
+													<th>작성일</th>
 													<th>조회수</th>
 												</tr>
 											</thead>
@@ -367,10 +385,11 @@
 												<c:forEach var="travBoardList"
 													items="${requestScope.travBoardList}">
 													<tr>
-														<td>${travBoardList.trav_b_no}</td>
-														<td><a href="${pageContext.request.contextPath}/travBoard/detail?trav_b_no=${travBoardList.trav_b_no}">
+														<td>${travBoardList.b_no}</td>
+														<td><a href="${pageContext.request.contextPath}/travBoard/detail?b_no=${travBoardList.b_no}">
 																${travBoardList.title}</a></td>
 														<td>${travBoardList.user_id}</td>
+														<td>${travBoardList.reg_date}</td>
 														<td>${travBoardList.views}</td>
 													</tr>
 												</c:forEach>

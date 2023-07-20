@@ -92,6 +92,10 @@
       <h2 style="text-align: center;">게시글 작성 페이지</h2>
       <form action="${pageContext.request.contextPath}/travBoard/board-insert" method="post">
             <div class="row">
+         <!--     <div class="mb-3 mt-3 col p-3">
+               <label for="b_no">글 번호:</label> 
+               <input type="text" class="form-control" id="b_no" name="b_no" placeholder="글 번호를 입력해주세요" >
+            </div> -->
             <div class="mb-3 mt-3 col p-3">
                <label for="title">제목:</label> 
                <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력해주세요" >

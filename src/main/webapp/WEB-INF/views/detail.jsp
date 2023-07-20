@@ -89,13 +89,13 @@
 
 	
 	function goUpdate() {
-	var trav_b_no = "<%=request.getParameter("trav_b_no")%>";
-	location.href = "${pageContext.servletContext.contextPath}/travBoard/board-update?trav_b_no=" + trav_b_no;
+	var b_no = "<%=request.getParameter("b_no")%>";
+	location.href = "${pageContext.servletContext.contextPath}/travBoard/board-update?b_no=" + b_no;
 	}
 	
 	function goDelete() {
-		var trav_b_no = "<%=request.getParameter("trav_b_no")%>";
-		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?trav_b_no=" + trav_b_no;
+		var trav_b_no = "<%=request.getParameter("b_no")%>";
+		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no=" + b_no;
 		}
 </script>
 <!-- plugins:css -->
@@ -233,41 +233,58 @@
 							</a>
 						</div>
 					</div> <!-- 프로필 끝 -->
-				</li>
-				<!-- 메인 -->
-				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/main/"> <span
-						class="menu-icon"> <i class="mdi mdi-bulletin-board"></i>
-					</span> <span class="menu-title">메인</span>
-				</a></li>
+				</li>		
 
-				<!-- 메인 -->
-				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/menu/travBoard/"> <span
-						class="menu-icon"> <i class="mdi mdi-airballoon"></i>
-					</span> <span class="menu-title">여행 후기글</span>
-				</a></li>
-
-				<!-- 친구 검색 -->
-				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/menu/partyBoard/"> <span
-						class="menu-icon"> <i class="mdi mdi-account-search"></i></span> <span
-						class="menu-title">파티 찾기</span>
+				<!-- 여행 후기글 -->
+				<li class="nav-item menu-items">
+				<a class="nav-link" href="${pageContext.request.contextPath}/menu/travBoard/"> 
+				<span class="menu-icon"> <i class="mdi mdi-airballoon"></i></span> 
+				<span class="menu-title">여행 후기글</span>
 				</a></li>
 
 				<!-- 파티 찾기 -->
-				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/menu/findUser"> <span
-						class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span>
-						<span class="menu-title">친구 검색</span>
+				<li class="nav-item menu-items">
+				<a class="nav-link" href="${pageContext.request.contextPath}/menu/partyBoard/"> 
+				<span class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span>
+				<span class="menu-title">파티 찾기</span>
 				</a></li>
 
 				<!-- 명예의 전당 -->
-				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/menu/starBoard"> <span
-						class="menu-icon"> <i class="mdi mdi-trophy-variant"></i></span> <span
-						class="menu-title">명예의 전당</span>
+				<li class="nav-item menu-items">
+				<a class="nav-link" href="${pageContext.request.contextPath}/menu/starBoard"> 
+				<span class="menu-icon"> <i class="mdi mdi-trophy-variant"></i></span> 
+				<span class="menu-title">명예의 전당</span>
 				</a></li>
+		
+				<!-- 친구 -->
+				<li class="nav-item menu-items">
+					<a class="nav-link" href="#auth" data-toggle="collapse" aria-expanded="false" aria-controls="auth"> 
+						<span class="menu-icon">
+							<i class="mdi mdi-account-multiple-outline"></i>
+						</span>
+						<span class="menu-title">친구</span>
+						<i class="menu-arrow"></i>
+					</a>
+					
+					<!-- 유저 검색 -->
+					<div class="collapse" id="auth">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"> 
+							<a class="nav-link" href="${pageContext.request.contextPath}/menu/findUser"> 
+							<span class="menu-icon"> 
+							<i class="mdi mdi-account-multiple-plus"></i></span> 
+							<span class="menu-title">유저 검색</span>
+							</a></li>
+						<!-- 친구 목록 -->	
+						  <li class="nav-item"> 
+						  <a class="nav-link" href="${pageContext.request.contextPath}/menu/friendList"> 
+							<span class="menu-icon"> 
+							<i class="mdi mdi-folder-account"></i></span> 
+							<span class="menu-title">친구 목록</span>
+							</a></li>
+						</ul>
+		            </div>
+				</li>
 			</ul>
 		</nav>
 		<div class="container-fluid page-body-wrapper">
@@ -368,21 +385,19 @@
 													<th>제목</th>
 													<th>내용</th>
 													<th>작성자</th>
-													<th>이모지 1 check</th>
-													<th>이모지 2 check</th>
-													<th>이모지 3 check</th>
+													<th>공감 수</th>	
+													<th>작성일</th>													
 													<th>조회수</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
-													<td><%=request.getParameter("trav_b_no")%></td>
+													<td><%=request.getParameter("b_no")%></td>
 													<td>${title}</td>
 													<td>${contents}</td>
 													<td>${user_id}</td>
-													<td>${emoji1_is_check}</td>
-													<td>${emoji2_is_check}</td>
-													<td>${emoji3_is_check}</td>
+													<td>${total_emoji}</td>		
+													<td>${reg_date}</td>										
 													<td>${views}</td>
 												</tr>
 											</tbody>

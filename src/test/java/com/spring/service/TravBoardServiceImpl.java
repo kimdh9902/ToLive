@@ -26,19 +26,9 @@ public class TravBoardServiceImpl {
 
 	@Test
 	@Ignore
-	public void testregisterTravBoard() {// 여행 후기글 삽입
-		TravBoardVO vo = new TravBoardVO();
-		vo.setTitle("내 동생 초코");
-		vo.setContents("반짝반짝 빛나는 눈망울");
-		vo.setUser_id("user01");
-		assertNotNull(service.registerTravBoard(vo));
-
-	}
-
-	@Test
-	@Ignore
 	public void testgetTravBoardList() {// 여행 후기글 전체 출력(해쉬태그 x)
-		List<TravBoardVO> list = service.getTravBoardList();
+
+		List<TravBoardVO> list = service.getTravBoardList("user03");
 		log.info(list);
 		assertNotNull(list);
 	}
@@ -53,36 +43,8 @@ public class TravBoardServiceImpl {
 
 	@Test
 	@Ignore
-	public void testmodifyTravBoard() {// 여행 후기글 수정(본인이 쓴 여행 후기글)
-		TravBoardVO vo = new TravBoardVO();
-		vo.setTitle("사랑스러운 우리 루이와 로키와 함께");
-		vo.setContents("몽실몽실 루이와 둥글둥글 로키와 함께 드라이브 나왔다! 오랜만의 나들이 ㅎㅎ");
-		vo.setTrav_b_no(82);
-		System.out.println(service.modifyTravBoard(vo));
-	}
-
-	@Test
-	@Ignore
-	public void testmodifyTravBoardByIsHidden() {// 여행 후기글 숨기기(해쉬태그 x)
-		System.out.println(service.modifyTravBoardByIsHidden(82));
-	}
-
-	@Test
-	@Ignore
-	public void testupdateTravBoardToPublic() {// 여행 후기글 공개로 전환(해쉬태그 x)
-		System.out.println(service.modifyTravBoardToPublic(82));
-	}
-
-	@Test
-	@Ignore
 	public void testmodifyTravBoardPlusView() {// 조회수 증가
-		System.out.println(service.modifyTravBoardPlusView(82));
-	}
-
-	@Test
-	@Ignore
-	public void testremoveTravBoard() { // 여행 후기글 삭제
-		System.out.println(service.removeTravBoard(82));
+		System.out.println(service.modifyTravBoardPlusView(2));
 	}
 
 	@Test

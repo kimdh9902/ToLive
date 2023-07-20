@@ -36,36 +36,37 @@ public class PartyBoardcontroller {
 	public String PartyBoardPlusMember(HttpServletRequest request, HttpServletResponse response, Model model,
 			HttpSession session) throws IOException {
 		int SESS_GRADE = (int) session.getAttribute("SESS_GRADE");
-		if ((request.getParameter("party_b_no")) != null) {
-			partyBoardService.modifyPartyBoardPlusMember(Integer.parseInt(request.getParameter("party_b_no")));
+		if ((request.getParameter("b_no")) != null) {
+			if (SESS_GRADE != 7) {
 
-			PartyBoardVO vo = partyBoardService
-					.getPartyBoardByPartyBNo(Integer.parseInt(request.getParameter("party_b_no")));
+				partyBoardService.modifyPartyBoardPlusMember(Integer.parseInt(request.getParameter("b_no")));
 
-			model.addAttribute("title", vo.getTitle());
-			model.addAttribute("contents", vo.getContents());
-			model.addAttribute("now_people", vo.getNow_people());
-			model.addAttribute("max_people", vo.getMax_people());
-			model.addAttribute("user_id", vo.getUser_id());
+				PartyBoardVO vo = partyBoardService.getOnePartyBoard(Integer.parseInt(request.getParameter("b_no")));
 
-			System.out.println(vo);
+				model.addAttribute("title", vo.getTitle());
+				model.addAttribute("contents", vo.getContents());
+				model.addAttribute("now_people", vo.getNow_people());
+				model.addAttribute("max_people", vo.getMax_people());
+				model.addAttribute("user_id", vo.getUser_id());
+				model.addAttribute("reg_date", vo.getReg_date());
 
-			return "Pdetail";
+				System.out.println(vo);
 
-		} else {
-			PartyBoardVO vo = partyBoardService
-					.getPartyBoardByPartyBNo(Integer.parseInt(request.getParameter("party_b_no")));
+				return "Pdetail";
 
-			model.addAttribute("title", vo.getTitle());
-			model.addAttribute("contents", vo.getContents());
-			model.addAttribute("now_people", vo.getNow_people());
-			model.addAttribute("max_people", vo.getMax_people());
-			model.addAttribute("user_id", vo.getUser_id());
+			} else {
+				PartyBoardVO vo = partyBoardService.getOnePartyBoard(Integer.parseInt(request.getParameter("b_no")));
 
-			System.out.println(vo);
+				model.addAttribute("title", vo.getTitle());
+				model.addAttribute("contents", vo.getContents());
+				model.addAttribute("now_people", vo.getNow_people());
+				model.addAttribute("max_people", vo.getMax_people());
+				model.addAttribute("user_id", vo.getUser_id());
+				model.addAttribute("reg_date", vo.getReg_date());
+
+			}
 
 		}
-
 		return "Pdetail";
 	}
 
@@ -96,7 +97,7 @@ public class PartyBoardcontroller {
 	// 수정 페이지로 이동
 	@RequestMapping(value = "/pboard-update", method = RequestMethod.GET)
 	public String pupdate(Model model, @RequestParam("party_b_no") int party_b_no) {
-		model.addAttribute("partyBoard", mapper.selectPartyBoardByPartyBNo(party_b_no));
+		model.addAttribute("partyBoard", mapper.selectOnePartyBoard(party_b_no));
 		return "pboard-update";
 
 	}
@@ -116,7 +117,7 @@ public class PartyBoardcontroller {
 	// 삭제 처리
 	@GetMapping(value = "/pboard-delete")
 	public String delete(int party_b_no) {
-				
+
 		boolean success = mapper.deletePartyBoard(party_b_no);
 		System.out.println(mapper.deletePartyBoard(party_b_no));
 		if (success) {

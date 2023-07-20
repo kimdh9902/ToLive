@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.BoardMapper">
+	<insert id="insertBoard">
+		insert into board
+		(b_no, title, contents, user_id,
+		reg_date) values
+		(seq_b_no.nextval
+		,#{title}
+		,#{contents}
+		,#{user_id,jdbcType=VARCHAR}
+		,#{reg_date})
+	</insert>
+	<insert id="insertToTrav">
+		Insert into trav_board
+		(trav_b_no) values
+		(seq_b_no.currval)
+	</insert>
+	<update id="updateBoard">
+		update board
+		set title=#{title}
+		,contents=#{contents}		
+		where b_no =#{b_no}
+	</update>
+	<update id="updateBoardByIsHidden">
+		update board set is_hidden=1 where b_no =#{b_no}
+	</update>
+	<update id="updateBoardToPublic">
+		update board set is_hidden=0 where b_no =#{b_no}
+	</update>
+	<delete id="deleteBoard">
+		delete from board where b_no=#{b_no}
+	</delete>
+</mapper>

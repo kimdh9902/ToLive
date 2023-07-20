@@ -98,15 +98,15 @@ public class MenuController {
 	//파티 모집 게시판으로 이동
 	@GetMapping("/partyBoard")
 	public String selectAllPartyBoard(Model model){
-		List<PartyBoardVO> partyBoardVO= partyBoardService.getAllPartyBoard();
+		List<PartyBoardVO> partyBoardVO= partyBoardService.getPartyBoardList();
 		model.addAttribute("partyBoardVO",partyBoardVO);
 		return "partyBoard";		
 	}
 	
 	//여행 후기글로 이동
 	@GetMapping("/travBoard")
-	public String selectTravBoardList(Model model){
-		List<TravBoardVO> travBoardList = travBoardService.getTravBoardList();
+	public String selectTravBoardList(Model model, HttpSession session){
+		List<TravBoardVO> travBoardList = travBoardService.getTravBoardList((String) session.getAttribute("SESS_ID"));
 		model.addAttribute("travBoardList", travBoardList);
 		return "travBoard";		
 	}

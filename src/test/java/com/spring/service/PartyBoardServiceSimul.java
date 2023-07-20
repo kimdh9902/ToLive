@@ -25,61 +25,57 @@ public class PartyBoardServiceSimul {
 	private PartyBoardService service;
 
 	@Test
+	@Ignore
 	public void tesregisterPartyBoard() {// 파티 모집 게시판 등록
-		PartyBoardVO vo = new PartyBoardVO();
 
-		vo.setTitle("에버랜드에 같이 놀러갈 사람~ ");
-		vo.setContents("에버랜드에서 놀이기구 같이 타고 사진 찍으면서 놀러갈 사람~! 만나서 이야기도 많이 나누고 싶어요!!");
-		vo.setMax_people(3);
-		vo.setUser_id("user02");
+		PartyBoardVO vo = new PartyBoardVO();
+		vo.setParty_b_no(22);
+		vo.setMax_people(4);
 		assertNotNull(service.registerPartyBoard(vo));
 	}
 
 	@Test
 	@Ignore
 	public void testgetAllPartyBoard() {// 파티 모집 게시판 글 전체 출력
-		List<PartyBoardVO> list = service.getAllPartyBoard();
+		List<PartyBoardVO> list = service.getPartyBoardList();
 		assertNotNull(list);
 		log.info(list);
 	}
 
 	@Test
 	@Ignore
-	public void testgetPartyBoardByPartyBNo() {// 파티 모집 게시판 글번호로 조회
-		assertNotNull(service.getPartyBoardByPartyBNo(39));
-		log.info(service.getPartyBoardByPartyBNo(39));
+	public void testgetOnePartyBoard() {// 파티 모집 게시판 글번호로 조회
+		assertNotNull(service.getOnePartyBoard(22));
+		log.info(service.getOnePartyBoard(22));
 	}
 
 	@Test
 	@Ignore
 	public void testgetPartyBoardById() {// 파티 모집 게시판 글 조회(사용자 아이디)
-		List<PartyBoardVO> list = service.getPartyBoardById("user01");
+		List<PartyBoardVO> list = service.getPartyBoardById("user03");
 		log.info(list);
 		assertNotNull(list);
 	}
 
-	@Test
+	@Test	
 	@Ignore
 	public void testmodifyPartyBoard() {// 파티 모집 게시판 글 수정(본인에 한하여 제목,최대 인원 사이즈 조정)
-		PartyBoardVO vo=new PartyBoardVO();
-		vo.setTitle("빵가마 마을 같이 둘러볼 사람 3분 모집합니다!");
-		vo.setContents("맛있는 빵을 함께 즐겨요~");
-		vo.setMax_people(3);
-		vo.setParty_b_no(106);
+		PartyBoardVO vo = new PartyBoardVO();
+		vo.setMax_people(4);
+		vo.setParty_b_no(8);
 		service.modifyPartyBoard(vo);
-
 	}
 
 	@Test
 	@Ignore
 	public void testupdatePartyBoardPlusMember() {// 파티 멤버 증가(제목 클릭 시 파티 멤버 증가)
-		service.modifyPartyBoardPlusMember(66);
+		service.modifyPartyBoardPlusMember(12);
 	}
 
 	@Test
 	@Ignore
 	public void testdeletePartyBoard() {// 파티 모집 게시판 글 삭제
-		service.removePartyBoard(81);
+		service.removePartyBoard(22);
 	}
 
 	@Test

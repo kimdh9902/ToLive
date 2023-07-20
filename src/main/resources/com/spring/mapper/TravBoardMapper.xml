@@ -3,56 +3,80 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mapper.TravBoardMapper">
-	<insert id="insertTravBoard">
-		insert into trav_board
-		(trav_b_no,
-		title,contents,user_id)
-		values
-		(seq_total_b_no.nextval ,#{title} ,#{contents} ,#{user_id,jdbcType=VARCHAR})
-	</insert>
 	<select id="selectTravBoardList"
 		resultType="com.spring.domain.TravBoardVO">
-		select trav_b_no
-		, title
-		, user_id
-		, views
-		from trav_board
-		where is_hidden=0
-		order by trav_b_no desc
+		SELECT b.b_no
+		, b.title
+		, b.user_id
+		, b.reg_date
+		, t.views
+		FROM board b
+		INNER JOIN trav_board t ON b.b_no = t.trav_b_no
+		WHERE b.user_id IN (
+		SELECT user_id
+		FROM follow
+		WHERE follower_id = 'user01'
+		)
+		OR b.user_id IN (
+		SELECT id
+		FROM users
+		WHERE grade_level = 6
+		)
+		OR b.user_id = 'user01'
+		ORDER BY b.b_no DESC
 	</select>
-	<select id="selectBoard"
+	<select id="selectOneBoard"
 		resultType="com.spring.domain.TravBoardVO">
-		select trav_b_no, title, contents, user_id,emoji1_is_check,
-		emoji2_is_check,emoji3_is_check,views
-		from trav_board
-		where trav_b_no=#{trav_b_no}
-		and is_hidden=0
+		SELECT
+		b.b_no
+		, b.title
+		, b.contents
+		, b.user_id,
+		(SELECT
+		COUNT(*) FROM emoji e
+		WHERE
+		e.b_no = b.b_no AND e.emoji_record>0)
+		total_emoji
+		,b.reg_date
+		,t.views
+		FROM board b
+		INNER JOIN trav_board t
+		ON
+		b.b_no = t.trav_b_no
+		WHERE b.b_no
+		=#{b.b_no}
 	</select>
-	<update id="updateTravBoard">
-		update trav_board set
-		title=#{title},contents=#{contents}
-		where trav_b_no =#{trav_b_no}
-	</update>
-	<update id="updateTravBoardByIsHidden">
-		update trav_board set is_hidden=1
-		where trav_b_no=#{trav_b_no}
-	</update>
-	<update id="updateTravBoardToPublic">
-		update trav_board set is_hidden=0 where
+	<update id="updateTravBoardPlusView">
+		update trav_board
+		set views= views+1
+		where
 		trav_b_no=#{trav_b_no}
 	</update>
-	<update id="updateTravBoardPlusView">
-		update trav_board set views= views+1
-		where trav_b_no=#{trav_b_no}
-	</update>
 	<delete id="deleteTravBoard">
-		delete from trav_board where trav_b_no=#{trav_b_no}
+	delete from trav_board where trav_b_no=#{trav_b_no}
 	</delete>
 	<!-- 프로필 -->
 	<select id="selectAllBoard"
 		resultType="com.spring.domain.TravBoardVO">
-		select trav_b_no,title, contents, user_id,views
-		from
-		trav_board where user_id =#{user_id} order by trav_b_no desc
+		SELECT
+		b.b_no
+		, b.title
+		, b.contents
+		, b.user_id,
+		(SELECT
+		COUNT(*) FROM emoji e
+		WHERE
+		e.b_no = b.b_no
+		AND e.emoji_record>0)
+		total_emoji
+		,b.reg_date
+		,t.views
+		FROM board b
+		INNER
+		JOIN trav_board t
+		ON
+		b.b_no = t.trav_b_no
+		WHERE b.user_id=#{b.user_id}
+		order by b.b_no desc
 	</select>
 </mapper>

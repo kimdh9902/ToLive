@@ -6,29 +6,17 @@ import com.spring.domain.TravBoardVO;
 
 public interface TravBoardService {
 
-	// 여행 후기글 삽입
-	public int registerTravBoard(TravBoardVO vo);
-
 	// 여행 후기글 전체 출력(해쉬태그 x)
-	public List<TravBoardVO> getTravBoardList();
+	public List<TravBoardVO> getTravBoardList(String user_id);
 
 	// 글 상세조회
 	public TravBoardVO getBoard(int trav_b_no);
 
-	// 여행 후기글 수정(본인이 쓴 여행 후기글)
-	int modifyTravBoard(TravBoardVO vo);
-
-	// 여행 후기글 숨기기(해쉬태그 x)
-	int modifyTravBoardByIsHidden(int trav_b_no);
-
-	// 여행 후기글 공개로 전환(해쉬태그 x)
-	int modifyTravBoardToPublic(int trav_b_no);
-
 	// 조회수 증가
 	int modifyTravBoardPlusView(int trav_b_no);
-
-	// 여행 후기글 삭제
-	public boolean removeTravBoard(int trav_b_no);
+	
+	//글 삭제
+	boolean removeTravBoard(int trav_b_no);
 
 // -------------------------------- 프로필 ----------------------------------
 

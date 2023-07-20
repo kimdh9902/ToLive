@@ -2,45 +2,71 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="com.spring.mapper.PartyBoardMapper">
-  <insert id="insertPartyBoard">
-  INSERT INTO party_board 
-  (party_b_no,title ,contents, max_people,user_id) 
-   VALUES
-  (seq_total_b_no.nextval,#{title},#{contents},#{max_people},#{user_id})
-  </insert>
-  <select id="selectAllPartyBoard" resultType="com.spring.domain.PartyBoardVO">
-  select party_b_no,title, now_people,max_people, user_id 
-  from party_board 
-  where is_hidden=0 order by party_b_no desc
-  </select>
-  <select id="selectPartyBoardByPartyBNo" resultType="com.spring.domain.PartyBoardVO">
-  select party_b_no,title,contents, now_people,max_people, user_id 
- from party_board 
- where is_hidden=0 
- and party_b_no=#{party_b_no}
- </select>
- <select id="selectPartyBoardById" resultType="com.spring.domain.PartyBoardVO">
- select party_b_no,title, now_people,max_people, user_id 
- from party_board 
- where is_hidden=0 
- and user_id=#{user_id}
- order by party_b_no desc
- </select>
-  <update id="updatePartyBoard">
-  update party_board 
-  set title= #{title}
-  ,contents=#{contents}
-  ,max_people=#{max_people}
-  where party_b_no=#{party_b_no}
-  </update>
-  <update id="updatePartyBoardPlusMember">
-  update party_board set now_people= now_people+1 where party_b_no=#{party_b_no}
-  </update>
- <delete id="deletePartyBoard">
- delete from party_board where party_b_no=#{party_b_no}
- </delete> 
- <delete id="deletePartyBoardWhenRecruitComplete">
- delete from party_board where now_people>=max_people
- </delete>  
-  </mapper>
+<mapper namespace="com.spring.mapper.PartyBoardMapper">
+	<insert id="insertPartyBoard">
+		INSERT INTO party_board(party_b_no, max_people)
+		VALUES(#{party_b_no}, #{max_people})
+	</insert>
+	<select id="selectPartyBoardList"
+		resultType="com.spring.domain.PartyBoardVO">
+		SELECT 
+		b.b_no
+		,b.title
+        ,p.now_people
+        ,p.max_people
+		,b.user_id      
+		,b.reg_date		
+		FROM board b
+		INNER JOIN party_board p
+		ON b.b_no = p.party_b_no
+		WHERE p.party_b_no = b.b_no
+		and is_hidden=0
+		order by b.b_no desc
+	</select>
+	<select id="selectOnePartyBoard"
+		resultType="com.spring.domain.PartyBoardVO">
+		SELECT 
+		b.b_no
+		, b.title
+		, b.contents
+        ,p.now_people
+        ,p.max_people
+		, b.user_id		
+		,b.reg_date
+		FROM board b
+		INNER JOIN party_board p
+		ON b.b_no = p.party_b_no
+		WHERE b.b_no =#{b.b_no}
+	</select>
+	<select id="selectPartyBoardById"
+		resultType="com.spring.domain.PartyBoardVO">
+		SELECT 
+		b.b_no
+		, b.title
+		, b.contents
+        ,p.now_people
+        ,p.max_people
+		, b.user_id		
+		,b.reg_date
+		FROM board b
+		INNER JOIN party_board p
+		ON b.b_no = p.party_b_no
+		WHERE b.user_id=#{b.user_id}
+		order by b.b_no desc
+	</select>
+	<update id="updatePartyBoard">
+		update party_board set max_people=#{max_people}
+		where party_b_no=#{party_b_no}
+	</update>
+	<update id="updatePartyBoardPlusMember">
+		update party_board set now_people= now_people+1 where
+		party_b_no=#{party_b_no}
+	</update>
+	<delete id="deletePartyBoard">
+		delete from party_board 
+		where party_b_no=#{party_b_no}
+	</delete>
+	<delete id="deletePartyBoardWhenRecruitComplete">
+		delete from party_board where now_people>=max_people
+	</delete>
+</mapper>

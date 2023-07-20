@@ -204,17 +204,10 @@
 						</div>
 						<!-- 프로필 추가메뉴 끝-->
 					</div> <!-- 프로필 끝 -->
-				</li>
+				</li>					
 				<!-- 메인 -->
 				<li class="nav-item menu-items">
 				<a class="nav-link" href="${pageContext.request.contextPath}/main/"> 
-				<span class="menu-icon"> <i class="mdi mdi-bulletin-board"></i></span> 
-				<span class="menu-title">메인</span>
-				</a></li>
-				
-				<!-- 여행 후기글 -->
-				<li class="nav-item menu-items">
-				<a class="nav-link" href="${pageContext.request.contextPath}/menu/travBoard"> 
 				<span class="menu-icon"> <i class="mdi mdi-airballoon"></i></span> 
 				<span class="menu-title">여행 후기글</span>
 				</a></li>
@@ -347,7 +340,7 @@
 						<div class="col-12 grid-margin">
 							<div class="card">
 								<div class="card-body">
-									<h3 class="card-title">Main</h3>
+									<h3 class="card-title">여행 후기글</h3>
 									<div class="table-responsive">
 										<table class="table">
 											<thead>
@@ -355,6 +348,7 @@
 													<th>글 번호</th>
 													<th>제목</th>
 													<th>아이디</th>
+													<th>작성일</th>
 													<th>조회수</th>
 												</tr>
 											</thead>
@@ -362,11 +356,11 @@
 												<c:forEach var="travBoardList"
 													items="${requestScope.travBoardList}">
 													<tr>
-														<td>${travBoardList.trav_b_no}</td>
-														<td><a
-															href="${pageContext.request.contextPath}/travBoard?trav_b_no=${travBoardList.trav_b_no}">
+														<td>${travBoardList.b_no}</td>
+														<td><a href="${pageContext.request.contextPath}/travBoard/detail?b_no=${travBoardList.b_no}">
 																${travBoardList.title}</a></td>
 														<td>${travBoardList.user_id}</td>
+														<td>${travBoardList.reg_date}</td>
 														<td>${travBoardList.views}</td>
 													</tr>
 												</c:forEach>

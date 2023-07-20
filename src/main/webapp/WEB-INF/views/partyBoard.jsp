@@ -224,33 +224,19 @@
 					</div> 
 					<!-- 프로필 끝 -->
 				</li>
-				<!-- 메인 -->
-				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/main/"> 
-					<span class="menu-icon"> 
-					<i class="mdi mdi-bulletin-board"></i>
-					</span> <span class="menu-title">메인</span>
-				</a></li>
-				
+						
 				<!-- 여행 후기글 -->
-				<li class="nav-item menu-items"><a class="nav-link"
-					href="${pageContext.request.contextPath}/menu/travBoard/"> 
-					<span class="menu-icon"> <i class="mdi mdi-airballoon"></i>
-					</span> <span class="menu-title">여행 후기글</span>
-				</a></li>
-
-				<!-- 친구 검색 -->
 				<li class="nav-item menu-items">
-				<a class="nav-link" href="${pageContext.request.contextPath}/menu/partyBoard/"> 
-				<span class="menu-icon"> <i class="mdi mdi-account-search"></i></span> 
-				<span class="menu-title">파티 찾기</span>
+				<a class="nav-link" href="${pageContext.request.contextPath}/menu/travBoard/"> 
+				<span class="menu-icon"> <i class="mdi mdi-airballoon"></i></span> 
+				<span class="menu-title">여행 후기글</span>
 				</a></li>
 
 				<!-- 파티 찾기 -->
 				<li class="nav-item menu-items">
-				<a class="nav-link" href="${pageContext.request.contextPath}/menu/findUser"> 
+				<a class="nav-link" href="${pageContext.request.contextPath}/menu/partyBoard/"> 
 				<span class="menu-icon"> <i class="mdi mdi-account-multiple-plus"></i></span>
-						<span class="menu-title">친구 검색</span>
+				<span class="menu-title">파티 찾기</span>
 				</a></li>
 
 				<!-- 명예의 전당 -->
@@ -259,6 +245,36 @@
 				<span class="menu-icon"> <i class="mdi mdi-trophy-variant"></i></span> 
 				<span class="menu-title">명예의 전당</span>
 				</a></li>
+		
+				<!-- 친구 -->
+				<li class="nav-item menu-items">
+					<a class="nav-link" href="#auth" data-toggle="collapse" aria-expanded="false" aria-controls="auth"> 
+						<span class="menu-icon">
+							<i class="mdi mdi-account-multiple-outline"></i>
+						</span>
+						<span class="menu-title">친구</span>
+						<i class="menu-arrow"></i>
+					</a>
+					
+					<!-- 유저 검색 -->
+					<div class="collapse" id="auth">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"> 
+							<a class="nav-link" href="${pageContext.request.contextPath}/menu/findUser"> 
+							<span class="menu-icon"> 
+							<i class="mdi mdi-account-multiple-plus"></i></span> 
+							<span class="menu-title">유저 검색</span>
+							</a></li>
+						<!-- 친구 목록 -->	
+						  <li class="nav-item"> 
+						  <a class="nav-link" href="${pageContext.request.contextPath}/menu/friendList"> 
+							<span class="menu-icon"> 
+							<i class="mdi mdi-folder-account"></i></span> 
+							<span class="menu-title">친구 목록</span>
+							</a></li>
+						</ul>
+		            </div>
+				</li>
 			</ul>
 		</nav>
 		<div class="container-fluid page-body-wrapper">
@@ -358,19 +374,21 @@
 													<th>현재 모집된 인원</th>
 													<th>죄대 인원</th>
 													<th>작성자</th>
+													<th>작성일</th>							
+													
 												</tr>
 											</thead>
 											<tbody>
 												<c:forEach var="partyBoardVO"
 													items="${requestScope.partyBoardVO}">
 													<tr>
-														<td>${partyBoardVO.party_b_no }</td>
-														<td><a
-															href="${pageContext.request.contextPath}/partyBoard/Pdetail?party_b_no=${partyBoardVO.party_b_no}">
-																${partyBoardVO.title}</a></td>
+														<td>${partyBoardVO.b_no}</td>
+														<td><a href="${pageContext.request.contextPath}/partyBoard/Pdetail?b_no=${partyBoardVO.b_no}">
+														${partyBoardVO.title}</a></td>
 														<td>${partyBoardVO.now_people}</td>
 														<td>${partyBoardVO.max_people }</td>
 														<td>${partyBoardVO.user_id }</td>
+														<td>${partyBoardVO.reg_date }</td>
 													</tr>
 												</c:forEach>
 											</tbody>

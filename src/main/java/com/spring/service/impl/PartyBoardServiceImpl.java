@@ -22,13 +22,13 @@ public class PartyBoardServiceImpl implements PartyBoardService {
 	}
 
 	@Override
-	public List<PartyBoardVO> getAllPartyBoard() {
-		return mapper.selectAllPartyBoard();
+	public List<PartyBoardVO> getPartyBoardList() {
+		return mapper.selectPartyBoardList();
 	}
 
 	@Override
-	public PartyBoardVO getPartyBoardByPartyBNo(int party_b_no) {
-		return mapper.selectPartyBoardByPartyBNo(party_b_no);
+	public PartyBoardVO getOnePartyBoard(int party_b_no) {
+		return mapper.selectOnePartyBoard(party_b_no);
 	}
 
 	@Override
@@ -51,11 +51,9 @@ public class PartyBoardServiceImpl implements PartyBoardService {
 		return mapper.deletePartyBoard(party_b_no);
 	}
 
-
 	@Override
 	public int removePartyBoardWhenRecruitComplete(PartyBoardVO vo) {
 		return mapper.deletePartyBoardWhenRecruitComplete(vo);
 	}
 
-	
 }
