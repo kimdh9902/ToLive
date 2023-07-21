@@ -17,6 +17,7 @@ import com.spring.domain.BoardCommentVO;
 import com.spring.domain.FollowVO;
 import com.spring.service.AlarmService;
 import com.spring.service.BlackListService;
+import com.spring.service.BoardCommentService;
 import com.spring.service.FollowService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class UserController {
 	
 	private final FollowService followService;
 	private final AlarmService alarmService;
+	private final BoardCommentService commentService;
 	
 	@GetMapping(value = "/friend", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<String> friendList(HttpSession session){
@@ -74,9 +76,11 @@ public class UserController {
 		return alarmService.getIsOpenCount(user_id);
 	}
 	
-	@GetMapping(value = "/insertComments", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public void InputComments(BoardCommentVO vo, HttpSession session) {
-//		vo.set
+	@GetMapping(value = "/insertComment", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public void InputComment(BoardCommentVO vo, HttpSession session) {
+		System.out.println("에베베");
+		System.out.println(vo);
+		commentService.addComment(vo);
 	}
 	
 }
