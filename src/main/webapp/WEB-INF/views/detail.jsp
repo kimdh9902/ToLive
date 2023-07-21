@@ -99,27 +99,7 @@
 				+ b_no;
 	}
 	
-	function ContentsIsInputAjax(){
-		let data = {
-			contents : #{contents}
-		};
-		$.ajax({//json
-			url : path+"/user/insertComments",
-			async : true,
-	        contentType : "application/json;charset=UTF-8",
-	        data : data,
-	        method : "GET",
-	        dataType : "JSON",
-	        success : function(data, textStatus, jqXHR) {
-	            console.log(data);
-	        },
-	        error : function(jqXHR, textStatus, errorThrown) {
-	            console.log(jqXHR);
-	            console.log(textStatus);
-	            console.log(errorThrown);
-	        }
-		}
-	}
+
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet"
@@ -432,13 +412,16 @@
 										<h3 class="card-title"></h3>
 										<div class="table-responsive">
 											<div>
-												<c:forEach var="boardCommentList"
+												<c:forEach var="boardComment"
 													items="${requestScope.boardCommentList}">
 													<div style="display: flex;">
-														<img
-															src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
-															style="margin-right: 20px; width: 47px; height: 47px;">
-														<span>${boardCommentList.user_id}<br>${boardCommentList.contents}</span>
+														<a href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=${boardComment.user_id}">
+															<span> 
+																<img src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
+																style="margin-right: 20px; width: 47px; height: 47px;">
+															</span>
+														</a> 
+														<span>${boardComment.user_id}<br>${boardComment.contents}</span>
 														<br>
 													</div>
 													<div class="dropdown-divider"></div>
