@@ -17,6 +17,6 @@ public class TestController {
 	
 	@GetMapping("detail")
 	public String test2() {
-		return "detailJam";
+		return "detail2";
 	}
 }
