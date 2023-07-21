@@ -98,6 +98,28 @@
 		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no="
 				+ b_no;
 	}
+	
+	function ContentsIsInputAjax(){
+		let data = {
+			contents : #{contents}
+		};
+		$.ajax({//json
+			url : path+"/user/insertComments",
+			async : true,
+	        contentType : "application/json;charset=UTF-8",
+	        data : data,
+	        method : "GET",
+	        dataType : "JSON",
+	        success : function(data, textStatus, jqXHR) {
+	            console.log(data);
+	        },
+	        error : function(jqXHR, textStatus, errorThrown) {
+	            console.log(jqXHR);
+	            console.log(textStatus);
+	            console.log(errorThrown);
+	        }
+		}
+	}
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet"
@@ -398,6 +420,12 @@
 										</table>
 									</div>
 								</div>
+								<!-- 댓글 입력창 -->
+								<form action="">
+									<textarea id="contents" name="contents" rows="4" cols="50"></textarea>
+									<br> <input type="submit" value="등록">
+								</form>
+								<!-- 댓글 입력창 끝 -->
 								<!--댓글-->
 								<div class="card">
 									<div class="card-body">
