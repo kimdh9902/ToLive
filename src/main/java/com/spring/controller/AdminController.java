@@ -23,7 +23,7 @@ public class AdminController {
 	@GetMapping("/report-selectAll")
 	public String selectAllReportBoard() {
 //		reportService.selectAllReportBoard();
-		return "report";
+		return "report_status";
 	}
 	
 	@GetMapping("/report-add")

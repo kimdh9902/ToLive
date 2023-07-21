@@ -33,7 +33,6 @@ public class BoardCommentController {
 	@GetMapping("/boardComment")
 	public String SelectComments(Model model, int b_no){
 		List<BoardCommentVO> boardCommentList = commentService.getComments(b_no);
-		System.out.println("ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ");
 		System.out.println(boardCommentList);
 		model.addAttribute("boardCommentList", boardCommentList);
 		return "boardComment";

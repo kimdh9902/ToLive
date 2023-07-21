@@ -377,7 +377,7 @@
 											<thead>
 												<tr>
 													<!-- <th>글 번호</th> -->
-													<!-- <th>제목</th> -->
+													<th>제목</th>
 													<th>내용</th>
 													<th>작성자</th>
 													<th>공감 수</th>
@@ -387,13 +387,12 @@
 											</thead>
 											<tbody>
 												<tr>
-													<%-- <td><%=request.getParameter("b_no")%></td> --%>
-													<%-- <td>${title}</td> --%>
-													<td>${contents}</td>
-													<td>${user_id}</td>
-													<td>${total_emoji}</td>
-													<td>${reg_date}</td>
-													<td>${views}</td>
+													<td>${TravBoardVO.title}</td>
+													<td>${TravBoardVO.contents}</td>
+													<td>${TravBoardVO.user_id}</td>
+													<td>${TravBoardVO.total_emoji}</td>
+													<td>${TravBoardVO.reg_date}</td>
+													<td>${TravBoardVO.views}</td>
 												</tr>
 											</tbody>
 										</table>
