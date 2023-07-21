@@ -3,7 +3,6 @@ package com.spring.controller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,12 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.spring.domain.BoardCommentVO;
 import com.spring.domain.BoardVO;
 import com.spring.domain.TravBoardVO;
 import com.spring.mapper.BoardMapper;
 import com.spring.mapper.TravBoardMapper;
-import com.spring.service.BoardCommentService;
 import com.spring.service.TravBoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,8 +31,7 @@ import lombok.RequiredArgsConstructor;
 public class TravBoardController {
 
 	private final TravBoardService travBoardService;
-	private final BoardCommentService commentService;
-	
+
 	@Autowired
 	private TravBoardMapper travBoardMapper;
 
@@ -51,33 +47,17 @@ public class TravBoardController {
 		if (request.getParameter("b_no") != null) {
 			if (SESS_GRADE != 7) {
 
-				travBoardService.modifyTravBoardPlusView(Integer.parseInt(request.getParameter("b_no"))); // 제목 클릭 시 조회수
-																											// 증가
+				travBoardService.modifyTravBoardPlusView(Integer.parseInt(request.getParameter("b_no"))); // 제목 클릭 시 조회수 증가
+																										
+				// vo에 포장
 				TravBoardVO vo = travBoardService.getBoard(Integer.parseInt(request.getParameter("b_no")));
-
-//				model.addAttribute("title", vo.getTitle());
-//				model.addAttribute("user_id", vo.getUser_id());
-//				model.addAttribute("contents", vo.getContents());
-//				model.addAttribute("total_emoji", vo.getTotal_emoji());
-//				model.addAttribute("reg_date", vo.getReg_date());
-//				model.addAttribute("views", vo.getViews());
 				model.addAttribute("TravBoardVO", vo);
-
-				List<BoardCommentVO> boardCommentList = commentService.getComments(b_no);
-				System.out.println(boardCommentList);
-				model.addAttribute("boardCommentList", boardCommentList);
-				
 
 				return "detail";
 
 			} else {
 				TravBoardVO vo = travBoardService.getBoard(Integer.parseInt(request.getParameter("b_no")));
-				model.addAttribute("title", vo.getTitle());
-				model.addAttribute("user_id", vo.getUser_id());
-				model.addAttribute("contents", vo.getContents());
-				model.addAttribute("total_emoji", vo.getTotal_emoji());
-				model.addAttribute("reg_date", vo.getReg_date());
-				model.addAttribute("views", vo.getViews());
+				model.addAttribute("TravBoardVO", vo);
 
 			}
 		}

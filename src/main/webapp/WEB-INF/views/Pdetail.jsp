@@ -1,3 +1,4 @@
+<%@page import="com.spring.domain.PartyBoardVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -88,14 +89,18 @@
 	document.querySelector("#no")
 	
 	function goUpdate() {
-	var b_no = "<%=request.getParameter("b_no")%>";
+	var b_no = "<%=request.getParameter("b_no")%>";	
 	location.href = "${pageContext.servletContext.contextPath}/partyBoard/pboard-update?b_no=" + b_no;
 	}
 	
 	function goDelete() {
 		var b_no = "<%=request.getParameter("b_no")%>";
 		location.href = "${pageContext.servletContext.contextPath}/partyBoard/pboard-delete?b_no="+ b_no;
+		}
 
+	function goReport() {
+		var b_no = "<%=request.getParameter("b_no")%>";
+		location.href = "${pageContext.servletContext.contextPath}/partyBoard/partyBoard-report?b_no="+ b_no;
 	}
 </script>
 <!-- plugins:css -->
@@ -369,14 +374,12 @@
 						<div class="col-12 grid-margin">
 							<div class="card">
 								<div class="card-body">
-									<h3 class="card-title"></h3>
-									<h3 class="card-title"></h3>
+									<h3 class="card-title"></h3><%=request.getParameter("b_no")%>
+									<h3 class="card-title"></h3>${partyBoardVO.title}
 									<div class="table-responsive">
 										<table class="table">
 											<thead>
 												<tr>
-													<th>글 번호</th>
-													<th>제목</th>
 													<th>내용</th>
 													<th>현재 모집된 인원</th>
 													<th>최대 인원</th>
@@ -386,21 +389,22 @@
 											</thead>
 											<tbody>
 												<tr>
-													<td><%=request.getParameter("b_no")%></td>
-													<td>${title}</td>
-													<td>${contents}</td>
-													<td>${now_people}</td>
-													<td>${max_people}</td>
-													<td>${user_id}</td>
-													<td>${reg_date}</td>
+													<td>${partyBoardVO.contents}</td>
+													<td>${partyBoardVO.now_people}</td>
+													<td>${partyBoardVO.max_people}</td>
+													<td>${partyBoardVO.user_id}</td>
+													<td>${partyBoardVO.reg_date}</td>
 													<td></td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
 								</div>
-								<!--글 수정 버튼-->
+																
 								<div style="text-align: center;" class="card-footer">
+									<!--글 수정 버튼-->	
+									<!-- 로그인한 사용자와 작성자가 같을 경우 글 수정/글 삭제 버튼 출력	 -->
+									<c:if test="${sessionScope.SESS_ID == partyBoardVO.user_id}">		
 									<button class="btn btn-outline-primary"
 										style="width: 90px; height: 26px; margin-top: 10px;"
 										type="button" onclick="goUpdate();">글 수정</button>
@@ -408,8 +412,16 @@
 									<!--글 삭제 버튼-->
 									<button class="btn btn-outline-primary"
 										style="width: 90px; height: 26px; margin-top: 10px;"
-										type="button" onclick="goDelete();">글 삭제</button>
-
+										type="button"  onclick="goDelete()">글 삭제</button>
+								</c:if>
+								<c:if test="${sessionScope.SESS_ID ne partyBoardVO.user_id}">										
+									<!--글 신고 버튼-->
+									<!-- 로그인한 사용자와 작성자가 다를 경우 신고 버튼만 출력 -->
+									<button class="btn btn-outline-primary"
+										style="width: 90px; height: 26px; margin-top: 10px;"
+										type="button"  onclick="goReport()">글 신고</button>
+										</c:if>
+									
 								</div>
 							</div>
 						</div>

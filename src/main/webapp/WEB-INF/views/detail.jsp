@@ -94,8 +94,11 @@
 	
 	function goDelete() {
 		var b_no = "<%=request.getParameter("b_no")%>";
-		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no=" + b_no;
+		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no="
+				+ b_no;
 	}
+<<<<<<< HEAD
+=======
 	
 	function addContents(){
       InsertContentAjax();
@@ -124,7 +127,10 @@
                console.log(errorThrown);
            } 
       })
-   }
+   	}
+   	function refreshContents(){
+   
+	}
 
    function SelectContentsAjax(){
       let data = {
@@ -138,6 +144,7 @@
            method : "GET",
            success : function(data, textStatus, jqXHR) {
                console.log("sel");
+			   refreshContents();
            },
            error : function(jqXHR, textStatus, errorThrown) {
                console.log(jqXHR);
@@ -163,6 +170,7 @@
 		}
 	}
 
+>>>>>>> e404b4d4a7bd381e6f048572d6bf37955939b3bf
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet"
@@ -436,13 +444,11 @@
 							<div class="card">
 								<div class="card-body">
 									<h3 class="card-title"><%=request.getParameter("b_no")%></h3>
-									<h3 class="card-title">${title}</h3>
+									<h3 class="card-title">${TravBoardVO.title}</h3>
 									<div class="table-responsive">
 										<table class="table">
 											<thead>
 												<tr>
-													<!-- <th>글 번호</th> -->
-													<th>제목</th>
 													<th>내용</th>
 													<th>작성자</th>
 													<th>공감 수</th>
@@ -452,7 +458,6 @@
 											</thead>
 											<tbody>
 												<tr>
-													<td>${TravBoardVO.title}</td>
 													<td>${TravBoardVO.contents}</td>
 													<td>${TravBoardVO.user_id}</td>
 													<td>${TravBoardVO.total_emoji}</td>
@@ -463,30 +468,45 @@
 										</table>
 									</div>
 								</div>
+<<<<<<< HEAD
+=======
 								<!-- 댓글 입력창 -->
 								<div class="card-body">
-									<div class="form-group">
-	                       				<textarea class="form-control" id="contents" rows="4" cols="80" onkeyup="valueCheck()"></textarea>
-	                      			</div>
+	                       			<textarea class="form-control" id="contents" rows="4" cols="80" onkeyup="valueCheck()"></textarea>
 									<button type = "submit" class = "btn btn-primary me-2" onclick = "addContents()">등록</button>
-								</div>
 								<!-- 댓글 입력창 끝 -->
+>>>>>>> e404b4d4a7bd381e6f048572d6bf37955939b3bf
 								<!--댓글-->
+									<h3 class="card-title"></h3>
+									<div>
+										<c:forEach var="boardComment" items="${requestScope.boardCommentList}">
+											<div style="display: flex;">
+												<a href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=${boardComment.user_id}">
+													<span> 
+														<img src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
+														style="margin-right: 20px; width: 47px; height: 47px;">
+													</span>
+												</a> 
+												<span>${boardComment.user_id}<br>${boardComment.contents}</span>
+												<br>
+											</div>
+											<div class="dropdown-divider"></div>
+										</c:forEach>
+									</div>
+								</div>
 								<div class="card">
 									<div class="card-body">
+<<<<<<< HEAD
 										<h3 class="card-title"></h3>
 										<div class="table-responsive">
 											<div>
-												<c:forEach var="boardComment"
+												<c:forEach var="boardCommentList"
 													items="${requestScope.boardCommentList}">
 													<div style="display: flex;">
-														<a href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=${boardComment.user_id}">
-															<span> 
-																<img src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
-																style="margin-right: 20px; width: 47px; height: 47px;">
-															</span>
-														</a> 
-														<span>${boardComment.user_id}<br>${boardComment.contents}</span>
+														<img
+															src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
+															style="margin-right: 20px; width: 47px; height: 47px;">
+														<span>${boardCommentList.user_id}<br>${boardCommentList.contents}</span>
 														<br>
 													</div>
 													<div class="dropdown-divider"></div>
@@ -495,16 +515,19 @@
 										</div>
 									</div>
 
+=======
+>>>>>>> e404b4d4a7bd381e6f048572d6bf37955939b3bf
 									<!--글 수정 버튼-->
-									<div style="text-align: center;" class="card-footer">
-										<button class="btn btn-outline-primary"
-											style="width: 90px; height: 26px; margin-top: 10px;"
-											type="button" onclick="goUpdate();">글 수정</button>
+										<div style="text-align: center;" class="card-footer">
+											<button class="btn btn-outline-primary"
+												style="width: 90px; height: 26px; margin-top: 10px;"
+												type="button" onclick="goUpdate();">글 수정</button>
 
-										<!--글 삭제 버튼-->
-										<button class="btn btn-outline-primary"
-											style="width: 90px; height: 26px; margin-top: 10px;"
-											type="button" onclick="goDelete();">글 삭제</button>
+											<!--글 삭제 버튼-->
+											<button class="btn btn-outline-primary"
+												style="width: 90px; height: 26px; margin-top: 10px;"
+												type="button" onclick="goDelete();">글 삭제</button>
+										</div>
 									</div>
 								</div>
 							</div>
