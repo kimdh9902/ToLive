@@ -98,10 +98,11 @@
 		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no="
 				+ b_no;
 	}
-
+${requestScope.b_no}
 	function comment() {
 		let contents = document.getElementById("contents");
 		contents.value
+		
 	}
 </script>
 <!-- plugins:css -->

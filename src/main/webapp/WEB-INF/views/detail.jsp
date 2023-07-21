@@ -98,32 +98,69 @@
 	}
 	
 	function addContents(){
-		ContentsIsInputAjax();
-		SelectAjax();
-	}
+      InsertContentAjax();
+      SelectContentsAjax();
+   }
 
-	function ContentsIsInputAjax(){
+   function InsertContentAjax(){
+      let contents = document.getElementById("contents");
+      let data = {
+         contents : contents.value,
+         b_no : '${param.b_no}',
+         user_id : '${sessionScope.SESS_ID}'
+      };
+      $.ajax({//json
+         url : "${pageContext.servletContext.contextPath}/user/insertComment",
+         async : true,
+           contentType : "application/json;charset=UTF-8",
+           data : data,
+           method : "GET",
+           success : function(data, textStatus, jqXHR) {
+               console.log("hi");
+           },
+           error : function(jqXHR, textStatus, errorThrown) {
+               console.log(jqXHR);
+               console.log(textStatus);
+               console.log(errorThrown);
+           } 
+      })
+   }
+
+   function SelectContentsAjax(){
+      let data = {
+         b_no : '${param.b_no}'
+      };
+      $.ajax({//json
+         url : "${pageContext.servletContext.contextPath}/user/selectComments",
+         async : true,
+           contentType : "application/json;charset=UTF-8",
+           data : data,
+           method : "GET",
+           success : function(data, textStatus, jqXHR) {
+               console.log("sel");
+           },
+           error : function(jqXHR, textStatus, errorThrown) {
+               console.log(jqXHR);
+               console.log(textStatus);
+               console.log(errorThrown);
+           } 
+      })
+   }
+
+	function valueCheck() {
 		let contents = document.getElementById("contents");
-		let data = {
-			contents : contents.value,
-			b_no : '${param.b_no}',
-			user_id : '${sessionScope.SESS_ID}'
-		};
-		$.ajax({//json
-			url : "${pageContext.servletContext.contextPath}/user/insertComment",
-			async : true,
-	        contentType : "application/json;charset=UTF-8",
-	        data : data,
-	        method : "GET",
-	        success : function(data, textStatus, jqXHR) {
-	            console.log("hi");
-	        },
-	        error : function(jqXHR, textStatus, errorThrown) {
-	            console.log(jqXHR);
-	            console.log(textStatus);
-	            console.log(errorThrown);
-	        } 
-		})
+		let string = ""+contents.value;
+		let ment = string.split("@");
+		
+		console.log(ment);
+		console.log("@[0]"+ment[0]);
+		if(ment[1] != undefined){
+			console.log("@[1]"+ment[1]);
+		}
+		if(ment[1] != undefined){
+			console.log("@[1] split[0]"+ment[1].split(" ")[0]);
+			// console.log("@[1] split[1]"+ment[1].split(" ")[1]);
+		}
 	}
 
 </script>
@@ -429,7 +466,7 @@
 								<!-- 댓글 입력창 -->
 								<div class="card-body">
 									<div class="form-group">
-	                       				<textarea class="form-control" id="contents" rows="4" cols="80"></textarea>
+	                       				<textarea class="form-control" id="contents" rows="4" cols="80" onkeyup="valueCheck()"></textarea>
 	                      			</div>
 									<button type = "submit" class = "btn btn-primary me-2" onclick = "addContents()">등록</button>
 								</div>
