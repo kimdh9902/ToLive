@@ -93,17 +93,60 @@
 	}
 	
 	function goDelete() {
-		var b_no = "<%=request.getParameter("b_no")%>
-	";
-		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no="
-				+ b_no;
+		var b_no = "<%=request.getParameter("b_no")%>";
+		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no=" + b_no;
 	}
-${requestScope.b_no}
-	function comment() {
+	
+	function addContents(){
+		InsertContentAjax();
+		SelectContentsAjax();
+	}
+
+	function InsertContentAjax(){
 		let contents = document.getElementById("contents");
-		contents.value
-		
+		let data = {
+			contents : contents.value,
+			b_no : '${param.b_no}',
+			user_id : '${sessionScope.SESS_ID}'
+		};
+		$.ajax({//json
+			url : "${pageContext.servletContext.contextPath}/user/insertComment",
+			async : true,
+	        contentType : "application/json;charset=UTF-8",
+	        data : data,
+	        method : "GET",
+	        success : function(data, textStatus, jqXHR) {
+	            console.log("hi");
+	        },
+	        error : function(jqXHR, textStatus, errorThrown) {
+	            console.log(jqXHR);
+	            console.log(textStatus);
+	            console.log(errorThrown);
+	        } 
+		})
 	}
+
+	function SelectContentsAjax(){
+		let data = {
+			b_no : '${param.b_no}'
+		};
+		$.ajax({//json
+			url : "${pageContext.servletContext.contextPath}/user/selectComments",
+			async : true,
+	        contentType : "application/json;charset=UTF-8",
+	        data : data,
+	        method : "GET",
+	        success : function(data, textStatus, jqXHR) {
+	            console.log("hi");
+	        },
+	        error : function(jqXHR, textStatus, errorThrown) {
+	            console.log(jqXHR);
+	            console.log(textStatus);
+	            console.log(errorThrown);
+	        } 
+		})
+	}
+
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet"
@@ -405,10 +448,12 @@ ${requestScope.b_no}
 									</div>
 								</div>
 								<!-- 댓글 입력창 -->
-								<form action="">
-									<textarea id="contents" name="contents" rows="4" cols="50"></textarea>
-									<br> <input type="submit" value="등록">
-								</form>
+								<div class="card-body">
+									<div class="form-group">
+	                       				<textarea class="form-control" id="contents" rows="4" cols="80"></textarea>
+	                      			</div>
+									<button type = "submit" class = "btn btn-primary me-2" onclick = "addContents()">등록</button>
+								</div>
 								<!-- 댓글 입력창 끝 -->
 								<!--댓글-->
 								<div class="card">

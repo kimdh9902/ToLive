@@ -76,11 +76,13 @@ public class UserController {
 		return alarmService.getIsOpenCount(user_id);
 	}
 	
-	@GetMapping(value = "/insertComment", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@GetMapping(value = "/insertComment")
 	public void InputComment(BoardCommentVO vo, HttpSession session) {
-		System.out.println("에베베");
-		System.out.println(vo);
 		commentService.addComment(vo);
 	}
 	
+	@GetMapping(value = "/selectComments", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public List<BoardCommentVO> getComments(int b_no){
+		return commentService.getComments(b_no);
+	}
 }

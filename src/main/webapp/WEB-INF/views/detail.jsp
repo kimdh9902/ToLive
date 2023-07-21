@@ -97,6 +97,80 @@
 		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no="
 				+ b_no;
 	}
+<<<<<<< HEAD
+=======
+	
+	function addContents(){
+      InsertContentAjax();
+      SelectContentsAjax();
+   }
+
+   function InsertContentAjax(){
+      let contents = document.getElementById("contents");
+      let data = {
+         contents : contents.value,
+         b_no : '${param.b_no}',
+         user_id : '${sessionScope.SESS_ID}'
+      };
+      $.ajax({//json
+         url : "${pageContext.servletContext.contextPath}/user/insertComment",
+         async : true,
+           contentType : "application/json;charset=UTF-8",
+           data : data,
+           method : "GET",
+           success : function(data, textStatus, jqXHR) {
+               console.log("hi");
+           },
+           error : function(jqXHR, textStatus, errorThrown) {
+               console.log(jqXHR);
+               console.log(textStatus);
+               console.log(errorThrown);
+           } 
+      })
+   	}
+   	function refreshContents(){
+   
+	}
+
+   function SelectContentsAjax(){
+      let data = {
+         b_no : '${param.b_no}'
+      };
+      $.ajax({//json
+         url : "${pageContext.servletContext.contextPath}/user/selectComments",
+         async : true,
+           contentType : "application/json;charset=UTF-8",
+           data : data,
+           method : "GET",
+           success : function(data, textStatus, jqXHR) {
+               console.log("sel");
+			   refreshContents();
+           },
+           error : function(jqXHR, textStatus, errorThrown) {
+               console.log(jqXHR);
+               console.log(textStatus);
+               console.log(errorThrown);
+           } 
+      })
+   }
+
+	function valueCheck() {
+		let contents = document.getElementById("contents");
+		let string = ""+contents.value;
+		let ment = string.split("@");
+		
+		console.log(ment);
+		console.log("@[0]"+ment[0]);
+		if(ment[1] != undefined){
+			console.log("@[1]"+ment[1]);
+		}
+		if(ment[1] != undefined){
+			console.log("@[1] split[0]"+ment[1].split(" ")[0]);
+			// console.log("@[1] split[1]"+ment[1].split(" ")[1]);
+		}
+	}
+
+>>>>>>> e404b4d4a7bd381e6f048572d6bf37955939b3bf
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet"
@@ -394,9 +468,35 @@
 										</table>
 									</div>
 								</div>
+<<<<<<< HEAD
+=======
+								<!-- 댓글 입력창 -->
+								<div class="card-body">
+	                       			<textarea class="form-control" id="contents" rows="4" cols="80" onkeyup="valueCheck()"></textarea>
+									<button type = "submit" class = "btn btn-primary me-2" onclick = "addContents()">등록</button>
+								<!-- 댓글 입력창 끝 -->
+>>>>>>> e404b4d4a7bd381e6f048572d6bf37955939b3bf
 								<!--댓글-->
+									<h3 class="card-title"></h3>
+									<div>
+										<c:forEach var="boardComment" items="${requestScope.boardCommentList}">
+											<div style="display: flex;">
+												<a href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=${boardComment.user_id}">
+													<span> 
+														<img src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
+														style="margin-right: 20px; width: 47px; height: 47px;">
+													</span>
+												</a> 
+												<span>${boardComment.user_id}<br>${boardComment.contents}</span>
+												<br>
+											</div>
+											<div class="dropdown-divider"></div>
+										</c:forEach>
+									</div>
+								</div>
 								<div class="card">
 									<div class="card-body">
+<<<<<<< HEAD
 										<h3 class="card-title"></h3>
 										<div class="table-responsive">
 											<div>
@@ -415,16 +515,19 @@
 										</div>
 									</div>
 
+=======
+>>>>>>> e404b4d4a7bd381e6f048572d6bf37955939b3bf
 									<!--글 수정 버튼-->
-									<div style="text-align: center;" class="card-footer">
-										<button class="btn btn-outline-primary"
-											style="width: 90px; height: 26px; margin-top: 10px;"
-											type="button" onclick="goUpdate();">글 수정</button>
+										<div style="text-align: center;" class="card-footer">
+											<button class="btn btn-outline-primary"
+												style="width: 90px; height: 26px; margin-top: 10px;"
+												type="button" onclick="goUpdate();">글 수정</button>
 
-										<!--글 삭제 버튼-->
-										<button class="btn btn-outline-primary"
-											style="width: 90px; height: 26px; margin-top: 10px;"
-											type="button" onclick="goDelete();">글 삭제</button>
+											<!--글 삭제 버튼-->
+											<button class="btn btn-outline-primary"
+												style="width: 90px; height: 26px; margin-top: 10px;"
+												type="button" onclick="goDelete();">글 삭제</button>
+										</div>
 									</div>
 								</div>
 							</div>
