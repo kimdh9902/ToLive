@@ -406,7 +406,7 @@
 												<c:forEach var="boardCommentList"
 													items="${requestScope.boardCommentList}">
 													<div style="display: flex;">
-														<a href="${pageContext.request.servletContext.contextPath}/menu/profile">
+														<a href="${pageContext.request.servletContext.contextPath}/menu/profile?${boardCommentList.user_id}">
 															<sapn>
 																<img src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
 																style="margin-right: 20px; width: 47px; height: 47px;">
