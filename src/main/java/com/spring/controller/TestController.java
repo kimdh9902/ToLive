@@ -14,4 +14,9 @@ public class TestController {
 	public String test() {
 		return "temptest";
 	}
+	
+	@GetMapping("detail")
+	public String test2() {
+		return "detailJam";
+	}
 }

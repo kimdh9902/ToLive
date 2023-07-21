@@ -93,9 +93,15 @@
 	}
 	
 	function goDelete() {
-		var b_no = "<%=request.getParameter("b_no")%>";
+		var b_no = "<%=request.getParameter("b_no")%>
+	";
 		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no="
 				+ b_no;
+	}
+
+	function comment() {
+		let contents = document.getElementById("contents");
+		contents.value
 	}
 </script>
 <!-- plugins:css -->
@@ -370,11 +376,13 @@
 							<div class="card">
 								<div class="card-body">
 									<h3 class="card-title"><%=request.getParameter("b_no")%></h3>
-									<h3 class="card-title">${TravBoardVO.title}</h3>
+									<h3 class="card-title">${title}</h3>
 									<div class="table-responsive">
 										<table class="table">
 											<thead>
 												<tr>
+													<!-- <th>글 번호</th> -->
+													<th>제목</th>
 													<th>내용</th>
 													<th>작성자</th>
 													<th>공감 수</th>
@@ -384,6 +392,7 @@
 											</thead>
 											<tbody>
 												<tr>
+													<td>${TravBoardVO.title}</td>
 													<td>${TravBoardVO.contents}</td>
 													<td>${TravBoardVO.user_id}</td>
 													<td>${TravBoardVO.total_emoji}</td>
@@ -394,19 +403,28 @@
 										</table>
 									</div>
 								</div>
+								<!-- 댓글 입력창 -->
+								<form action="">
+									<textarea id="contents" name="contents" rows="4" cols="50"></textarea>
+									<br> <input type="submit" value="등록">
+								</form>
+								<!-- 댓글 입력창 끝 -->
 								<!--댓글-->
 								<div class="card">
 									<div class="card-body">
 										<h3 class="card-title"></h3>
 										<div class="table-responsive">
 											<div>
-												<c:forEach var="boardCommentList"
+												<c:forEach var="boardComment"
 													items="${requestScope.boardCommentList}">
 													<div style="display: flex;">
-														<img
-															src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
-															style="margin-right: 20px; width: 47px; height: 47px;">
-														<span>${boardCommentList.user_id}<br>${boardCommentList.contents}</span>
+														<a href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=${boardComment.user_id}">
+															<span> 
+																<img src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
+																style="margin-right: 20px; width: 47px; height: 47px;">
+															</span>
+														</a> 
+														<span>${boardComment.user_id}<br>${boardComment.contents}</span>
 														<br>
 													</div>
 													<div class="dropdown-divider"></div>
