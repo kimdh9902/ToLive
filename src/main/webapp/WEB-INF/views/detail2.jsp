@@ -97,12 +97,14 @@
 	function valueCheck() {
 		let contents = document.getElementById("contents");
 		let string = ""+contents.value;
-		let ment = string.split("@");
+
 		console.log("search:"+string.search("@"));
-		console.log("ment:"+ment);
-		if(string.search("@") != -1)
+		// console.log("-1 = "+string[string.search("@")-1]);
+		// console.log("-1 = "+string[string.search("@")-1]);
+		if((string[string.search("@")-1]) == ' ' && string.search("@") != -1)
 		{
-			
+			let ment = string.split("@");
+			console.log("ment[1]:" + ment[1].split(" ")[0]);
 		}
 		// console.log("@[0]"+ment[0]);
 		// if(ment[1] != undefined){
