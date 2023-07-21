@@ -124,7 +124,10 @@
                console.log(errorThrown);
            } 
       })
-   }
+   	}
+   	function refreshContents(){
+   
+	}
 
    function SelectContentsAjax(){
       let data = {
@@ -138,6 +141,7 @@
            method : "GET",
            success : function(data, textStatus, jqXHR) {
                console.log("sel");
+			   refreshContents();
            },
            error : function(jqXHR, textStatus, errorThrown) {
                console.log(jqXHR);
@@ -465,46 +469,40 @@
 								</div>
 								<!-- 댓글 입력창 -->
 								<div class="card-body">
-									<div class="form-group">
-	                       				<textarea class="form-control" id="contents" rows="4" cols="80" onkeyup="valueCheck()"></textarea>
-	                      			</div>
+	                       			<textarea class="form-control" id="contents" rows="4" cols="80" onkeyup="valueCheck()"></textarea>
 									<button type = "submit" class = "btn btn-primary me-2" onclick = "addContents()">등록</button>
-								</div>
 								<!-- 댓글 입력창 끝 -->
 								<!--댓글-->
+									<h3 class="card-title"></h3>
+									<div>
+										<c:forEach var="boardComment" items="${requestScope.boardCommentList}">
+											<div style="display: flex;">
+												<a href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=${boardComment.user_id}">
+													<span> 
+														<img src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
+														style="margin-right: 20px; width: 47px; height: 47px;">
+													</span>
+												</a> 
+												<span>${boardComment.user_id}<br>${boardComment.contents}</span>
+												<br>
+											</div>
+											<div class="dropdown-divider"></div>
+										</c:forEach>
+									</div>
+								</div>
 								<div class="card">
 									<div class="card-body">
-										<h3 class="card-title"></h3>
-										<div class="table-responsive">
-											<div>
-												<c:forEach var="boardComment"
-													items="${requestScope.boardCommentList}">
-													<div style="display: flex;">
-														<a href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=${boardComment.user_id}">
-															<span> 
-																<img src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
-																style="margin-right: 20px; width: 47px; height: 47px;">
-															</span>
-														</a> 
-														<span>${boardComment.user_id}<br>${boardComment.contents}</span>
-														<br>
-													</div>
-													<div class="dropdown-divider"></div>
-												</c:forEach>
-											</div>
-										</div>
-									</div>
-
 									<!--글 수정 버튼-->
-									<div style="text-align: center;" class="card-footer">
-										<button class="btn btn-outline-primary"
-											style="width: 90px; height: 26px; margin-top: 10px;"
-											type="button" onclick="goUpdate();">글 수정</button>
+										<div style="text-align: center;" class="card-footer">
+											<button class="btn btn-outline-primary"
+												style="width: 90px; height: 26px; margin-top: 10px;"
+												type="button" onclick="goUpdate();">글 수정</button>
 
-										<!--글 삭제 버튼-->
-										<button class="btn btn-outline-primary"
-											style="width: 90px; height: 26px; margin-top: 10px;"
-											type="button" onclick="goDelete();">글 삭제</button>
+											<!--글 삭제 버튼-->
+											<button class="btn btn-outline-primary"
+												style="width: 90px; height: 26px; margin-top: 10px;"
+												type="button" onclick="goDelete();">글 삭제</button>
+										</div>
 									</div>
 								</div>
 							</div>
