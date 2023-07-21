@@ -98,6 +98,11 @@
 		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no="
 				+ b_no;
 	}
+
+	function comment() {
+		let contents = document.getElementById("contents");
+		contents.value
+	}
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet"
@@ -177,7 +182,8 @@
 			<ul class="nav">
 				<li class="nav-item profile">
 					<div class="profile-desc">
-						<a href="<%=request.getContextPath()%>/menu/profile?user_id=<%=session.getAttribute("SESS_ID")%>">
+						<a
+							href="<%=request.getContextPath()%>/profile?user_id=<%=session.getAttribute("SESS_ID")%>">
 							<!-- 프로필 링크 -->
 							<div class="profile-pic">
 								<div class="count-indicator">
@@ -299,8 +305,8 @@
 					<!-- 상단바 박스들-->
 					<ul class="navbar-nav navbar-nav-right">
 						<!-- 알림종 -->
-						<li id="isalarm" class="nav-item dropdown border-left">
-						<a class="nav-link count-indicator dropdown-toggle"
+						<li id="isalarm" class="nav-item dropdown border-left"><a
+							class="nav-link count-indicator dropdown-toggle"
 							id="notificationDropdown" href="#" data-toggle="dropdown"
 							onclick="ajaxCall()"> <i class="mdi mdi-bell"></i> <span
 								class="count bg-danger"></span>
@@ -311,8 +317,8 @@
 								<h6 class="p-3 mb-0">Notifications</h6>
 								<div class="dropdown-divider"></div>
 							</div></li>
-						<li class="nav-item dropdown">
-							<a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
+						<li class="nav-item dropdown"><a class="nav-link"
+							id="profileDropdown" href="#" data-toggle="dropdown">
 								<div class="navbar-profile">
 									<img class="img-xs rounded-circle"
 										src="${pageContext.request.contextPath}/resources/img/images.jpg"
@@ -320,7 +326,7 @@
 									<p class="mb-0 d-none d-sm-block navbar-profile-name">${sessionScope.SESS_NAME }</p>
 									<i class="mdi mdi-menu-down d-none d-sm-block"></i>
 								</div>
-							</a>
+						</a>
 							<div
 								class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
 								aria-labelledby="profileDropdown">
@@ -397,22 +403,28 @@
 										</table>
 									</div>
 								</div>
+								<!-- 댓글 입력창 -->
+								<form action="">
+									<textarea id="contents" name="contents" rows="4" cols="50"></textarea>
+									<br> <input type="submit" value="등록">
+								</form>
+								<!-- 댓글 입력창 끝 -->
 								<!--댓글-->
 								<div class="card">
 									<div class="card-body">
 										<h3 class="card-title"></h3>
 										<div class="table-responsive">
 											<div>
-												<c:forEach var="boardCommentList"
+												<c:forEach var="boardComment"
 													items="${requestScope.boardCommentList}">
 													<div style="display: flex;">
-														<a href="${pageContext.request.servletContext.contextPath}/menu/profile?${boardCommentList.user_id}">
-															<sapn>
+														<a href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=${boardComment.user_id}">
+															<span> 
 																<img src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
 																style="margin-right: 20px; width: 47px; height: 47px;">
-															</sapn>
-														</a>
-														<span>${boardCommentList.user_id}<br>${boardCommentList.contents}</span>
+															</span>
+														</a> 
+														<span>${boardComment.user_id}<br>${boardComment.contents}</span>
 														<br>
 													</div>
 													<div class="dropdown-divider"></div>
@@ -420,7 +432,7 @@
 											</div>
 										</div>
 									</div>
-								<!-- 댓글 끝 -->
+
 									<!--글 수정 버튼-->
 									<div style="text-align: center;" class="card-footer">
 										<button class="btn btn-outline-primary"
