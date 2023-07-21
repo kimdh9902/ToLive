@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.domain.AlarmVO;
+import com.spring.domain.BoardCommentVO;
 import com.spring.domain.FollowVO;
 import com.spring.service.AlarmService;
 import com.spring.service.BlackListService;
@@ -27,7 +28,6 @@ import lombok.Setter;
 public class UserController {
 	
 	private final FollowService followService;
-	private final BlackListService blackService;
 	private final AlarmService alarmService;
 	
 	@GetMapping(value = "/friend", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -74,19 +74,9 @@ public class UserController {
 		return alarmService.getIsOpenCount(user_id);
 	}
 	
-	@GetMapping("/blacklist-add")
-	public void addBlackList(String user_id, String block_account) {
-		blackService.addBlackList(user_id, block_account);
+	@GetMapping(value = "/insertComments", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public void InputComments(BoardCommentVO vo, HttpSession session) {
+//		vo.set
 	}
 	
-	@GetMapping("/blacklist-get")
-	public String getBlackList(String user_id) {
-//		blackService.getBlackList(user_id);
-		return "blacklist";
-	}
-	
-	@GetMapping("/blacklist-remove")
-	public void getBlackList(String user_id, String block_account) {
-		blackService.removeBlackList(user_id, block_account);
-	}
 }
