@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.domain.BoardVO;
 import com.spring.domain.PartyBoardVO;
+import com.spring.domain.ReportVO;
 import com.spring.mapper.BoardMapper;
 import com.spring.mapper.PartyBoardMapper;
+import com.spring.mapper.ReportMapper;
 import com.spring.service.PartyBoardService;
+import com.spring.service.ReportService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -37,6 +40,11 @@ public class PartyBoardcontroller {
 	@Autowired
 	private BoardMapper boardMapper;
 
+	@Autowired
+	private ReportMapper reportMapper;
+	
+	private final ReportService reportService;
+
 	// 파티 모집 게시판 상세 글 페이지로 이동
 	@GetMapping("/Pdetail")
 	public String PartyBoardPlusMember(HttpServletRequest request, HttpServletResponse response, Model model,
@@ -48,27 +56,13 @@ public class PartyBoardcontroller {
 				partyBoardService.modifyPartyBoardPlusMember(Integer.parseInt(request.getParameter("b_no")));
 
 				PartyBoardVO vo = partyBoardService.getOnePartyBoard(Integer.parseInt(request.getParameter("b_no")));
-
-				model.addAttribute("title", vo.getTitle());
-				model.addAttribute("contents", vo.getContents());
-				model.addAttribute("now_people", vo.getNow_people());
-				model.addAttribute("max_people", vo.getMax_people());
-				model.addAttribute("user_id", vo.getUser_id());
-				model.addAttribute("reg_date", vo.getReg_date());
-
-				System.out.println(vo);
+				model.addAttribute("partyBoardVO", vo);
 
 				return "Pdetail";
 
 			} else {
 				PartyBoardVO vo = partyBoardService.getOnePartyBoard(Integer.parseInt(request.getParameter("b_no")));
-
-				model.addAttribute("title", vo.getTitle());
-				model.addAttribute("contents", vo.getContents());
-				model.addAttribute("now_people", vo.getNow_people());
-				model.addAttribute("max_people", vo.getMax_people());
-				model.addAttribute("user_id", vo.getUser_id());
-				model.addAttribute("reg_date", vo.getReg_date());
+				model.addAttribute("partyBoardVO", vo);
 
 			}
 
@@ -88,16 +82,16 @@ public class PartyBoardcontroller {
 			throws UnsupportedEncodingException {
 
 		bvo.setUser_id((String) session.getAttribute("SESS_ID"));
-		bvo.setReg_date(new Date());		
+		bvo.setReg_date(new Date());
 
 		int result = boardMapper.insertBoard(bvo);
-		
-		System.out.println("여기-"+result);
-		System.out.println("여기-"+boardMapper.insertBoard(bvo));
-		
+
+		System.out.println("여기-" + result);
+		System.out.println("여기-" + boardMapper.insertBoard(bvo));
+
 		int result2 = boardMapper.insertToParty(pvo);
-		
-		System.out.println("여기2-"+result2);
+
+		System.out.println("여기2-" + result2);
 
 		if (result + result2 > 0) {
 			return "redirect:/menu/partyBoard/";
@@ -140,4 +134,20 @@ public class PartyBoardcontroller {
 		}
 	}
 
+	// 글 신고 페이지로 이동
+	@GetMapping("/partyBoard-report")
+	public String Report(Model model, @RequestParam("b_no") int b_no) {
+		model.addAttribute("partyBoard", mapper.selectOnePartyBoard(b_no));
+		return "partyBoard-report";
+	}
+
+	// 신고 처리
+	@RequestMapping(value = "/report-processing", method = RequestMethod.POST)
+	public String reportBoard(BoardVO bvo, ReportVO rvo) {	
+		System.out.println("여기 왔니?");
+		reportService.addReportBoard(rvo);
+		System.out.println(rvo);		
+		return "redirect:Pdetail?b_no=" + bvo.getB_no();
+
+	}
 }

@@ -47,28 +47,17 @@ public class TravBoardController {
 		if (request.getParameter("b_no") != null) {
 			if (SESS_GRADE != 7) {
 
-				travBoardService.modifyTravBoardPlusView(Integer.parseInt(request.getParameter("b_no"))); // 제목 클릭 시 조회수
-																											// 증가
+				travBoardService.modifyTravBoardPlusView(Integer.parseInt(request.getParameter("b_no"))); // 제목 클릭 시 조회수 증가
+																										
+				// vo에 포장
 				TravBoardVO vo = travBoardService.getBoard(Integer.parseInt(request.getParameter("b_no")));
-				model.addAttribute("title", vo.getTitle());
-				model.addAttribute("user_id", vo.getUser_id());
-				model.addAttribute("contents", vo.getContents());
-				model.addAttribute("total_emoji", vo.getTotal_emoji());
-				model.addAttribute("reg_date", vo.getReg_date());
-				model.addAttribute("views", vo.getViews());
-
-				System.out.println(vo);
+				model.addAttribute("TravBoardVO", vo);
 
 				return "detail";
 
 			} else {
 				TravBoardVO vo = travBoardService.getBoard(Integer.parseInt(request.getParameter("b_no")));
-				model.addAttribute("title", vo.getTitle());
-				model.addAttribute("user_id", vo.getUser_id());
-				model.addAttribute("contents", vo.getContents());
-				model.addAttribute("total_emoji", vo.getTotal_emoji());
-				model.addAttribute("reg_date", vo.getReg_date());
-				model.addAttribute("views", vo.getViews());
+				model.addAttribute("TravBoardVO", vo);
 
 			}
 		}
