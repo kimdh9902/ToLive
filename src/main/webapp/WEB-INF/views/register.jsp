@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        "<title>친구" 검색</title>
+        <title>회원가입</title>
         <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
                 <!-- plugins:css -->
         <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -105,7 +105,7 @@
         <div class="container-scroller">
             <!-- 왼쪽 슬라이드 바 로고 -->
             <!-- <div class="container-fluid page-body-wrapper"> -->
-            <div class="col-sm-3" style="margin-left: 550px;">
+            <div class="col-sm-3" style="margin-left: 39%; margin-top: 3%">
                <br>
                     <form class="forms-sample" action="${pageContext.request.contextPath}/users/register" method="post" style="text-align: center;" onsubmit="return isLocation()">
                         <div class="form-group">
@@ -127,7 +127,7 @@
                         <div class="form-group">
                             <label for="phone">전화번호</label>
                             <input class="form-control" type="tel" id="phone" name="phone"
-                                pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required><br>
+                                pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" alt="ex)010-1234-5678" required><br>
                         </div>
                         <div class="form-group">
                             <label for="location">지역</label><br>

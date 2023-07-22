@@ -97,8 +97,6 @@
 		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no="
 				+ b_no;
 	}
-<<<<<<< HEAD
-=======
 	
 	function addContents(){
       InsertContentAjax();
@@ -170,7 +168,6 @@
 		}
 	}
 
->>>>>>> e404b4d4a7bd381e6f048572d6bf37955939b3bf
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet"
@@ -468,14 +465,11 @@
 										</table>
 									</div>
 								</div>
-<<<<<<< HEAD
-=======
 								<!-- 댓글 입력창 -->
 								<div class="card-body">
 	                       			<textarea class="form-control" id="contents" rows="4" cols="80" onkeyup="valueCheck()"></textarea>
 									<button type = "submit" class = "btn btn-primary me-2" onclick = "addContents()">등록</button>
 								<!-- 댓글 입력창 끝 -->
->>>>>>> e404b4d4a7bd381e6f048572d6bf37955939b3bf
 								<!--댓글-->
 									<h3 class="card-title"></h3>
 									<div>
@@ -496,27 +490,6 @@
 								</div>
 								<div class="card">
 									<div class="card-body">
-<<<<<<< HEAD
-										<h3 class="card-title"></h3>
-										<div class="table-responsive">
-											<div>
-												<c:forEach var="boardCommentList"
-													items="${requestScope.boardCommentList}">
-													<div style="display: flex;">
-														<img
-															src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
-															style="margin-right: 20px; width: 47px; height: 47px;">
-														<span>${boardCommentList.user_id}<br>${boardCommentList.contents}</span>
-														<br>
-													</div>
-													<div class="dropdown-divider"></div>
-												</c:forEach>
-											</div>
-										</div>
-									</div>
-
-=======
->>>>>>> e404b4d4a7bd381e6f048572d6bf37955939b3bf
 									<!--글 수정 버튼-->
 										<div style="text-align: center;" class="card-footer">
 											<button class="btn btn-outline-primary"
