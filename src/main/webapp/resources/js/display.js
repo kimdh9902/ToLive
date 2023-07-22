@@ -156,9 +156,9 @@ function makeLeftSlideBar(){
     //드롭다운 메뉴 끝
     //프로필 끝
     //메뉴
-    let menu_li2 = makeMenuLi(GV_path, "mdi mdi-airballoon", "여행 후기글");
-    let menu_li3 = makeMenuLi(GV_path, "mdi mdi-account-search", "파티 찾기");
-    let menu_li4 = makeMenuLi(GV_path, "mdi mdi-trophy-variant", "명예의 전당");
+    let menu_li2 = makeMenuLi(GV_path, "main/","mdi mdi-airballoon", "여행 후기글");
+    let menu_li3 = makeMenuLi(GV_path, "menu/partyBoard","mdi mdi-account-multiple-plus", "파티 찾기");
+    let menu_li4 = makeMenuLi(GV_path, "menu/starBoard","mdi mdi-trophy-variant", "명예의 전당");
     let toggle_menu_name = new Array();
     toggle_menu_name.push("유저 검색");
     toggle_menu_name.push("친구 목록");
@@ -242,7 +242,7 @@ function makeToggleMenuLi(icon_name, menu_name, id, tog_nameArr, tog_iconArr, to
     return menu_li;
 }
 
-function makeMenuLi(path, icon_name, menu_name){
+function makeMenuLi(path, link_path, icon_name, menu_name){
     
     //nav > ul > li
     let menu_li = document.createElement("li");
@@ -250,7 +250,7 @@ function makeMenuLi(path, icon_name, menu_name){
     //nav > ul > li > a
     let menu_li_a = document.createElement("a");
     menu_li_a.className = "nav-link";
-    menu_li_a.href = path+"/main/";
+    menu_li_a.href = path+"/"+link_path;
     //nav > ul > li > a > span
     let menu_li_a_span = document.createElement("span");
     menu_li_a_span.className = "menu-icon";
@@ -360,7 +360,7 @@ function makeTopNavBar(){
 
     let iconList_li2_div_a2 = document.createElement("a");
     iconList_li2_div_a2.className = "dropdown-item preview-item"
-    iconList_li2_div_a2.href = GV_path+"auth/logout";
+    iconList_li2_div_a2.href = GV_path+"/auth/logout";
     let iconList_li2_div_a2_div = document.createElement("div");
     iconList_li2_div_a2_div.className = "preview-thumbnail";
     let iconList_li2_div_a2_div_div = document.createElement("div");

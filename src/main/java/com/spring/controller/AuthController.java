@@ -54,15 +54,14 @@ public class AuthController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		System.out.println("before"+session);
-		session.invalidate();
 		
+	    if (session != null) {
+	        session.invalidate();
+	    }
+	    
 		System.out.println("after"+session);
-//		response.sendRedirect(request.getContextPath()+"/login?msg=logout success");
-		if(session.getAttributeNames() == null) {
-			return "redirect:auth/login?msg=logout success";
-		} else {
-			return "redirect:auth/login?msg=logout fail";
-		}
+		
+		return "redirect:login?msg=logout success";
 	}
 	/*
 	 * UsersVO user = new UsersVO();

@@ -98,6 +98,14 @@
                 
             return true;
         }
+        
+        function isSuccess() {
+        	if(isLocation()){
+        		
+        	}
+        	alert("회원가입 실패")
+        	return false;
+		}
         </script>
     </head>
 
@@ -107,7 +115,7 @@
             <!-- <div class="container-fluid page-body-wrapper"> -->
             <div class="col-sm-3" style="margin-left: 39%; margin-top: 3%">
                <br>
-                    <form class="forms-sample" action="${pageContext.request.contextPath}/users/register" method="post" style="text-align: center;" onsubmit="return isLocation()">
+                    <form class="forms-sample" action="${pageContext.request.contextPath}/auth/register" method="post" style="text-align: center;" onsubmit="return isSuccess()">
                         <div class="form-group">
                             <label for="id">아이디</label>
                             <input class="form-control" type="text" id="id" name="id" required><br>
@@ -131,7 +139,7 @@
                         </div>
                         <div class="form-group">
                             <label for="location">지역</label><br>
-                            <select style="margin-right: 7px" id="location-sel" name="location-sel" onchange="locationSidoOption(this)" required><br>
+                            <select style="margin-right: 7px" id="location-sel" onchange="locationSidoOption(this)" required><br>
                                 <option value="0" selected>시/도 선택</option>
                                 <option value="1">서울 특별시</option>
                                 <option value="2">부산광역시</option>
@@ -147,7 +155,7 @@
                                 <option value="12">제주특별자치도</option>
                                 <option value="13">강원특별자치도</option>
                             </select>
-                            <select id="location-sel2" name="location-sel2" required><br>
+                            <select id="location-sel2" name="location" required><br>
                                 <option value="0" selected>군/구 선택</option>
                             
                             </select>
