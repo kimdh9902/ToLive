@@ -9,10 +9,11 @@
 		
 		<insert id="insertStarBoard">
 			 <![CDATA[
-		        INSERT INTO star_board (b_no, title, user_id, views) 
-		        SELECT tb.trav_b_no, tb.title, tb.user_id, tb.views 
-		        FROM (SELECT * FROM trav_board WHERE is_hidden=0 ORDER BY views DESC ) tb 
-		        WHERE ROWNUM <= 10
+		     INSERT INTO star_board (b_no, title, user_id) 
+			    SELECT tb.trav_b_no, b.title, b.user_id
+			    FROM board b 
+			    join trav_board tb ON tb.trav_b_no = b.b_no
+			    WHERE ROWNUM <= 10 and b.is_hidden = 0
     		]]>
 		</insert>
 		

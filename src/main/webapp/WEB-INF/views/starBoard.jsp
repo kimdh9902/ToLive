@@ -186,10 +186,19 @@
 												<th>글 번호</th>
 												<th>제목</th>
 												<th>아이디</th>
-												<th>조회수</th>
+												<!-- <th>조회수</th> -->
 											</tr>
 										</thead>
-
+										<tbody>
+											<c:forEach var="starVO" items="${starList }">
+												<tr>
+													<td>${starVO.b_no }</td>
+													<td><a href="${pageContext.request.servletContext.contextPath}/travBoard/detail?b_no=${starVO.b_no }">${starVO.title }</a></td>
+													<td>${starVO.user_id }</td>
+													<%-- <td>${starVO.b_no }</td> --%>
+												</tr>
+											</c:forEach>
+										</tbody>
 									</table>
 								</div>
 							</div>
