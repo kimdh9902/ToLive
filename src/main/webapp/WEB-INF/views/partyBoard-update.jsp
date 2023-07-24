@@ -89,7 +89,7 @@
 <body>
    <div class="container mt-3">
       <h2 style="text-align: center;">파티 모집 게시글 수정 페이지</h2>
-      <form action="${pageContext.request.contextPath}/partyBoard/board-pupdate" method="post" accept-charset="UTF-8">
+      <form action="${pageContext.request.contextPath}/partyBoard/partyBoard-modify" method="post" accept-charset="UTF-8">
             <div class="row">
             <input type="hidden" name="b_no" value="${partyBoard.b_no}">
             <div class="mb-3 mt-3 col p-3">

@@ -71,10 +71,8 @@
 				}
 			</script>
 			
-			
 
 		</head>
-
 		<body>
 			<div class="container-scroller" id="container-scroller">
 				<div class="container-fluid page-body-wrapper" id="container-body-wrapper">
@@ -87,15 +85,16 @@
 											<div class="container mt-3">
 												<h2 style="text-align: center; margin-bottom: 30px;">파티 모집 게시판 신고 페이지</h2>															
 												<!-- form start -->
-												<form action="${pageContext.request.contextPath}/partyBoard/report-processing" method="post">
-													<div class="container" style="border: 2px solid white; margin-top: 2px"  >
-														 <div class="container m1" style="margin-right: 30px; margin-top: 10px">
+												<form action="${pageContext.request.contextPath}/travBoard/report-processing" method="post">
+													<div class="container">
+														 <div style="margin-right: 30px;">
 															<label for="b_no">글 번호</label>									
-															<input type="text" name="b_no" value="${partyBoard.b_no}" readonly>
+															<input type="text" name="b_no" value="${travBoard.b_no}" readonly>
 														</div>
-														<div style="margin-bottom: 30px; margin-top: 10px">
+														<div style="margin-bottom: 30px;">
 															<label for="title">제목</label>									
-															<input type="text" name="title" aria-rowspan="3" value="${partyBoard.title}" readonly>
+														<%-- 	<input type="text" name="title" aria-rowspan="2" value="${travBoard.title}" readonly> --%>
+															   <textarea class="form-control" id="title" name=title" rows="5" >${travBoard.title}</textarea>
 														 </div>
 														 <div style="margin-bottom: 30px;">
 														 <div class="mb-3 mt-3 col p-3">
@@ -120,7 +119,7 @@
 													</div>
 													<div class="row">
 														<div class="col p-3">
-															<a href="${pageContext.request.contextPath}/menu/partyBoard">
+															<a href="${pageContext.request.contextPath}/menu/travBoard/">
 																<button id="back" type="button" class="get col p-3 btn btn-primary">돌아가기</button>
 															</a>
 														</div>

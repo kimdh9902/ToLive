@@ -83,7 +83,7 @@
       <body>
          <div class="container mt-3">
             <h2 style="text-align: center;">파티 모집 게시판 작성 페이지</h2>
-            <form action="${pageContext.request.contextPath}/partyBoard/pboard-insert" method="post">
+            <form action="${pageContext.request.contextPath}/partyBoard/partyBoard-insert" method="post">
                <div class="row">
                   <div class="mb-3 mt-3 col p-3">
                      <label for="title">제목:</label>

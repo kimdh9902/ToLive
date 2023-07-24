@@ -88,7 +88,7 @@
 	document.querySelector("#no")
 	
 	function goWrite() {
-		location.href = "${pageContext.servletContext.contextPath}/partyBoard/pboard-write";
+		location.href = "${pageContext.servletContext.contextPath}/partyBoard/partyBoard-write";
 	}
 	
 </script>
@@ -171,7 +171,7 @@
 							<div class="profile-pic">
 								<div class="count-indicator">
 									<img class="img-xs rounded-circle "
-										src="${pageContext.request.contextPath}/resources/img/images.jpg" alt="">
+										src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg" alt="no">
 									<span class="count bg-success"></span>
 								</div>
 								<div class="profile-name">
@@ -383,7 +383,7 @@
 													items="${requestScope.partyBoardVO}">
 													<tr>
 														<td>${partyBoardVO.b_no}</td>
-														<td><a href="${pageContext.request.contextPath}/partyBoard/Pdetail?b_no=${partyBoardVO.b_no}">
+														<td><a href="${pageContext.request.contextPath}/partyBoard/partyBoard-detail?b_no=${partyBoardVO.b_no}">
 														${partyBoardVO.title}</a></td>
 														<td>${partyBoardVO.now_people}</td>
 														<td>${partyBoardVO.max_people }</td>
