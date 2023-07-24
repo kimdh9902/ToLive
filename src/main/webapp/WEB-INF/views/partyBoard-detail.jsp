@@ -25,7 +25,7 @@
 
 	function goReport() {
 		var b_no = "<%=request.getParameter("b_no")%>";
-		location.href = "${pageContext.servletContext.contextPath}/partyBoard/partyBoard-report2?b_no="+ b_no;
+		location.href = "${pageContext.servletContext.contextPath}/partyBoard/partyBoard-report?b_no="+ b_no;
 	}
 </script>
 <!-- plugins:css -->

@@ -135,10 +135,10 @@ public class PartyBoardcontroller {
 	}
 
 	// 글 신고 페이지로 이동
-	@GetMapping("/partyBoard-report2")
+	@GetMapping("/partyBoard-report")
 	public String Report(Model model, @RequestParam("b_no") int b_no) {
 		model.addAttribute("partyBoard", mapper.selectOnePartyBoard(b_no));
-		return "partyBoard-report2";
+		return "partyBoard-report";
 	}
 
 	// 신고 처리

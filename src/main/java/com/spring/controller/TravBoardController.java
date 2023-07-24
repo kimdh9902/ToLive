@@ -133,7 +133,7 @@ public class TravBoardController {
 			return "travBoard-report";
 		}
 		
-		// 신고 처리
+	// 신고 처리
 		@RequestMapping(value = "/report-processing", method = RequestMethod.POST)
 		public String reportBoard(BoardVO bvo, ReportVO rvo) {	
 			System.out.println("여기 왔니?");
