@@ -96,6 +96,7 @@
 		var b_no = "<%=request.getParameter("b_no")%>";
 		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no=" + b_no;
 	}
+
 	
 	function addContents(){
       InsertContentAjax();
@@ -166,6 +167,7 @@
 			// console.log("@[1] split[1]"+ment[1].split(" ")[1]);
 		}
 	}
+
 
 </script>
 <!-- plugins:css -->
@@ -466,12 +468,16 @@
 											</tbody>
 										</table>
 									</div>
+
 								</div>
+
 								<!-- 댓글 입력창 -->
 								<div class="card-body">
 	                       			<textarea class="form-control" id="contents" rows="4" cols="80" onkeyup="valueCheck()"></textarea>
 									<button type = "submit" class = "btn btn-primary me-2" onclick = "addContents()">등록</button>
 								<!-- 댓글 입력창 끝 -->
+
+
 								<!--댓글-->
 									<h3 class="card-title"></h3>
 									<div>
@@ -492,6 +498,7 @@
 								</div>
 								<div class="card">
 									<div class="card-body">
+
 									<!--글 수정 버튼-->
 										<div style="text-align: center;" class="card-footer">
 											<button class="btn btn-outline-primary"
