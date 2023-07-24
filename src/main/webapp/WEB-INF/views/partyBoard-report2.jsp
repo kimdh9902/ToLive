@@ -84,51 +84,18 @@
 								<div class="col-12 grid-margin">
 									<div class="card">
 										<div class="card-body">
-											<div class="container mt-3">
+												<div class="container">
 												<h2 style="text-align: center; margin-bottom: 30px;">파티 모집 게시판 신고 페이지</h2>															
 												<!-- form start -->
-												<form action="${pageContext.request.contextPath}/partyBoard/report-processing" method="post">
-													<div class="container" style="border: 2px solid white; margin-top: 2px"  >
-														 <div class="container m1" style="margin-right: 30px; margin-top: 10px">
-															<label for="b_no">글 번호</label>									
-															<input type="text" name="b_no" value="${partyBoard.b_no}" readonly>
-														</div>
-														<div style="margin-bottom: 30px; margin-top: 10px">
-															<label for="title">제목</label>									
-															<input type="text" name="title" aria-rowspan="3" value="${partyBoard.title}" readonly>
-														 </div>
-														 <div style="margin-bottom: 30px;">
-														 <div class="mb-3 mt-3 col p-3">
-															<table>
-																<tr>
-																	<td colspan="2">
-																		<label for="report_comments">신고 사유</label>
-																	</td>
-																</tr>
-																<tr>
-																	<td>
-																		<input type="radio" name="report_num" value="1">부적절한 내용<br>
-																		<input type="radio" name="report_num" value="2">욕설<br>
-																		<input type="radio" name="report_num" value="3">혐오 발언<br>
-																		<input type="radio" name="report_num" value="4">개인적인 정보 노출<br>
-																		<input type="radio" name="report_num" value="5">폭력성 또는 위험해보임<br>
-																	</td>
-																</tr>														
-															</table>
-														 </div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col p-3">
-															<a href="${pageContext.request.contextPath}/menu/partyBoard">
-																<button id="back" type="button" class="get col p-3 btn btn-primary">돌아가기</button>
-															</a>
-														</div>
-														<div class="col p-3">
-															<button id="sub" type="submit" class="btn btn-warning">신고 보내기</button>
-														</div>
-													</div>
-												</form>											
+												<form action="${pageContext.request.contextPath}/travBoard/report-processing" method="post">
+												<fieldset>
+												<legend>게시글</legend>
+												<div class="container m1" style="margin-right: 30px;">
+												<div>
+												</div>
+												</div>
+												</fieldset>
+												</form>				
 											</div>
 											<!-- card-body end -->
 										</div>						
