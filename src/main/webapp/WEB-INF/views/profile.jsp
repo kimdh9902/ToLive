@@ -83,19 +83,14 @@
 	
 	function followUpAndDown(data) {
 		let inform_box = document.getElementById("inform");
-		// console.log(inform_box.children[0].children[0].innerHTML);
-		// console.log(typeof inform_box.children[0].children[0].innerHTML);
 		let span = inform_box.children[0].children[2];
-		console.log(span.innerHTML);
-		// console.log("-1 = "+Number.parseInt(num)-1);
-		// console.log("+1 = "+(Number.parseInt(num)+1));
-		// console.log(typeof Number.parseInt(num));
+
 		if(data){
 			span.innerHTML = (Number.parseInt(span.innerHTML)-1);
 		}else{
 			span.innerHTML = (Number.parseInt(span.innerHTML)+1);
 		}
-		console.log(span.innerHTML);
+
 		buttonToggle(data);
 	}
 	

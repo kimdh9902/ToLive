@@ -121,40 +121,54 @@
         }
 	
 	function searchUser(userList){
-        let path = "${ pageContext.servletContext.contextPath}";
+        deleteUser();
+        const path = "${pageContext.servletContext.contextPath}";
         let print_div = document.getElementById("print");
         for(var i = 0; i < userList.length; i++){
-            let div = document.createElement("div");
-            div.style.display = "flex";
-            div.style.width = "80px";
-            div.style.height = "80px";
+            let a = document.createElement("a");
+            a.href = path+"/menu/profile?user_id="+userList[i].user_id;
 
-            let div_a = document.createElement("a");
-            div_a.href = path+"/menu/profile?user_id="+userList[i].user_id;
-            let div_a_span = document.createElement("span");
-            let div_a_span_img = document.createElement("img");
-            div_a_span_img.src = userList[i].profile_img;
-            div_a_span_img.width = "45px";
-            div_a_span_img.height = "45px";
+            let a_div = document.createElement("div");
+            a_div.style.display = "flex";
+            a_div.style.width = "100%";
+            a_div.style.height = "100px";
+            a_div.style.border = "1px white solid";
+            a_div.style.padding = "10px 10px 10px 10px";
 
-            let div_p = document.createElement("p");
-            
+            let a_div_span = document.createElement("span");
+            let a_div_span_img = document.createElement("img");
+            a_div_span_img.src = path+userList[i].profile_img;
+            a_div_span_img.style.width = "80px";
+            a_div_span_img.style.height = "100%";
+            a_div_span_img.style.marginRight = "20px";
+
+            let a_div_p = document.createElement("p");
+            a_div_p.style.width = "80%";
+            a_div_p.style.height = "100%";
+
             let div_p_span = document.createElement("span");
-            div_a_span.innerText = userList[i].user_id;
-            div_a_span.style.marginRight = "10px";
+            div_p_span.innerText = userList[i].user_id;
+            div_p_span.style.color = "white";
+            div_p_span.style.marginLeft = "10%";
+
             let div_p_span2 = document.createElement("span");
             div_p_span2.innerText = userList[i].user_name;
+            div_p_span2.style.color = "white";
+            div_p_span2.style.marginLeft = "20%";
 
-            div_a_span.appendChild(div_a_span_img);
-            div_a.appendChild(div_a_span);
+            a_div_span.appendChild(a_div_span_img);
+            a_div.appendChild(a_div_span);
 
-            div_p.appendChild(div_p_span);
-            div_p.appendChild(div_p_span2);
+            a_div_span.appendChild(a_div_span_img);
+            a_div_p.appendChild(div_p_span);
+            a_div_p.appendChild(div_p_span2);
+
+            a_div.appendChild(a_div_span);
+            a_div.appendChild(a_div_p);
             
-            div.appendChild(div_a);
-            div.appendChild(div_p);
+            a.appendChild(a_div);
     
-            print_div.appendChild(div);
+            print_div.appendChild(a);
         }
 		// var tab = new Table("table");
 		// tab.openTr();
@@ -165,26 +179,17 @@
 		// tab.end();
 	}
 
-	function printFriend(tab, userList){
-        // let link = "<%=request.getContextPath()%>/profile?user_id="
-		// for(var i = 0; i < userList.length; i++){
-		// 	tab.openTr();
-		// 	if(userList[i].id != ("<%=request.getSession().getAttribute("SESS_ID")%>"))
-		// 	{
-		// 		/* tab.insertTd(userList[i].id); */
-		// 		/* a태그 걸어야함 */
-		// 		let profile_link = document.createElement("a");
-        //         profile_link.href = link += userList[i].id;
-        //         profile_link.textContent = userList[i].name;
-		// 		tab.insertTd(profile_link);				
-		// 	}
-			
-		// 	tab.closeTr();
-		// }
-	}
+    function deleteUser(){
+        let printDiv = document.getElementById("print");
+        console.log(printDiv.children[0]);
+        console.log(printDiv.firstElementChild);
+        while(printDiv.firstElementChild != null){
+            printDiv.children[0].remove();
+        }
+    }
 
     window.onload = function(){
-			init("${ pageContext.servletContext.contextPath}", "${sessionScope.SESS_ID}", "${sessionScope.SESS_NAME}");
+		init("${ pageContext.servletContext.contextPath}", "${sessionScope.SESS_ID}", "${sessionScope.SESS_NAME}");
 	}
     </script>
 </head>
@@ -198,8 +203,8 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="card">
-								<div class="card-body" style="height: 70px;">
-									<div class="form-group" style="position: absolute; top: 25%; left: 42%; transform: translate(-45%, -45%);">
+								<div class="card-body" style="height: 80px; position: relative; display: flex; align-items: center;">
+									<div class="form-group" style="position: absolute; top: 25%; left: 42%; transform: translate(-20%, -20%);">
 										<label for="user_search" style="color: white;">검색할ID
 											또는 이름</label><br> <input type="text" id="user" name="user"
 											style="margin-right: 40px; width: 180px" height="30px">
@@ -207,10 +212,10 @@
 											style="margin-left: 10px; width: 150px;" type="submit"
 											value="검색" onclick="ajaxCall_search()">
 									</div>
-									<div id="print">
-									
-									</div>
 								</div>
+                                <div class="card-footer" id="print">
+									
+                                </div>
 							</div>
 						</div>
 					</div>

@@ -18,6 +18,8 @@ public class SearchServiceImpl implements SearchService{
 	
 	@Override
 	public List<SearchIdVO> findByIdAndName(String name) {
+		if(name.equals(""))
+			return null;
 		return mapper.selectId(name);
 	}
 
