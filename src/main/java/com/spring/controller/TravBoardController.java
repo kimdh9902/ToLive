@@ -40,7 +40,7 @@ public class TravBoardController {
 
 	// 여행 후기글 글 상세 페이지로 이동
 	// localhost:8080/trip/travBoard/detail
-	@GetMapping("/detail")
+	@GetMapping("/detail5")
 	public String openBoard(@RequestParam("b_no") int b_no, HttpServletRequest request, HttpServletResponse response,
 			Model model, HttpSession session) throws IOException {
 		int SESS_GRADE = (int) session.getAttribute("SESS_GRADE");
@@ -62,7 +62,7 @@ public class TravBoardController {
 			}
 		}
 
-		return "detail";
+		return "detail5";
 	}
 
 	// 게시글 등록 페이지로 이동
