@@ -455,14 +455,22 @@ function alarmAjax(path, sess_id) {
 function make(is_open, img, msg){
     // 열람 여부에 따라 스타일 변경
     let alarm = document.getElementById("alarm");
-          
+
     var div_divider = document.createElement("div"); div_divider.className = "dropdown-divider";
     alarm.appendChild(div_divider);
     // --------------------------------------------------------------
-    var a_drop = document.createElement("a"); a_drop.className = "dropdown-item preview-item";
-    var div_thumb = document.createElement("div"); div_thumb.className = "preview-thumbnail";
+    var a_drop = document.createElement("a"); 
+    a_drop.classList.add("dropdown-item");
+    a_drop.classList.add("preview-item");
+    if(is_open == 1){
+        a_drop.style.backgroundColor = "gray";
+    }
+    var div_thumb = document.createElement("div"); 
+    div_thumb.className = "preview-thumbnail";
     var prf_img = document.createElement("img");
-    prf_img.className = "rounded-circle profile-pic"; prf_img.src = GV_path+"/resources/TripToLive/default/default.jpg";
+    prf_img.className = "rounded-circle profile-pic"; 
+    prf_img.src = GV_path+img;
+    
     div_thumb.appendChild(prf_img);
     a_drop.appendChild(div_thumb);
     //----------------------------------------------------
@@ -475,22 +483,25 @@ function make(is_open, img, msg){
 }
 
 function printAlarm(userList){
-    let alarm = document.getElementById("alarm");
-    let isOpne = document.getElementById("isalarm");
+    let isOpen = document.getElementById("isalarm");
 
-    if(isOpne.className == "nav-item dropdown border-left show"){
+    if(isOpen.className == "nav-item dropdown border-left show"){
         console.log("true");
         for(var i = 0; i < userList.length; i++){
             make(userList[i].is_open, userList[i].i, userList[i].msg);
         }
-    }else{
-        console.log("false");
-        for(var i = alarm.childElementCount-1; i > 1; i--){
-            alarm.removeChild(alarm.children[i]);
-        }
     }
+    console.log("false");
+    
 }
 
+function removeAlarm(){
+    let alarm = document.getElementById("alarm");
+    alarm.on
+    for(var i = alarm.childElementCount-1; i > 1; i--){
+        alarm.removeChild(alarm.children[i]);
+    }
+}
 // 빨간 동그라미는 jsp에서 onload 시 alarmStateChange호출
 function iconSpan(id){//, text
     let iconList_li1_a_span = document.createElement("span");

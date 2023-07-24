@@ -1,5 +1,6 @@
 package com.spring.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -18,9 +19,11 @@ public class SearchServiceImpl implements SearchService{
 	
 	@Override
 	public List<SearchIdVO> findByIdAndName(String name) {
-		if(name.equals(""))
-			return null;
-		return mapper.selectId(name);
+		List<SearchIdVO> result = new ArrayList<SearchIdVO>();
+		if(!name.equals(""))
+			result = mapper.selectId(name);
+		
+		return result;
 	}
 
 }

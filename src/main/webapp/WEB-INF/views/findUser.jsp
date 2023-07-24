@@ -147,8 +147,6 @@
 
     function deleteUser(){
         let printDiv = document.getElementById("print");
-        console.log(printDiv.children[0]);
-        console.log(printDiv.firstElementChild);
         while(printDiv.firstElementChild != null){
             printDiv.children[0].remove();
         }
