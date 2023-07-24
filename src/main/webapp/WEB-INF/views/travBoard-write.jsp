@@ -96,7 +96,7 @@
 	<div class="container mt-3">
 		<h2 style="text-align: center;">게시글 작성 페이지</h2>
 		<form
-			action="${pageContext.request.contextPath}/travBoard/board-insert"
+			action="${pageContext.request.contextPath}/travBoard/travBoard-insert"
 			method="post">
 			<div class="row">
 				<!--     <div class="mb-3 mt-3 col p-3">

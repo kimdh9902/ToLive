@@ -46,7 +46,7 @@ public class PartyBoardcontroller {
 	private final ReportService reportService;
 
 	// 파티 모집 게시판 상세 글 페이지로 이동
-	@GetMapping("/Pdetail")
+	@GetMapping("/partyBoard-detail")
 	public String PartyBoardPlusMember(HttpServletRequest request, HttpServletResponse response, Model model,
 			HttpSession session) throws IOException {
 		int SESS_GRADE = (int) session.getAttribute("SESS_GRADE");
@@ -58,7 +58,7 @@ public class PartyBoardcontroller {
 				PartyBoardVO vo = partyBoardService.getOnePartyBoard(Integer.parseInt(request.getParameter("b_no")));
 				model.addAttribute("partyBoardVO", vo);
 
-				return "Pdetail";
+				return "partyBoard-detail";
 
 			} else {
 				PartyBoardVO vo = partyBoardService.getOnePartyBoard(Integer.parseInt(request.getParameter("b_no")));
@@ -67,17 +67,17 @@ public class PartyBoardcontroller {
 			}
 
 		}
-		return "Pdetail";
+		return "partyBoard-detail";
 	}
 
 	// 게시글 등록 페이지로 이동
-	@GetMapping("/pboard-write")
+	@GetMapping("/partyBoard-write")
 	public String pboardWrite() {
-		return "pboard-write";
+		return "partyBoard-write";
 	}
 
 	// 등록 처리
-	@RequestMapping(value = "/pboard-insert", method = RequestMethod.POST)
+	@RequestMapping(value = "/partyBoard-insert", method = RequestMethod.POST)
 	public String insertPartyBoard(BoardVO bvo, PartyBoardVO pvo, HttpSession session)
 			throws UnsupportedEncodingException {
 
@@ -96,41 +96,41 @@ public class PartyBoardcontroller {
 		if (result + result2 > 0) {
 			return "redirect:/menu/partyBoard/";
 		} else {
-			return "redirect:/partyBoard/pboard-write";
+			return "redirect:/partyBoard/partyBoard-write";
 		}
 	}
 
 	// 수정 페이지로 이동
-	@RequestMapping(value = "/pboard-update", method = RequestMethod.GET)
+	@RequestMapping(value = "/partyBoard-update", method = RequestMethod.GET)
 	public String pupdate(Model model, @RequestParam("b_no") int b_no) {
 		model.addAttribute("partyBoard", mapper.selectOnePartyBoard(b_no));
-		return "pboard-update";
+		return "partyBoard-update";
 
 	}
 
 	// 수정 처리
-	@RequestMapping(value = "/board-pupdate", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+	@RequestMapping(value = "/partyBoard-modify", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
 	public String updatePBoard(BoardVO bvo, PartyBoardVO pvo) {
 
 		int result = boardMapper.updateBoard(bvo);
 		int result2 = boardMapper.updatePartyBoard(pvo);
 
 		if (result + result2 > 0) {
-			return "redirect:Pdetail?b_no=" + bvo.getB_no();
+			return "redirect:partyBoard-detail?b_no=" + bvo.getB_no();
 		} else {
-			return "redirect:partyBoard/pboard-update?b_no=" + bvo.getB_no();
+			return "redirect:partyBoard/partyBoard-update?b_no=" + bvo.getB_no();
 		}
 	}
 
 	// 삭제 처리
-	@GetMapping(value = "/pboard-delete")
+	@GetMapping(value = "/partyBoard-delete")
 	public String delete(@RequestParam("b_no") int b_no) {
 		boolean success = mapper.deletePartyBoard(b_no);
 
 		if (success) {
 			return "redirect:/menu/partyBoard/";
 		} else {
-			return "redirect:Pdetail?b_no=" + b_no;
+			return "redirect:partyBoard-detail?b_no=" + b_no;
 		}
 	}
 
@@ -147,7 +147,7 @@ public class PartyBoardcontroller {
 		System.out.println("여기 왔니?");
 		reportService.addReportBoard(rvo);
 		System.out.println(rvo);		
-		return "redirect:Pdetail?b_no=" + bvo.getB_no();
+		return "redirect:partyBoard-detail?b_no=" + bvo.getB_no();
 
 	}
 }

@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.domain.BoardVO;
+import com.spring.domain.ReportVO;
 import com.spring.domain.TravBoardVO;
 import com.spring.mapper.BoardMapper;
 import com.spring.mapper.TravBoardMapper;
+import com.spring.service.ReportService;
 import com.spring.service.TravBoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 public class TravBoardController {
 
 	private final TravBoardService travBoardService;
+	private final ReportService reportService;
 
 	@Autowired
 	private TravBoardMapper travBoardMapper;
@@ -40,7 +43,7 @@ public class TravBoardController {
 
 	// 여행 후기글 글 상세 페이지로 이동
 	// localhost:8080/trip/travBoard/detail
-	@GetMapping("/detail5")
+	@GetMapping("/travBoard-detail")
 	public String openBoard(@RequestParam("b_no") int b_no, HttpServletRequest request, HttpServletResponse response,
 			Model model, HttpSession session) throws IOException {
 		int SESS_GRADE = (int) session.getAttribute("SESS_GRADE");
@@ -53,7 +56,7 @@ public class TravBoardController {
 				TravBoardVO vo = travBoardService.getBoard(Integer.parseInt(request.getParameter("b_no")));
 				model.addAttribute("TravBoardVO", vo);
 
-				return "detail";
+				return "travBoard-detail";
 
 			} else {
 				TravBoardVO vo = travBoardService.getBoard(Integer.parseInt(request.getParameter("b_no")));
@@ -62,17 +65,17 @@ public class TravBoardController {
 			}
 		}
 
-		return "detail5";
+		return "travBoard-detail";
 	}
 
 	// 게시글 등록 페이지로 이동
-	@GetMapping("/board-write")
+	@GetMapping("/travBoard-write")
 	public String boardWrite() {
-		return "board-write";
+		return "travBoard-write";
 	}
 
 	// 등록 처리
-	@RequestMapping(value = "/board-insert", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+	@RequestMapping(value = "/travBoard-insert", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
 	public String insertBoard(BoardVO bvo, TravBoardVO tvo, HttpSession session) throws UnsupportedEncodingException {
 
 		bvo.setUser_id((String) session.getAttribute("SESS_ID"));
@@ -88,39 +91,56 @@ public class TravBoardController {
 		if (result + result2 > 0) {
 			return "redirect:/menu/travBoard/";
 		} else {
-			return "redirect:/travBoard/board-write";
+			return "redirect:/travBoard/travBoard-write";
 		}
 	}
 
 	// 수정 페이지로 이동
-	@RequestMapping(value = "/board-update", method = RequestMethod.GET)
+	@RequestMapping(value = "/travBoard-update", method = RequestMethod.GET)
 	public String update(Model model, @RequestParam("b_no") int b_no) {
 		model.addAttribute("travBoard", travBoardMapper.selectOneBoard(b_no));
-		return "board-update";
+		return "travBoard-update";
 	}
 
 	// 수정 처리
-	@RequestMapping(value = "/board-tupdate", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+	@RequestMapping(value = "/travBoard-modify", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
 	public String updateBoard(BoardVO bvo, TravBoardVO tvo) {
 
 		int result = boardMapper.updateBoard(bvo);
 
 		if (result > 0) {
-			return "redirect:detail?b_no=" + bvo.getB_no();
+			return "redirect:travBoard-detail?b_no=" + bvo.getB_no();
 		} else {
-			return "redirect:travBoard/board-update?b_no=" + bvo.getB_no();
+			return "redirect:travBoard/travBoard-update?b_no=" + bvo.getB_no();
 		}
 	}
 
 	// 삭제 처리
-	@RequestMapping(value = "/board-delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/travBoard-delete", method = RequestMethod.GET)
 	public String delete(@RequestParam("b_no") int b_no) {
 		boolean success = travBoardMapper.deleteTravBoard(b_no);
 		if (success) {
 			return "redirect:/menu/travBoard/";
 		} else {
-			return "redirect:detail?b_no=" + b_no;
+			return "redirect:travBoard-detail?b_no=" + b_no;
 		}
 	}
+	
+	// 글 신고 페이지로 이동
+		@GetMapping("/travBoard-report")
+		public String Report(Model model, @RequestParam("b_no") int b_no) {
+			model.addAttribute("travBoard",travBoardMapper.selectOneBoard(b_no));
+			return "travBoard-report";
+		}
+		
+		// 신고 처리
+		@RequestMapping(value = "/report-processing", method = RequestMethod.POST)
+		public String reportBoard(BoardVO bvo, ReportVO rvo) {	
+			System.out.println("여기 왔니?");
+			reportService.addReportBoard(rvo);
+			System.out.println(rvo);		
+			return "redirect:travBoard-detail?b_no=" + bvo.getB_no();
+
+		}
 
 }

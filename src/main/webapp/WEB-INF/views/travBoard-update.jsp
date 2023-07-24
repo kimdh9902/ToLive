@@ -89,7 +89,7 @@
 <body>
    <div class="container mt-3">
       <h2 style="text-align: center;"> 여행 후기글 수정 페이지</h2>
-      <form action="${pageContext.request.contextPath}/travBoard/board-tupdate" method="post" accept-charset="UTF-8">
+      <form action="${pageContext.request.contextPath}/travBoard/travBoard-modify" method="post" accept-charset="UTF-8">
             <div class="row">
             <input type="hidden" name="b_no" value="${travBoard.b_no}">
             <div class="mb-3 mt-3 col p-3">

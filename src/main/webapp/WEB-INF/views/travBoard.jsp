@@ -55,7 +55,7 @@
 	}
 	
 	function goWrite() {
-		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-write";
+		location.href = "${pageContext.servletContext.contextPath}/travBoard/travBoard-write";
 	
 	}
 	</script>
@@ -88,7 +88,7 @@
 													items="${requestScope.travBoardList}">
 													<tr>
 														<td>${travBoardList.b_no}</td>
-														<td><a href="${pageContext.request.contextPath}/travBoard/detail5?b_no=${travBoardList.b_no}">
+														<td><a href="${pageContext.request.contextPath}/travBoard/travBoard-detail?b_no=${travBoardList.b_no}">
 																${travBoardList.title}</a></td>
 														<td>${travBoardList.user_id}</td>
 														<td>${travBoardList.reg_date}</td>
