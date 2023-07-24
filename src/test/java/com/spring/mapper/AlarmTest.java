@@ -24,14 +24,14 @@ public class AlarmTest {
 	@Setter (onMethod_ = @Autowired)
 	private AlarmMapper mapper;
 	
-	@Test
+	@Test @Ignore
 	public void test() {
 		AlarmVO vo = new AlarmVO();
 //		vo.setUser_id("user01");
 //		vo.setB_no(1);
 //		vo.setMsg("test02가 당신을 멘션");
 //		mapper.insertAlarm(vo);
-		List<AlarmVO> list = mapper.select10Alarm("user01");
+		List<AlarmVO> list = mapper.selectAlarmById("user01");
 		log.info(list);
 		System.out.println(list.get(0));
 		System.out.println(list.get(1));
@@ -41,14 +41,14 @@ public class AlarmTest {
 	@Test @Ignore
 	public void readtest() {
 		mapper.updateAlarm(1);
-		List<AlarmVO> list = mapper.select10Alarm("user01");
+		List<AlarmVO> list = mapper.selectAlarmById("user01");
 		log.info(list);
 		assertNotNull(list);
 	}
 	
-	@Test @Ignore
+	@Test
 	public void readtest2() {
 		int a = mapper.selectIsOpenCount("user01");
-		log.info(a);
+		log.info("true가 나왔는가? = " + a);
 	}
 }

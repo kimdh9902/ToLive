@@ -88,9 +88,9 @@ public class MenuController {
 	}
 	
 	@GetMapping("/alarm")
-	public List<AlarmVO> alarm(Model model, String id) {
-		List<AlarmVO> alarmList = alaramService.getAlarmByUser(id);
-		return alarmList;
+	public String alarm(String id, @RequestParam int alarm_no, @RequestParam int b_no) {
+		alaramService.openAlarm(alarm_no);
+		return "redirect:/travBoard/travBoard-detail?b_no="+b_no;
 	}
 	
 	@GetMapping("/starBoard")

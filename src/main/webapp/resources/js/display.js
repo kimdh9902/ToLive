@@ -13,7 +13,7 @@ function init(path, sess_id, sess_name){
     let topNav = makeTopNavBar();
 
     //추가 필요 작업
-    alarmIsOpenAjax(path, sess_id); // 안읽은 알람 체크 ●
+    
 
     //페이지에 붙이기
     if (base.firstChild) {
@@ -26,11 +26,13 @@ function init(path, sess_id, sess_name){
     } else {
         base_div.appendChild(topNav);
     }
+    alarmIsOpenAjax(path, sess_id); // 안읽은 알람 체크 ●
+    alarmAjax(path, sess_id);
     //추가 이벤트 작업
-    let alarm_a = document.getElementById("alarmDropdown");
-    alarm_a.onclick = function() {
-        alarmAjax(path, sess_id);
-    }
+    // let alarm_a = document.getElementById("alarmDropdown");
+    // alarm_a.onclick = function() {
+    //     alarmAjax(path, sess_id);
+    // }
 }
 
 function makeLeftSlideBar(){
@@ -440,10 +442,6 @@ function alarmAjax(path, sess_id) {
         success : function(data, textStatus, jqXHR) {
             console.log(data);
             printAlarm(data);
-            /* console.log("data:" + data.jsonList); */
-            /* var userList = JSON.parse(data); */
-            /* console.log("uL"+userList); */
-
         },
         error : function(jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
@@ -452,52 +450,57 @@ function alarmAjax(path, sess_id) {
         }
     })
 }
-function make(is_open, img, msg){
+
+function make(alarm_no, is_open, img, b_no, msg){
     // 열람 여부에 따라 스타일 변경
     let alarm = document.getElementById("alarm");
 
     var div_divider = document.createElement("div"); div_divider.className = "dropdown-divider";
     alarm.appendChild(div_divider);
     // --------------------------------------------------------------
+    
     var a_drop = document.createElement("a"); 
+    a_drop.href = GV_path+"/menu/alarm?alarm_no="+alarm_no+"&b_no="+b_no;
     a_drop.classList.add("dropdown-item");
     a_drop.classList.add("preview-item");
-    if(is_open == 1){
-        a_drop.style.backgroundColor = "gray";
-    }
+
     var div_thumb = document.createElement("div"); 
     div_thumb.className = "preview-thumbnail";
     var prf_img = document.createElement("img");
     prf_img.className = "rounded-circle profile-pic"; 
     prf_img.src = GV_path+img;
-    
+
     div_thumb.appendChild(prf_img);
     a_drop.appendChild(div_thumb);
     //----------------------------------------------------
-    var div_content = document.createElement("div"); div_content.className = "preview-item-content";
-    var p_text = document.createElement("p"); p_text.innerText = msg //메세지 입력!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    var div_content = document.createElement("div"); 
+    div_content.className = "preview-item-content";
+    var p_text = document.createElement("p"); 
+    p_text.innerText = msg //메세지 입력!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    if(is_open == 1){
+        console.log("읽었음 : "+ alarm_no);
+        //#13151b
+        a_drop.style.backgroundColor = '#13151b';
+        p_text.style.color = "#e6e9ed";
+    }
     div_content.appendChild(p_text);
     a_drop.appendChild(div_content);
     alarm.appendChild(a_drop);
-    console.log(alarm);
+    // console.log(alarm);
 }
 
 function printAlarm(userList){
-    let isOpen = document.getElementById("isalarm");
+    // let isOpen = document.getElementById("isalarm");
 
-    if(isOpen.className == "nav-item dropdown border-left show"){
-        console.log("true");
-        for(var i = 0; i < userList.length; i++){
-            make(userList[i].is_open, userList[i].i, userList[i].msg);
-        }
+    let alarm = document.getElementById("alarm");
+    // removeAlarm(alarm);
+    for(var i = 0; i < userList.length; i++){
+        make(userList[i].alarm_no, userList[i].is_open, userList[i].profile_img, userList[i].b_no,userList[i].msg);
     }
-    console.log("false");
-    
 }
 
-function removeAlarm(){
-    let alarm = document.getElementById("alarm");
-    alarm.on
+function removeAlarm(alarm){
+    console.log("remove");
     for(var i = alarm.childElementCount-1; i > 1; i--){
         alarm.removeChild(alarm.children[i]);
     }
@@ -560,7 +563,7 @@ function alarmIsOpenAjax(path, sess_id) {
         method : "GET",
         dataType : "JSON",
         success : function(data, textStatus, jqXHR) {
-            console.log(data);
+            console.log("알람 체크 "+data);
             if(data)
             {
                 alarmStateChange();

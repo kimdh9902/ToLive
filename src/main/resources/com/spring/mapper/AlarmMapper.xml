@@ -3,12 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
     <mapper namespace="com.spring.mapper.AlarmMapper"> <!-- 맵퍼적기 -->
-		<select id="select10Alarm" resultType="com.spring.domain.AlarmVO">
-			SELECT alarm_no, msg, p.profile_img FROM alarm a
-			    join profile p on p.user_id = a.user_id
-			    where a.user_id = #{user_id}
-			    ORDER BY alarm_no DESC
-			    
+		<select id="selectAlarmById" resultType="com.spring.domain.AlarmVO">
+			    SELECT alarm_no, msg, b_no, is_open, p.profile_img FROM alarm a
+				    join profile p on p.user_id = a.user_id
+				    where a.user_id = #{user_id}
+				    ORDER BY alarm_no DESC
 	    <!-- SELECT alarm_no, msg, p.profile_img FROM alarm a
 			    join profile p on p.user_id = a.user_id
 			    where a.user_id = 'user01'
@@ -18,7 +17,7 @@
 		
 		<select id="selectIsOpenCount" resultType="int">
 			SELECT count(is_open) FROM alarm a
-			where user_id = #{user_id} and is_open = 1
+			where user_id = #{user_id} and is_open = 0
 		</select>
 		
 		<update id="updateAlarm">

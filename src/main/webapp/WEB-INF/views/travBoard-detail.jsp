@@ -29,7 +29,12 @@
 	}
 
 	function addContents() {
-		InsertContentAjax();
+		// InsertContentAjax();
+		console.log("getValue : " + getValue());
+		let content = getValue();
+		if(content != null){
+			sendAlarmAjax(content);
+		}
 		SelectContentsAjax();
 	}
 
@@ -61,6 +66,32 @@
 
 	}
 
+	function sendAlarmAjax(value) {
+		let data = {
+			user_id : value,
+			b_no : '${param.b_no}',
+			msg : "${sessionScope.SESS_NAME}"+"가 당신을 멘션"
+		};
+		$.ajax(
+			{
+				url : "${pageContext.servletContext.contextPath}/user/send-alarm",
+				async : true,
+				contentType : "application/json;charset=UTF-8",
+				data : JSON.stringify(data),
+				method : "POST",
+				success : function(data, textStatus, jqXHR) {
+					console.log("알람 : " + data);
+					
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					console.log(jqXHR);
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			}
+		);
+	}
+
 	function SelectContentsAjax() {
 		let data = {
 			b_no : '${param.b_no}'
@@ -87,17 +118,37 @@
 	function valueCheck() {
 		let contents = document.getElementById("contents");
 		let string = "" + contents.value;
-		let ment = string.split("@");
+		
 
-		console.log(ment);
-		console.log("@[0]" + ment[0]);
-		if (ment[1] != undefined) {
-			console.log("@[1]" + ment[1]);
+		if(string[string.search("@")-1] != null && string[string.search("@")-1] == " "){
+			let ment = string.split("@");
+			console.log(ment);
+			console.log("@[0]" + ment[0]);
+
+			if (ment[1] != undefined) {
+				console.log("@[1]" + ment[1]);
+			}
+			if (ment[1] != undefined) {
+				console.log("name 추출 : " + ment[1].split(" ")[0]);
+			}
 		}
-		if (ment[1] != undefined) {
-			console.log("@[1] split[0]" + ment[1].split(" ")[0]);
-			// console.log("@[1] split[1]"+ment[1].split(" ")[1]);
+		
+		
+	}
+
+	function getValue(){
+		let contents = document.getElementById("contents");
+		let string = "" + contents.value;
+		console.log("getValue if 1 >>");
+		if(string[string.search("@")-1] != null  && string[string.search("@")-1] == " "){
+			console.log("getValue if 2 != null");
+			let ment = string.split("@");
+			if (ment[1] != undefined) {
+				console.log("value 추출 : " + ment[1].split(" ")[0]);
+				return ment[1].split(" ")[0];
+			}
 		}
+		return null;
 	}
 </script>
 <!-- plugins:css -->

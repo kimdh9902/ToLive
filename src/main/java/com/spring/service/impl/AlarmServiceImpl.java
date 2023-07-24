@@ -9,16 +9,25 @@ import com.spring.mapper.AlarmMapper;
 import com.spring.service.AlarmService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 
 @Service
 @RequiredArgsConstructor
+@Log4j
 public class AlarmServiceImpl implements AlarmService{
 
 	private final AlarmMapper mapper;
 	
 	@Override
-	public void sendAlarm(AlarmVO alarmVO) {
-		mapper.insertAlarm(alarmVO);
+	public boolean sendAlarm(AlarmVO alarmVO) {
+		boolean temp;
+		if(mapper.insertAlarm(alarmVO) > 0) {
+			temp = true;	
+		}
+		else {
+			temp = false;
+		}
+		return temp;
 	}
 
 	@Override
@@ -28,7 +37,8 @@ public class AlarmServiceImpl implements AlarmService{
 
 	@Override
 	public List<AlarmVO> getAlarmByUser(String user_id) {
-		return mapper.select10Alarm(user_id);
+		List<AlarmVO> list = mapper.selectAlarmById(user_id);
+		return list;
 	}
 
 	@Override
