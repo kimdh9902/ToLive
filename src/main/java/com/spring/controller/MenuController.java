@@ -23,12 +23,14 @@ import com.spring.domain.FollowVO;
 import com.spring.domain.PartyBoardVO;
 import com.spring.domain.ProfileVO;
 import com.spring.domain.SearchIdVO;
+import com.spring.domain.StarBoardVO;
 import com.spring.domain.TravBoardVO;
 import com.spring.service.AlarmService;
 import com.spring.service.FollowService;
 import com.spring.service.PartyBoardService;
 import com.spring.service.ProfileService;
 import com.spring.service.SearchService;
+import com.spring.service.StarBoardService;
 import com.spring.service.TravBoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -45,6 +47,7 @@ public class MenuController {
 	private final PartyBoardService partyBoardService;
 	private final FollowService followService;
 	private final TravBoardService travBoardService; 
+	private final StarBoardService starBoardService;
 	
 	@GetMapping("/profile")
 	public String profile(Model model, @RequestParam String user_id, HttpSession session) {
@@ -91,7 +94,9 @@ public class MenuController {
 	}
 	
 	@GetMapping("/starBoard")
-	public String starBoard() {
+	public String starBoard(Model model) {
+		List<StarBoardVO> starList = starBoardService.getStarBoards();
+		model.addAttribute("starList", starList);
 		return "starBoard";
 	}
 	

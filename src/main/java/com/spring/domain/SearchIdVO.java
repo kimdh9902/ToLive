@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class SearchIdVO {
-	private String id;
-	private String name;
-
+	private String user_id;
+	private String user_name;
+	private String profile_img; 
 }

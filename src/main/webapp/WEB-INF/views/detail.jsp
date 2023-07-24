@@ -94,8 +94,7 @@
 	
 	function goDelete() {
 		var b_no = "<%=request.getParameter("b_no")%>";
-		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no="
-				+ b_no;
+		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no=" + b_no;
 	}
 
 	
@@ -443,11 +442,13 @@
 							<div class="card">
 								<div class="card-body">
 									<h3 class="card-title"><%=request.getParameter("b_no")%></h3>
-									<h3 class="card-title">${TravBoardVO.title}</h3>
+									<h3 class="card-title">${title}</h3>
 									<div class="table-responsive">
 										<table class="table">
 											<thead>
 												<tr>
+													<!-- <th>글 번호</th> -->
+													<th>제목</th>
 													<th>내용</th>
 													<th>작성자</th>
 													<th>공감 수</th>
@@ -457,6 +458,7 @@
 											</thead>
 											<tbody>
 												<tr>
+													<td>${TravBoardVO.title}</td>
 													<td>${TravBoardVO.contents}</td>
 													<td>${TravBoardVO.user_id}</td>
 													<td>${TravBoardVO.total_emoji}</td>
@@ -467,11 +469,14 @@
 										</table>
 									</div>
 
+								</div>
+
 								<!-- 댓글 입력창 -->
 								<div class="card-body">
 	                       			<textarea class="form-control" id="contents" rows="4" cols="80" onkeyup="valueCheck()"></textarea>
 									<button type = "submit" class = "btn btn-primary me-2" onclick = "addContents()">등록</button>
 								<!-- 댓글 입력창 끝 -->
+
 
 								<!--댓글-->
 									<h3 class="card-title"></h3>

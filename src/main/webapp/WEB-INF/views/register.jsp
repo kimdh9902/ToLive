@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        "<title>친구" 검색</title>
+        <title>회원가입</title>
         <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
                 <!-- plugins:css -->
         <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -98,6 +98,14 @@
                 
             return true;
         }
+        
+        function isSuccess() {
+        	if(isLocation()){
+        		
+        	}
+        	alert("회원가입 실패")
+        	return false;
+		}
         </script>
     </head>
 
@@ -105,9 +113,9 @@
         <div class="container-scroller">
             <!-- 왼쪽 슬라이드 바 로고 -->
             <!-- <div class="container-fluid page-body-wrapper"> -->
-            <div class="col-sm-3" style="margin-left: 550px;">
+            <div class="col-sm-3" style="margin-left: 39%; margin-top: 3%">
                <br>
-                    <form class="forms-sample" action="${pageContext.request.contextPath}/users/register" method="post" style="text-align: center;" onsubmit="return isLocation()">
+                    <form class="forms-sample" action="${pageContext.request.contextPath}/auth/register" method="post" style="text-align: center;" onsubmit="return isSuccess()">
                         <div class="form-group">
                             <label for="id">아이디</label>
                             <input class="form-control" type="text" id="id" name="id" required><br>
@@ -127,11 +135,11 @@
                         <div class="form-group">
                             <label for="phone">전화번호</label>
                             <input class="form-control" type="tel" id="phone" name="phone"
-                                pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required><br>
+                                pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" alt="ex)010-1234-5678" required><br>
                         </div>
                         <div class="form-group">
                             <label for="location">지역</label><br>
-                            <select style="margin-right: 7px" id="location-sel" name="location-sel" onchange="locationSidoOption(this)" required><br>
+                            <select style="margin-right: 7px" id="location-sel" onchange="locationSidoOption(this)" required><br>
                                 <option value="0" selected>시/도 선택</option>
                                 <option value="1">서울 특별시</option>
                                 <option value="2">부산광역시</option>
@@ -147,7 +155,7 @@
                                 <option value="12">제주특별자치도</option>
                                 <option value="13">강원특별자치도</option>
                             </select>
-                            <select id="location-sel2" name="location-sel2" required><br>
+                            <select id="location-sel2" name="location" required><br>
                                 <option value="0" selected>군/구 선택</option>
                             
                             </select>

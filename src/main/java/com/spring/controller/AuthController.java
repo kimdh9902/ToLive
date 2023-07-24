@@ -11,10 +11,12 @@ import com.spring.domain.UsersVO;
 import com.spring.service.UsersService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 
 
 @Controller
 @RequestMapping("/auth")
+@Log4j
 @RequiredArgsConstructor
 public class AuthController {
 // 계정 연동 및 통합 관리
@@ -52,15 +54,14 @@ public class AuthController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		System.out.println("before"+session);
-		session.invalidate();
 		
+	    if (session != null) {
+	        session.invalidate();
+	    }
+	    
 		System.out.println("after"+session);
-//		response.sendRedirect(request.getContextPath()+"/login?msg=logout success");
-		if(session.getAttributeNames() == null) {
-			return "redirect:auth/login?msg=logout success";
-		} else {
-			return "redirect:auth/login?msg=logout fail";
-		}
+		
+		return "redirect:login?msg=logout success";
 	}
 	/*
 	 * UsersVO user = new UsersVO();
@@ -92,8 +93,16 @@ public class AuthController {
 		
 		return "register";
 	}
+	
+	// rest로 바꾸고 회원가입 성공시 true  true가 아니면 페이지 넘기지 말기
 	@PostMapping("/register")
 	public String register(UsersVO vo) {
+		log.info(vo);
+		int result = 0;
+//		service.registerAccount(vo);
+//		if(result == 0) {
+//			return ""
+//		}
 		
 		return "login";
 	}

@@ -88,17 +88,36 @@
 	document.querySelector("#no")
 	
 	function goUpdate() {
-	var b_no = "<%=request.getParameter("b_no")%>";
-	location.href = "${pageContext.servletContext.contextPath}/travBoard/board-update?b_no=" + b_no;
+	
 	}
 	
 	function goDelete() {
-		var b_no = "<%=request.getParameter("b_no")%>
-	";
-		location.href = "${pageContext.servletContext.contextPath}/travBoard/board-delete?b_no="
-				+ b_no;
+		
 	}
-${requestScope.b_no}
+	function valueCheck() {
+		let contents = document.getElementById("contents");
+		let string = ""+contents.value;
+
+		console.log("search:"+string.search("@"));
+		// console.log("-1 = "+string[string.search("@")-1]);
+		// console.log("-1 = "+string[string.search("@")-1]);
+		if((string[string.search("@")-1]) == ' ' && string.search("@") != -1)
+		{
+			let ment = string.split("@");
+			console.log("ment[1]:" + ment[1].split(" ")[0]);
+		}
+		// console.log("@[0]"+ment[0]);
+		// if(ment[1] != undefined){
+		// 	ment[1]
+		// 	console.log("@[1]"+ment[1]);
+		// }
+		// if(ment[1] != undefined){
+		// 	console.log("@[1] split[0]"+ment[1].split(" ")[0]);
+			
+		// 	// console.log("@[1] split[1]"+ment[1].split(" ")[1]);
+		// }
+	}
+
 	function comment() {
 		let contents = document.getElementById("contents");
 		contents.value
@@ -406,7 +425,7 @@ ${requestScope.b_no}
 								</div>
 								<!-- 댓글 입력창 -->
 								<form action="">
-									<textarea id="contents" name="contents" rows="4" cols="50"></textarea>
+									<textarea id="contents" name="contents" rows="4" cols="50" onkeyup = "valueCheck()"></textarea>
 									<br> <input type="submit" value="등록">
 								</form>
 								<!-- 댓글 입력창 끝 -->

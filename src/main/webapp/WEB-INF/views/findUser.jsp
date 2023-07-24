@@ -53,41 +53,41 @@
 	/* function ajaxCall() {
 		console.log("test");
 	} */
-	class Table{
-        table
-        tr
-        th
-        td
-        constructor(id){
-            this.table = document.createElement("table");
-            this.table.className = "table-dark";
-            this.table.id = id;
-            // this.table.className = "table_st"
-        }
-        openTr(){
-            this.tr = document.createElement("tr");
-        }
-        closeTr(){
-            this.table.appendChild(this.tr);
-            this.tr = undefined;
-        }
-        insertTh(data){
-            this.th = document.createElement("th");
-            this.th.append(data);
-            this.tr.append(this.th);
-        }
-        insertTd(data){
-            this.td = document.createElement("td");
-            this.td.append(data);
-            this.tr.append(this.td);
-        }
-        end(){
-			var result_table = document.getElementById("print");
-			if(result_table.childElementCount >= 1)
-				result_table.removeChild(result_table.children[0]);
-        	document.getElementById("print").appendChild(this.table);
-        }
-    }
+	// class Table{
+    //     table
+    //     tr
+    //     th
+    //     td
+    //     constructor(id){
+    //         this.table = document.createElement("table");
+    //         this.table.className = "table-dark";
+    //         this.table.id = id;
+    //         // this.table.className = "table_st"
+    //     }
+    //     openTr(){
+    //         this.tr = document.createElement("tr");
+    //     }
+    //     closeTr(){
+    //         this.table.appendChild(this.tr);
+    //         this.tr = undefined;
+    //     }
+    //     insertTh(data){
+    //         this.th = document.createElement("th");
+    //         this.th.append(data);
+    //         this.tr.append(this.th);
+    //     }
+    //     insertTd(data){
+    //         this.td = document.createElement("td");
+    //         this.td.append(data);
+    //         this.tr.append(this.td);
+    //     }
+    //     end(){
+	// 		var result_table = document.getElementById("print");
+	// 		if(result_table.childElementCount >= 1)
+	// 			result_table.removeChild(result_table.children[0]);
+    //     	document.getElementById("print").appendChild(this.table);
+    //     }
+    // }
 
 	function ajaxCall_search(){
 		var inpBox = document.getElementById("user");
@@ -121,31 +121,63 @@
         }
 	
 	function searchUser(userList){
-		var tab = new Table("table");
-		tab.openTr();
-		/* tab.insertTh("아이디"); */
-		tab.insertTh("이름");
-		tab.closeTr();
-		printFriend(tab, userList);
-		tab.end();
+        let path = "${ pageContext.servletContext.contextPath}";
+        let print_div = document.getElementById("print");
+        for(var i = 0; i < userList.length; i++){
+            let div = document.createElement("div");
+            div.style.display = "flex";
+            div.style.width = "80px";
+            div.style.height = "80px";
+
+            let div_a = document.createElement("a");
+            div_a.href = path+"/menu/profile?user_id="+userList[i].user_id;
+            let div_a_span = document.createElement("span");
+            let div_a_span_img = document.createElement("img");
+            div_a_span_img.src = userList[i].profile_img;
+            div_a_span_img.width = "45px";
+            div_a_span_img.height = "45px";
+
+            
+            let div_p = document.createElement("p");
+            
+            let div_p_span = document.createElement("span");
+            div_a_span.innerText = userList[i].user_id;
+            div_a_span.style.marginRight = "10px";
+            let div_p_span2 = document.createElement("span");
+            div_p_span2.innerText = userList[i].user_name;
+            
+            
+            // let div_a = document.createElement("div");
+            
+            
+            
+            print_div.appendChild();
+        }
+		// var tab = new Table("table");
+		// tab.openTr();
+		// /* tab.insertTh("아이디"); */
+		// tab.insertTh("이름");
+		// tab.closeTr();
+		// printFriend(tab, userList);
+		// tab.end();
 	}
 
 	function printFriend(tab, userList){
-        let link = "<%=request.getContextPath()%>/profile?user_id="
-		for(var i = 0; i < userList.length; i++){
-			tab.openTr();
-			if(userList[i].id != ("<%=request.getSession().getAttribute("SESS_ID")%>"))
-			{
-				/* tab.insertTd(userList[i].id); */
-				/* a태그 걸어야함 */
-				let profile_link = document.createElement("a");
-                profile_link.href = link += userList[i].id;
-                profile_link.textContent = userList[i].name;
-				tab.insertTd(profile_link);				
-			}
+        // let link = "<%=request.getContextPath()%>/profile?user_id="
+		// for(var i = 0; i < userList.length; i++){
+		// 	tab.openTr();
+		// 	if(userList[i].id != ("<%=request.getSession().getAttribute("SESS_ID")%>"))
+		// 	{
+		// 		/* tab.insertTd(userList[i].id); */
+		// 		/* a태그 걸어야함 */
+		// 		let profile_link = document.createElement("a");
+        //         profile_link.href = link += userList[i].id;
+        //         profile_link.textContent = userList[i].name;
+		// 		tab.insertTd(profile_link);				
+		// 	}
 			
-			tab.closeTr();
-		}
+		// 	tab.closeTr();
+		// }
 	}
 
     window.onload = function(){
@@ -172,7 +204,9 @@
 											style="margin-left: 10px; width: 150px;" type="submit"
 											value="검색" onclick="ajaxCall_search()">
 									</div>
-									<div id="print"></div>
+									<div id="print">
+									
+									</div>
 								</div>
 							</div>
 						</div>

@@ -9,5 +9,5 @@ public class StarBoardVO {
 	int b_no;
 	String title;
 	String user_id;
-	int views;
+//	int views;
 }

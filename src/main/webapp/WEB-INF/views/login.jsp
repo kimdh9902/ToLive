@@ -111,7 +111,7 @@
             </div>
             <input class="btn btn-success" type="submit" id="log" value="로그인" style="width: 231px; height: 30px; margin-left: 10px" onclick="return verify()">
          </form>
-         <form action="${pageContext.request.contextPath}/register" method="get" style="text-align: center;">
+         <form action="${pageContext.request.contextPath}/auth/register" method="get" style="text-align: center;">
             <button class="btn btn-primary" id="register" style="width: 231px; height: 30px; margin-top: 10px; margin-left: 10px">회원가입</button>
          </form>
       </div>
