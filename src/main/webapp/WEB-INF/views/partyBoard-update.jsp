@@ -60,6 +60,7 @@
 <script src="${pageContext.request.contextPath}/resources/assets/js/todolist.js"></script>
 
 <script src="${pageContext.request.contextPath}/resources/assets/js/dashboard.js"></script>
+   <script src="${ pageContext.servletContext.contextPath }/resources/js/display.js"></script>
  
 <style type="text/css">
 </style>

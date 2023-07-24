@@ -47,8 +47,8 @@
 	<!-- endinject -->
 	<!-- Custom js for this page -->
 	<script src="${ pageContext.servletContext.contextPath }/resources/assets/js/dashboard.js"></script>
-	<!-- End custom js for this page -->
 	<script src="${ pageContext.servletContext.contextPath }/resources/js/display.js"></script>
+	<!-- End custom js for this page -->
 	<script>
 	window.onload = function(){
 		init("${ pageContext.servletContext.contextPath}", "${sessionScope.SESS_ID}", "${sessionScope.SESS_NAME}");

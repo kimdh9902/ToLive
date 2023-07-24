@@ -18,49 +18,37 @@
    /*    integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
     crossorigin="anonymous"> */
 </script>
-<link rel="stylesheet"
-   href="${pageContext.request.contextPath}/resources/assets/vendors/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet"
-   href="${pageContext.request.contextPath}/resources/assets/vendors/mdi/css/materialdesignicons.min.css.map">
-<link rel="stylesheet"
-   href="${pageContext.request.contextPath}/resources/assets/vendors/css/vendor.bundle.base.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/vendors/mdi/css/materialdesignicons.min.css.map">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/vendors/css/vendor.bundle.base.css">
 
-<link rel="stylesheet"
-   href="${pageContext.request.contextPath}/resources/assets/vendors/jvectormap/jquery-jvectormap.css">
-<link rel="stylesheet"
-   href="${pageContext.request.contextPath}/resources/assets/vendors/flag-icon-css/css/flag-icon.min.css">
-<link rel="stylesheet"
-   href="${pageContext.request.contextPath}/resources/assets/vendors/owl-carousel-2/owl.carousel.min.css">
-<link rel="stylesheet"
-   href="${pageContext.request.contextPath}/resources/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
-<link rel="stylesheet"
-   href="${pageContext.request.contextPath}/resources/assets/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/vendors/jvectormap/jquery-jvectormap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/vendors/flag-icon-css/css/flag-icon.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/vendors/owl-carousel-2/owl.carousel.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
 
-<link rel="shortcut icon"
-   href="${pageContext.request.contextPath}/resources/assets/images/favicon.png" />
+<!-- End layout styles -->
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/assets/images/favicon.png" />
 
-<script
-   src="${pageContext.request.contextPath}/resources/assets/vendors/js/vendor.bundle.base.js"></script>
+<!-- plugins:js -->
+<script src="${pageContext.request.contextPath}/resources/assets/vendors/js/vendor.bundle.base.js"></script>
 
-<script
-   src="${pageContext.request.contextPath}/resources/assets/vendors/chart.js/Chart.min.js"></script>
-<script
-   src="${pageContext.request.contextPath}/resources/assets/vendors/progressbar.js/progressbar.min.js"></script>
-<script
-   src="${pageContext.request.contextPath}/resources/assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
-<script
-   src="${pageContext.request.contextPath}/resources/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<script
-   src="${pageContext.request.contextPath}/resources/assets/vendors/owl-carousel-2/owl.carousel.min.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script src="${pageContext.request.contextPath}/resources/assets/vendors/chart.js/Chart.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/vendors/progressbar.js/progressbar.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/vendors/owl-carousel-2/owl.carousel.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/js/off-canvas.js"></script>
-<script
-   src="${pageContext.request.contextPath}/resources/assets/js/hoverable-collapse.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/js/hoverable-collapse.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/js/misc.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/js/settings.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/js/todolist.js"></script>
 
 <script src="${pageContext.request.contextPath}/resources/assets/js/dashboard.js"></script>
- 
+  <script src="${ pageContext.servletContext.contextPath }/resources/js/display.js"></script>
 <style type="text/css">
 </style>
 <script>
