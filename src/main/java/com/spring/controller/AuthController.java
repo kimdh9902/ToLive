@@ -38,6 +38,7 @@ public class AuthController {
 			session.setAttribute("SESS_AUTH", true);
 			session.setAttribute("SESS_NAME", resultVO.getName());
 			session.setAttribute("SESS_GRADE", resultVO.getGrade_level());
+//			session.
 			if (user.getGrade_level() != 7) {
 				System.out.println(user.getGrade_level());
 				path = "redirect:/main/";

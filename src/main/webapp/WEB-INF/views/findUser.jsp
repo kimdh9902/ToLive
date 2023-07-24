@@ -49,46 +49,32 @@
         <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/dashboard.js"></script>
         <script src="${ pageContext.servletContext.contextPath }/resources/js/display.js"></script>
         <!-- End custom js for this page -->
-<script type="text/javascript">
-	/* function ajaxCall() {
-		console.log("test");
-	} */
-	// class Table{
-    //     table
-    //     tr
-    //     th
-    //     td
-    //     constructor(id){
-    //         this.table = document.createElement("table");
-    //         this.table.className = "table-dark";
-    //         this.table.id = id;
-    //         // this.table.className = "table_st"
-    //     }
-    //     openTr(){
-    //         this.tr = document.createElement("tr");
-    //     }
-    //     closeTr(){
-    //         this.table.appendChild(this.tr);
-    //         this.tr = undefined;
-    //     }
-    //     insertTh(data){
-    //         this.th = document.createElement("th");
-    //         this.th.append(data);
-    //         this.tr.append(this.th);
-    //     }
-    //     insertTd(data){
-    //         this.td = document.createElement("td");
-    //         this.td.append(data);
-    //         this.tr.append(this.td);
-    //     }
-    //     end(){
-	// 		var result_table = document.getElementById("print");
-	// 		if(result_table.childElementCount >= 1)
-	// 			result_table.removeChild(result_table.children[0]);
-    //     	document.getElementById("print").appendChild(this.table);
-    //     }
-    // }
+    <style>
+        .comment-div{
+           display: flex; 
+           width: 100%;
+           height: 100px;
+           border: 1px white solid;
+           padding: 10px 10px 10px 10px;
+        }
 
+        .comment-img{
+            width: 80px;
+            height: 100%;
+            margin-right: 20px;
+        }
+
+        .comment-contentbox{
+            width: 80%;
+            height: 100%;
+        }
+
+        .comment-i{
+            color: white;
+        }
+    </style>
+<script type="text/javascript">
+    const path = "${pageContext.servletContext.contextPath}";
 	function ajaxCall_search(){
 		var inpBox = document.getElementById("user");
 			console.log(typeof inpBox.value);
@@ -96,7 +82,7 @@
             console.log("data"+JSON.stringify(data));
             $.ajax(
                 {//json
-                url: "${pageContext.request.contextPath}" +"/menu/search",
+                url: path +"/menu/search",
                 async:true,
                 contentType:"application/json;charset=UTF-8",
                 data: JSON.stringify(data),
@@ -104,12 +90,7 @@
                 dataType:"JSON",
                 success:function(data, textStatus, jqXHR)
                 {
-                	console.log(data);
-                	searchUser(data);
-					/* console.log("data:" + data.jsonList); */
-					/* var userList = JSON.parse(data); */
-					/* console.log("uL"+userList); */
-					
+                	searchUser(data);					
                 },
                 error:function(jqXHR, textStatus, errorThrown ){
                     console.log(jqXHR);
@@ -122,38 +103,30 @@
 	
 	function searchUser(userList){
         deleteUser();
-        const path = "${pageContext.servletContext.contextPath}";
         let print_div = document.getElementById("print");
         for(var i = 0; i < userList.length; i++){
             let a = document.createElement("a");
             a.href = path+"/menu/profile?user_id="+userList[i].user_id;
 
             let a_div = document.createElement("div");
-            a_div.style.display = "flex";
-            a_div.style.width = "100%";
-            a_div.style.height = "100px";
-            a_div.style.border = "1px white solid";
-            a_div.style.padding = "10px 10px 10px 10px";
+            a_div.className = "comment-div";
 
             let a_div_span = document.createElement("span");
             let a_div_span_img = document.createElement("img");
             a_div_span_img.src = path+userList[i].profile_img;
-            a_div_span_img.style.width = "80px";
-            a_div_span_img.style.height = "100%";
-            a_div_span_img.style.marginRight = "20px";
+            a_div_span_img.className = "comment-img"
 
             let a_div_p = document.createElement("p");
-            a_div_p.style.width = "80%";
-            a_div_p.style.height = "100%";
+            a_div_p.className = "comment-contentbox";
 
             let div_p_span = document.createElement("span");
             div_p_span.innerText = userList[i].user_id;
-            div_p_span.style.color = "white";
+            div_p_span.className = "comment-i";
             div_p_span.style.marginLeft = "10%";
 
             let div_p_span2 = document.createElement("span");
             div_p_span2.innerText = userList[i].user_name;
-            div_p_span2.style.color = "white";
+            div_p_span2.className = "comment-i";
             div_p_span2.style.marginLeft = "20%";
 
             a_div_span.appendChild(a_div_span_img);
@@ -170,13 +143,6 @@
     
             print_div.appendChild(a);
         }
-		// var tab = new Table("table");
-		// tab.openTr();
-		// /* tab.insertTh("아이디"); */
-		// tab.insertTh("이름");
-		// tab.closeTr();
-		// printFriend(tab, userList);
-		// tab.end();
 	}
 
     function deleteUser(){

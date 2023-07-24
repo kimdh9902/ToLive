@@ -58,7 +58,7 @@
 	function followToggle() {
 		let data = {user_id : "${profileVO.user_id}"};
 		console.log(data);
-		console.log(JSON.stringify(data)); // stringify 문자열로 바꿔줌
+		console.log(JSON.stringify(data));
 		$.ajax(
 			{//json
                 url: "${pageContext.request.contextPath}"+"/user/onFollow",

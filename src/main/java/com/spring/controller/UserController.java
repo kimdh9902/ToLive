@@ -2,6 +2,7 @@ package com.spring.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,17 +42,6 @@ public class UserController {
 		return result;
 	}
 	
-//	@GetMapping(value = "/onFollow", produces = {MediaType.APPLICATION_JSON_VALUE})
-//	public boolean followCheck(String user_id, HttpSession session) {
-//		boolean isFollow = false;
-//		FollowVO vo = new FollowVO();
-//		vo.setUser_id(user_id);
-//		vo.setFollower_id((String)session.getAttribute("SESS_ID"));
-//		isFollow = followService.isFollow(vo);
-//		
-//		return isFollow;
-//	}
-//	
 	@PostMapping(value = "/onFollow", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public boolean followCheck(@RequestBody FollowVO vo, HttpSession session) {
 	    boolean isFollow;
@@ -74,6 +64,13 @@ public class UserController {
 	@GetMapping(value = "/is-alarm", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public boolean getIsAlarm(String user_id) {
 		return alarmService.getIsOpenCount(user_id);
+	}
+	
+	@GetMapping(value = "/checkSession", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public boolean checkSession(HttpServletRequest request) {
+		if(request.getSession(false) == null)
+			return false;
+		return true;
 	}
 	
 	@GetMapping(value = "/insertComment")

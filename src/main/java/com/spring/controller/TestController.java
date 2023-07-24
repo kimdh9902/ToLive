@@ -19,4 +19,9 @@ public class TestController {
 	public String test2() {
 		return "detail2";
 	}
+	
+	@GetMapping("admin")
+	public String test3() {
+		return "admin";
+	}
 }
