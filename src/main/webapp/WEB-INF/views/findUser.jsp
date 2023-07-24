@@ -137,7 +137,6 @@
             div_a_span_img.width = "45px";
             div_a_span_img.height = "45px";
 
-            
             let div_p = document.createElement("p");
             
             let div_p_span = document.createElement("span");
@@ -145,13 +144,17 @@
             div_a_span.style.marginRight = "10px";
             let div_p_span2 = document.createElement("span");
             div_p_span2.innerText = userList[i].user_name;
+
+            div_a_span.appendChild(div_a_span_img);
+            div_a.appendChild(div_a_span);
+
+            div_p.appendChild(div_p_span);
+            div_p.appendChild(div_p_span2);
             
-            
-            // let div_a = document.createElement("div");
-            
-            
-            
-            print_div.appendChild();
+            div.appendChild(div_a);
+            div.appendChild(div_p);
+    
+            print_div.appendChild(div);
         }
 		// var tab = new Table("table");
 		// tab.openTr();
@@ -195,8 +198,8 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="card">
-								<div class="card-body">
-									<div class="form-group">
+								<div class="card-body" style="height: 70px;">
+									<div class="form-group" style="position: absolute; top: 25%; left: 42%; transform: translate(-45%, -45%);">
 										<label for="user_search" style="color: white;">검색할ID
 											또는 이름</label><br> <input type="text" id="user" name="user"
 											style="margin-right: 40px; width: 180px" height="30px">
