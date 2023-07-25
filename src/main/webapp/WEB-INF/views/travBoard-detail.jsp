@@ -29,7 +29,7 @@
 	}
 
 	function addContents() {
-		// InsertContentAjax();
+		InsertContentAjax();
 		console.log("getValue : " + getValue());
 		let content = getValue();
 		if(content != null){
@@ -63,7 +63,7 @@
 				})
 	}
 	function refreshContents() {
-
+		
 	}
 
 	function sendAlarmAjax(value) {
@@ -316,56 +316,57 @@
 
 										<!--댓글-->
 										<h3 class="card-title"></h3>
-										<div>
-											<c:forEach var="boardComment"
-												items="${requestScope.boardCommentList}">
-												<div style="display: flex;">
-													<a
-														href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=${boardComment.user_id}">
-														<span> <img
-															src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
-															style="margin-right: 20px; width: 47px; height: 47px;">
+									<div>
+										<c:forEach var="boardComment" items="${requestScope.boardCommentList}">
+											<div style="display: flex;">
+												<a href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=${boardComment.user_id}">
+													<span> 
+														<img src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
+														style="margin-right: 20px; width: 47px; height: 47px;">
 													</span>
-													</a> <span>${boardComment.user_id}<br>${boardComment.contents}</span>
-													<br>
-												</div>
-												<div class="dropdown-divider"></div>
-											</c:forEach>
-										</div>
-									</div>
-									<div class="card">
-										<div class="card-body">
-											<div style="text-align: center;" class="card-footer">
-												<!--글 수정 버튼-->
-												<!-- 로그인한 사용자와 작성자가 같을 경우 글 수정/글 삭제 버튼 출력	 -->
-												<c:if test="${sessionScope.SESS_ID == TravBoardVO.user_id}">
-
-													<button class="btn btn-outline-primary"
-														style="width: 90px; height: 26px; margin-top: 10px;"
-														type="button" onclick="goUpdate();">글 수정</button>
-
-													<!--글 삭제 버튼-->
-													<button class="btn btn-outline-primary"
-														style="width: 90px; height: 26px; margin-top: 10px;"
-														type="button" onclick="goDelete();">글 삭제</button>
-												</c:if>
-												<c:if test="${sessionScope.SESS_ID ne TravBoardVO.user_id}">
-													<!--글 신고 버튼-->
-													<!-- 로그인한 사용자와 작성자가 다를 경우 신고 버튼만 출력 -->
-													<button class="btn btn-outline-primary"
-														style="width: 90px; height: 26px; margin-top: 10px;"
-														type="button" onclick="goReport()">글 신고</button>
-												</c:if>
-
+												</a> 
+												<span>${boardComment.user_id}<br>${boardComment.contents}</span>
+												<br>
 											</div>
-										</div>
+											<div class="dropdown-divider"></div>
+										</c:forEach>
 									</div>
 								</div>
-								<!-- 테이블 끝 -->
-							</div>
-							<!-- 컨텐츠 박스 끝 -->
-						</div>
-						<!-- 컨텐츠 컨테이너 끝-->
+													<div class="card">
+														<div class="card-body">
+															<div style="text-align: center;" class="card-footer">
+																<!--글 수정 버튼-->
+																<!-- 로그인한 사용자와 작성자가 같을 경우 글 수정/글 삭제 버튼 출력	 -->
+																<c:if
+																	test="${sessionScope.SESS_ID == TravBoardVO.user_id}">
+
+																	<button class="btn btn-outline-primary"
+																		style="width: 90px; height: 26px; margin-top: 10px;"
+																		type="button" onclick="goUpdate();">글 수정</button>
+
+																	<!--글 삭제 버튼-->
+																	<button class="btn btn-outline-primary"
+																		style="width: 90px; height: 26px; margin-top: 10px;"
+																		type="button" onclick="goDelete();">글 삭제</button>
+																</c:if>
+																<c:if
+																	test="${sessionScope.SESS_ID ne TravBoardVO.user_id}">
+																	<!--글 신고 버튼-->
+																	<!-- 로그인한 사용자와 작성자가 다를 경우 신고 버튼만 출력 -->
+																	<button class="btn btn-outline-primary"
+																		style="width: 90px; height: 26px; margin-top: 10px;"
+																		type="button" onclick="goReport()">글 신고</button>
+																</c:if>
+
+															</div>
+														</div>
+													</div>
+												</div>
+												<!-- 테이블 끝 -->
+											</div>
+											<!-- 컨텐츠 박스 끝 -->
+										</div>
+										<!-- 컨텐츠 컨테이너 끝-->
 						<footer class="footer">
 							<div
 								class="d-sm-flex justify-content-center justify-content-sm-between">
