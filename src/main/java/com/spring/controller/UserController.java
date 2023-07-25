@@ -87,6 +87,7 @@ public class UserController {
 	
 	@GetMapping(value = "/selectComments", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<BoardCommentVO> getComments(int b_no){
+		System.out.println("들왔음###############################");
 		return commentService.getComments(b_no);
 	}
 }
