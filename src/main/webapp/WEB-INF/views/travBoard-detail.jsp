@@ -30,7 +30,6 @@
 
 	function addContents() {
 		InsertContentAjax();
-		console.log("getValue : " + getValue());
 		let content = getValue();
 		if(content != null){
 			sendAlarmAjax(content);
@@ -47,12 +46,11 @@
 		};
 		$.ajax({//json
 			url : "${pageContext.servletContext.contextPath}/user/insertComment",
-			async : true,
+			async : false,//동기로 처리 <<이게 앞에 있으니까 무조건 절차순으로 실행
 			contentType : "application/json;charset=UTF-8",
 			data : data,
 			method : "GET",
 			success : function(data, textStatus, jqXHR) {
-				console.log("insert완");
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
 				console.log(jqXHR);
@@ -101,7 +99,6 @@
 	function refreshContents(boardCommentList) {
 		const comments_box = document.getElementById("comments-box");
         comments_box.innerHTML = "";
-		console.log(typeof(boardCommentList));
 		for(var i=0; i<boardCommentList.length; i++){
 			input(boardCommentList[i].user_id, boardCommentList[i].contents);
 		}
@@ -121,8 +118,7 @@
 				data : JSON.stringify(data),
 				method : "POST",
 				success : function(data, textStatus, jqXHR) {
-					console.log("알람 : " + data);
-					
+				
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
 					console.log(jqXHR);
@@ -144,7 +140,6 @@
 			data : data,
 			method : "GET",
 			success : function(data, textStatus, jqXHR) {
-				console.log("select완");
 				refreshContents(data);
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
@@ -162,14 +157,14 @@
 
 		if(string[string.search("@")-1] != null && string[string.search("@")-1] == " "){
 			let ment = string.split("@");
-			console.log(ment);
-			console.log("@[0]" + ment[0]);
+			//console.log(ment);
+			//console.log("@[0]" + ment[0]);
 
 			if (ment[1] != undefined) {
-				console.log("@[1]" + ment[1]);
+			//	console.log("@[1]" + ment[1]);
 			}
 			if (ment[1] != undefined) {
-				console.log("name 추출 : " + ment[1].split(" ")[0]);
+			//	console.log("name 추출 : " + ment[1].split(" ")[0]);
 			}
 		}
 		
@@ -179,12 +174,12 @@
 	function getValue(){
 		let contents = document.getElementById("contents");
 		let string = "" + contents.value;
-		console.log("getValue if 1 >>");
+		//console.log("getValue if 1 >>");
 		if(string[string.search("@")-1] != null  && string[string.search("@")-1] == " "){
-			console.log("getValue if 2 != null");
+			//console.log("getValue if 2 != null");
 			let ment = string.split("@");
 			if (ment[1] != undefined) {
-				console.log("value 추출 : " + ment[1].split(" ")[0]);
+				//console.log("value 추출 : " + ment[1].split(" ")[0]);
 				return ment[1].split(" ")[0];
 			}
 		}
