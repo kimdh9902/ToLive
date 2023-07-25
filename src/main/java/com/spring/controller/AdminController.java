@@ -3,6 +3,7 @@ package com.spring.controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,8 +22,10 @@ public class AdminController {
 	private final ReportService reportService;
 	
 	@GetMapping("/report-selectAll")
-	public String selectAllReportBoard() {
-//		reportService.selectAllReportBoard();
+	public String selectAllReportBoard(Model model) {
+		List<ReportVO> reportList = reportService.selectAllReportBoard();
+		model.addAttribute("reportList", reportList);
+//		return "admin";
 		return "report_status";
 	}
 	

@@ -29,8 +29,7 @@
 	}
 
 	function addContents() {
-		// InsertContentAjax();
-		console.log("getValue : " + getValue());
+		InsertContentAjax();
 		let content = getValue();
 		if(content != null){
 			sendAlarmAjax(content);
@@ -45,25 +44,64 @@
 			b_no : '${param.b_no}',
 			user_id : '${sessionScope.SESS_ID}'
 		};
-		$
-				.ajax({//json
-					url : "${pageContext.servletContext.contextPath}/user/insertComment",
-					async : true,
-					contentType : "application/json;charset=UTF-8",
-					data : data,
-					method : "GET",
-					success : function(data, textStatus, jqXHR) {
-						console.log("hi");
-					},
-					error : function(jqXHR, textStatus, errorThrown) {
-						console.log(jqXHR);
-						console.log(textStatus);
-						console.log(errorThrown);
-					}
-				})
+		$.ajax({//json
+			url : "${pageContext.servletContext.contextPath}/user/insertComment",
+			async : false,//동기로 처리 <<이게 앞에 있으니까 무조건 절차순으로 실행
+			contentType : "application/json;charset=UTF-8",
+			data : data,
+			method : "GET",
+			success : function(data, textStatus, jqXHR) {
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR);
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		})
 	}
-	function refreshContents() {
+	
+	function input(user_id, contents) {
+		let comments_box = document.getElementById("comments-box");
 
+		var new_comments = document.createElement("div");
+		new_comments.id = "new-comments";
+
+		var comments = document.createElement("div");
+		comments.id = "comments";
+		comments.style.display = "flex";
+
+		var user_link = document.createElement("a");
+		user_link.href = "${pageContext.request.servletContext.contextPath}/menu/profile?user_id=" + user_id;
+		comments.appendChild(user_link);
+
+		var user_img = document.createElement("span");
+		user_link.appendChild(user_img);
+
+		var img_default = document.createElement("img");
+		img_default.src = "${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg";
+		img_default.style.marginRight = "20px";
+		img_default.style.width = "47px";
+		img_default.style.height = "47px";
+		user_img.appendChild(img_default);
+
+		var userInfoContent = document.createElement("span");
+		userInfoContent.innerHTML = user_id + "<br>" + contents;
+		comments.appendChild(userInfoContent);
+
+		var div_divider = document.createElement("div");
+		div_divider.className = "dropdown-divider";
+		comments_box.appendChild(div_divider);
+
+		comments_box.appendChild(new_comments);
+		comments_box.appendChild(comments);
+	}
+
+	function refreshContents(boardCommentList) {
+		const comments_box = document.getElementById("comments-box");
+        comments_box.innerHTML = "";
+		for(var i=0; i<boardCommentList.length; i++){
+			input(boardCommentList[i].user_id, boardCommentList[i].contents);
+		}
 	}
 
 	function sendAlarmAjax(value) {
@@ -80,8 +118,7 @@
 				data : JSON.stringify(data),
 				method : "POST",
 				success : function(data, textStatus, jqXHR) {
-					console.log("알람 : " + data);
-					
+				
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
 					console.log(jqXHR);
@@ -96,23 +133,21 @@
 		let data = {
 			b_no : '${param.b_no}'
 		};
-		$
-				.ajax({//json
-					url : "${pageContext.servletContext.contextPath}/user/selectComments",
-					async : true,
-					contentType : "application/json;charset=UTF-8",
-					data : data,
-					method : "GET",
-					success : function(data, textStatus, jqXHR) {
-						console.log("sel");
-						refreshContents();
-					},
-					error : function(jqXHR, textStatus, errorThrown) {
-						console.log(jqXHR);
-						console.log(textStatus);
-						console.log(errorThrown);
-					}
-				})
+		$.ajax({//json
+			url : "${pageContext.servletContext.contextPath}/user/selectComments",
+			async : true,
+			contentType : "application/json;charset=UTF-8",
+			data : data,
+			method : "GET",
+			success : function(data, textStatus, jqXHR) {
+				refreshContents(data);
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR);
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		})
 	}
 
 	function valueCheck() {
@@ -122,14 +157,14 @@
 
 		if(string[string.search("@")-1] != null && string[string.search("@")-1] == " "){
 			let ment = string.split("@");
-			console.log(ment);
-			console.log("@[0]" + ment[0]);
+			//console.log(ment);
+			//console.log("@[0]" + ment[0]);
 
 			if (ment[1] != undefined) {
-				console.log("@[1]" + ment[1]);
+			//	console.log("@[1]" + ment[1]);
 			}
 			if (ment[1] != undefined) {
-				console.log("name 추출 : " + ment[1].split(" ")[0]);
+			//	console.log("name 추출 : " + ment[1].split(" ")[0]);
 			}
 		}
 		
@@ -139,12 +174,12 @@
 	function getValue(){
 		let contents = document.getElementById("contents");
 		let string = "" + contents.value;
-		console.log("getValue if 1 >>");
+		//console.log("getValue if 1 >>");
 		if(string[string.search("@")-1] != null  && string[string.search("@")-1] == " "){
-			console.log("getValue if 2 != null");
+			//console.log("getValue if 2 != null");
 			let ment = string.split("@");
 			if (ment[1] != undefined) {
-				console.log("value 추출 : " + ment[1].split(" ")[0]);
+				//console.log("value 추출 : " + ment[1].split(" ")[0]);
 				return ment[1].split(" ")[0];
 			}
 		}
@@ -316,20 +351,12 @@
 
 										<!--댓글-->
 										<h3 class="card-title"></h3>
-										<div>
-											<c:forEach var="boardComment"
-												items="${requestScope.boardCommentList}">
-												<div style="display: flex;">
-													<a
-														href="${pageContext.request.servletContext.contextPath}/menu/profile?user_id=${boardComment.user_id}">
-														<span> <img
-															src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
-															style="margin-right: 20px; width: 47px; height: 47px;">
-													</span>
-													</a> <span>${boardComment.user_id}<br>${boardComment.contents}</span>
-													<br>
-												</div>
-												<div class="dropdown-divider"></div>
+										<div id="comments-box">
+											<c:forEach var="boardComment" items="${requestScope.boardCommentList}">
+												<script type="text/javascript">
+													input('<c:out value="${boardComment.user_id}" />',
+														'<c:out value="${boardComment.contents}" />');
+    											</script>
 											</c:forEach>
 										</div>
 									</div>

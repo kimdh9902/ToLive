@@ -1,66 +1,173 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>관리자 페이지</title>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+	integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+	crossorigin="anonymous"></script>
+	
+<!-- plugins:css -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/vendors/css/vendor.bundle.base.css">
+<!-- endinject -->
+<!-- Plugin css for this page -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/vendors/jvectormap/jquery-jvectormap.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/vendors/flag-icon-css/css/flag-icon.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/vendors/owl-carousel-2/owl.carousel.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/vendors/owl-carousel-2/owl.theme.default.min.css">
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<!-- endinject -->
+<!-- Layout styles -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/style.css">
+
+<!-- End layout styles -->
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/resources/assets/images/favicon.png" />
+<!-- plugins:js -->
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendors/js/vendor.bundle.base.js"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendors/chart.js/Chart.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendors/progressbar.js/progressbar.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendors/jvectormap/jquery-jvectormap.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/vendors/owl-carousel-2/owl.carousel.min.js"></script>
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script src="${pageContext.request.contextPath}/resources/assets/js/off-canvas.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/js/hoverable-collapse.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/js/misc.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/js/settings.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/js/todolist.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page -->
+<script src="${pageContext.request.contextPath}/resources/assets/js/dashboard.js"></script>
+<!-- End custom js for this page -->
+	
 </head>
 
 <body>
-   <form action="${pageContext.servletContext.contextPath }/file/board" method="post" enctype="multipart/form-data">
-      <input type="file" name="uploadFile" accept="image/*"/>
-      <input type="hidden" name="b_no" value="22">
-      <input type="submit" ></input>
-   </form>
-   <br>
-   <form action="${pageContext.servletContext.contextPath }/file/attach" method="get">
-      <input type="submit" ></input>
-   </form> 
-
 	<div class="container-scroller">
 		<!-- 왼쪽 슬라이드 바 로고 -->
 		<nav class="sidebar sidebar-offcanvas" id="sidebar">
 			<div
 				class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
 				<!-- 이미지를 링크화 한것 -->
-				<a class="sidebar-brand brand-logo" href="main.jsp"><img
-					src="../assets/images/logo.svg" alt="logo" /></a> <a
-					class="sidebar-brand brand-logo-mini" href="main.jsp"><img
-					src="../assets/images/logo-mini.svg" alt="logo" /></a>
+				<a class="card-title text-primary" style="text-align: left;"
+					href="${pageContext.request.contextPath}/report">TriptoLive</a> <a
+					class="sidebar-brand brand-logo-mini"
+					href="${pageContext.request.contextPath}/report"> <img
+					src="${pageContext.request.contextPath}/resources/assets/images/logo-mini.svg"
+					alt="logo" /></a>
 				<!-- ---------------------------------------------------------------------------- -->
 			</div>
 			<!-- 슬라이드바 리스트 -->
 			<ul class="nav">
-
-				<li class="nav-item nav-category"><span class="nav-link">Navigation</span>
+				<li class="nav-item profile">
+					<div class="profile-desc">
+						<a
+							href="<%=request.getContextPath()%>/profile?user_id=<%=session.getAttribute("SESS_ID")
+                                %>">
+							<!-- 프로필 링크 -->
+							<div class="profile-pic">
+								<div class="count-indicator">
+									<img class="img-xs rounded-circle "
+										src="${pageContext.request.contextPath}/img/images.jpg" alt="">
+									<span class="count bg-success"></span>
+								</div>
+								<div class="profile-name">
+									<h5 class="mb-0 font-weight-normal">${sessionScope.SESS_NAME }</h5>
+									<span>Admin</span>
+								</div>
+							</div>
+						</a>
+						<!-- 프로필 링크 끝 -->
+						<a href="#" id="profile-dropdown" data-toggle="dropdown"><i
+							class="mdi mdi-dots-vertical"></i></a>
+						<div
+							class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list"
+							aria-labelledby="profile-dropdown">
+							<a href="#" class="dropdown-item preview-item">
+								<div class="preview-thumbnail">
+									<div class="preview-icon bg-dark rounded-circle">
+										<i class="mdi mdi-settings text-primary"></i>
+									</div>
+								</div>
+								<div class="preview-item-content">
+									<p class="preview-subject ellipsis mb-1 text-small">Account
+										settings</p>
+								</div>
+							</a>
+							<div class="dropdown-divider"></div>
+							<a href="#" class="dropdown-item preview-item">
+								<div class="preview-thumbnail">
+									<div class="preview-icon bg-dark rounded-circle">
+										<i class="mdi mdi-onepassword  text-info"></i>
+									</div>
+								</div>
+								<div class="preview-item-content">
+									<p class="preview-subject ellipsis mb-1 text-small">Change
+										Password</p>
+								</div>
+							</a>
+							<div class="dropdown-divider"></div>
+							<a href="#" class="dropdown-item preview-item">
+								<div class="preview-thumbnail">
+									<div class="preview-icon bg-dark rounded-circle">
+										<i class="mdi mdi-calendar-today text-success"></i>
+									</div>
+								</div>
+								<div class="preview-item-content">
+									<p class="preview-subject ellipsis mb-1 text-small">To-do
+										list</p>
+								</div>
+							</a>
+						</div>
+					</div> <!-- 프로필 끝 -->
 				</li>
-				<!-- 카테고리 탭 부분 -->
-				<!-- class="navitem menu-items" (아이콘 묶어주는 클래스)-->
-
 				<!-- 신고 기록 -->
 				<li class="nav-item menu-items"><a class="nav-link"
-					href="<%=request.getContextPath()%>/report"> 
-					<span class="menu-icon"> <i class="mdi mdi-account-search"></i></span> 
-					<span class="menu-title">신고</span>
+					href="<%=request.getContextPath()%>/report"> <span
+						class="menu-icon"> <i class="mdi mdi-alert-outline"></i></span> <span
+						class="menu-title">신고</span>
 				</a></li>
 
 				<!-- 명예의 전당 -->
 				<li class="nav-item menu-items"><a class="nav-link"
-					href="<%=request.getContextPath()%>/starBoard">
-					<span class="menu-icon"> <i class="mdi mdi-trophy-variant"></i></span> 
-					<span class="menu-title">명예의 전당</span>
+					href="<%=request.getContextPath()%>/starBoard"> <span
+						class="menu-icon"> <i class="mdi mdi-trophy-variant"></i></span> <span
+						class="menu-title">명예의 전당</span>
 				</a></li>
-
-
 			</ul>
 		</nav>
 		<div class="container-fluid page-body-wrapper">
 			<nav class="navbar p-0 fixed-top d-flex flex-row">
 				<div
 					class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-					<a class="navbar-brand brand-logo-mini" href="test.html"><img
-						src="../assets/images/logo-mini.svg" alt="logo" /></a>
+					<a class="navbar-brand brand-logo-mini"
+						href="${pageContext.request.contextPath}/main"> <img
+						src="${pageContext.request.contextPath}/resources/assets/images/logo-mini.svg"
+						alt="logo" /></a>
 				</div>
 				<div
 					class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
@@ -68,168 +175,26 @@
 						type="button" data-toggle="minimize">
 						<span class="mdi mdi-menu"></span>
 					</button>
-					<ul class="navbar-nav w-100">
-						<li class="nav-item w-100">
-							<form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
-								<input type="text" class="form-control"
-									placeholder="Search products">
-							</form>
-						</li>
-					</ul>
 					<ul class="navbar-nav navbar-nav-right">
-						<li class="nav-item dropdown d-none d-lg-block"><a
-							class="nav-link btn btn-success create-new-button"
-							id="createbuttonDropdown" data-toggle="dropdown"
-							aria-expanded="false" href="#">+ Create New Project</a>
-							<div
-								class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-								aria-labelledby="createbuttonDropdown">
-								<h6 class="p-3 mb-0">Projects</h6>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item preview-item">
-									<div class="preview-thumbnail">
-										<div class="preview-icon bg-dark rounded-circle">
-											<i class="mdi mdi-file-outline text-primary"></i>
-										</div>
-									</div>
-									<div class="preview-item-content">
-										<p class="preview-subject ellipsis mb-1">Software
-											Development</p>
-									</div>
-								</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item preview-item">
-									<div class="preview-thumbnail">
-										<div class="preview-icon bg-dark rounded-circle">
-											<i class="mdi mdi-web text-info"></i>
-										</div>
-									</div>
-									<div class="preview-item-content">
-										<p class="preview-subject ellipsis mb-1">UI Development</p>
-									</div>
-								</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item preview-item">
-									<div class="preview-thumbnail">
-										<div class="preview-icon bg-dark rounded-circle">
-											<i class="mdi mdi-layers text-danger"></i>
-										</div>
-									</div>
-									<div class="preview-item-content">
-										<p class="preview-subject ellipsis mb-1">Software Testing</p>
-									</div>
-								</a>
-								<div class="dropdown-divider"></div>
-								<p class="p-3 mb-0 text-center">See all projects</p>
-							</div></li>
-						<li class="nav-item nav-settings d-none d-lg-block"><a
-							class="nav-link" href="#"> <i class="mdi mdi-view-grid"></i>
-						</a></li>
-						<li class="nav-item dropdown border-left"><a
+						<!-- 알림종 -->
+						<li id="isalarm" class="nav-item dropdown border-left"><a
 							class="nav-link count-indicator dropdown-toggle"
-							id="messageDropdown" href="#" data-toggle="dropdown"
-							aria-expanded="false"> <i class="mdi mdi-email"></i> <span
-								class="count bg-success"></span>
+							id="notificationDropdown" href="#" data-toggle="dropdown"
+							onclick="ajaxCall()"> <i class="mdi mdi-bell"></i> <span
+								class="count bg-danger"></span>
 						</a>
 							<div
 								class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-								aria-labelledby="messageDropdown">
-								<h6 class="p-3 mb-0">Messages</h6>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item preview-item">
-									<div class="preview-thumbnail">
-										<img src="../assets/images/faces/face4.jpg" alt="image"
-											class="rounded-circle profile-pic">
-									</div>
-									<div class="preview-item-content">
-										<p class="preview-subject ellipsis mb-1">Mark send you a
-											message</p>
-										<p class="text-muted mb-0">1 Minutes ago</p>
-									</div>
-								</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item preview-item">
-									<div class="preview-thumbnail">
-										<img src="../assets/images/faces/face2.jpg" alt="image"
-											class="rounded-circle profile-pic">
-									</div>
-									<div class="preview-item-content">
-										<p class="preview-subject ellipsis mb-1">Cregh send you a
-											message</p>
-										<p class="text-muted mb-0">15 Minutes ago</p>
-									</div>
-								</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item preview-item">
-									<div class="preview-thumbnail">
-										<img src="../assets/images/faces/face3.jpg" alt="image"
-											class="rounded-circle profile-pic">
-									</div>
-									<div class="preview-item-content">
-										<p class="preview-subject ellipsis mb-1">Profile picture
-											updated</p>
-										<p class="text-muted mb-0">18 Minutes ago</p>
-									</div>
-								</a>
-								<div class="dropdown-divider"></div>
-								<p class="p-3 mb-0 text-center">4 new messages</p>
-							</div></li>
-						<li class="nav-item dropdown border-left"><a
-							class="nav-link count-indicator dropdown-toggle"
-							id="notificationDropdown" href="#" data-toggle="dropdown"> <i
-								class="mdi mdi-bell"></i> <span class="count bg-danger"></span>
-						</a>
-							<div
-								class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-								aria-labelledby="notificationDropdown">
+								aria-labelledby="notificationDropdown" id="alarm">
 								<h6 class="p-3 mb-0">Notifications</h6>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item preview-item">
-									<div class="preview-thumbnail">
-										<div class="preview-icon bg-dark rounded-circle">
-											<i class="mdi mdi-calendar text-success"></i>
-										</div>
-									</div>
-									<div class="preview-item-content">
-										<p class="preview-subject mb-1">Event today</p>
-										<p class="text-muted ellipsis mb-0">Just a reminder that
-											you have an event today</p>
-									</div>
-								</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item preview-item">
-									<div class="preview-thumbnail">
-										<div class="preview-icon bg-dark rounded-circle">
-											<i class="mdi mdi-settings text-danger"></i>
-										</div>
-									</div>
-									<div class="preview-item-content">
-										<p class="preview-subject mb-1">Settings</p>
-										<p class="text-muted ellipsis mb-0">Update dashboard</p>
-									</div>
-								</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item preview-item">
-									<div class="preview-thumbnail">
-										<div class="preview-icon bg-dark rounded-circle">
-											<i class="mdi mdi-link-variant text-warning"></i>
-										</div>
-									</div>
-									<div class="preview-item-content">
-										<p class="preview-subject mb-1">Launch Admin</p>
-										<p class="text-muted ellipsis mb-0">New admin wow!</p>
-									</div>
-								</a>
-								<div class="dropdown-divider"></div>
-								<p class="p-3 mb-0 text-center">See all notifications</p>
 							</div></li>
 						<li class="nav-item dropdown"><a class="nav-link"
 							id="profileDropdown" href="#" data-toggle="dropdown">
 								<div class="navbar-profile">
 									<img class="img-xs rounded-circle"
-										src="../assets/images/faces/face15.jpg" alt="">
-									<p class="mb-0 d-none d-sm-block navbar-profile-name">Henry
-										Klein</p>
+										src="${pageContext.request.contextPath}/img/images.jpg" alt="">
+									<p class="mb-0 d-none d-sm-block navbar-profile-name">${sessionScope.SESS_NAME }</p>
 									<i class="mdi mdi-menu-down d-none d-sm-block"></i>
 								</div>
 						</a>
@@ -249,14 +214,16 @@
 									</div>
 								</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item preview-item">
+								<!-- 로그아웃 링크 연결해야함@@@@@@@@@@@ -->
+								<a href="${pageContext.request.contextPath}/logout"
+									class="dropdown-item preview-item">
 									<div class="preview-thumbnail">
 										<div class="preview-icon bg-dark rounded-circle">
 											<i class="mdi mdi-logout text-danger"></i>
 										</div>
 									</div>
 									<div class="preview-item-content">
-										<p class="preview-subject mb-1">Log out</p>
+										<p class="preview-subject mb-1">로그아웃</p>
 									</div>
 								</a>
 								<div class="dropdown-divider"></div>
@@ -279,27 +246,28 @@
 						<div class="col-12 grid-margin">
 							<div class="card">
 								<div class="card-body">
-									<h3 class="card-title">여행 후기글</h3>
+									<h3 class="card-title">신고 내역</h3>
 									<div class="table-responsive">
 										<table class="table">
 											<thead>
 												<tr>
-													<th>테스트1</th>
-													<th>테스트2</th>
-													<th>테스트3</th>
+													<th>글번호</th>
+													<th>제목</th>
+													<th>아이디</th>
+													<th>신고사유</th>
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>테스트데이터1</td>
-													<td>테스트데이터1</td>
-													<td>테스트데이터1</td>
-												</tr>
-												<tr>
-													<td>테스트데이터2</td>
-													<td>테스트데이터2</td>
-													<td>테스트데이터2</td>
-												</tr>
+												<c:forEach var="ReportVO" items="${requestScope.reportList}">
+													<tr>
+														<td>${ReportVO.b_no}</td>
+														<td><a
+															href="${pageContext.request.contextPath}/travBoard?trav_b_no=${ReportVO.b_no}">
+																${ReportVO.title}</a></td>
+														<td>${ReportVO.report_user_id}</td>
+														<td>${ReportVO.report_comment}</td>
+													</tr>
+												</c:forEach>
 											</tbody>
 										</table>
 									</div>
@@ -323,11 +291,7 @@
 			</div>
 			<!-- 메인 패널 끝 -->
 		</div>
-
 	</div>
-
-
-	<!-- partial -->
 </body>
 
 </html>

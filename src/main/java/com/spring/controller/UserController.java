@@ -3,23 +3,28 @@ package com.spring.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.domain.AlarmVO;
 import com.spring.domain.BoardCommentVO;
 import com.spring.domain.FollowVO;
+import com.spring.domain.TravBoardVO;
 import com.spring.service.AlarmService;
 import com.spring.service.BlackListService;
 import com.spring.service.BoardCommentService;
 import com.spring.service.FollowService;
+import com.spring.service.TravBoardService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -86,6 +91,12 @@ public class UserController {
 	
 	@GetMapping(value = "/selectComments", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<BoardCommentVO> getComments(int b_no){
-		return commentService.getComments(b_no);
+		System.out.println("들왔음###############################");
+		List<BoardCommentVO> boardCommentList = commentService.getComments(b_no);
+		System.out.println("무조건의 그숙명");
+		System.out.println(boardCommentList);
+		return boardCommentList;
+		
 	}
+	
 }
