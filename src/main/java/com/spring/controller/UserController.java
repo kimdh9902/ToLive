@@ -63,7 +63,6 @@ public class UserController {
 	
 	@PostMapping(value = "/send-alarm", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public boolean sendAlarm(@RequestBody AlarmVO vo) {
-		System.out.println("send@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + vo);
 		boolean temp = alarmService.sendAlarm(vo);
 		return temp;
 	}

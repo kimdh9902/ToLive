@@ -1,13 +1,20 @@
 package com.spring.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.domain.LocationVO;
 import com.spring.domain.UsersVO;
+import com.spring.service.LocationService;
 import com.spring.service.UsersService;
 
 import lombok.RequiredArgsConstructor;
@@ -19,13 +26,16 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RequiredArgsConstructor
 public class AuthController {
+
 // 계정 연동 및 통합 관리
 	private final UsersService service;
+	private final LocationService locService;
 	
 	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
+	
 	@PostMapping("/login")
 	public String loginTry(String userId, String userPw, HttpSession session) {
 		UsersVO user = new UsersVO();
@@ -64,31 +74,7 @@ public class AuthController {
 		
 		return "redirect:login?msg=logout success";
 	}
-	/*
-	 * UsersVO user = new UsersVO();
-		String id = request.getParameter("userId");
-		String pw = request.getParameter("userPw");// SHAEncodeUtil.encodeSha(request.getParameter("pw"))
-		user.setId(id);
-		user.setPw(SHAEncodeUtil.encodeSha(pw));
 
-		user = service.getAccount(id, pw);
-		if (user != null) {
-			HttpSession session = request.getSession(false);
-			session.setAttribute("SESS_ID", id);
-			session.setAttribute("SESS_AUTH", true);
-			session.setAttribute("SESS_NAME", user.getName());
-			session.setAttribute("SESS_GRADE", user.getGrade_level());
-			if (user.getGrade_level() != 7) {
-				System.out.println(user.getGrade_level());
-				response.sendRedirect(request.getContextPath() + "/main");
-			} else {
-				response.sendRedirect(request.getContextPath() + "/report");
-			}
-		} else {
-			String msg = "fail, retry";
-			response.sendRedirect(request.getContextPath() +"/view/login.jsp?msg=" + msg);
-		}
-	 */
 	@GetMapping("/register")
 	public String register() {
 		
@@ -96,15 +82,23 @@ public class AuthController {
 	}
 	
 	// rest로 바꾸고 회원가입 성공시 true  true가 아니면 페이지 넘기지 말기
-	@PostMapping("/register")
-	public String register(UsersVO vo) {
+	@ResponseBody
+	@PostMapping(value = "/register", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public boolean register(@RequestBody UsersVO vo) {
 		log.info(vo);
-		int result = 0;
-//		service.registerAccount(vo);
-//		if(result == 0) {
-//			return ""
-//		}
+		int result = service.registerAccount(vo);
+		if(result > 0) {
+			return true;
+		}
 		
-		return "login";
+		return false;
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/location", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public List<LocationVO> locationCode(@RequestBody LocationVO loc){
+		List<LocationVO> list = locService.selectLocationById(loc);
+		System.out.println("list:" + list);
+		return list;
 	}
 }

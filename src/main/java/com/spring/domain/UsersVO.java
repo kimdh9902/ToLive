@@ -17,7 +17,7 @@ public class UsersVO {
 	String id;
 	String pw;
 	String name;
-	@DateTimeFormat(pattern = "yyyyMMdd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date birth;
 	String phone;
 	int location;

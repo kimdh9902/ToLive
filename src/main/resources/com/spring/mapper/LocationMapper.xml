@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.spring.mapper.LocationMapper">
+		<select id="selectLocationById" resultType="com.spring.domain.LocationVO">
+			select location_id, substr(location_name, instr(location_name, ' ')+1) as location_name 
+			from location 
+			where location_name like(concat(#{location_name},'%'))
+		</select>
+	</mapper>
