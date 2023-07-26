@@ -166,6 +166,46 @@
             )
             return result;
         }
+		
+        function idCheckAjax(id){
+            let result = null;
+            let data = {
+                id : id.value
+            }
+            $.ajax(
+                {
+                url:"${ pageContext.servletContext.contextPath }/auth/idcheck",
+                async:false,
+                contentType:"application/json;charset=UTF-8",
+                data: JSON.stringify(data),
+                method:"POST",
+                dataType:"JSON",
+                success:function(data, textStatus, jqXHR)
+                {
+                    console.log(data);
+                    result = data;
+                },
+                error:function(jqXHR, textStatus, errorThrown ){
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }	
+                }
+            )
+            return result;
+        }
+        
+        function idCheck(){
+        	var id = document.getElementById("id");
+        	console.log(id.value);
+            if(idCheckAjax(id)){
+            	alert("이미 사용중인 ID");
+            	id.value = "";
+            }
+            else{
+            	alert("사용가능한 ID");
+            }
+        }
 
         function isSuccess() {
             let form_box = document.getElementById("register-form");
@@ -196,7 +236,8 @@
                     <form id="register-form" class="forms-sample" action="${pageContext.request.contextPath}/auth/login" method="get" style="text-align: center;" onsubmit="return isSuccess()">
                         <div class="form-group">
                             <label for="id">아이디</label>
-                            <input class="form-control" type="text" id="id" name="id" required><br>
+                            <input class="form-control" type="text" id="id" name="id" required>
+                            <input type="button" onclick="idCheck()" value="id중복확인">
                         </div>
                         <div class="form-group">
                             <label for="pw">비밀번호</label>

@@ -24,4 +24,13 @@ public class UsersServiceImpl implements UsersService{
 		return mapper.selectAccount(vo);
 	}
 
+	@Override
+	public boolean isIdCheck(String id) {
+		int result = mapper.selectByIdCount(id);
+		if(result > 0) {
+			return true;
+		}
+		return false;
+	}
+
 }

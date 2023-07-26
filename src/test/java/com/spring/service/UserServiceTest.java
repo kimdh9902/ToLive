@@ -1,39 +1,25 @@
-package com.spring.mapper;
+package com.spring.service;
 
 import static org.junit.Assert.*;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.spring.domain.UsersVO;
-
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
-@Log4j
-public class UsersTest {
-	
+public class UserServiceTest {
+
 	@Setter (onMethod_ = @Autowired)
-	private UsersMapper mapper;
+	private UsersService service;
 	
-	@Test @Ignore
+	@Test
 	public void test() {
-		UsersVO vo = new UsersVO();
-		vo.setId("oax123");
-		vo.setPw("123");
-		vo = mapper.selectAccount(vo);
-		log.info(vo);
+		System.out.println(service.isIdCheck("user01"));
 	}
 
-	@Test
-	public void test2() {
-		System.out.println(mapper.selectByIdCount("user01"));
-		
-	}
 }

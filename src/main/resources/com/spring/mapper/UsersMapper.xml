@@ -12,4 +12,7 @@
     		values(#{id}, #{pw}, #{name}, #{birth}, #{phone}, #{location})
     	</insert>
     	
+    	<select id="selectByIdCount" resultType="int">
+    		select count(*) from users where id = #{id}
+    	</select>
     </mapper>

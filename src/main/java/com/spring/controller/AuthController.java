@@ -1,6 +1,7 @@
 package com.spring.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.spring.domain.LocationVO;
 import com.spring.domain.UsersVO;
 import com.spring.service.LocationService;
@@ -100,5 +104,28 @@ public class AuthController {
 		List<LocationVO> list = locService.selectLocationById(loc);
 		System.out.println("list:" + list);
 		return list;
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/idcheck", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public boolean register(@RequestBody Map<String, String> map) {
+		
+		String id = map.get("id");
+		System.out.println("id : " + id + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		// 실패작이래~
+//		JsonParser parser = new JsonParser();
+//		System.out.println(parser.parse(id));;
+//		JsonObject json = new JsonObject(id, JsonObject.class);
+//		json.addProperty("id", id);
+//		System.out.println("json"+ json);
+//		Gson gson = new Gson();
+//		gson.fromJson(json, String.class);
+//		System.out.println("gson : " + gson + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		boolean result = service.isIdCheck(id);
+		if(result) {
+			return true;
+		}
+		
+		return false;
 	}
 }
