@@ -47,7 +47,7 @@ public class TravBoardController {
 
 	// 여행 후기글 글 상세 페이지로 이동
 	// localhost:8080/trip/travBoard/detail
-	@GetMapping("/travBoard-detail")
+	@GetMapping("/travBoard-detail2")
 	public String openBoard(@RequestParam("b_no") int b_no, HttpServletRequest request, HttpServletResponse response,
 			Model model, HttpSession session) throws IOException {
 		int SESS_GRADE = (int) session.getAttribute("SESS_GRADE");
@@ -62,7 +62,7 @@ public class TravBoardController {
 			System.out.println(boardCommentvo);
 		}
 //		return "detail";
-		return "travBoard-detail";
+		return "travBoard-detail2";
 	}
 
 	// 게시글 등록 페이지로 이동
@@ -106,7 +106,7 @@ public class TravBoardController {
 		int result = boardMapper.updateBoard(bvo);
 
 		if (result > 0) {
-			return "redirect:travBoard-detail?b_no=" + bvo.getB_no();
+			return "redirect:travBoard-detail2?b_no=" + bvo.getB_no();
 		} else {
 			return "redirect:travBoard/travBoard-update?b_no=" + bvo.getB_no();
 		}
@@ -119,7 +119,7 @@ public class TravBoardController {
 		if (success) {
 			return "redirect:/menu/travBoard/";
 		} else {
-			return "redirect:travBoard-detail?b_no=" + b_no;
+			return "redirect:travBoard-detail2?b_no=" + b_no;
 		}
 	}
 	
@@ -136,7 +136,7 @@ public class TravBoardController {
 			System.out.println("여기 왔니?");
 			reportService.addReportBoard(rvo);
 			System.out.println(rvo);		
-			return "redirect:travBoard-detail?b_no=" + bvo.getB_no();
+			return "redirect:travBoard-detail2?b_no=" + bvo.getB_no();
 
 		}
 
