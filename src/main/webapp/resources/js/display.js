@@ -479,7 +479,6 @@ function make(alarm_no, is_open, img, b_no, msg){
     p_text.innerText = msg //메세지 입력!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     if(is_open == 1){
         console.log("읽었음 : "+ alarm_no);
-        //#13151b
         a_drop.style.backgroundColor = '#13151b';
         p_text.style.color = "#e6e9ed";
     }
@@ -568,10 +567,6 @@ function alarmIsOpenAjax(path, sess_id) {
             {
                 alarmStateChange();
             }
-            /* console.log("data:" + data.jsonList); */
-            /* var userList = JSON.parse(data); */
-            /* console.log("uL"+userList); */
-
         },
         error : function(jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
