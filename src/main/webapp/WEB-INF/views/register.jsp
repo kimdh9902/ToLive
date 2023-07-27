@@ -46,8 +46,7 @@
         <!-- End custom js for this page -->
         <script type="text/javascript">
         var msg = '<%=request.getParameter("msg")%>';
-       const seoul = ["종로구","중구","용산구","성동구","동대문구","중랑구","성북구","도봉구","노원구","은평구","서대문구","마포구","양천구","강서구","구로구","영등포구","동작구","관악구","서초구","강남구","송파구","강동구"];
-        const seoulvalue = ["1111","1114","1117","1120","1123","1126","1129","1132","1135","1138","1141","1144","1147","1150","1153","1156","1159","1162","1165","1168","1171","1174"];
+        
        window.onload = function(){
           showMsg();      
        }
@@ -72,39 +71,158 @@
             if(element.options.length > 1){
                 locationSidoDelete();
             }
-            let gungu = document.getElementById("location-sel2");
-            switch(element.value){
-                case "1":
-                for(var i = 0; i < seoul.length; i++){
-                    var op = document.createElement("option");
-                    op.text = seoul[i];
-                    op.value = seoulvalue[i];
-                    gungu.appendChild(op);
-                }
-            break;
-            }
+            getLocationAjax(element.value);
+            
             return opList;
+        }
+	
+        function makeOption(location) {
+        	let gungu = document.getElementById("location-sel2");
+        	for(var i = 0; i < location.length; i++){
+            	var option = document.createElement("option");
+                option.text = location[i].location_name;
+            	option.value = location[i].location_id;
+                gungu.appendChild(option);
+            }		
+		}
+        
+        function getLocationAjax(location_value){
+        	var returnData = null;
+        	if(location_value != 0){
+	        	let data = {
+	        		location_name : location_value
+	        	}
+	            $.ajax(
+	            	{
+	           		url:  "${ pageContext.servletContext.contextPath }"+"/auth/location",
+	                async:true,
+	                contentType:"application/json;charset=UTF-8",
+	                data: JSON.stringify(data),
+	                method:"POST",
+	                dataType:"JSON",
+	                success:function(data, textStatus, jqXHR)
+	                {
+	                	console.log(data);
+	                	makeOption(data);
+	                },
+	                error:function(jqXHR, textStatus, errorThrown ){
+	                    console.log(jqXHR);
+	                    console.log(textStatus);
+	                    console.log(errorThrown);
+	                }	
+	            	}
+	            )
+        	}
         }
 
         function isLocation(){
             var sido = document.getElementById("location-sel");
             var gungu = document.getElementById("location-sel2");
-            
-            if(sido.value == 0)
+               
+            if(sido.value == 0){
+                alert("시,도 선택");
+                sido.focus();
                 return false;
-            if(gungu.value == 0)
-                return false;
-            
+            }
                 
+            if(gungu.value == 0){
+                alert("군,구 선택");
+                gungu.focus();
+                return false;
+            }
+ 
             return true;
         }
         
+        function isRegisterAjax(idP, pwP, nameP, birthP, phoneP, locationP){
+        	let result = false;
+            let data = {
+                id : idP,
+                pw : pwP,
+                name : nameP,
+                birth : birthP,
+                phone : phoneP,
+                location : locationP
+            }
+            $.ajax(
+                {
+                url:  "${ pageContext.servletContext.contextPath }/auth/register",
+                async:false,
+                contentType:"application/json;charset=UTF-8",
+                data: JSON.stringify(data),
+                method:"POST",
+                dataType:"JSON",
+                success:function(data, textStatus, jqXHR)
+                {
+                    console.log(data);
+                    result = data;
+                },
+                error:function(jqXHR, textStatus, errorThrown ){
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }	
+                }
+            )
+            return result;
+        }
+		
+        function idCheckAjax(id){
+            let result = null;
+            let data = {
+                id : id.value
+            }
+            $.ajax(
+                {
+                url:"${ pageContext.servletContext.contextPath }/auth/idcheck",
+                async:false,
+                contentType:"application/json;charset=UTF-8",
+                data: JSON.stringify(data),
+                method:"POST",
+                dataType:"JSON",
+                success:function(data, textStatus, jqXHR)
+                {
+                    console.log(data);
+                    result = data;
+                },
+                error:function(jqXHR, textStatus, errorThrown ){
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }	
+                }
+            )
+            return result;
+        }
+        
+        function idCheck(){
+        	var id = document.getElementById("id");
+        	console.log(id.value);
+            if(idCheckAjax(id)){
+            	alert("이미 사용중인 ID");
+            	id.value = "";
+            }
+            else{
+            	alert("사용가능한 ID");
+            }
+        }
+
         function isSuccess() {
-        	if(isLocation()){
-        		
-        	}
-        	alert("회원가입 실패")
-        	return false;
+            let form_box = document.getElementById("register-form");
+          	
+            let result = isRegisterAjax(
+            form_box.children[0].children[1].value,
+            form_box.children[1].children[1].value,
+            form_box.children[2].children[1].value, 
+            form_box.children[3].children[1].value,
+            form_box.children[4].children[1].value,
+            form_box.children[5].children[4].value,
+            );
+            if(result){
+                alert("회원가입 성공")
+                // window.location.href = "${pageContext.request.contextPath}/auth/login"
+            }
+        	return result;
 		}
         </script>
     </head>
@@ -115,10 +233,11 @@
             <!-- <div class="container-fluid page-body-wrapper"> -->
             <div class="col-sm-3" style="margin-left: 39%; margin-top: 3%">
                <br>
-                    <form class="forms-sample" action="${pageContext.request.contextPath}/auth/register" method="post" style="text-align: center;" onsubmit="return isSuccess()">
+                    <form id="register-form" class="forms-sample" action="${pageContext.request.contextPath}/auth/login" method="get" style="text-align: center;" onsubmit="return isSuccess()">
                         <div class="form-group">
                             <label for="id">아이디</label>
-                            <input class="form-control" type="text" id="id" name="id" required><br>
+                            <input class="form-control" type="text" id="id" name="id" required>
+                            <input type="button" onclick="idCheck()" value="id중복확인">
                         </div>
                         <div class="form-group">
                             <label for="pw">비밀번호</label>
@@ -139,28 +258,29 @@
                         </div>
                         <div class="form-group">
                             <label for="location">지역</label><br>
-                            <select style="margin-right: 7px" id="location-sel" onchange="locationSidoOption(this)" required><br>
-                                <option value="0" selected>시/도 선택</option>
-                                <option value="1">서울 특별시</option>
-                                <option value="2">부산광역시</option>
-                                <option value="3">대구광역시</option>
-                                <option value="4">인천광역시</option>
-                                <option value="5">광주광역시</option>
-                                <option value="6">대전광역시</option>
-                                <option value="7">울산광역시</option>
-                                <option value="8">충청북도</option>
-                                <option value="9">충청남도</option>
-                                <option value="10">전라북도</option>
-                                <option value="11">경상남도</option>
-                                <option value="12">제주특별자치도</option>
-                                <option value="13">강원특별자치도</option>
+                            <select style="margin-right: 7px" id="location-sel" onchange="locationSidoOption(this);" required>
+                                <option value ="0" selected>시/도 선택</option>
+                                <option value ="서울특별시">서울특별시</option>
+                                <option value ="부산광역시">부산광역시</option>
+                                <option value ="대구광역시">대구광역시</option>
+                                <option value ="인천광역시">인천광역시</option>
+                                <option value ="광주광역시">광주광역시</option>
+                                <option value ="대전광역시">대전광역시</option>
+                                <option value ="울산광역시">울산광역시</option>
+                                <option value ="충청북도">충청북도</option>
+                                <option value ="충청남도">충청남도</option>
+                                <option value ="전라북도">전라북도</option>
+                                <option value ="경상남도">경상남도</option>
+                                <option value ="제주특별자치도">제주특별자치도</option>
+                                <option value ="강원특별자치도">강원특별자치도</option>
                             </select>
+                            <br>
                             <select id="location-sel2" name="location" required><br>
                                 <option value="0" selected>군/구 선택</option>
                             
                             </select>
                         </div>
-                        <input type="submit" class="btn-outline-info" style="background-color: #8f5fe8; color: white; width: 200px" id="register" value="전송">
+                        <input type="submit" class="btn-outline-info" style="background-color: #8f5fe8; color: white; width: 200px" id="register" value="전송" onclick="return isLocation();">
                     </form>
             </div>
         </div>

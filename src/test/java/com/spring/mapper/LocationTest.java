@@ -2,38 +2,35 @@ package com.spring.mapper;
 
 import static org.junit.Assert.*;
 
-import org.junit.Ignore;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.spring.domain.UsersVO;
+import com.spring.domain.LocationVO;
 
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
-@Log4j
-public class UsersTest {
+
+public class LocationTest {
 	
 	@Setter (onMethod_ = @Autowired)
-	private UsersMapper mapper;
+	private LocationMapper mapper;
 	
-	@Test @Ignore
-	public void test() {
-		UsersVO vo = new UsersVO();
-		vo.setId("oax123");
-		vo.setPw("123");
-		vo = mapper.selectAccount(vo);
-		log.info(vo);
-	}
-
 	@Test
-	public void test2() {
-		System.out.println(mapper.selectByIdCount("user01"));
+	public void test() {
+		LocationVO vo = new LocationVO();
+		vo.setLocation_name("서울특별시");
+		List<LocationVO> list = mapper.selectLocationById(vo);
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));
+		}
 		
 	}
+
 }

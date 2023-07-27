@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>게시글 작성 페이지</title>
+<title>후기글 작성 페이지</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link
@@ -95,7 +95,7 @@
 </head>
 <body>
 	<div class="container mt-3">
-		<h2 style="text-align: center;">게시글 작성 페이지</h2>
+		<h2 style="text-align: center;">후기글 작성 페이지</h2>
 		<form
 			action="${pageContext.request.contextPath}/travBoard/travBoard-insert"
 			method="post">

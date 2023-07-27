@@ -8,8 +8,11 @@
     	</select>
     	
     	<insert id="insertAccount">
-    		insert into users (id, pw, name, grade_lelvel, birthday, phone_number, location_id)
-    		values(#{id}, #{pw}, #{name}, 3, #{birth}, #{phone}, #{location})
+    		insert into users (id, pw, name, birthday, phone_number, location_id)
+    		values(#{id}, #{pw}, #{name}, #{birth}, #{phone}, #{location})
     	</insert>
     	
+    	<select id="selectByIdCount" resultType="int">
+    		select count(*) from users where id = #{id}
+    	</select>
     </mapper>
