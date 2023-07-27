@@ -5,15 +5,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>관리자 페이지 - 이용현황(메인)</title>
+<title>관리자 페이지 - 공지쓰기</title>
 <script src="https://code.jquery.com/jquery-3.7.0.js"
 	integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
 	crossorigin="anonymous">
 </script>
 <script>
-	function closeNotice(){
-		var proBanner = document.getElementById("proBanner");
-		proBanner.remove();
+	function uploadNotice(){
+		let contents = document.getElementById("contents");
+		let data = {
+			contents : contents.value
+		};
+		$.ajax({
+			url : "${pageContext.servletContext.contextPath}/user/uploadnotice",
+			dataType : "json",
+	       	contentType : "application/json; charset=UTF-8",
+	       	data : JSON.stringify(data),
+	       	type : "POST",
+			success : function(data, textStatus, jqXHR) {				
+
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR);
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
 	}
 </script>
 <!-- plugins:css -->
@@ -57,7 +74,6 @@
 window.onload = function(){
 	init("${ pageContext.servletContext.contextPath}", "${sessionScope.SESS_ID}", "${sessionScope.SESS_NAME}");
 }
-
 </script>
 </head>
 
@@ -65,28 +81,17 @@ window.onload = function(){
 	<div class="container-scroller" id="container-scroller">
 		<div class="container-fluid page-body-wrapper" id="container-body-wrapper">
 			<div class="main-panel">
-				<div class="row p-0 m-0 proBanner d-flex" id="proBanner"> 
-			        <div class="col-md-12 p-0 m-0">
-			          <div class="card-body card-body-padding px-3 d-flex align-items-center justify-content-between">
-			            <div class="ps-lg-3">
-			              <div class="d-flex align-items-center justify-content-between">
-			                <p class="mb-0 font-weight-medium me-3 buy-now-text">여 기 공 지</p>
-			              </div>
-			            </div>
-			            <div class="d-flex align-items-center justify-content-between">
-			              <button id="bannerClose" class="btn border-0 p-0" onclick="closeNotice()">
-    						 <i class="mdi mdi-close text-white"></i>
-						  </button>
-			            </div>
-			          </div>
-			        </div>
-			      </div>
 				<div class="content-wrapper">
 					<div class="row">
 						<div class="col-12 grid-margin">
 							<div class="card">
 								<div class="card-body">
-									
+									<textarea class="form-control" id="contents" rows="6"
+										cols="60" onkeyup="valueCheck()"></textarea>
+									<div class="card-body" style="display:flex">
+										<button type="submit" class="btn btn-primary me-2"
+										onclick="uploadNotice()" style="margin-left:auto;">공지 등록</button>
+									</div>
         						</div>
         					</div>
         				</div>

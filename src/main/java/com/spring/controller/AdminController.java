@@ -21,12 +21,22 @@ public class AdminController {
 	
 	private final ReportService reportService;
 	
+	@GetMapping("")
+	public String adminMain() {
+		return "admin";
+	}
+	
+	@GetMapping("/notice")
+	public String adminNotice() {
+		return "noticeInsert";
+	}
+	
 	@GetMapping("/report-selectAll")
 	public String selectAllReportBoard(Model model) {
 		List<ReportVO> reportList = reportService.selectAllReportBoard();
 		model.addAttribute("reportList", reportList);
 //		return "admin";
-		return "report_status";
+		return "report_status2";
 	}
 	
 	@GetMapping("/report-add")
