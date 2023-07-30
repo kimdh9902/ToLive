@@ -2,6 +2,7 @@ package com.spring.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.domain.GradeVO;
 import com.spring.domain.UsersVO;
 import com.spring.mapper.UsersMapper;
 import com.spring.service.UsersService;
@@ -31,6 +32,16 @@ public class UsersServiceImpl implements UsersService{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public UsersVO findById(String id) {
+		return mapper.selectAccountById(id);
+	}
+
+	@Override
+	public GradeVO getAccountAuthorities(String id) {
+		return mapper.selectGradeById(id);
 	}
 
 }

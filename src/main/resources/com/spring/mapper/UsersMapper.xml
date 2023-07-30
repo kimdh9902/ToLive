@@ -15,4 +15,24 @@
     	<select id="selectByIdCount" resultType="int">
     		select count(*) from users where id = #{id}
     	</select>
+    	    	
+    	<select id="selectAccountById" resultType="com.spring.domain.UsersVO">
+    		select * from users where id = #{id}
+    	</select>
+    	
+    	<select id="selectGradeById" resultType="com.spring.domain.GradeVO">
+    		SELECT id, CASE
+	                WHEN g.grade_level = 0 THEN 'ROLE_BLACK'
+	                WHEN g.grade_level = 1 THEN 'ROLE_USER_PRIVATE'
+	                WHEN g.grade_level = 2 THEN 'ROLE_USER_FOLLOWER'
+	                WHEN g.grade_level = 3 THEN 'ROLE_USER_PUBLIC'
+	                WHEN g.grade_level = 4 THEN 'ROLE_CELEB_PRIVATE'
+	                WHEN g.grade_level = 5 THEN 'ROLE_CELEB_FOLLOWER'
+	                WHEN g.grade_level = 6 THEN 'ROLE_CELEB_PUBLIC'
+	                ELSE 'ROLE_ADMIN'
+	                END AS authority
+	                FROM grade g
+	                JOIN users ON users.id = #{id}
+	                WHERE users.grade_level = g.grade_level
+    	</select>
     </mapper>

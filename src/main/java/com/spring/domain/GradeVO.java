@@ -8,6 +8,6 @@ import lombok.ToString;
 @Getter
 @ToString
 public class GradeVO {
-	private int grade_level;
-	private String grade_name;
+	private String id;
+	private String authority;
 }

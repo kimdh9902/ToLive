@@ -41,8 +41,8 @@ public class AuthController {
 		return "login";
 	}
 	
-	@PostMapping("/login")
-	public String loginTry(String userId, String userPw, HttpSession session) {
+	@GetMapping("/login-success")
+	public String loginTry(HttpSession session) {
 		System.out.println("Login Post!!!!!");
 		/*UsersVO user = new UsersVO();
 		user.setId(userId);
