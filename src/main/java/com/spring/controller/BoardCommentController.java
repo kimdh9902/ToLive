@@ -48,7 +48,6 @@ public class BoardCommentController {
 		}
 	}
 	
-	
 //	@GetMapping("/blacklist-add")
 //	public void addBlackList(String user_id, String block_account) {
 //		blackService.addBlackList(user_id, block_account);

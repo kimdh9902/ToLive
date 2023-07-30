@@ -18,13 +18,23 @@ public class BoardCommentServiceImpl implements BoardCommentService{
 	private final BoardCommentMapper mapper;
 	
 	@Override
-	public int addComment(BoardCommentVO vo) {
-		return mapper.insertComment(vo);
+	public int addComment(BoardCommentVO boardCommentVO) {
+		return mapper.insertComment(boardCommentVO);
 	}
 
 	@Override
 	public List<BoardCommentVO> getComments(int b_no) {
 		return mapper.selectComments(b_no);
+	}
+
+	@Override
+	public void removeComment(int c_no) {
+		mapper.deleteComment(c_no);
+	}
+
+	@Override
+	public int alterComment(BoardCommentVO vo) {
+		return mapper.updateComment(vo);
 	}
 
 }

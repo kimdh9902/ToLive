@@ -1,6 +1,7 @@
 package com.spring.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -99,4 +100,16 @@ public class UserController {
 		
 	}
 	
+	@GetMapping("/deleteComment")
+	public void DeleteComment(int c_no) {
+		commentService.removeComment(c_no);
+		System.out.println("좀 먹어라");
+		System.out.println(c_no);
+	}
+	
+	@PostMapping("/updateComment")
+	public int UpdateComment(@RequestBody BoardCommentVO vo) {
+		System.out.println("좀 먹어라 수정");
+		return commentService.alterComment(vo);
+	}
 }
