@@ -88,4 +88,8 @@
       <appender-ref ref = "LOGFILE-DAILY" />
    </root>
    
+   	<!-- security 설정 -->
+	<logger name="org.springframework.security" level="DEBUG"/>
+
+
 </log4j:configuration>
