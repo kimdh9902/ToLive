@@ -21,6 +21,12 @@
             width: 80%;
             height: 100%;
         }
+        .overlap {
+            background-color: #9da85c;
+        }
+        .hash {
+            background-color: rgb(216, 219, 26);
+        }
     </style>
     <head>
         <meta charset="UTF-8">
@@ -131,7 +137,7 @@
         	}
         }
 
-        function isLocation(){
+        function isSubmit(){
             var sido = document.getElementById("location-sel");
             var gungu = document.getElementById("location-sel2");
                
@@ -146,20 +152,22 @@
                 gungu.focus();
                 return false;
             }
- 
             return true;
         }
         
         function isRegisterAjax(idP, pwP, nameP, birthP, phoneP, locationP){
         	let result = false;
+            let hashL = getHashTags();
             let data = {
                 id : idP,
                 pw : pwP,
                 name : nameP,
                 birthday : birthP,
                 phone_number : phoneP,
-                location_id : locationP
-            }
+                location_id : locationP,
+                hashList : hashL
+            };
+            console.log(JSON.stringify(data));
             $.ajax(
                 {
                 url:  "${ pageContext.servletContext.contextPath }/auth/register",
@@ -287,11 +295,18 @@
             console.log("result? = " + result);
             printHashList(result);
         }
-
+        // 해쉬태그 추출
+        function getHashTags(){
+            let hashLab = document.getElementById("history");
+            let hashList = hashLab.innerText.split("#");
+            hashList.shift();
+            return hashList;
+        }
+        // 랜덤값 뽑기
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min)) + min;
         }
-
+        // 해쉬태그 중복값 찾기
         function find(list, value){
             var result = true;
             for(var i = 0; i < list.length; i++){
@@ -308,19 +323,17 @@
         function reRoll(){
             let result = randHash();
             printHashList(result);
+            console.log(getHashTags());
         }
         // 해쉬태그 랜덤 생성
         function randHash(){
             let rand_List = Array(GV_HASH_LEN);
             let i = 0;
-            // rand_List[i] = getRandomInt(0, GV_HASH.length);
-            // i++;
-            // console.log("2"+rand_List[i]);
             while(rand_List[i] == undefined && i < rand_List.length){
                 
                 let rand = getRandomInt(0, GV_HASH.length);
                 if( find(rand_List, rand) ){
-                    rand_List[i] = !find(GV_HASH_SELECT, rand) ? undefined : rand;
+                    rand_List[i] = !find(GV_HASH_SELECT, rand) ? ""+rand : rand;
                     i++;
                 }
                 console.log("2 after"+rand_List[i]);
@@ -340,11 +353,16 @@
         // 해쉬태그 이전 버튼 제거
         function removeHashList(){
             let hashDiv = document.getElementById("hash_list");
-            let length = hashDiv.childElementCount - 4;
+            let length = hashDiv.childElementCount - 5;
             for(var i = 0; i < length; i++){
                 console.log("remove"+i);
                 hashDiv.removeChild(hashDiv.lastChild);
             }
+        }
+        // 해쉬태그 버튼 토글
+        function btnToggle(btn){
+            btn.className = "overlap";
+            btn.disabled = "true";
         }
         // 해쉬태그 버튼 온클릭
         function selectButton(element){
@@ -352,6 +370,7 @@
             console.log(element.value);
             GV_HASH_SELECT[GV_HASH_SELECT.length] = element.value;
             historyLab.innerText += GV_HASH[element.value]+ " ";
+            btnToggle(element);
         }
         // 해쉬태그 버튼 추가
         function printHashList(hashList){
@@ -359,10 +378,15 @@
             let hashDiv = document.getElementById("hash_list");
             for(var i = 0; i < hashList.length; i++){
                 let btn = document.createElement("button");
+                //중복된 해시태그 처리
+                btn.className = "hash";
                 btn.id = "hash_btn"+i;
                 btn.value = hashList[i];
                 btn.onclick = function() {selectButton(this);}
                 btn.innerText = GV_HASH[hashList[i]];
+                if(typeof hashList[i] == "string"){
+                    btnToggle(btn);
+                }
                 hashDiv.appendChild(btn);
             }
         }
@@ -422,11 +446,12 @@
                 </div>
                 <div class="form-group" id="hash_list">
                     <label for="ReRoll" id="history"></label><br>
-                	<input type="button" value="ReRoll" onclick="reRoll()">
+                	<button type="button" value="ReRoll" onclick="reRoll()">ReRoll</button>
                     <br>
+                    <input type="hidden" id="send_hash" name="hashList">
                 </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                <input type="submit" class="cant" id="register" value="전송" onclick="return isLocation();" disabled="true">
+                <input type="submit" class="cant" id="register" value="전송" onclick="return isSubmit();" disabled="true">
             </form>
         </div>
     </body>

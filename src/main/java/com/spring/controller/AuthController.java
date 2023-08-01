@@ -23,6 +23,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.spring.domain.HashVO;
 import com.spring.domain.LocationVO;
+import com.spring.domain.UsersHashVO;
 import com.spring.domain.UsersVO;
 import com.spring.service.HashService;
 import com.spring.service.LocationService;
@@ -104,14 +105,14 @@ public class AuthController {
 	// rest로 바꾸고 회원가입 성공시 true  true가 아니면 페이지 넘기지 말기
 	@ResponseBody
 	@PostMapping(value = "/register", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public boolean register(@RequestBody UsersVO vo) {
+	public boolean register(@RequestBody UsersHashVO vo) {
 		//PasswordEncoder 빈 주입에 문제가 생겨서 직접 했음
+		System.out.println(vo.getHashList());
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = bCryptPasswordEncoder.encode(vo.getPw());
 		System.out.println("Encoded password: " + encodedPassword);
 		vo.setPw(encodedPassword);
-
-		int result = userService.registerAccount(vo);
+		int result = userService.registerAccount((UsersVO)vo);
 		if(result > 0) {
 			return true;
 		}
