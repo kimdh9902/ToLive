@@ -66,11 +66,11 @@ window.onload = function(){
 		<div class="container-fluid page-body-wrapper" id="container-body-wrapper">
 			<div class="main-panel">
 				<div class="row p-0 m-0 proBanner d-flex" id="proBanner"> 
-			        <div class="col-md-12 p-0 m-0">
+			        <div class="col-md-12 p-0 m-0" style="background-color: gray">
 			          <div class="card-body card-body-padding px-3 d-flex align-items-center justify-content-between">
-			            <div class="ps-lg-3">
+			            <div class="ps-lg-3" style="color: white">
 			              <div class="d-flex align-items-center justify-content-between">
-			                <p class="mb-0 font-weight-medium me-3 buy-now-text">여 기 공 지</p>
+			              	<p class="mb-0 font-weight-medium me-3 buy-now-text">${noticeVO.notice_contents}</p>
 			              </div>
 			            </div>
 			            <div class="d-flex align-items-center justify-content-between">
