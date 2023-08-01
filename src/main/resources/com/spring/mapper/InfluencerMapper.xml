@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.spring.mapper.InfluencerMapper">
+  	<insert id="insertInfluencer">
+  		INSERT INTO influencer VALUES (seq_inf_no.nextval, #{user_id}, sysdate)
+  	</insert>
+  	<select id="selectInfluencer" resultType="com.spring.domain.InfluencerVO">
+  		SELECT inf_no, user_id, req_date FROM influencer ORDER BY inf_no desc
+  	</select>
+  	<delete id="deleteInfluencer">
+  		DELETE FROM influencer WHERE user_id = #{user_id}
+  	</delete>
+  	<update id="updateInfluencer">
+  		UPDATE users SET grade_level = (grade_level+3) WHERE id = #{user_id}
+  	</update>
+  </mapper>

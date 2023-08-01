@@ -5,86 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>관리자 페이지 - 공지쓰기</title>
+<title>관리자 페이지 - 인플루언서</title>
 <script src="https://code.jquery.com/jquery-3.7.0.js"
 	integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
 	crossorigin="anonymous">
 </script>
-<style>
-	.form-group-inline {
-  		display: inline-block;
-  		vertical-align: top;
-	}
-</style>
 <script>
-	function checkInputs() {
-		let noticeDate = document.getElementById('notice_date');
-	    let endDate = document.getElementById('end_date');
-	    let noticeContents = document.getElementById('contents');
-	    let submitButton = document.getElementById('submitButton');
-	    if (noticeDate.value.trim() !== "" && endDate.value.trim() !== "" && noticeContents.value.trim() !== "") {
-	      submitButton.disabled = false;
-	    } else {
-	      submitButton.disabled = true;
-	    }
+	function closeNotice(){
+		var proBanner = document.getElementById("proBanner");
+		proBanner.remove();
 	}
-	
-	function uploadNotice(){
-	 	let noticeDate = document.getElementById("notice_date");
-	    let endDate = document.getElementById("end_date");
-	    let noticeContents = document.getElementById("contents");
-
-	    let noticeDateStr = noticeDate.value.trim();
-	    let endDateStr = endDate.value.trim();
-	    let noticeContetnsStr = noticeContents.value.trim();
-
-	    if (!isValidDate(noticeDateStr) || !isValidDate(endDateStr)) {
-	        console.log("올바른 날짜 형식을 입력해주세요.");
-	        return;
-	    }
-
-	    let data = {
-	        notice_date: noticeDateStr,
-	        end_date: endDateStr,
-	        notice_contents: noticeContetnsStr
-		};
-
-	    $.ajax({
-	        url: '${pageContext.servletContext.contextPath}/admin/notice-upload',
-	        contentType: 'application/json;charset=UTF-8',
-	        data: data,
-	        method: 'GET',
-	        success: function (data, textStatus, jqXHR) {
-	            console.log('공지가 성공적으로 등록되었습니다.');
-	            alert("등록 완료");
-	        },
-	        error: function (jqXHR, textStatus, errorThrown) {
-	            alert("등록에 실패하였습니다. 다시 확인해주세요.");
-	            console.log(jqXHR);
-	            console.log(textStatus);
-	            console.log(errorThrown);
-	        }
-	    });
-	}
-	
-	//날짜변환
-	function formatDate(date) {
-		const yyyy = date.getFullYear();
-	    const mm = String(date.getMonth() + 1).padStart(2, "0");
-	    const dd = String(date.getDate()).padStart(2, "0");
-
-	    return `${yyyy}${mm}${dd}`;
-	}
-	//날짜검증
-	function isValidDate(dateString) {
-	    const regEx = /^\d{4}-\d{2}-\d{2}$/;
-	    if (!dateString.match(regEx)) return false;  // Invalid format
-	    const d = new Date(dateString);
-	    const dNum = d.getTime();
-	    if (!dNum && dNum !== 0) return false; // NaN value
-	    return d.toISOString().slice(0, 10) === dateString;
-	}
-	
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -127,6 +57,7 @@
 window.onload = function(){
 	init("${ pageContext.servletContext.contextPath}", "${sessionScope.SESS_ID}", "${sessionScope.SESS_NAME}");
 }
+
 </script>
 </head>
 
@@ -134,31 +65,28 @@ window.onload = function(){
 	<div class="container-scroller" id="container-scroller">
 		<div class="container-fluid page-body-wrapper" id="container-body-wrapper">
 			<div class="main-panel">
+				<div class="row p-0 m-0 proBanner d-flex" id="proBanner">
+			        <div class="col-md-12 p-0 m-0" style="background-color: gray">
+			          <div class="card-body card-body-padding px-3 d-flex align-items-center justify-content-between">
+			            <div class="ps-lg-3" style="color: white">
+			              <div class="d-flex align-items-center justify-content-between">
+			              	<p class="mb-0 font-weight-medium me-3 buy-now-text">${noticeVO.notice_contents}</p>
+			              </div>
+			            </div>
+			            <div class="d-flex align-items-center justify-content-between">
+			              <button id="bannerClose" class="btn border-0 p-0" onclick="closeNotice()">
+    						 <i class="mdi mdi-close text-white"></i>
+						  </button>
+			            </div>
+			          </div>
+			        </div>
+			      </div>
 				<div class="content-wrapper">
 					<div class="row">
 						<div class="col-12 grid-margin">
 							<div class="card">
 								<div class="card-body">
-									<div class="form-group form-group-inline">
-										<br> 
-										<label for="notice_date">공지 시작일 > </label> 
-										<input type="text" style="width: 460px" class="form-control" id="notice_date" 
-											placeholder="YYYY-MM-DD" name="notice_date" autocomplete="off" onchange="checkInputs()">
-									</div>
-									<div class="form-group form-group-inline">
-										<br> 
-										<label for="end_date">공지 종료일 > </label> 
-										<input type="text" style="width: 460px" class="form-control" id="end_date"
-											placeholder="YYYY-MM-DD" name="end_date" autocomplete="off" onchange="checkInputs()">
-									</div>
-									<br>
-									<label for="notice_date">내용 > </label> 
-									<textarea class="form-control" id="contents" rows="6"
-										cols="60" onchange="checkInputs()"></textarea>
-                                    <div class="card-body" style="display:flex">
-                                        <button type="button" class="btn btn-primary me-2" id="submitButton"
-                                        onclick="uploadNotice()" style="margin-left:auto;" disabled>공지 등록</button>
-                                    </div>
+									
         						</div>
         					</div>
         				</div>

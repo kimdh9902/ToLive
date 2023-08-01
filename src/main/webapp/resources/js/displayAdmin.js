@@ -160,7 +160,7 @@ function makeLeftSlideBar(){
     //메뉴
     let menu_li2 = makeMenuLi(GV_path, "admin/", "mdi mdi-chart-bar", "이용 현황");
     let menu_li3 = makeMenuLi(GV_path, "admin/notice", "mdi mdi-exclamation", "공지쓰기");
-    let menu_li4 = makeMenuLi(GV_path, "admin/", "mdi mdi-star", "인플루언서 승인");
+    let menu_li4 = makeMenuLi(GV_path, "admin/select-Influencer", "mdi mdi-star", "인플루언서 요청");
     let toggle_menu_name = new Array();
     toggle_menu_name.push("신고 내역");
     toggle_menu_name.push("계정 삭제");
