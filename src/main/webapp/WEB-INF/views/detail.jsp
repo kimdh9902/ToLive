@@ -332,8 +332,7 @@
 	src="${ pageContext.servletContext.contextPath }/resources/js/display.js"></script>
 <script>
 	window.onload = function() {
-		init("${ pageContext.servletContext.contextPath}",
-				"${sessionScope.SESS_ID}", "${sessionScope.SESS_NAME}");
+		init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}");
 	}
 </script>
 
@@ -451,25 +450,22 @@
 											<div style="text-align: center;" class="card-footer">
 												<!--글 수정 버튼-->
 												<!-- 로그인한 사용자와 작성자가 같을 경우 글 수정/글 삭제 버튼 출력	 -->
-												<c:if test="${sessionScope.SESS_ID == TravBoardVO.user_id}">
-
+												<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}">
 													<button class="btn btn-outline-primary"
 														style="width: 90px; height: 26px; margin-top: 10px;"
 														type="button" onclick="goUpdate();">글 수정</button>
-
 													<!--글 삭제 버튼-->
 													<button class="btn btn-outline-primary"
 														style="width: 90px; height: 26px; margin-top: 10px;"
 														type="button" onclick="goDelete();">글 삭제</button>
 												</c:if>
-												<c:if test="${sessionScope.SESS_ID ne TravBoardVO.user_id}">
+												<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id ne TravBoardVO.user_id}">
 													<!--글 신고 버튼-->
 													<!-- 로그인한 사용자와 작성자가 다를 경우 신고 버튼만 출력 -->
 													<button class="btn btn-outline-primary"
 														style="width: 90px; height: 26px; margin-top: 10px;"
 														type="button" onclick="goReport()">글 신고</button>
 												</c:if>
-
 											</div>
 										</div>
 									</div>

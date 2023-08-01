@@ -55,7 +55,7 @@
 <script src="${ pageContext.servletContext.contextPath }/resources/js/displayAdmin.js"></script>
 <script>
 window.onload = function(){
-	init("${ pageContext.servletContext.contextPath}", "${sessionScope.SESS_ID}", "${sessionScope.SESS_NAME}");
+	init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}");
 }
 
 </script>
@@ -86,8 +86,29 @@ window.onload = function(){
 						<div class="col-12 grid-margin">
 							<div class="card">
 								<div class="card-body">
-									
+									<div id="comments-box">
+										<c:forEach var="InfluencerVO" items="${requestScope.influencerList}">
+											<script type="text/javascript">
+												input('<c:out value="${InfluencerVO.user_id}" />',
+												    '<c:out value="${InfluencerVO.contents}" />',
+											    	'<c:out value="${InfluencerVO.c_no}" />');
+    										</script>
+										</c:forEach>
+									</div>
         						</div>
+        						<div class="card-body">
+									<div style="text-align: center;" class="card-footer">
+										<button class="btn btn-outline-primary"
+											style="width: 90px; height: 26px; margin-top: 10px;"
+											type="button" onclick="goUpdate();">글 수정</button>
+										<button class="btn btn-outline-primary"
+											style="width: 90px; height: 26px; margin-top: 10px;"
+											type="button" onclick="goDelete();">글 삭제</button>
+										<button class="btn btn-outline-primary"
+											style="width: 90px; height: 26px; margin-top: 10px;"
+											type="button" onclick="goReport()">글 신고</button>
+									</div>
+								</div>
         					</div>
         				</div>
         			</div>
