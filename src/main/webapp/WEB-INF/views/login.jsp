@@ -47,35 +47,36 @@
         <!-- End custom js for this page -->
 
     <script>
-    var msg = '<%=request.getParameter("msg")%>';
+	var msg = "${msg}";
    
-   window.onload = function(){
-      showMsg();      
-   }
-   function showMsg() {
+    window.onload = function(){
+	   console.log("${msg}");
+       showMsg();      
+    }
+    function showMsg() {
       console.log(msg);
       if(msg != null && msg != "" && msg != "null")
          {
-          alert(msg);
+          	alert(msg);
          }
-   }
-        function verify(){
-           var element;
-            element = document.getElementById("userId");
-            msg = "id를 입력"
-            if(!isValid(element, msg))
-            {
-                return false;
-            }
-            
-            element = document.getElementById("userPw");
-            msg = "pw를 입력"
-            if(!isValid(element, msg))
-            {
-                return false;
-            }
-            return true;
-        }
+    }
+	function verify(){
+   var element;
+		element = document.getElementById("userId");
+		msg = "id를 입력"
+		if(!isValid(element, msg))
+		{
+		    return false;
+		}
+		
+		element = document.getElementById("userPw");
+		msg = "pw를 입력"
+		if(!isValid(element, msg))
+		{
+		    return false;
+		}
+		return true;
+	}
 
         function isValid(element, msg)
         {

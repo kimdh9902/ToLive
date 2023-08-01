@@ -1,7 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <!DOCTYPE html>
     <html>
+    <style>
+        .can{
+            background-color: #8f5fe8; 
+            color: white; 
+            width: 200px;
+        }
+        .cant{
+            background-color: #564b6d; 
+            color: white; 
+            width: 200px;
+        }
+        .container-scroller{
+            width: 50%; 
+            height: 100%;
+        }
 
+        .col-sm-3 > div{
+            width: 80%;
+            height: 100%;
+        }
+    </style>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -85,7 +105,6 @@
                 gungu.appendChild(option);
             }		
 		}
-        
         function getLocationAjax(location_value){
         	var returnData = null;
         	if(location_value != 0){
@@ -100,6 +119,9 @@
 	                data: JSON.stringify(data),
 	                method:"POST",
 	                dataType:"JSON",
+	                beforeSend:function(xhr){
+	                    xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+	                },
 	                success:function(data, textStatus, jqXHR)
 	                {
 	                	console.log(data);
@@ -140,9 +162,9 @@
                 id : idP,
                 pw : pwP,
                 name : nameP,
-                birth : birthP,
-                phone : phoneP,
-                location : locationP
+                birthday : birthP,
+                phone_number : phoneP,
+                location_id : locationP
             }
             $.ajax(
                 {
@@ -152,6 +174,9 @@
                 data: JSON.stringify(data),
                 method:"POST",
                 dataType:"JSON",
+                beforeSend:function(xhr){
+                	xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+                },
                 success:function(data, textStatus, jqXHR)
                 {
                     console.log(data);
@@ -180,6 +205,9 @@
                 data: JSON.stringify(data),
                 method:"POST",
                 dataType:"JSON",
+                beforeSend:function(xhr){
+                	xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+                },
                 success:function(data, textStatus, jqXHR)
                 {
                     console.log(data);
@@ -197,13 +225,20 @@
         
         function idCheck(){
         	var id = document.getElementById("id");
+            let register = document.getElementById("register");
         	console.log(id.value);
             if(idCheckAjax(id)){
             	alert("이미 사용중인 ID");
             	id.value = "";
+                register.classList.add("cant");
+                register.classList.remove("can");
+                register.disabled = true;
             }
             else{
             	alert("사용가능한 ID");
+                register.classList.add("can");
+                register.classList.remove("cant");
+                register.disabled = false;
             }
         }
 
@@ -228,61 +263,60 @@
     </head>
 
     <body>
-        <div class="container-scroller">
+        <!-- transform: translate(0%, -50%);  container-scroller --> 
+        <div class="container-scroller" style="position: absolute; top: 10%; left: 25%;">
             <!-- 왼쪽 슬라이드 바 로고 -->
             <!-- <div class="container-fluid page-body-wrapper"> -->
-            <div class="col-sm-3" style="margin-left: 39%; margin-top: 3%">
-               <br>
-                    <form id="register-form" class="forms-sample" action="${pageContext.request.contextPath}/auth/login" method="get" style="text-align: center;" onsubmit="return isSuccess()">
-                        <div class="form-group">
-                            <label for="id">아이디</label>
-                            <input class="form-control" type="text" id="id" name="id" required>
-                            <input type="button" onclick="idCheck()" value="id중복확인">
-                        </div>
-                        <div class="form-group">
-                            <label for="pw">비밀번호</label>
-                            <input class="form-control" type="password" id="pw" name="pw" required><br>
-                        </div>
-                        <div class="form-group">
-                            <label for="name">이름</label>
-                            <input class="form-control" type="text" id="name" name="name" required><br>
-                        </div>
-                        <div class="form-group">
-                            <label for="birth">생년월일</label>
-                            <input class="form-control" type="date" id="birth" name="birth" required><br>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">전화번호</label>
-                            <input class="form-control" type="tel" id="phone" name="phone"
-                                pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}" alt="ex)010-1234-5678" required><br>
-                        </div>
-                        <div class="form-group">
-                            <label for="location">지역</label><br>
-                            <select style="margin-right: 7px" id="location-sel" onchange="locationSidoOption(this);" required>
-                                <option value ="0" selected>시/도 선택</option>
-                                <option value ="서울특별시">서울특별시</option>
-                                <option value ="부산광역시">부산광역시</option>
-                                <option value ="대구광역시">대구광역시</option>
-                                <option value ="인천광역시">인천광역시</option>
-                                <option value ="광주광역시">광주광역시</option>
-                                <option value ="대전광역시">대전광역시</option>
-                                <option value ="울산광역시">울산광역시</option>
-                                <option value ="충청북도">충청북도</option>
-                                <option value ="충청남도">충청남도</option>
-                                <option value ="전라북도">전라북도</option>
-                                <option value ="경상남도">경상남도</option>
-                                <option value ="제주특별자치도">제주특별자치도</option>
-                                <option value ="강원특별자치도">강원특별자치도</option>
-                            </select>
-                            <br>
-                            <select id="location-sel2" name="location" required><br>
-                                <option value="0" selected>군/구 선택</option>
-                            
-                            </select>
-                        </div>
-                        <input type="submit" class="btn-outline-info" style="background-color: #8f5fe8; color: white; width: 200px" id="register" value="전송" onclick="return isLocation();">
-                    </form>
-            </div>
+            <form id="register-form" class="forms-sample" action="${pageContext.request.contextPath}/auth/login" method="get" style="text-align: center; width: 80%; height: 100%; position: absolute; left: 10%;" onsubmit="return isSuccess()">
+                <div class="form-group">
+                    <label for="id">아이디</label>
+                    <input class="form-control" type="text" id="id" name="id" required>
+                    <input type="button" onclick="idCheck()" value="id중복확인">
+                </div>
+                <div class="form-group">
+                    <label for="pw">비밀번호</label>
+                    <input class="form-control" type="password" id="pw" name="pw" required><br>
+                </div>
+                <div class="form-group">
+                    <label for="name">이름</label>
+                    <input class="form-control" type="text" id="name" name="name" required><br>
+                </div>
+                <div class="form-group">
+                    <label for="birthday">생년월일</label>
+                    <input class="form-control" type="date" id="birth" name="birthday" required><br>
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">전화번호</label>
+                    <input class="form-control" type="tel" id="phone" name="phone_number"
+                        pattern="[0-1]{3}-[0-9]{4}-[0-9]{4}"  required><br>
+                </div>
+                <div class="form-group">
+                    <label for="location">지역</label><br>
+                    <select style="margin-right: 7px" id="location-sel" onchange="locationSidoOption(this);" required>
+                        <option value ="0" selected>시/도 선택</option>
+                        <option value ="서울특별시">서울특별시</option>
+                        <option value ="부산광역시">부산광역시</option>
+                        <option value ="대구광역시">대구광역시</option>
+                        <option value ="인천광역시">인천광역시</option>
+                        <option value ="광주광역시">광주광역시</option>
+                        <option value ="대전광역시">대전광역시</option>
+                        <option value ="울산광역시">울산광역시</option>
+                        <option value ="충청북도">충청북도</option>
+                        <option value ="충청남도">충청남도</option>
+                        <option value ="전라북도">전라북도</option>
+                        <option value ="경상남도">경상남도</option>
+                        <option value ="제주특별자치도">제주특별자치도</option>
+                        <option value ="강원특별자치도">강원특별자치도</option>
+                    </select>
+                    <br>
+                    <select id="location-sel2" name="location" required><br>
+                        <option value="0" selected>군/구 선택</option>
+                    
+                    </select>
+                </div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <input type="submit" class="cant" id="register" value="전송" onclick="return isLocation();" disabled="true">
+            </form>
         </div>
     </body>
 

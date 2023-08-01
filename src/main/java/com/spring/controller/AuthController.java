@@ -3,11 +3,15 @@ package com.spring.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,13 +41,17 @@ public class AuthController {
 	private final LocationService locService;
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(HttpServletRequest request, Model model) {
+		String msg = request.getParameter("msg");
+		System.out.println("msg = "+msg);
+		model.addAttribute("msg", msg);
+		request.getSession(true);
 		return "login";
 	}
 	
 	@GetMapping("/login-success")
 	public String loginTry(HttpSession session) {
-		System.out.println("Login Post!!!!!");
+		System.out.println("Login Get!!!!!");
 		/*UsersVO user = new UsersVO();
 		user.setId(userId);
 		user.setPw(userPw);
@@ -65,11 +73,12 @@ public class AuthController {
 		}else {
 			path = "redirect:/users/login?msg=fail, retry";
 		}*/
-		return "home";
+		return "redirect:/main/";
 	}
 	
 	@GetMapping("/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, Model model) {
+		String msg = null;
 		System.out.println("before"+session);
 		
 	    if (session != null) {
@@ -78,13 +87,13 @@ public class AuthController {
 	    }
 	    
 		System.out.println("after"+session);
-		
-		return "redirect:login?msg=logout success";
+		msg = "logout";
+		model.addAttribute("msg", msg);
+		return "redirect:login?";
 	}
 
 	@GetMapping("/register")
 	public String register() {
-		
 		return "register";
 	}
 	
@@ -92,7 +101,12 @@ public class AuthController {
 	@ResponseBody
 	@PostMapping(value = "/register", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public boolean register(@RequestBody UsersVO vo) {
-		log.info(vo);
+		//PasswordEncoder 빈 주입에 문제가 생겨서 직접 했음
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		String encodedPassword = bCryptPasswordEncoder.encode(vo.getPw());
+		System.out.println("Encoded password: " + encodedPassword);
+		vo.setPw(encodedPassword);
+
 		int result = service.registerAccount(vo);
 		if(result > 0) {
 			return true;

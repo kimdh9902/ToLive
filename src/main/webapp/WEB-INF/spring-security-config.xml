@@ -14,29 +14,29 @@
  	<!-- beans -->
 	 	<!-- pw -->
 	    <!-- 암호화 -->
-	 	<!-- <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> -->
+	 	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	 	<!-- 암호화 안함 -->
-	 	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder" factory-method="getInstance" />
+	 	<!-- <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder" factory-method="getInstance" /> -->
 	 	<!-- userDetailService -->
  		<beans:bean id="userDetailsServiceImpl" class="com.spring.object.UserDetailsServiceImpl"/>
 	<!-- security setting -->
 		<!-- org.springframework.security.config.http	Parsing of the <http> namespace element. -->
 	<http use-expressions="true" > <!--  auto-config="true" = 기본적인 보안 환경을 자동으로 구성 -->
-		<session-management  invalid-session-url="/auth/login?msg=You are Not allowed, Plz login!"/>
+		<session-management  invalid-session-url="/auth/login?msg=End Session"/>
 		<!-- 요청 검수 -->
 		<intercept-url pattern="/auth/*" access="permitAll"/> <!-- 로그인 접근 권한 -->
-		<intercept-url pattern="/menu/*" access="hasRole('ROLE_USER_PRIVATE')"/> <!-- 로그인 접근 권한 -->
+		<intercept-url pattern="/menu/*" access="hasRole('ROLE_USER_PRIVATE') or hasRole('ROLE_USER_FOLLOWER') or hasRole('ROLE_USER_PUBLIC') or hasRole('ROLE_CELEB_PRIVATE') or hasRole('ROLE_CELEB_FOLLOWER') or hasRole('ROLE_CELEB_PUBLIC')" /> <!-- 로그인 접근 권한 -->
 		<intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/> <!-- 로그인 접근 권한 -->
 		
 		<!-- 성공시 페이지 default-target-url--> <!-- 실패시 페이지 authentication-failure-url -->
 		<form-login login-page="/auth/login"
-		default-target-url="/auth/success" 
+		default-target-url="/auth/login-success" 
 		authentication-failure-url="/auth/login?msg=fail, retry"
 		username-parameter="userId"
 		password-parameter="userPw"
 		login-processing-url="/auth/login"
 		/>
-		<access-denied-handler error-page="/menu/home" /> <!-- 권한 없을때 이동 페이지 -->
+		<access-denied-handler error-page="/test/temp" /> <!-- 권한 없을때 이동 페이지 -->
 		 <!-- 로그인 접근 권한 -->
 		<!-- 권한명 -->
 	    <!-- <intercept-url pattern="/**" access="ROLE_USER" /> -->

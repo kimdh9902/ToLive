@@ -30,9 +30,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		if(user == null) {
 			throw new UsernameNotFoundException(username + "not found");
 		}
-		
-		
-		return new User(user.getId(), user.getPw(), findUserAuthorities(username));
+
+		return new CustomUserDetails(user.getId(), user.getPw(), findUserAuthorities(username), user);
 	}
 	
 	public List<GrantedAuthority> findUserAuthorities(String username){

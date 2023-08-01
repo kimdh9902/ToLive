@@ -10,23 +10,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@Component
-public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-
-    @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-           Authentication authentication) throws IOException, ServletException {
-
-        HttpSession session = request.getSession(false);
-        
-        if (session != null) {
-            
-            String value = "custom_value";
-            session.setAttribute("custom_attribute", value);
-
-            // 기본 리다이렉션 URL로 전환
-            response.sendRedirect("/auth/success");
-        }
-    }
-}
+// 로그인 성공시 추가 동작
+//@Component
+//public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+//
+//    @Override
+//    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+//           Authentication authentication) throws IOException, ServletException {
+//
+//        HttpSession session = request.getSession(false);
+//        
+//        if (session != null) {
+//            
+//            String value = "custom_value";
+//            session.setAttribute("custom_attribute", value);
+//
+//            // 기본 리다이렉션 URL로 전환
+//            response.sendRedirect("/auth/success");
+//        }
+//    }
+//}
 

@@ -9,7 +9,7 @@
     	
     	<insert id="insertAccount">
     		insert into users (id, pw, name, birthday, phone_number, location_id)
-    		values(#{id}, #{pw}, #{name}, #{birth}, #{phone}, #{location})
+    		values(#{id}, #{pw}, #{name}, #{birthday}, #{phone_number}, #{location_id})
     	</insert>
     	
     	<select id="selectByIdCount" resultType="int">

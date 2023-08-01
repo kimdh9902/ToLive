@@ -6,6 +6,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,6 +22,8 @@ public class UsersTest {
 	
 	@Setter (onMethod_ = @Autowired)
 	private UsersMapper mapper;
+	@Setter (onMethod_ = @Autowired)
+	PasswordEncoder passEncoder;
 	
 	@Test @Ignore
 	public void test() {
@@ -31,9 +34,38 @@ public class UsersTest {
 		log.info(vo);
 	}
 
-	@Test
+	@Test @Ignore
 	public void test2() {
 		mapper.selectGradeById("user01");
 		
 	}
+	
+	@Test @Ignore
+	public void test3() {
+		System.out.println("null 죽이겠다 null이면 = "+mapper.selectAccountById("user01"));
+		
+	}
+	
+	@Test @Ignore
+	public void test4() {
+		UsersVO vo = new UsersVO();
+		vo.setId(null);
+		vo.setPw(null);
+		vo.setName(null);
+		vo.setBirthday(null);
+		vo.setPhone_number(null);
+		vo.setLocation_id(0);
+		
+		mapper.insertAccount(null);
+	}
+
+	@Test
+	public void test5() {
+		UsersVO vo = new UsersVO();
+		vo.setPw("qwe123");
+		vo.setPw(passEncoder.encode(vo.getPw()));
+		System.out.println("what2:"+vo.getPw());
+		System.out.println("what?:" +vo.getPw());
+	}
+	
 }

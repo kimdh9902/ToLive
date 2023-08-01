@@ -18,8 +18,8 @@ public class UsersVO {
 	String pw;
 	String name;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	Date birth;
-	String phone;
-	int location;
+	Date birthday;
+	String phone_number;
+	int location_id;
 	int grade_level;
 }
