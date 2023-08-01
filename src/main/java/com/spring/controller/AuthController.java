@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,9 +41,10 @@ public class AuthController {
 		return "login";
 	}
 	
-	@PostMapping("/login")
-	public String loginTry(String userId, String userPw, HttpSession session) {
-		UsersVO user = new UsersVO();
+	@GetMapping("/login-success")
+	public String loginTry(HttpSession session) {
+		System.out.println("Login Post!!!!!");
+		/*UsersVO user = new UsersVO();
 		user.setId(userId);
 		user.setPw(userPw);
 		String path;
@@ -62,8 +64,8 @@ public class AuthController {
 			
 		}else {
 			path = "redirect:/users/login?msg=fail, retry";
-		}
-		return path;
+		}*/
+		return "home";
 	}
 	
 	@GetMapping("/logout")
@@ -72,6 +74,7 @@ public class AuthController {
 		
 	    if (session != null) {
 	        session.invalidate();
+	        SecurityContextHolder.getContext().setAuthentication(null);
 	    }
 	    
 		System.out.println("after"+session);

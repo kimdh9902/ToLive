@@ -95,10 +95,8 @@
 </head>
 <body>
    <div class="container-scroller" style="width: 400px; height: 400px; position: absolute; top: 50%; left: 50%; transform: translate(-45%, -45%);">
-      <!-- 왼쪽 슬라이드 바 로고 -->
-      <!-- <div class="container-fluid page-body-wrapper"> -->
       <div class="col" style="width: 50%; height: 50%;">
-         <form class="forms-smaple" action="${pageContext.request.contextPath}/auth/login" method="post" style="width: 100%; height: 100%; text-align: center;">
+         <form class="forms-smaple" action="${pageContext.request.servletContext.contextPath }/auth/login" method="post" style="width: 100%; height: 100%; text-align: center;">
             <h2 class="form-title">로그인</h2>
             <br>
             <div class="form-group">
@@ -109,6 +107,7 @@
                <label for="userPw">비밀번호</label> 
                <input type="password" id="userPw" name="userPw">
             </div>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             <input class="btn btn-success" type="submit" id="log" value="로그인" style="width: 231px; height: 30px; margin-left: 10px" onclick="return verify()">
          </form>
          <form action="${pageContext.request.contextPath}/auth/register" method="get" style="text-align: center;">

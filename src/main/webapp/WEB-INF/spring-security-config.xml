@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+   xmlns:beans="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/security
+   http://www.springframework.org/schema/security/spring-security.xsd">
+   
+   
+   <!-- Spring Security -->
+<!--    https://docs.spring.io/spring-security/site/docs/3.0.x/reference/springsecurity.html  -->
+ 	
+ 	<!-- beans -->
+	 	<!-- pw -->
+	    <!-- 암호화 -->
+	 	<!-- <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> -->
+	 	<!-- 암호화 안함 -->
+	 	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder" factory-method="getInstance" />
+	 	<!-- userDetailService -->
+ 		<beans:bean id="userDetailsServiceImpl" class="com.spring.object.UserDetailsServiceImpl"/>
+	<!-- security setting -->
+		<!-- org.springframework.security.config.http	Parsing of the <http> namespace element. -->
+	<http use-expressions="true" > <!--  auto-config="true" = 기본적인 보안 환경을 자동으로 구성 -->
+		<session-management  invalid-session-url="/auth/login?msg=You are Not allowed, Plz login!"/>
+		<!-- 요청 검수 -->
+		<intercept-url pattern="/auth/*" access="permitAll"/> <!-- 로그인 접근 권한 -->
+		<intercept-url pattern="/menu/*" access="hasRole('ROLE_USER_PRIVATE')"/> <!-- 로그인 접근 권한 -->
+		<intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/> <!-- 로그인 접근 권한 -->
+		
+		<!-- 성공시 페이지 default-target-url--> <!-- 실패시 페이지 authentication-failure-url -->
+		<form-login login-page="/auth/login"
+		default-target-url="/auth/success" 
+		authentication-failure-url="/auth/login?msg=fail, retry"
+		username-parameter="userId"
+		password-parameter="userPw"
+		login-processing-url="/auth/login"
+		/>
+		<access-denied-handler error-page="/menu/home" /> <!-- 권한 없을때 이동 페이지 -->
+		 <!-- 로그인 접근 권한 -->
+		<!-- 권한명 -->
+	    <!-- <intercept-url pattern="/**" access="ROLE_USER" /> -->
+	    <!-- <form-login login-page='/login.jsp'/> --> <!-- 로그인 페이지 설정 -->
+	    
+	</http>
+	<!-- authentication setting -->
+		<!-- org.springframework.security.config.authentication	Parsing of <authentication-manager> and related elements. -->
+	<authentication-manager>
+		<!-- UserDetailsService Interface -->
+		<authentication-provider user-service-ref="userDetailsServiceImpl">
+			<password-encoder ref="passwordEncoder"/>
+		</authentication-provider>
+	</authentication-manager>
+ 	<!-- authentication setting -->
+    <!-- <authentication-manager>
+    	<authentication-provider>
+    		<password-encoder ref="passwordEncoder" />
+        	<jdbc-user-service data-source-ref="dataSource" 
+        	users-by-username-query="
+        	select id, pw, 1 as enabled from users where id = ?"
+        	authorities-by-username-query="
+        	select id,
+			    case
+			        when g.grade_level = 0 then 'ROLE_BLACK'
+			        when g.grade_level = 1 then 'ROLE_USER_PRIVATE'
+			        when g.grade_level = 2 then 'ROLE_USER_FOLLOWER'
+			        when g.grade_level = 3 then 'ROLE_USER_PUBLIC'
+			        when g.grade_level = 4 then 'ROLE_CELEB_PRIVATE'
+			        when g.grade_level = 5 then 'ROLE_CELEB_FOLLOWER'
+			        when g.grade_level = 6 then 'ROLE_CELEB_PUBLIC'
+			        else 'ROLE_ADMIN'
+			    end as authority
+				from grade g
+				join users on id = ?
+				where users.grade_level = g.grade_level"
+        	/>
+    	</authentication-provider>
+	</authentication-manager> -->
+	
+	<!-- login --> <!-- 컨트롤러 대신? -->
+ 	<!-- <beans:bean id="customAuthenticationFilter"
+      class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+    <beans:property name="authenticationManager" ref="authenticationManager" />
+    <beans:property name="authenticationSuccessHandler" ref="customAuthenticationSuccessHandler" />
+    <beans:property name="authenticationFailureHandler" ref="customAuthenticationFailureHandler" />
+    <beans:property name="usernameParameter" value="userId" />
+    <beans:property name="passwordParameter" value="userPw" />
+	</beans:bean>
+	성공
+	<beans:bean id="customAuthenticationSuccessHandler"
+      class="org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler">
+    <beans:property name="defaultTargetUrl" value="/secured" />
+	</beans:bean>
+	실패
+	<beans:bean id="customAuthenticationFailureHandler"
+      class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+    <beans:property name="defaultFailureUrl" value="/users/login?msg=fail, retry" />
+	</beans:bean> -->
+   </beans:beans>

@@ -33,7 +33,7 @@ public class UsersTest {
 
 	@Test
 	public void test2() {
-		System.out.println(mapper.selectByIdCount("user01"));
+		mapper.selectGradeById("user01");
 		
 	}
 }
