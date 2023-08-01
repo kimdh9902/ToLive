@@ -21,13 +21,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.spring.domain.HashVO;
 import com.spring.domain.LocationVO;
 import com.spring.domain.UsersVO;
+import com.spring.service.HashService;
 import com.spring.service.LocationService;
 import com.spring.service.UsersService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 
 @Controller
@@ -37,8 +40,9 @@ import lombok.extern.log4j.Log4j;
 public class AuthController {
 
 // 계정 연동 및 통합 관리
-	private final UsersService service;
+	private final UsersService userService;
 	private final LocationService locService;
+	private final HashService hashService;
 	
 	@GetMapping("/login")
 	public String login(HttpServletRequest request, Model model) {
@@ -107,7 +111,7 @@ public class AuthController {
 		System.out.println("Encoded password: " + encodedPassword);
 		vo.setPw(encodedPassword);
 
-		int result = service.registerAccount(vo);
+		int result = userService.registerAccount(vo);
 		if(result > 0) {
 			return true;
 		}
@@ -138,11 +142,19 @@ public class AuthController {
 //		Gson gson = new Gson();
 //		gson.fromJson(json, String.class);
 //		System.out.println("gson : " + gson + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		boolean result = service.isIdCheck(id);
+		boolean result = userService.isIdCheck(id);
 		if(result) {
 			return true;
 		}
 		
 		return false;
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/hash", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public List<String> hashList(){
+		List<String> result = hashService.getAllHashList();
+		System.out.println("HAAAAAAAASH = " + result);
+		return result; 
 	}
 }

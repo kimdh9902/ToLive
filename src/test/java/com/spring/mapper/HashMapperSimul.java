@@ -28,9 +28,9 @@ public class HashMapperSimul {
 	@Test
 	@Ignore
 	public void testselectHashList() {// 해쉬태그 전체 출력
-		log.info(mapper);
-		List<HashVO> list = mapper.selectHashList();
-		assertNotNull(list);
+//		log.info(mapper);
+//		List<HashVO> list = mapper.selectHashList();
+//		assertNotNull(list);
 	}
 
 	@Test

@@ -59,8 +59,6 @@ public class TravBoardController {
 			System.out.println(boardCommentvo);
 		}
 		return "detail";
-//		return "travBoard-detail";
-//		return "travBoard-detail2";
 	}
 
 	// 게시글 등록 페이지로 이동
