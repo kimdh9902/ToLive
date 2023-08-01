@@ -51,7 +51,7 @@
 	window.onload = function(){
 		buttonToggle(${not isFollow});
 		let inform_box = document.getElementById("inform");
-		init("${ pageContext.servletContext.contextPath}", "${sessionScope.SESS_ID}", "${sessionScope.SESS_NAME}");
+		init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}");
 		console.log(inform_box.children[0].children[2].innerHTML);
 	}
 	

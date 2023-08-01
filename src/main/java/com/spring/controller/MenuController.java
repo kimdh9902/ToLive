@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,7 +55,12 @@ public class MenuController {
 	public String profile(Model model, @RequestParam String user_id, HttpSession session) {
 		boolean isSame = false;
 		ProfileVO profileVO = profileService.getProfileByID(user_id);
-		String sess_id = (String)session.getAttribute("SESS_ID");
+		System.out.println("뭐라는거야 개같은거 : "+SecurityContextHolder.getContext().getAuthentication());
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(auth.getAuthorities());
+		String sess_id = auth.getName();
+
+		 
 		if( sess_id.equals(profileVO.getUser_id() )) {
 			isSame = true;
 		}
