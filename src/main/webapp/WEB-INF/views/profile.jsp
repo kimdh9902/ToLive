@@ -51,11 +51,12 @@
 	window.onload = function(){
 		buttonToggle(${not isFollow});
 		let inform_box = document.getElementById("inform");
-		init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}");
+		init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}", "${_csrf.headerName}", "${_csrf.token}");
 		console.log(inform_box.children[0].children[2].innerHTML);
 	}
 	
 	function followToggle() {
+		console.log("${profileVO.user_id}");
 		let data = {user_id : "${profileVO.user_id}"};
 		console.log(data);
 		console.log(JSON.stringify(data));

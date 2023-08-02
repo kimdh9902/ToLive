@@ -12,7 +12,7 @@
 	<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.userVO != null}" >
 		<h2>VO</h2>
 		<p>User Name from UsersVO: ${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}</p>
-		<p>User Name from UsersVO: ${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.phone}</p>
+		<p>User Name from UsersVO: ${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.phone_number}</p>
 	</c:if>
 </body>
 </html>
