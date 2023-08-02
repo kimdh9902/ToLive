@@ -50,11 +50,8 @@ public class TravBoardController {
 	@GetMapping("/travBoard-detail2")
 	public String openBoard(@RequestParam("b_no") int b_no, HttpServletRequest request, HttpServletResponse response,
 			Model model, HttpSession session) throws IOException {
-		int SESS_GRADE = (int) session.getAttribute("SESS_GRADE");
+		
 		if (request.getParameter("b_no") != null) {
-			if (SESS_GRADE != 7) {
-				travBoardService.modifyTravBoardPlusView(Integer.parseInt(request.getParameter("b_no"))); // 제목 클릭 시 조회수 증가
-			}
 			TravBoardVO vo = travBoardService.getBoard(Integer.parseInt(request.getParameter("b_no")));
 			model.addAttribute("TravBoardVO", vo);
 			List<BoardCommentVO> boardCommentvo = commentService.getComments(Integer.parseInt(request.getParameter("b_no")));
@@ -62,8 +59,6 @@ public class TravBoardController {
 			System.out.println(boardCommentvo);
 		}
 		return "detail";
-//		return "travBoard-detail";
-//		return "travBoard-detail2";
 	}
 
 	// 게시글 등록 페이지로 이동

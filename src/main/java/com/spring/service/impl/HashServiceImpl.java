@@ -17,7 +17,7 @@ public class HashServiceImpl implements HashService {
 	private final HashMapper mapper;
 
 	@Override
-	public List<HashVO> getHashList() {
+	public List<String> getAllHashList() {
 		return mapper.selectHashList();
 	}
 

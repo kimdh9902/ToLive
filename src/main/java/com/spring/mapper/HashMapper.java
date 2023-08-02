@@ -7,7 +7,7 @@ import com.spring.domain.HashVO;
 public interface HashMapper {
 
 	// 해쉬태그 전체 출력
-	public List<HashVO> selectHashList();
+	public List<String> selectHashList();
 
 	// 해쉬코드 아이디로 해쉬코드 조회
 	HashVO selectHash(int hash_id);

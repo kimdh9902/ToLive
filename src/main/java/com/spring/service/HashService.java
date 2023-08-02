@@ -7,7 +7,7 @@ import com.spring.domain.HashVO;
 public interface HashService {
 
 	// 해쉬태그 전체 출력
-	public List<HashVO> getHashList();
+	public List<String> getAllHashList();
 
 	// 해쉬코드 아이디로 해쉬코드 조회
 	HashVO getHash(int hash_id);

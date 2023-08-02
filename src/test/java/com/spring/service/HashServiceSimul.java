@@ -27,9 +27,9 @@ public class HashServiceSimul {
 	@Test
 	@Ignore
 	public void testgetHashList() {// 해쉬태그 전체 출력
-		List<HashVO> list = service.getHashList();
-		assertNotNull(list);
-		log.info(list);
+//		List<HashVO> list = service.getHashList();
+//		assertNotNull(list);
+//		log.info(list);
 	}
 
 	@Test

@@ -21,6 +21,12 @@
             width: 80%;
             height: 100%;
         }
+        .overlap {
+            background-color: #9da85c;
+        }
+        .hash {
+            background-color: rgb(216, 219, 26);
+        }
     </style>
     <head>
         <meta charset="UTF-8">
@@ -65,18 +71,11 @@
         <script src="${ pageContext.servletContext.contextPath }/resources/assets/js/dashboard.js"></script>
         <!-- End custom js for this page -->
         <script type="text/javascript">
-        var msg = '<%=request.getParameter("msg")%>';
+
+        let GV_HASH;//해쉬태그 목록
+        let GV_HASH_SELECT = new Array(0);//유저가 고른 해쉬태그 목록
+        const GV_HASH_LEN = 12;
         
-       window.onload = function(){
-          showMsg();      
-       }
-       function showMsg() {
-          console.log(msg);
-          if(msg != null && msg != "" && msg != "null")
-             {
-              alert(msg);
-             }
-       }
 
         function locationSidoDelete(){
             var gungu = document.getElementById("location-sel2");
@@ -105,6 +104,7 @@
                 gungu.appendChild(option);
             }		
 		}
+
         function getLocationAjax(location_value){
         	var returnData = null;
         	if(location_value != 0){
@@ -137,7 +137,7 @@
         	}
         }
 
-        function isLocation(){
+        function isSubmit(){
             var sido = document.getElementById("location-sel");
             var gungu = document.getElementById("location-sel2");
                
@@ -152,20 +152,22 @@
                 gungu.focus();
                 return false;
             }
- 
             return true;
         }
         
         function isRegisterAjax(idP, pwP, nameP, birthP, phoneP, locationP){
         	let result = false;
+            let hashL = getHashTags();
             let data = {
                 id : idP,
                 pw : pwP,
                 name : nameP,
                 birthday : birthP,
                 phone_number : phoneP,
-                location_id : locationP
-            }
+                location_id : locationP,
+                hashList : hashL
+            };
+            console.log(JSON.stringify(data));
             $.ajax(
                 {
                 url:  "${ pageContext.servletContext.contextPath }/auth/register",
@@ -259,6 +261,135 @@
             }
         	return result;
 		}
+
+        function hashLoadAjax(){
+            $.ajax(
+                {
+                url:"${ pageContext.servletContext.contextPath }/auth/hash",
+                async:false,
+                contentType:"application/json;charset=UTF-8",
+                method:"POST",
+                dataType:"JSON",
+                beforeSend:function(xhr){
+                	xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+                },
+                success:function(data, textStatus, jqXHR)
+                {
+                    console.log(data);
+                    GV_HASH = data;
+                    console.log(GV_HASH.length);
+                    console.log(GV_HASH[0]);
+                },
+                error:function(jqXHR, textStatus, errorThrown ){
+                    console.log(jqXHR);
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }	
+                }
+            )
+        }
+        
+        window.onload = function(){
+            hashLoadAjax();
+            let result = randHash();
+            console.log("result? = " + result);
+            printHashList(result);
+        }
+        // 해쉬태그 추출
+        function getHashTags(){
+            let hashLab = document.getElementById("history");
+            let hashList = hashLab.innerText.split("#");
+            hashList.shift();
+            return hashList;
+        }
+        // 랜덤값 뽑기
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+        // 해쉬태그 중복값 찾기
+        function find(list, value){
+            var result = true;
+            for(var i = 0; i < list.length; i++){
+                if(list[i] == undefined){
+                    break;
+                }
+                if(list[i] == value){
+                    result = false;
+                }
+            }
+            return result;
+        }
+        // 온클릭
+        function reRoll(){
+            let result = randHash();
+            printHashList(result);
+            console.log(getHashTags());
+        }
+        // 해쉬태그 랜덤 생성
+        function randHash(){
+            let rand_List = Array(GV_HASH_LEN);
+            let i = 0;
+            while(rand_List[i] == undefined && i < rand_List.length){
+                
+                let rand = getRandomInt(0, GV_HASH.length);
+                if( find(rand_List, rand) ){
+                    rand_List[i] = !find(GV_HASH_SELECT, rand) ? ""+rand : rand;
+                    i++;
+                }
+                console.log("2 after"+rand_List[i]);
+            }
+            console.log(rand_List);
+            return rand_List;
+        }
+        // 해쉬태그 파싱
+        function hashParsing(param){
+            var result = undefined;
+            switch(typeof param){
+                case "String": result = GV_HASH.find(param); break;
+                case "Number": result = GV_HASH[param]; break;
+            }
+            return result;
+        }
+        // 해쉬태그 이전 버튼 제거
+        function removeHashList(){
+            let hashDiv = document.getElementById("hash_list");
+            let length = hashDiv.childElementCount - 5;
+            for(var i = 0; i < length; i++){
+                console.log("remove"+i);
+                hashDiv.removeChild(hashDiv.lastChild);
+            }
+        }
+        // 해쉬태그 버튼 토글
+        function btnToggle(btn){
+            btn.className = "overlap";
+            btn.disabled = "true";
+        }
+        // 해쉬태그 버튼 온클릭
+        function selectButton(element){
+            let historyLab = document.getElementById("history");
+            console.log(element.value);
+            GV_HASH_SELECT[GV_HASH_SELECT.length] = element.value;
+            historyLab.innerText += GV_HASH[element.value]+ " ";
+            btnToggle(element);
+        }
+        // 해쉬태그 버튼 추가
+        function printHashList(hashList){
+            removeHashList();
+            let hashDiv = document.getElementById("hash_list");
+            for(var i = 0; i < hashList.length; i++){
+                let btn = document.createElement("button");
+                //중복된 해시태그 처리
+                btn.className = "hash";
+                btn.id = "hash_btn"+i;
+                btn.value = hashList[i];
+                btn.onclick = function() {selectButton(this);}
+                btn.innerText = GV_HASH[hashList[i]];
+                if(typeof hashList[i] == "string"){
+                    btnToggle(btn);
+                }
+                hashDiv.appendChild(btn);
+            }
+        }
         </script>
     </head>
 
@@ -311,11 +442,16 @@
                     <br>
                     <select id="location-sel2" name="location" required><br>
                         <option value="0" selected>군/구 선택</option>
-                    
                     </select>
                 </div>
+                <div class="form-group" id="hash_list">
+                    <label for="ReRoll" id="history"></label><br>
+                	<button type="button" value="ReRoll" onclick="reRoll()">ReRoll</button>
+                    <br>
+                    <input type="hidden" id="send_hash" name="hashList">
+                </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                <input type="submit" class="cant" id="register" value="전송" onclick="return isLocation();" disabled="true">
+                <input type="submit" class="cant" id="register" value="전송" onclick="return isSubmit();" disabled="true">
             </form>
         </div>
     </body>

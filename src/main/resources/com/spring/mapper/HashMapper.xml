@@ -3,11 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.mapper.HashMapper">
-	<select id="selectHashList"
-		resultType="com.spring.domain.HashVO">
-  <![CDATA[
-SELECT CONCAT('#', hash_tag) AS hash_tag FROM hash
-  ]]>
+	<select id="selectHashList" resultType="String">
+		  <![CDATA[
+		SELECT CONCAT('#', hash_tag) AS hash_tag FROM hash
+		  ]]>
 	</select>
 	<select id="selectHash" resultType="com.spring.domain.HashVO">
 		select hash_id, hash_tag from

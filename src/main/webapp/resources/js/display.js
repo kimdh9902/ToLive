@@ -341,10 +341,13 @@ function makeTopNavBar(){
     let iconList_li2_div_h6 = document.createElement("h6");
     iconList_li2_div_h6.className = "p-3 mb-0";
     iconList_li2_div_h6.innerText = "Profile";
+
     let iconList_li2_div_div = document.createElement("div");
     iconList_li2_div_div.className = "dropdown-divider";
+
     let iconList_li2_div_a = document.createElement("a");
     iconList_li2_div_a.className = "dropdown-item preview-item";
+    iconList_li2_div_a.href = GV_path+"/trip/settings/";
     let iconList_li2_div_a_div = document.createElement("div");
     iconList_li2_div_a_div.className = "preview-thumbnail";
     let iconList_li2_div_a_div_div = document.createElement("div");
