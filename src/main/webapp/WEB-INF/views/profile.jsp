@@ -67,6 +67,9 @@
                 data: JSON.stringify(data), // data
                 method:"POST", // GET
                 dataType:"JSON",
+                beforeSend:function(xhr){
+                	xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+                },
                 success:function(data, textStatus, jqXHR)
                 {
                 	console.log(data);

@@ -88,6 +88,9 @@
                 data: JSON.stringify(data),
                 method:"POST",
                 dataType:"JSON",
+                beforeSend:function(xhr){
+                	xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+                },
                 success:function(data, textStatus, jqXHR)
                 {
                 	searchUser(data);					

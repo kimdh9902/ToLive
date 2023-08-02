@@ -137,11 +137,12 @@
 				</div>
 				<div class="col p-3">
 					<button id="sub" type="submit"
-						class="register col p-3 btn btn-primary">등록하기</button>
+						class="register col p-3 btn btn-primary" onclick="return goSubmit()">등록하기</button>
 				</div>
 			</div>
 			<input type="hidden" name="id"
 				value="${requestScope.travBoardList.user_id == null ? sessionScope.SESS_ID : requestScope.travBoardList.user_id}">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>
 	</div>
 </body>

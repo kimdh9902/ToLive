@@ -63,7 +63,7 @@ public class MenuController {
 		Object principal = authentication.getPrincipal();
         CustomUserDetails userDetails = (CustomUserDetails) principal;
 		UsersVO user = userDetails.getUserVO();
-		 
+		
 		String sess_id = user.getId();
 		
 		if( sess_id.equals(profileVO.getUser_id() )) {
