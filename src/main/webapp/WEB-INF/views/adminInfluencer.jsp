@@ -15,6 +15,72 @@
 		var proBanner = document.getElementById("proBanner");
 		proBanner.remove();
 	}
+	
+	function acceptRequest(user_id) {
+		let data = {
+		    user_id: user_id
+		};
+		$.ajax({
+	        url: "${pageContext.servletContext.contextPath}/admin/updateInfluencer",
+	        async: true,
+	        contentType: "application/json;charset=UTF-8",
+	        data: data,
+	        method: "GET",
+	        success: function (data, textStatus, jqXHR) {
+	            console.log("Request Delete Successful");
+	            rejectRequest(user_id);
+	        },
+	        error: function (jqXHR, textStatus, errorThrown) {
+	            console.log(jqXHR);
+	            console.log(textStatus);
+	            console.log(errorThrown);
+	        }
+	    });
+	}
+
+	function rejectRequest(user_id) {
+	    let data = {
+	        user_id: user_id
+	    };
+	    $.ajax({
+	        url: "${pageContext.servletContext.contextPath}/admin/deleteInfluencer",
+	        async: true,
+	        contentType: "application/json;charset=UTF-8",
+	        data: data,
+	        method: "GET",
+	        success: function (data, textStatus, jqXHR) {
+	            console.log("Request Delete Successful");
+	            selectInfluencerAjax();
+	        },
+	        error: function (jqXHR, textStatus, errorThrown) {
+	            console.log(jqXHR);
+	            console.log(textStatus);
+	            console.log(errorThrown);
+	        }
+	    });
+	}
+	
+	function selectInfluencerAjax(){
+		let data ={
+				
+		}
+		$.ajax({//json
+			url : "${pageContext.servletContext.contextPath}/admin/select-Influencer",
+			async : true,
+			contentType : "application/json;charset=UTF-8",
+			data : data,
+			method : "GET",
+			success : function(data, textStatus, jqXHR) {
+	            location.reload();
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR);
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		})
+	}
+	
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -87,28 +153,33 @@ window.onload = function(){
 							<div class="card">
 								<div class="card-body">
 									<div id="comments-box">
-										<c:forEach var="InfluencerVO" items="${requestScope.influencerList}">
-											<script type="text/javascript">
-												input('<c:out value="${InfluencerVO.user_id}" />',
-												    '<c:out value="${InfluencerVO.contents}" />',
-											    	'<c:out value="${InfluencerVO.c_no}" />');
-    										</script>
-										</c:forEach>
+										<h2 class="card-title">신청내역</h2>
+										<div class="table-responsive">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>신청번호</th>
+														<th>신청자</th>
+														<th>신청일</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach var="influencerVO" items="${requestScope.influencerList}">
+														<tr>
+															<td>${ influencerVO.inf_no }</td>
+															<td>${ influencerVO.user_id }</td>
+															<td>${ influencerVO.req_date.substring(0, 10) }</td>
+															<td> 
+																<button class="btn btn-primary" onclick="acceptRequest('${influencerVO.user_id}')">수락</button>
+																<button class="btn btn-danger" onclick="rejectRequest('${influencerVO.user_id}')">거절</button>
+        													</td>
+														</tr>
+														</c:forEach>
+													</tbody>
+												</table>
+											</div>
 									</div>
         						</div>
-        						<div class="card-body">
-									<div style="text-align: center;" class="card-footer">
-										<button class="btn btn-outline-primary"
-											style="width: 90px; height: 26px; margin-top: 10px;"
-											type="button" onclick="goUpdate();">글 수정</button>
-										<button class="btn btn-outline-primary"
-											style="width: 90px; height: 26px; margin-top: 10px;"
-											type="button" onclick="goDelete();">글 삭제</button>
-										<button class="btn btn-outline-primary"
-											style="width: 90px; height: 26px; margin-top: 10px;"
-											type="button" onclick="goReport()">글 신고</button>
-									</div>
-								</div>
         					</div>
         				</div>
         			</div>

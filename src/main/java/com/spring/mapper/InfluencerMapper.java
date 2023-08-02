@@ -7,6 +7,7 @@ import com.spring.domain.InfluencerVO;
 public interface InfluencerMapper {
 	public int insertInfluencer(String user_id);
 	public List<InfluencerVO> selectInfluencer();
+	public int checkRequestInfluencer();
 	public int updateInfluencer(String user_id);
 	public int deleteInfluencer(String user_id);
 }

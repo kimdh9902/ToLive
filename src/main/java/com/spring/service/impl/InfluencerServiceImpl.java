@@ -25,6 +25,11 @@ public class InfluencerServiceImpl implements InfluencerService{
 	public List<InfluencerVO> getInfluencer() {
 		return mapper.selectInfluencer();
 	}
+	
+	@Override
+	public int checkApplyInfluencer() {
+		return mapper.checkRequestInfluencer();
+	}
 
 	@Override
 	public int alterInfluencer(String user_id) {

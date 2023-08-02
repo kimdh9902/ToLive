@@ -6,8 +6,11 @@
   	<insert id="insertInfluencer">
   		INSERT INTO influencer VALUES (seq_inf_no.nextval, #{user_id}, sysdate)
   	</insert>
-  	<select id="selectInfluencer" resultType="com.spring.domain.InfluencerVO">
+  	<select id="selectAllInfluencer" resultType="com.spring.domain.InfluencerVO">
   		SELECT inf_no, user_id, req_date FROM influencer ORDER BY inf_no desc
+  	</select>
+  	<select id="checkRequestInfluencer">
+  		SELECT count(*) FROM influencer WHERE user_id = #{user_id}
   	</select>
   	<delete id="deleteInfluencer">
   		DELETE FROM influencer WHERE user_id = #{user_id}

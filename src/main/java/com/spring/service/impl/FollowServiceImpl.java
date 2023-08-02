@@ -29,7 +29,7 @@ public class FollowServiceImpl implements FollowService{
 	
 	@Override
 	public int getFollowerCount(String user_id) {
-		return mapper.selectFollowingCount(user_id);
+		return mapper.selectFollowerCount(user_id);
 	}
 
 	@Override
