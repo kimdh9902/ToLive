@@ -66,46 +66,47 @@ public class AdminController {
 		return "adminInfluencer";
 	}
 	
-	@GetMapping("/insertInfluencer")
-	public void addInfluencer(String user_id) {
-		influencerService.setInfluencer(user_id);
-	}
-	
 	@GetMapping("/updateInfluencer")
-	public void alterInfluencer(String user_id) {
+	public String alterInfluencer(String user_id) {
 		influencerService.alterInfluencer(user_id);
+		return "adminInfluencer";
 	}
 	
 	@GetMapping("/deleteInfluencer")
-	public void removeInfluencer(String user_id) {
+	public String removeInfluencer(String user_id) {
+		System.out.println("");
 		influencerService.removeInfluencer(user_id);
+		return "adminInfluencer";
 	}
 	
 	@GetMapping("/report-selectAll")
 	public String selectAllReportBoard(Model model) {
 		List<ReportVO> reportList = reportService.selectAllReportBoard();
 		model.addAttribute("reportList", reportList);
-//		return "admin";
-		return "report_status2";
+		return "report_status";
 	}
 	
 	@GetMapping("/report-add")
-	public void addReportBoard(ReportVO vo) {
+	public String addReportBoard(ReportVO vo) {
 		reportService.addReportBoard(vo);
+		return "report_status";
 	}
 	
 	@GetMapping("/report-remove")
-	public void removeReportBoard(int b_no) {
+	public String removeReportBoard(int b_no) {
 		reportService.removeReportBoard(b_no);
+		return "report_status";
 	}
 	
 	@GetMapping("/report-hide")
-	public void reassignReportBoard(int b_no) {
+	public String reassignReportBoard(int b_no) {
 		reportService.reassignReportBoard(b_no);
+		return "report_status";
 	}
 	
 	@GetMapping("/report-open")
-	public void reassignReportPost(int b_no) {
+	public String reassignReportPost(int b_no) {
 		reportService.reassignReportPost(b_no);
+		return "report_status";
 	}
 }

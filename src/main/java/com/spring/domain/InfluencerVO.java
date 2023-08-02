@@ -11,5 +11,5 @@ import oracle.sql.DATE;
 public class InfluencerVO {
 	private int inf_no;
 	private String user_id;
-	private DATE req_date;
+	private String req_date;
 }
