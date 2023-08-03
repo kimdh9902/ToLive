@@ -1,0 +1,276 @@
+--지역 데이터 테이블
+CREATE TABLE location (
+  location_id NUMBER(4) PRIMARY KEY, --지역 코드
+  location_name NVARCHAR2(60) NOT NULL --지역명
+  );
+
+--등급 데이터 테이블
+CREATE TABLE grade (
+  grade_level NUMBER(1) PRIMARY KEY, --등급
+  grade_name NVARCHAR2(255) NOT NULL --등급명
+);
+
+--사용자 테이블
+CREATE TABLE users (
+  id NVARCHAR2(50) PRIMARY KEY, --사용자 아이디
+  pw NVARCHAR2(999) NOT NULL, --사용자 비밀번호
+  name NVARCHAR2(50) NOT NULL, --사용자 이름(실명)
+  grade_level NUMBER(1) default 3, --등급
+  birthday DATE NOT NULL, --생년월일
+  phone_number NVARCHAR2(20) UNIQUE NOT NULL, --전화번호
+  location_id NUMBER(6), --지역코드
+  CONSTRAINT fk_grade_users_grade_level FOREIGN KEY (grade_level) REFERENCES grade(grade_level),
+  CONSTRAINT fk_location_users_location_id FOREIGN KEY (location_id) REFERENCES location(location_id)
+);
+
+--팔로우 테이블
+CREATE TABLE follow (
+  f_no NUMBER PRIMARY KEY, --팔로우 식별번호
+  user_id NVARCHAR2(50), --사용자 아이디
+  follower_id NVARCHAR2(50), --구독자 아이디
+  CONSTRAINT fk_users_follow_user_id FOREIGN KEY (user_id) REFERENCES users(id),
+  CONSTRAINT fk_users_follow_follower_id FOREIGN KEY (follower_id) REFERENCES users(id)
+);
+
+--해시태그 데이터 테이블
+CREATE TABLE hash (
+  hash_id NUMBER(6) PRIMARY KEY, --해시태그 아이디
+  hash_tag VARCHAR2(255) NOT NULL --해시태그명
+);
+
+--사용자 해시태그(관심사) 테이블                     몰라
+CREATE TABLE user_hash (
+  h_no NUMBER PRIMARY KEY,
+  user_id NVARCHAR2(50) , --사용자 아이디
+  user_hash_id NUMBER(6), --사용자 해시태그 아이디 
+  CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id),
+  CONSTRAINT fk_hash_user_hash_user_hash_id FOREIGN KEY (user_hash_id) REFERENCES hash(hash_id),
+  CONSTRAINT unique_user_hash UNIQUE (user_id, user_hash_id) -- user_id와 user_hash_id의 UNIQUE 제약 조건
+);
+
+--토탈 게시글 관리 테이블
+CREATE TABLE board (
+  b_no NUMBER PRIMARY KEY,  --글 번호
+  title NVARCHAR2(255) NOT NULL,  --제목
+  user_id NVARCHAR2(50),  --작성자
+  contents NVARCHAR2(999) NOT NULL, --내용
+  reg_date DATE, --작성일 
+  is_hidden NUMBER(1) default 0,  --숨김여부
+  CONSTRAINT fk_users_board_user_id FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+--여행 후기글 게시판 테이블
+CREATE TABLE trav_board (
+  trav_b_no NUMBER PRIMARY KEY, --여행 후기글 글 번호
+  total_emoji NUMBER default 0, --공감
+  views NUMBER default 0, --조회수
+  CONSTRAINT fk_board_trav_b_no FOREIGN KEY (trav_b_no) REFERENCES board(b_no)
+);
+
+--파티 모집 게시판 테이블
+CREATE TABLE party_board (
+  party_b_no NUMBER PRIMARY KEY,  --파티 모집 게시판 글 번호
+  now_people NUMBER DEFAULT 1, -- 파티 인원 사이즈 (기본값: 1)
+  max_people NUMBER(2), -- 최대 인원 사이즈
+  CONSTRAINT fk_board_party_b_no FOREIGN KEY (party_b_no) REFERENCES board(b_no)
+);
+
+--이모티콘 테이블
+CREATE TABLE emoji (
+  user_id NVARCHAR2(50),
+  b_no NUMBER,
+  emoji_record NUMBER default 0,
+  CONSTRAINT fk_trav_board_emoji_trav_b_no FOREIGN KEY (b_no) REFERENCES trav_board(trav_b_no),
+  CONSTRAINT fk_users_emoji_user_id FOREIGN KEY (user_id) REFERENCES users(id)
+);
+  
+--프로필 테이블
+CREATE TABLE profile (
+  user_id NVARCHAR2(50), --사용자 아이디
+  user_name NVARCHAR2(50), -- 이름
+  contents NVARCHAR2(99) , --내용
+  profile_img NVARCHAR2(255) DEFAULT '\resources\TripToLive\default\default.jpg',
+  manner_ondo number(4, 1) DEFAULT 36.5,
+  CONSTRAINT fk_users_profile_user_id FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+--게시글 이미지 테이블                           
+CREATE TABLE board_image(
+    img_no NUMBER PRIMARY KEY, --이미지 번호
+    b_no NUMBER , --글 번호
+    img_path NVARCHAR2(255), --이미지 위치
+    CONSTRAINT fk_board_image_b_no FOREIGN KEY (b_no) REFERENCES board(b_no)
+);
+
+--블랙리스트 테이블
+CREATE TABLE blacklist(
+  blist_no NUMBER(3) PRIMARY KEY, --블랙리스트 넘버
+  user_id NVARCHAR2(50), --사용자 아이디
+  block_account NVARCHAR2(50),   --차단한 사용자 관리 
+  CONSTRAINT fk_user_blacklist_user_id FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+--신고사유 데이터 테이블
+CREATE TABLE report_details(
+  report_num NUMBER(3) PRIMARY KEY,
+  report_comment NVARCHAR2(60) --신고 의견
+);
+
+--신고 테이블
+CREATE TABLE report(
+  report_no NUMBER(3), --신고 번호
+  b_no NUMBER,  --글번호
+  reported_id NVARCHAR2(50), --신고된 사용자
+  title NVARCHAR2(255) NOT NULL, --제목
+  report_num NUMBER(3),  --신고사유
+  CONSTRAINT fk_report_details_report_report_num FOREIGN KEY (report_num) REFERENCES report_details(report_num),
+  CONSTRAINT fk_users_report_reported_id FOREIGN KEY (reported_id) REFERENCES users(id)
+);
+
+--후기글 해쉬태그 테이블                  
+CREATE TABLE board_hash(
+    b_h_no NUMBER PRIMARY KEY,--후기글 해쉬태그 글 번호
+    b_no NUMBER, --후기글 번호
+    hash_id NUMBER, --해쉬태그 아이디
+    CONSTRAINT fk_board_board_hash_b_no FOREIGN KEY (b_no) REFERENCES board(b_no),
+    CONSTRAINT fk_hash_board_hash_hash_id FOREIGN KEY (hash_id) REFERENCES hash(hash_id)
+);
+
+--유저 해쉬태그 카운트 테이블
+CREATE TABLE user_hash_count(
+    u_h_c_no NUMBER PRIMARY KEY,--유저 해쉬태그 카운트 번호
+    user_id NVARCHAR2(50), --사용자 아이디
+    hash_id NUMBER(6), --해쉬태그 아이디
+    cnt NUMBER NOT NULL, --카운트
+    CONSTRAINT fk_uhc_users_user_id FOREIGN KEY (user_id) REFERENCES users (id),
+    CONSTRAINT fk_uhc_hash_hash_id FOREIGN KEY (hash_id) REFERENCES hash (hash_id)
+);
+
+--채팅방 테이블(보류)                        몰라
+CREATE TABLE chatroom (
+    r_no NUMBER PRIMARY KEY, --방 번호
+    user_id NVARCHAR2(50), --사용자 아이디
+    message NVARCHAR2(999) not null, --메세지
+    send_time Date NOT NULL, --보내는 시간
+    CONSTRAINT fk_users_chatroom_user_id FOREIGN key (user_id) REFERENCES users (id)
+);
+
+--인기글 테이블
+CREATE TABLE star_board(
+    b_no NUMBER PRIMARY KEY,--인기글 번호
+    title NVARCHAR2(255) NOT NULL, --제목
+    user_id NVARCHAR2(50), --사용자 아이디
+    CONSTRAINT fk_trav_board_star_board_b_no FOREIGN KEY (b_no) REFERENCES  trav_board(trav_b_no)
+);
+
+--알람 테이블
+CREATE TABLE alarm(
+  alarm_no NUMBER PRIMARY KEY, --알람 번호
+  user_id NVARCHAR2(50), --사용자 아이디
+  b_no NUMBER(6) NOT NULL,
+  msg NVARCHAR2(999), --메세지
+  is_open NUMBER(1) default 0,
+  CONSTRAINT fk_users_alarm_user_id FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+--챌린지 테이블
+CREATE TABLE challenge(
+    c_no number PRIMARY KEY, --- 내 시퀀스 퓨쪈
+    title NVARCHAR2(60),
+    description NVARCHAR2(300),
+    reward number(4) --마일리지
+);
+
+--주간 챌린지 테이블
+CREATE TABLE period_challenge(
+    pc_no number PRIMARY KEY, --- 내 시퀀스 퓨쪈
+    title NVARCHAR2(60),
+    description NVARCHAR2(300),
+    start_date DATE,
+    end_date DATE,
+    reward number(4) --마일리지
+);
+
+--챌린지 진행도 테이블
+CREATE TABLE challenge_status(
+    cs_no number PRIMARY KEY,
+    c_no number,
+    user_id NVARCHAR2(50),
+    now NUMBER(4,1),
+    CONSTRAINT fk_users_challenge_status_user_id FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT fk_challenge_challenge_status_c_no FOREIGN KEY (c_no) REFERENCES challenge(c_no)
+);
+
+--주간 챌린지 진행도 테이블
+CREATE TABLE period_challenge_status(
+    cs_no number PRIMARY KEY,
+    pc_no number,
+    user_id NVARCHAR2(50),
+    now NUMBER(4,1),
+    CONSTRAINT fk_users_period_challenge_status_user_id FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT fk_period_challenge_period_challenge_status_pc_no FOREIGN KEY (pc_no) REFERENCES period_challenge(pc_no)
+);
+
+--댓글 테이블
+CREATE TABLE board_comments(
+    c_no NUMBER(6) NOT NULL PRIMARY KEY,
+    b_no NUMBER(6) NOT NULL,
+    user_id NVARCHAR2(50),
+    contents NVARCHAR2(999) NOT NULL,
+    reg_date DATE,
+    CONSTRAINT fk_board_board_comments_b_no FOREIGN KEY (b_no) REFERENCES  board(b_no),
+    CONSTRAINT fk_users_board_comments_user_id FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+--공지 테이블
+CREATE TABLE notice (
+    n_no NUMBER PRIMARY KEY,
+    notice_contents NVARCHAR2(100),
+    notice_date DATE unique,
+    end_date DATE,
+    CONSTRAINT date_unique UNIQUE (notice_date)
+);
+-- 포맷을 YYYY-MM-DD로 설정
+ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD';
+-- notice_date 컬럼의 포맷을 YYYY-MM-DD로 변경
+ALTER TABLE notice MODIFY notice_date DATE;
+-- end_date 컬럼의 포맷을 YYYY-MM-DD로 변경
+ALTER TABLE notice MODIFY end_date DATE;
+
+--인플루언서 테이블
+CREATE TABLE influencer(
+  inf_no NUMBER(3) PRIMARY KEY, --신고 번호
+  user_id NVARCHAR2(50) UNIQUE, --신청한사람
+  req_date DATE,--신청날짜
+  CONSTRAINT fk_users_influencer_user_id FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+
+
+--시퀀스
+CREATE SEQUENCE seq_c_no  START WITH 1 INCREMENT BY 1; --댓글번호 
+CREATE SEQUENCE seq_b_no  START WITH 1 INCREMENT BY 1; --통합글번호 
+CREATE SEQUENCE seq_alarm_no  START WITH 1 INCREMENT BY 1; --알림번호 
+CREATE SEQUENCE seq_b_h_no START WITH 1 INCREMENT BY 1; --게시글 해쉬태그
+CREATE SEQUENCE seq_f_no START WITH 1 INCREMENT BY 1; --팔로우 식별번호 증가
+CREATE SEQUENCE seq_hash_id START WITH 1 INCREMENT BY 1; --해시태그 아이디(식별번호) 증가
+CREATE SEQUENCE seq_user_hash_id START WITH 1 INCREMENT BY 1; --유저 해시태그 아이디(식별번호) 증가
+CREATE SEQUENCE seq_blist_no START WITH 1 INCREMENT BY 1; --블랙리스트 번호
+CREATE SEQUENCE seq_report_no  START WITH 1 INCREMENT BY 1; --신고내역 글번호 
+CREATE SEQUENCE seq_n_no  START WITH 1 INCREMENT BY 1; --공지글 번호 
+CREATE SEQUENCE seq_img_no  START WITH 1 INCREMENT BY 1; --이미지번호 
+CREATE SEQUENCE seq_inf_no  START WITH 1 INCREMENT BY 1; --인플루언서신청번호 
+
+commit;
+
+--전체 시퀀스 출력
+SELECT * FROM all_sequences;
+
+
+
+테이블초기화쿼리	/시퀀스 드랍은 알아서
+BEGIN
+  FOR cur_tab IN (SELECT table_name FROM user_tables) LOOP
+    EXECUTE IMMEDIATE 'DROP TABLE ' || cur_tab.table_name || ' CASCADE CONSTRAINTS';
+  END LOOP;
+END;

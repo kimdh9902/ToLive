@@ -63,7 +63,7 @@ public class MenuController {
 		Object principal = authentication.getPrincipal();
         CustomUserDetails userDetails = (CustomUserDetails) principal;
 		UsersVO user = userDetails.getUserVO();
-		 
+		
 		String sess_id = user.getId();
 		
 		if( sess_id.equals(profileVO.getUser_id() )) {
@@ -130,8 +130,17 @@ public class MenuController {
 	
 	@GetMapping("/friendList")
 	public String frined(Model model, HttpSession session) {
-		List<String> result = followService.getFollowingNameList((String)session.getAttribute("SESS_ID"));
-		model.addAttribute("friendList", result);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    Object principal = authentication.getPrincipal();
+	    UsersVO uvo = null;
+	    if (principal instanceof CustomUserDetails) {
+	        CustomUserDetails userDetails = (CustomUserDetails) principal;
+	        uvo = userDetails.getUserVO();
+	        List<String> result = followService.getFollowingNameList(userDetails.getUserVO().getId());
+	        model.addAttribute("friendList", result);
+	    }
+		
+		
 		return "friend";
 	}
 }

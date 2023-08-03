@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +23,7 @@ import com.spring.domain.AlarmVO;
 import com.spring.domain.BoardCommentVO;
 import com.spring.domain.FollowVO;
 import com.spring.domain.TravBoardVO;
+import com.spring.object.CustomUserDetails;
 import com.spring.service.AlarmService;
 import com.spring.service.BlackListService;
 import com.spring.service.BoardCommentService;
@@ -39,11 +42,15 @@ public class UserController {
 	private final AlarmService alarmService;
 	private final BoardCommentService commentService;
 	
-	@GetMapping(value = "/friend", produces = {MediaType.APPLICATION_JSON_VALUE})
+	@PostMapping(value = "/friend", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<String> friendList(HttpSession session){
-		String id = (String)session.getAttribute("SESS_ID");
-		List<String> result = followService.getfollowerNameList(id);
-		
+		List<String> result = null;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    Object principal = authentication.getPrincipal();
+	    if (principal instanceof CustomUserDetails) {
+	        CustomUserDetails userDetails = (CustomUserDetails) principal;
+	         result = followService.getFollowingNameList(userDetails.getUserVO().getId());
+	    }
 		
 		return result;
 	}
@@ -51,7 +58,13 @@ public class UserController {
 	@PostMapping(value = "/onFollow", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public boolean followCheck(@RequestBody FollowVO vo, HttpSession session) {
 	    boolean isFollow;
-	    vo.setFollower_id((String)session.getAttribute("SESS_ID"));
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    Object principal = authentication.getPrincipal();
+	    if (principal instanceof CustomUserDetails) {
+	        CustomUserDetails userDetails = (CustomUserDetails) principal;
+	        vo.setFollower_id(userDetails.getUserVO().getId());
+	    }
+	    
 	    isFollow = followService.isFollow(vo);
 	    if(isFollow) {
 	    	followService.unFollow(vo);

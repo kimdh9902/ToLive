@@ -88,6 +88,9 @@
                 data: JSON.stringify(data),
                 method:"POST",
                 dataType:"JSON",
+                beforeSend:function(xhr){
+                	xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+                },
                 success:function(data, textStatus, jqXHR)
                 {
                 	searchUser(data);					
@@ -153,7 +156,7 @@
     }
 
     window.onload = function(){
-    	init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}");
+    	init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}", "${_csrf.headerName}", "${_csrf.token}");
 	}
     </script>
 </head>

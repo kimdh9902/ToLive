@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.UserHashMapper">
+	<select id="selectAllHashById" resultType="com.spring.domain.UsersVO">
+  		select h.hash_tag from user_hash uh
+			join hash h on uh.user_hash_id = h.hash_id
+			where user_id = #{user_id};
+  	</select>
+  	
+  	<insert id="insertHash">
+	    INSERT INTO user_hash(h_no, user_id, user_hash_id)
+	    SELECT seq_user_hash_id.nextval, #{id}, hash
+	    FROM (
+        <foreach collection="hashList" item="hash" separator="UNION ALL">
+            SELECT #{hash} AS hash FROM dual
+        </foreach>
+    	)
+	</insert>
+
+
+</mapper>

@@ -7,16 +7,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.spring.domain.GradeVO;
-import com.spring.domain.UsersVO;
 import com.spring.object.CustomUserDetails;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/main/*")
 @RequiredArgsConstructor
 public class MainController {
-	
+//	private final UserDetailUtil userUtil;
 	@GetMapping("")
 	public String main(HttpSession session, Model model) {
 		boolean isAuth = false;
@@ -33,17 +33,28 @@ public class MainController {
 		String msg = null;
 		String path;
 		if(session != null) {
-		    SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
-		    System.out.println("SecurityContext : "+ securityContext);
-		    if(securityContext != null) {
-		    	Collection<? extends GrantedAuthority> authorities = securityContext.getAuthentication().getAuthorities();
-			    List<GrantedAuthority> gradeVOList = new ArrayList<>(authorities);
-			    isAuth = true;
+
+//		    SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
+			// 세션에서 유저 정보 받기
+		    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		    Object principal = authentication.getPrincipal();
+		    if (principal instanceof CustomUserDetails) {
+		        CustomUserDetails userDetails = (CustomUserDetails) principal;
+		        List<GrantedAuthority> gradeVOList = new ArrayList<>(userDetails.getAuthorities());
+		        isAuth = true;
 			    String auth = gradeVOList.get(0).getAuthority();
-		        if (auth != null || auth != "") {
+			    if (auth != null || auth != "") {
 		        	isAdmin = auth.equals("ROLE_ADMIN") ? true : false;
 		        }
 		    }
+//		    CustomUserDetails userDetails = (CustomUserDetails) principal;
+		    
+		    
+//	    	Collection<? extends GrantedAuthority> authorities = securityContext.getAuthentication().getAuthorities();
+//		    GrantedAuthority> gradeVOList = new ArrayList<>(authorities);
+		    
+		    
+	        
 		}
 		if(isAuth) {
 			if(isAdmin) {
