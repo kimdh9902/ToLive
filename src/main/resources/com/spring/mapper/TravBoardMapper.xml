@@ -79,4 +79,10 @@
 		WHERE b.user_id=#{b.user_id}
 		order by b.b_no desc
 	</select>
+	<delete id="deleteTravBoardById">
+		DELETE FROM trav_board WHERE trav_b_no IN (SELECT b_no FROM board WHERE user_id = #{ user_id } )
+	</delete>
+   	<delete id="deleteImageById">
+   		DELETE FROM board_image WHERE b_no IN (SELECT b_no FROM board WHERE user_id = #{ id } )
+   	</delete>
 </mapper>

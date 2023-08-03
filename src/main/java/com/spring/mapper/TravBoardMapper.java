@@ -24,5 +24,9 @@ public interface TravBoardMapper {
 
 	// 프로필(사용자 아이디로 조회)
 	public List<TravBoardVO> selectAllBoard(String user_id);
+	
+	public void deleteTravBoardById(String id);
 
+	public void deleteImageById(String id);
+	
 }

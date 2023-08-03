@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,20 +17,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.spring.domain.HashVO;
+
 import com.spring.domain.LocationVO;
 import com.spring.domain.UsersHashVO;
 import com.spring.domain.UsersVO;
 import com.spring.service.HashService;
 import com.spring.service.LocationService;
+import com.spring.service.UserHashService;
 import com.spring.service.UsersService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import oracle.jdbc.proxy.annotation.Post;
 
 
 @Controller
@@ -44,6 +40,7 @@ public class AuthController {
 	private final UsersService userService;
 	private final LocationService locService;
 	private final HashService hashService;
+	private final UserHashService userHashService;
 	
 	@GetMapping("/login")
 	public String login(HttpServletRequest request, Model model) {
@@ -107,14 +104,17 @@ public class AuthController {
 	@PostMapping(value = "/register", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public boolean register(@RequestBody UsersHashVO vo) {
 		//PasswordEncoder 빈 주입에 문제가 생겨서 직접 했음
-		System.out.println(vo.getHashList());
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = bCryptPasswordEncoder.encode(vo.getPw());
-		System.out.println("Encoded password: " + encodedPassword);
 		vo.setPw(encodedPassword);
+		
 		int result = userService.registerAccount((UsersVO)vo);
+		int result2 = userHashService.insertHashs(vo);
+		
 		if(result > 0) {
-			return true;
+			if(result2 > 0) {
+				return true;
+			}
 		}
 		
 		return false;

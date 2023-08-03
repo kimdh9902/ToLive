@@ -2,11 +2,15 @@
 let GV_path;
 let GV_sess_id;
 let GV_sess_name;
+let GV_csrf_header;
+let GV_csrf_token;
 
-function init(path, sess_id, sess_name){
+function init(path, sess_id, sess_name, csrf_header, csrf_token){
     GV_path = path;
     GV_sess_id = sess_id
     GV_sess_name = sess_name;
+    GV_csrf_header = csrf_header;
+    GV_csrf_token = csrf_token;
 	let base = document.getElementById("container-scroller");
     let base_div = document.getElementById("container-body-wrapper");
     let left_nav = makeLeftSlideBar();
@@ -26,8 +30,8 @@ function init(path, sess_id, sess_name){
     } else {
         base_div.appendChild(topNav);
     }
-    alarmIsOpenAjax(path, sess_id); // 안읽은 알람 체크 ●
-    alarmAjax(path, sess_id);
+    alarmIsOpenAjax(); // 안읽은 알람 체크 ●
+    alarmAjax();
     //추가 이벤트 작업
     // let alarm_a = document.getElementById("alarmDropdown");
     // alarm_a.onclick = function() {
@@ -347,7 +351,7 @@ function makeTopNavBar(){
 
     let iconList_li2_div_a = document.createElement("a");
     iconList_li2_div_a.className = "dropdown-item preview-item";
-    iconList_li2_div_a.href = GV_path+"/trip/settings/";
+    iconList_li2_div_a.href = GV_path+"/settings/";
     let iconList_li2_div_a_div = document.createElement("div");
     iconList_li2_div_a_div.className = "preview-thumbnail";
     let iconList_li2_div_a_div_div = document.createElement("div");
@@ -431,17 +435,20 @@ function makeTopNavBar(){
     return topNav;
 }
 
-function alarmAjax(path, sess_id) {
+function alarmAjax() {
     let data = {
-        user_id : sess_id
+        user_id : GV_sess_id
     };
     $.ajax({//json
-        url : path+"/user/alarm",
+        url : GV_path+"/user/alarm",
         async : true,
         contentType : "application/json;charset=UTF-8",
         data : data,
         method : "GET",
         dataType : "JSON",
+        // beforeSend:function(xhr){
+        //     xhr.setRequestHeader(GV_csrf_header, GV_csrf_token);
+        // },
         success : function(data, textStatus, jqXHR) {
             console.log(data);
             printAlarm(data);
@@ -553,17 +560,21 @@ function alarmStateChange(){
     alarm_span.classList.toggle("bg-danger");
 }
 
-function alarmIsOpenAjax(path, sess_id) {
+function alarmIsOpenAjax() {
+    console.log(GV_csrf_header +" "+ GV_csrf_token)
     let data = {
-        user_id : sess_id
+        user_id : GV_sess_id
     };
     $.ajax({//json
-        url : path+"/user/is-alarm",
+        url : GV_path+"/user/is-alarm",
         async : true,
         contentType : "application/json;charset=UTF-8",
         data : data,
         method : "GET",
         dataType : "JSON",
+        beforeSend:function(xhr){
+            xhr.setRequestHeader(GV_csrf_header, GV_csrf_token);
+        },
         success : function(data, textStatus, jqXHR) {
             console.log("알람 체크 "+data);
             if(data)

@@ -75,6 +75,6 @@
 	<session-config>
         <session-timeout>60</session-timeout> <!-- 시간설정 1 == 1분 -->
     </session-config>
-	<!-- Security -->
+	<!-- Security END -->
 
 </web-app>

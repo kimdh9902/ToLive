@@ -50,6 +50,13 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.deleteBoard(b_no);
 	}
 
+<<<<<<< HEAD
 	
+=======
+	@Override
+	public void removeBoardById(String user_id) {
+		mapper.deleteBoardById(user_id);
+	}
+>>>>>>> 0e1d9e7621650fb0b3068fc8c54d2760b5dd20ba
 
 }

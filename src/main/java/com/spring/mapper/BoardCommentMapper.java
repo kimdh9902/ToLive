@@ -9,4 +9,5 @@ public interface BoardCommentMapper {
 	public void deleteComment(int c_no);
 	public int updateComment(BoardCommentVO vo);
 	public List<BoardCommentVO> selectComments(int b_no);
+	public void deleteUsersComment(String user_id);
 }

@@ -58,5 +58,10 @@ public class FollowServiceImpl implements FollowService{
 		
 		return isFollow;
 	}
+
+	@Override
+	public void removeFollowById(String user_id) {
+		mapper.deleteFollowById(user_id);
+	}
 	
 }

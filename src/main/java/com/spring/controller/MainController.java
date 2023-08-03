@@ -7,15 +7,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.spring.domain.GradeVO;
 import com.spring.domain.UsersVO;
 import com.spring.object.CustomUserDetails;
 
@@ -33,6 +34,7 @@ public class MainController {
 		String msg = null;
 		String user_id = null; // user_id 변수를 더 상위 스코프에 초기화
 		String path;
+
 		if (session != null) {
 			SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
 			System.out.println("SecurityContext : " + securityContext);
@@ -52,6 +54,7 @@ public class MainController {
 				if (auth != null || auth != "") {
 					isAdmin = auth.equals("ROLE_ADMIN") ? true : false;
 				}
+
 			}
 		}
 
@@ -59,7 +62,7 @@ public class MainController {
 			if (isAdmin) {
 				path = "redirect:/admin/";
 			} else {
-				path = "redirect:/menu/travBoard?user_id="+user_id;
+				path = "redirect:/menu/travBoard?user_id=" + user_id;
 			}
 		} else {
 			msg = "You are Not allowed, Plz login!";

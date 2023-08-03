@@ -55,11 +55,13 @@
 	        type: "GET",
 	        url: "${pageContext.servletContext.contextPath}/settings/insertInfluencer",
 	        success: function(response) {
-	            location.reload();
 	            alert("신청 완료!")
+	            location.reload();
 	        },
 	        error: function(error) {
 	            console.log("Error: ", error);
+	            alert("이미 신청을 완료했거나 요청이 수락됐습니다.");
+	            location.reload();
 	        }
 	    });
 	}
@@ -87,12 +89,11 @@
 	
 </script>
 <script>
-    window.onload = function(){
-    	if (isPageFirstLoad) {
-            checkRequestStatus();
-            isPageFirstLoad = false;
-        }
-    	init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}");
+	window.onload = function(){
+	    if (isPageFirstLoad) {
+	        isPageFirstLoad = false;
+	    }
+	    init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}");
 	}
 </script>
 </head>

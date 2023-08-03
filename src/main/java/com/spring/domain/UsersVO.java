@@ -1,5 +1,6 @@
 package com.spring.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +14,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class UsersVO {
+public class UsersVO implements Serializable{
+    private static final long serialVersionUID = 1L;
 	String id;
 	String pw;
 	String name;
@@ -22,4 +24,5 @@ public class UsersVO {
 	String phone_number;
 	int location_id;
 	int grade_level;
+	String grade_name;
 }

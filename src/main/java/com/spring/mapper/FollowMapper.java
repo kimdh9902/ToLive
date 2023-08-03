@@ -15,4 +15,6 @@ public interface FollowMapper {
 	public int deleteUnFollow(FollowVO vo);
 	
 	public int isFollow(FollowVO vo);
+	
+	public void deleteFollowById(String user_id);
 }

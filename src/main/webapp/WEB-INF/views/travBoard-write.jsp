@@ -119,6 +119,7 @@
 				<div class="ResetBox">
 					<button type="reset" class="btn btn-warning">초기화</button>
 				</div>
+<<<<<<< HEAD
 
 				<!-- 등록하기 -->
 				<div class="RegisterBox">
@@ -127,6 +128,21 @@
 			</div>
 
 			<input type="hidden" name="id" value="${requestScope.travBoardList.user_id == null ? SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id : requestScope.travBoardList.user_id}">
+=======
+				<div class="col p-3">
+					<!--파일 첨부 버튼-->
+					<button class="btn btn-outline-primary"
+						style="width: 130px; height: 30px; margin-top: 10px;" type="button"
+						onclick="uploadFile()">파일 업로드</button>
+				</div>
+				<div class="col p-3">
+					<button id="sub" type="submit"
+						class="register col p-3 btn btn-primary" onclick="return goSubmit()">등록하기</button>
+				</div>
+			</div>
+			<input type="hidden" name="id"
+				value="${requestScope.travBoardList.user_id == null ? sessionScope.SESS_ID : requestScope.travBoardList.user_id}">
+>>>>>>> 0e1d9e7621650fb0b3068fc8c54d2760b5dd20ba
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>
 	</div>

@@ -54,6 +54,10 @@ public class SettingController {
 		String sess_id = user.getId();
 		System.out.println(sess_id);
 		int howFoll = followService.getFollowerCount(sess_id);
+		System.out.println("#######################3");
+		System.out.println(followService.getFollowerCount(sess_id));
+		System.out.println(howFoll);
+		System.out.println("#######################3");
 		model.addAttribute("howFoll", howFoll);
         return "settingsRequestInfluencer";
     }
@@ -74,19 +78,4 @@ public class SettingController {
         
         return "settings_updateGrade";
     }
-	
-	 @GetMapping("/checkRequestStatus")
- 	public String checkRequestStatus(@RequestParam String user_id, Model model) {
-        try {
-            int count = influencerService.checkApplyInfluencer();
-            if (count > 0) {
-                model.addAttribute("hasRequest", true);
-            } else {
-                model.addAttribute("hasRequest", false);
-            }
-            return "requestStatus";
-        } catch (Exception e) {
-            return "error";
-        }
-    }	
 }

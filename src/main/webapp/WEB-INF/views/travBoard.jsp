@@ -51,7 +51,11 @@
 	<!-- End custom js for this page -->
 	<script>
 	window.onload = function(){
+<<<<<<< HEAD
 		init("${ pageContext.servletContext.contextPath}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}");
+=======
+		init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}", "${_csrf.headerName}", "${_csrf.token}");
+>>>>>>> 0e1d9e7621650fb0b3068fc8c54d2760b5dd20ba
 	}
 	
 	function goWrite() {

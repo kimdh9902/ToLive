@@ -27,5 +27,8 @@
 			UPDATE profile SET manner_ondo = #{manner_ondo}
 				WHERE user_id = #{user_id}
 		</update>
+		<delete id="deleteProfile">
+			DELETE FROM profile WHERE user_id = #{ user_id }
+		</delete>
 		
 	</mapper>

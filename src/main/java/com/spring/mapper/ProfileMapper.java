@@ -7,4 +7,6 @@ public interface ProfileMapper {
 	public ProfileVO selectProfile(String user_id);
 	public void updateProfile(String img, String contents);
 	public void updateOndo(ProfileVO vo);
+
+	public void deleteProfile(String user_id);
 }

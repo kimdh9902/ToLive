@@ -10,5 +10,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UsersHashVO extends UsersVO{
-	private List<String> hashList;
+	private List<Integer> hashList;
 }

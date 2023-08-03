@@ -14,4 +14,5 @@ public interface BlackListMapper {
 	// 블랙리스트에서 삭제
 	public void deleteBlackList(String user_id, String block_account);
 	// 차단한 사용자의글은 보이지 않음
+	public void deleteBlackListById(String user_id);
 }

@@ -17,4 +17,7 @@
   		UPDATE board_comments SET contents = #{contents} 
 			WHERE c_no = #{c_no}
   	</update>
+  	<delete id="deleteUsersComment">
+  		DELETE FROM board_comments WHERE user_id = #{ user_id }
+  	</delete>
   </mapper>

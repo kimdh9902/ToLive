@@ -19,5 +19,7 @@ public interface BoardHashMapper {
 	// 여행 후기글 해쉬태그 삭제
 	int deleteBoardHash(int b_h_no);
 	
-
+	public void deleteUHCById(String user_id);
+	public void deleteBHById(String user_id);
+	public void deleteUHById(String user_id);
 }

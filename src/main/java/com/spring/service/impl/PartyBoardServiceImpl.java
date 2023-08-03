@@ -56,4 +56,9 @@ public class PartyBoardServiceImpl implements PartyBoardService {
 		return mapper.deletePartyBoardWhenRecruitComplete(vo);
 	}
 
+	@Override
+	public void removePartyBoardById(String user_id) {
+		mapper.deletePartyBoardById(user_id);
+	}
+
 }

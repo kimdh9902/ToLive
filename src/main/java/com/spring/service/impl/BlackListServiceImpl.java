@@ -31,4 +31,9 @@ public class BlackListServiceImpl implements BlackListService{
 		mapper.deleteBlackList(user_id, block_account);
 	}
 
+	@Override
+	public void removeBlackListById(String user_id) {
+		mapper.deleteBlackListById(user_id);
+	}
+
 }
