@@ -21,7 +21,7 @@
 
 	function goDelete() {
 		var b_no = "<%=request.getParameter("b_no")%>";
-			location.href = "${pageContext.servletContext.contextPath}/travBoard/travBoard-delete?b_no=" + b_no;
+		location.href = "${pageContext.servletContext.contextPath}/travBoard/travBoard-delete?b_no=" + b_no;
 	}
 
 	function goReport() {
@@ -468,7 +468,7 @@
 							</button>
 
 							<!-- 로그인한 사용자와 작성자가 같을 경우 글 수정/글 삭제 버튼 출력 -->
-							<c:if test="${sessionScope.SESS_ID == TravBoardVO.user_id}">
+							<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id == TravBoardVO.user_id}">
 								<!--글 수정 버튼-->
 								<button class="btn btn-outline-primary" onclick="goUpdate()">
 									<span class="BaseButton_txt">수정</span>
@@ -484,7 +484,7 @@
 
 						<div class="right_area">
 							<!-- 로그인한 사용자와 작성자가 다를 경우 신고 버튼만 출력 -->
-							<c:if test="${sessionScope.SESS_ID ne TravBoardVO.user_id}">
+							<c:if test="${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id ne TravBoardVO.user_id}">
 								<!--글 신고 버튼-->
 								<button class="btn btn-warning" onclick="goReport()">
 									<span class="BaseButton__txt">글 신고</span>

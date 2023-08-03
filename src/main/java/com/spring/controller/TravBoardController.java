@@ -69,11 +69,12 @@ public class TravBoardController {
 
 			TravBoardVO vo = travBoardService.getBoard(Integer.parseInt(request.getParameter("b_no")));
 			model.addAttribute("TravBoardVO", vo);
-			
+
 			List<BoardImageVO> boardImagevo = boardImageService.getImages(b_no);
 			model.addAttribute("boardImagevo", boardImagevo);
-			
-			List<BoardCommentVO> boardCommentvo = commentService.getComments(Integer.parseInt(request.getParameter("b_no")));
+
+			List<BoardCommentVO> boardCommentvo = commentService
+					.getComments(Integer.parseInt(request.getParameter("b_no")));
 			model.addAttribute("boardCommentList", boardCommentvo);
 			System.out.println(boardCommentvo);
 		}
@@ -87,65 +88,10 @@ public class TravBoardController {
 	}
 
 	// 등록 처리
-	@RequestMapping(value = "/travBoard-insert", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-	public String insertBoard(BoardVO bvo, TravBoardVO tvo,BoardImageVO bivo,@RequestParam("uploadFile") List<MultipartFile> uploadFiles, HttpSession session) throws UnsupportedEncodingException {
-		
-		String user_id = null; 
-		SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
-		CustomUserDetails userDetails = (CustomUserDetails) securityContext.getAuthentication().getPrincipal();
-		UsersVO user = userDetails.getUserVO();
-		user_id = user.getId();
-		bvo.setUser_id((String) session.getAttribute("SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id"));
-		bvo.setReg_date(new Date());
-		
-		// 이미지 저장 경로 설정
-		String defaultPath = System.getProperty("user.dir"); // C:\\STS3\\workspace
-		
-		// uploadFolder: 저장 경로
-		String uploadFolder = defaultPath + "\\src\\main\\webapp\\resources\\TripToLive\\upload";
-		
-		// serverPath: 요청 경로
-		String serverPath = "/resources/TripToLive/upload";
-		
-		File folder = new File(uploadFolder);
-		if (!folder.exists()) {
-			folder.mkdirs();// java에서 디렉토리(폴더)를 생성하기 위한 코드
-		}
-		
-		List<BoardImageVO> imageList = new ArrayList<>();
-		
-		for (MultipartFile uploadFile : uploadFiles) {
-			String originalFilename = uploadFile.getOriginalFilename();
-			String newFilename = "/" + originalFilename;
-			
-			// 로컬 파일 시스템에 저장
-			try (InputStream is = uploadFile.getInputStream()) {
-				Files.copy(is, Paths.get(uploadFolder, newFilename), StandardCopyOption.REPLACE_EXISTING);
-			}catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			BoardImageVO newBivo = new BoardImageVO();
-			// 파일 경로를 BoardImageVO 객체에 설정
-			newBivo.setImg_path(serverPath + newFilename);
-			imageList.add(newBivo);				
-		}
-		
-		//제목, 내용 추가
-		int registerBoardResult = boardService.registerBoard(bvo);		
-		//이미지 추가
-		for (BoardImageVO img : imageList) {
-			boardService.plusImage(img);
-		}		
-		//여행후기글에 번호 부여
-		int registerToTravResult = boardService.registerToTrav(bvo);
-				
-		if (registerBoardResult > 0 && registerToTravResult > 0) {
-			return "redirect:/menu/travBoard?user_id="+user_id;
-		} else {
-			return "redirect:/travBoard/travBoard-write";
-		}		
-	}
+//	@RequestMapping(value = "/travBoard-insert", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+//	public String insertBoard(BoardVO bvo, TravBoardVO tvo,BoardImageVO bivo,@RequestParam("uploadFile") List<MultipartFile> uploadFiles, HttpSession session) throws UnsupportedEncodingException {
+//
+//	}
 
 	// 수정 페이지로 이동
 	@RequestMapping(value = "/travBoard-update", method = RequestMethod.GET)
@@ -161,7 +107,7 @@ public class TravBoardController {
 		int result = boardMapper.updateBoard(bvo);
 
 		if (result > 0) {
-			return "redirect:travBoard-detail2?b_no=" + bvo.getB_no();
+			return "redirect:travBoard-detail?b_no=" + bvo.getB_no();
 		} else {
 			return "redirect:travBoard/travBoard-update?b_no=" + bvo.getB_no();
 		}
@@ -169,12 +115,20 @@ public class TravBoardController {
 
 	// 삭제 처리
 	@RequestMapping(value = "/travBoard-delete", method = RequestMethod.GET)
-	public String delete(@RequestParam("b_no") int b_no) {
+	public String delete(@RequestParam("b_no") int b_no, HttpSession session) {
 		boolean success = travBoardMapper.deleteTravBoard(b_no);
-		if (success) {
-			return "redirect:/menu/travBoard/";
+		boolean deleteBaord = boardMapper.deleteBoard(b_no);
+
+		String user_id = null;
+		SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
+		CustomUserDetails userDetails = (CustomUserDetails) securityContext.getAuthentication().getPrincipal();
+		UsersVO user = userDetails.getUserVO();
+		user_id = user.getId();
+
+		if (success && deleteBaord) {
+			return "redirect:/menu/travBoard?user_id=" + user_id;
 		} else {
-			return "redirect:travBoard-detail2?b_no=" + b_no;
+			return "redirect:travBoard-detail?b_no=" + b_no + "&user_id=" + user_id;
 		}
 	}
 
