@@ -120,6 +120,7 @@
 
 				<div class="writer_box">
 					<label for="id">작성자:</label>
+
 					<div class="form-control" id="id">
 						${requestScope.travBoardList.user_id == null ? SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id : requestScope.travBoardList.user_id}
 					</div>
@@ -129,6 +130,7 @@
 					<label for="contents">내용:</label>
 					<textarea class="form-control" id="contents" name="contents"
 						rows="5" placeholder="내용을 입력해주세요"></textarea>
+
 				</div>
 			</div>
 
@@ -161,11 +163,9 @@
 				</div>
 			</div>
 
-			<input type="hidden" name="id"
-				value="${requestScope.travBoardList.user_id == null ? SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id : requestScope.travBoardList.user_id}">
+			<input type="hidden" name="id" value="${requestScope.travBoardList.user_id == null ? SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id : requestScope.travBoardList.user_id}">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
 		</form>
 	</div>
 </body>
