@@ -80,6 +80,31 @@
 	            }
 			)
 	}
+	function friendRecommendAjax(){
+		$.ajax(
+				{
+					url: "${pageContext.request.contextPath}"+"/user/friendRecommend",
+	                async:true,
+	                contentType:"application/json;charset=UTF-8",
+	                method:"POST", // GET
+	                dataType:"JSON",
+	                beforeSend:function(xhr){
+	                	xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+	                },
+	                success:function(data, textStatus, jqXHR)
+	                {
+	                	console.log(data);
+						print(data);
+	                },
+	                error:function(jqXHR, textStatus, errorThrown ){
+	                    console.log(jqXHR);
+	                    console.log(textStatus);
+	                    console.log(errorThrown);
+	                }
+				}
+		)
+	}
+
 	function print(data){
 		let mainDiv = document.getElementsByClassName("card-body");
 		let lab = document.createElement("label");
