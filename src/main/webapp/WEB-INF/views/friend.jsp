@@ -52,6 +52,7 @@
 	window.onload = function(){
 		init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}", "${_csrf.headerName}", "${_csrf.token}");
 		friendAjax();
+		friendRecommendAjax();
     }
 </script>
    
@@ -94,7 +95,7 @@
 	                success:function(data, textStatus, jqXHR)
 	                {
 	                	console.log(data);
-						print(data);
+	                	printFriend(data);
 	                },
 	                error:function(jqXHR, textStatus, errorThrown ){
 	                    console.log(jqXHR);
@@ -104,13 +105,34 @@
 				}
 		)
 	}
-
+	
+	function printFriend(data) {
+		let friendDiv = document.getElementById("plus-friend");
+		for(var i = 0; i < data.length; i++){
+			let friendDiv_div = document.createElement("div");
+			let img = document.createElement("img");
+			img.src = "${pageContext.request.contextPath}"+data[i].profile_img;
+			img.style.width = "40px";
+			img.style.height = "40px";
+			let lab = document.createElement("label");
+			lab.innerText = data[i].userid;
+			let br = document.createElement("br");
+			friendDiv_div.appendChild(img);
+			friendDiv_div.appendChild(lab);
+			friendDiv_div.appendChild(br);
+			friendDiv.appendChild(friendDiv_div);
+		}
+		
+	}
+	
 	function print(data){
 		let mainDiv = document.getElementsByClassName("card-body");
 		let lab = document.createElement("label");
+		let br = document.createElement("br");
 		lab.innerText = data;
 		console.log(mainDiv);
 		mainDiv[0].appendChild(lab);
+		mainDiv[0].appendChild(br);
 	}
    
 </script>
@@ -124,7 +146,7 @@
 						<div class="col-12 grid-margin">
 							<div class="card">
 								<div class="card-body" style="width: 100%; height: 100%;">
-                                    <div id="plus-friend" style="height: 120px">
+                                    <div id="plus-friend" style="height: 120px; display: flex;">
                                         
                                     </div>
                                     <div id="friends">

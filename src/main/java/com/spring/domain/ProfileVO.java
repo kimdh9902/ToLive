@@ -2,9 +2,11 @@ package com.spring.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class ProfileVO {
 	String user_id;
 	String user_name;
