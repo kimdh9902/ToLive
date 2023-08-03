@@ -11,4 +11,5 @@ public interface ReportMapper {
 	public void deleteReportBoard(int b_no);					//신고 대처 후 신고내역에서 삭제
 	public void updateReportBoard(int b_no);					//신고 5스택시 글 숨김
 	public void updateReportPost(int b_no);						//무혐의 신고글 복구
+	public void deleteReportById(String reported_id);
 }

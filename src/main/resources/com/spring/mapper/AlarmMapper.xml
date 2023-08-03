@@ -28,4 +28,8 @@
 			INSERT INTO alarm (alarm_no, user_id, b_no, msg)
 			VALUES (seq_alarm_no.nextval, #{user_id}, #{b_no}, #{msg})
 		</insert>
+		
+		<delete id="deleteAlarmById">
+			DELETE FROM alarm WHERE user_id = #{ user_id }
+		</delete>
 	</mapper>

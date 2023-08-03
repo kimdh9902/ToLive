@@ -1,6 +1,9 @@
 package com.spring.mapper;
 
+import java.util.List;
+
 import com.spring.domain.GradeVO;
+
 import com.spring.domain.UsersVO;
 
 public interface UsersMapper {
@@ -10,4 +13,8 @@ public interface UsersMapper {
 	
 	public UsersVO selectAccountById(String id);
 	public GradeVO selectGradeById(String id);
+	
+	public List<UsersVO> selectAllUsers();
+	public int deleteUsersAccount(String id);
+	public int updateUsersGradeZero(String id);
 }

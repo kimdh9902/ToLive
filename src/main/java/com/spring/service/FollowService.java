@@ -15,4 +15,6 @@ public interface FollowService {
 	public int unFollow(FollowVO vo);
 	
 	public boolean isFollow(FollowVO vo);
+
+	public void removeFollowById(String user_id);
 }

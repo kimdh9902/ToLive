@@ -51,5 +51,10 @@ public class AlarmServiceImpl implements AlarmService{
 		}
 		return result;
 	}
+
+	@Override
+	public void removeAlarmById(String user_id) {
+		mapper.deleteAlarmById(user_id);
+	}
 	
 }

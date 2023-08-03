@@ -39,4 +39,9 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.deleteBoard(b_no);
 	}
 
+	@Override
+	public void removeBoardById(String user_id) {
+		mapper.deleteBoardById(user_id);
+	}
+
 }

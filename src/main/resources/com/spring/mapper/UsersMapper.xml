@@ -35,4 +35,18 @@
 	                JOIN users ON users.id = #{id}
 	                WHERE users.grade_level = g.grade_level
     	</select>
+    	
+    	<select id="selectAllUsers" resultType="com.spring.domain.UsersVO">
+    		SELECT u.id, u.name, g.grade_name, u.phone_number
+				FROM users u
+				JOIN grade g ON u.grade_level = g.grade_level
+				WHERE grade_name != '관리자'
+			ORDER BY u.grade_level DESC
+    	</select>
+    	<delete id="deleteUsersAccount">
+    		DELETE FROM users WHERE id = #{id}
+    	</delete>
+    	<update id="updateUsersGradeZero">
+    		UPDATE users SET grade_level = 0 WHERE id = #{id}
+    	</update>
     </mapper>

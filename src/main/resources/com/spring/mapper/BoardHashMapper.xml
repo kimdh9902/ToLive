@@ -32,4 +32,14 @@
 	<delete id="deleteBoardHash">
 	delete from board_hash where b_h_no =#{b_h_no}
 	</delete>
+	
+	<delete id="deleteUHCById">
+		DELETE FROM user_hash_count WHERE user_id = #{ user_id }
+	</delete>
+	<delete id="deleteBHById">
+		DELETE FROM board_hash WHERE b_no IN (SELECT b_no FROM board WHERE user_id = #{ user_id } )
+	</delete>
+	<delete id="deleteUHById">
+		DELETE FROM user_hash WHERE user_id = #{ user_id }
+	</delete>
 </mapper>

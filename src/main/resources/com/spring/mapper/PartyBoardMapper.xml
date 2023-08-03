@@ -65,4 +65,7 @@
 	<delete id="deletePartyBoardWhenRecruitComplete">
 		delete from party_board where now_people>=max_people
 	</delete>
+	<delete id="deletePartyBoardById">
+		DELETE FROM party_board WHERE party_b_no IN (SELECT b_no FROM board WHERE user_id = #{ user_id } )
+	</delete>
 </mapper>

@@ -7,4 +7,6 @@ public interface ProfileService {
 	public ProfileVO getProfileByID(String user_id);
 	public void retouchProfile(String img, String contents);
 	public void retouchOndo(ProfileVO vo);
+
+	public void removeProfile(String user_id);
 }

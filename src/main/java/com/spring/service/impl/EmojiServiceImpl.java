@@ -28,4 +28,9 @@ public class EmojiServiceImpl implements EmojiService{
 		mapper.updateEmoji(vo);
 	}
 
+	@Override
+	public void removeEmoji(String user_id) {
+		mapper.deleteEmoji(user_id);
+	}
+
 }

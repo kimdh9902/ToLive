@@ -23,7 +23,7 @@ public class InfluencerServiceImpl implements InfluencerService{
 
 	@Override
 	public List<InfluencerVO> getInfluencer() {
-		return mapper.selectInfluencer();
+		return mapper.selectAllInfluencer();
 	}
 	
 	@Override

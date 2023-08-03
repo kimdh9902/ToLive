@@ -42,4 +42,9 @@ public class ReportServiceImpl implements ReportService{
 		mapper.updateReportPost(b_no);
 	}
 
+	@Override
+	public void removeReportById(String reported_id) {
+		mapper.deleteReportById(reported_id);
+	}
+
 }

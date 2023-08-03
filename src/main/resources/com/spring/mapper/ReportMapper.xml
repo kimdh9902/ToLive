@@ -25,4 +25,7 @@
   	<update id="updateReportPost">
   		UPDATE board SET is_hidden = 0 WHERE b_no = #{b_no}
   	</update>
+  	<delete id="deleteReportById">
+  		DELETE FROM report WHERE reported_id = #{ reported_id }
+  	</delete>
   </mapper>

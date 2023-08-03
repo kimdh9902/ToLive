@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spring.domain.InfluencerVO;
 import com.spring.domain.NoticeVO;
 import com.spring.domain.ReportVO;
+import com.spring.domain.UsersVO;
 import com.spring.service.InfluencerService;
 import com.spring.service.NoticeService;
 import com.spring.service.ReportService;
+import com.spring.service.UsersService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,7 +35,8 @@ public class AdminController {
 	private final ReportService reportService;
 	private final NoticeService noticeService;
 	private final InfluencerService influencerService;
-
+	private final UsersService usersService;
+	
 	@GetMapping("")
     public String adminMain(Model model) {
         NoticeVO notice = noticeService.getNotice();
@@ -100,6 +103,7 @@ public class AdminController {
 	
 	@GetMapping("/report-hide")
 	public String reassignReportBoard(int b_no) {
+	
 		reportService.reassignReportBoard(b_no);
 		return "report_status";
 	}
@@ -108,5 +112,27 @@ public class AdminController {
 	public String reassignReportPost(int b_no) {
 		reportService.reassignReportPost(b_no);
 		return "report_status";
+	}
+	
+	@GetMapping("/adminUserBlock")
+	public String showAllUsers(Model model) {
+		List<UsersVO> userList = usersService.getAllUsers();
+		model.addAttribute("userList", userList);
+		return "adminUserBlock";
+	}
+	
+	
+	
+	
+	@GetMapping("/removeAccount")
+	public String deleteUsersAccount(String id) {
+		usersService.removeUsersAccount(id);
+		return "adminUserBlock";
+	}
+	
+	@GetMapping("/updateGradeToZero")
+	public String updateUsersGradeZero(String id) {
+		usersService.registerUsersGradeZero(id);
+		return "adminUserBlock";
 	}
 }

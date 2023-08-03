@@ -44,4 +44,14 @@ public class TravBoardServiceImpl implements TravBoardService {
 		return mapper.deleteTravBoard(trav_b_no);
 	}
 
+	@Override
+	public void removeTravBoardById(String id) {
+		mapper.deleteTravBoardById(id);
+	}
+
+	@Override
+	public void removeImageById(String id) {
+		mapper.deleteImageById(id);
+	}
+
 }

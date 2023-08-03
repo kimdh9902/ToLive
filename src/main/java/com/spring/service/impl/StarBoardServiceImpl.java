@@ -31,4 +31,9 @@ public class StarBoardServiceImpl implements StarBoardService{
 		return mapper.deleteAllBoard();
 	}
 
+	@Override
+	public void removeStarBoardById(String user_id) {
+		mapper.deleteStarBoardById(user_id);
+	}
+
 }

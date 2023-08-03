@@ -6,4 +6,5 @@ public interface EmojiMapper {
 	public Integer selectEmoji(EmojiVO vo);
 	public void insertEmoji(EmojiVO vo);
 	public void updateEmoji(EmojiVO vo);
+	public void deleteEmoji(String user_id);
 }

@@ -20,5 +20,7 @@
 		<delete id="deleteAllBoard">
 			delete from star_board
 		</delete>
-		
+		<delete id="deleteStarBoardById">
+			DELETE FROM star_board WHERE user_id = #{ user_id }
+		</delete>
 	</mapper>

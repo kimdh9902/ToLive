@@ -169,7 +169,7 @@ function makeLeftSlideBar(){
     toggle_menu_icon.push("mdi mdi-delete-forever");
     let toggle_menu_path = new Array();
     toggle_menu_path.push(GV_path+"/admin/report-selectAll");
-    toggle_menu_path.push(GV_path+"/admin/");
+    toggle_menu_path.push(GV_path+"/admin/adminUserBlock");
     let menu_li5 = makeToggleMenuLi("mdi mdi-human-handsup", "회원 관리", "management" ,toggle_menu_name, toggle_menu_icon, toggle_menu_path);
     menu_list.appendChild(menu_li2);
     menu_list.appendChild(menu_li3);
@@ -341,25 +341,10 @@ function makeTopNavBar(){
     let iconList_li2_div_h6 = document.createElement("h6");
     iconList_li2_div_h6.className = "p-3 mb-0";
     iconList_li2_div_h6.innerText = "Profile";
-    let iconList_li2_div_div = document.createElement("div");
-    iconList_li2_div_div.className = "dropdown-divider";
-    let iconList_li2_div_a = document.createElement("a");
-    iconList_li2_div_a.className = "dropdown-item preview-item";
-    let iconList_li2_div_a_div = document.createElement("div");
-    iconList_li2_div_a_div.className = "preview-thumbnail";
-    let iconList_li2_div_a_div_div = document.createElement("div");
-    iconList_li2_div_a_div_div.className = "preview-icon bg-dark rounded-circle";
-    let iconList_li2_div_a_div_div_i = document.createElement("i");
-    iconList_li2_div_a_div_div_i.className = "mdi mdi-settings text-success";
-    let iconList_li2_div_a_div2 = document.createElement("div");
-    iconList_li2_div_a_div2.className = "preview-item-content";
-    let iconList_li2_div_a_div2_p = document.createElement("p");
-    iconList_li2_div_a_div2_p.className = "preview-subject mb-1";
-    iconList_li2_div_a_div2_p.innerText = "Settings";
+
 
     let iconList_li2_div_div2 = document.createElement("div");
     iconList_li2_div_div2.className = "dropdown-divider";
-
     let iconList_li2_div_a2 = document.createElement("a");
     iconList_li2_div_a2.className = "dropdown-item preview-item"
     iconList_li2_div_a2.href = GV_path+"/auth/logout";
@@ -373,6 +358,7 @@ function makeTopNavBar(){
     iconList_li2_div_a2_div2.className = "preview-item-content";
     let iconList_li2_div_a2_div2_p = document.createElement("p");
     iconList_li2_div_a2_div2_p.innerText = "로그아웃";
+
     let iconList_li2_div_div3 = document.createElement("div");
     iconList_li2_div_div3.className = "dropdown-divider";
     let iconList_li2_div_p = document.createElement("p");
@@ -383,12 +369,6 @@ function makeTopNavBar(){
     iconList_li2_a_div.appendChild(iconList_li2_a_div_i);
     iconList_li2_a.appendChild(iconList_li2_a_div);
 
-    iconList_li2_div_a.appendChild(iconList_li2_div_a_div);
-    iconList_li2_div_a.appendChild(iconList_li2_div_a_div_div);
-    iconList_li2_div_a.appendChild(iconList_li2_div_a_div_div_i);
-    iconList_li2_div_a.appendChild(iconList_li2_div_a_div2);
-    iconList_li2_div_a.appendChild(iconList_li2_div_a_div2_p);
-
     iconList_li2_div_a2.appendChild(iconList_li2_div_a2_div);
     iconList_li2_div_a2.appendChild(iconList_li2_div_a2_div_div);
     iconList_li2_div_a2.appendChild(iconList_li2_div_a2_div_div_i);
@@ -396,8 +376,6 @@ function makeTopNavBar(){
     iconList_li2_div_a2.appendChild(iconList_li2_div_a2_div2);
 
     iconList_li2_div.appendChild(iconList_li2_div_h6);
-    iconList_li2_div.appendChild(iconList_li2_div_div);
-    iconList_li2_div.appendChild(iconList_li2_div_a);
     iconList_li2_div.appendChild(iconList_li2_div_div2);
     iconList_li2_div.appendChild(iconList_li2_div_a2);
     iconList_li2_div.appendChild(iconList_li2_div_div3);

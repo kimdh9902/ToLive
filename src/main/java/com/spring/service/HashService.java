@@ -20,5 +20,5 @@ public interface HashService {
 
 	// 해쉬코드 아이디로 해쉬코드 삭제
 	int removeHash(int hash_id);
-
+	
 }

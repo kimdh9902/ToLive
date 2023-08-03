@@ -18,4 +18,6 @@ public interface BoardService {
 		
 		//글 삭제
 		public boolean removeBoard(int b_no);
+		
+		public void removeBoardById(String user_id);
 }

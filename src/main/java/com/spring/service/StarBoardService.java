@@ -8,4 +8,5 @@ public interface StarBoardService {
 	public int setStarBoard();
 	public List<StarBoardVO> getStarBoards();
 	public int removeAllBoard();
+	public void removeStarBoardById(String user_id);
 }
