@@ -60,11 +60,6 @@ public class MenuController {
 		Object principal = authentication.getPrincipal();
 		CustomUserDetails userDetails = (CustomUserDetails) principal;
 		UsersVO user = userDetails.getUserVO();
-<<<<<<< HEAD
-
-=======
-		
->>>>>>> 0e1d9e7621650fb0b3068fc8c54d2760b5dd20ba
 		String sess_id = user.getId();
 
 		if (sess_id.equals(profileVO.getUser_id())) {
@@ -144,22 +139,17 @@ public class MenuController {
 
 	@GetMapping("/friendList")
 	public String frined(Model model, HttpSession session) {
-<<<<<<< HEAD
-		List<String> result = followService.getFollowingNameList((String) session.getAttribute("SESS_ID"));
-		model.addAttribute("friendList", result);
-=======
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    Object principal = authentication.getPrincipal();
-	    UsersVO uvo = null;
-	    if (principal instanceof CustomUserDetails) {
-	        CustomUserDetails userDetails = (CustomUserDetails) principal;
-	        uvo = userDetails.getUserVO();
-	        List<String> result = followService.getFollowingNameList(userDetails.getUserVO().getId());
-	        model.addAttribute("friendList", result);
-	    }
-		
-		
->>>>>>> 0e1d9e7621650fb0b3068fc8c54d2760b5dd20ba
+		Object principal = authentication.getPrincipal();
+		UsersVO uvo = null;
+		if (principal instanceof CustomUserDetails) {
+			CustomUserDetails userDetails = (CustomUserDetails) principal;
+			uvo = userDetails.getUserVO();
+			List<String> result = followService.getFollowingNameList(userDetails.getUserVO().getId());
+			model.addAttribute("friendList", result);
+		}
+
 		return "friend";
 	}
 }
