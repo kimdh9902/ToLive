@@ -145,7 +145,7 @@ public class TravBoardController {
 		System.out.println("여기 왔니?");
 		reportService.addReportBoard(rvo);
 		System.out.println(rvo);
-		return "redirect:travBoard-detail2?b_no=" + bvo.getB_no();
+		return "redirect:travBoard-detail?b_no=" + bvo.getB_no();
 
 	}
 
