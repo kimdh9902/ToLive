@@ -15,6 +15,16 @@
 	            where user_id = #{user_id}
 		</select>
 		
+		<select id="selectFriend" resultType="com.spring.domain.ProfileVO">
+			select user_id, user_name, contents, profile_img,
+	            (select count(follower_id) from follow f1 where f1.user_id = p.user_id) as follower, 
+	            (select count(user_id) from follow f2 where f2.follower_id = p.user_id) as following, 
+	            (select count(b.b_no) from board b where b.user_id = p.user_id and b_no in(select t.trav_b_no from trav_board t)) as board_count, 
+	            manner_ondo
+	            from profile p
+	            where user_id = #{user_id}
+		</select>
+		
 		<insert id="insertProfile">
 			insert into profile(user_id, user_name) values(#{user_id}, #{user_name})
 		</insert>

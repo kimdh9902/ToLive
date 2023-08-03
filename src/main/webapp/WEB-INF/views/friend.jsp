@@ -99,7 +99,10 @@
 						<div class="col-12 grid-margin">
 							<div class="card">
 								<div class="card-body" style="width: 100%; height: 100%;">
-                                    <div>
+                                    <div id="plus-friend" style="height: 120px">
+                                        
+                                    </div>
+                                    <div id="friends">
                                         
                                     </div>
         						</div>
