@@ -51,7 +51,7 @@
 	<!-- End custom js for this page -->
 	<script>
 	window.onload = function(){
-		init("${ pageContext.servletContext.contextPath}", "${sessionScope.SESS_ID}", "${sessionScope.SESS_NAME}");
+		init("${ pageContext.servletContext.contextPath}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}");
 	}
 	
 	function goWrite() {
@@ -89,7 +89,7 @@
 													items="${requestScope.travBoardList}">
 													<tr>
 														<td>${travBoardList.b_no}</td>
-														<td><a href="${pageContext.request.contextPath}/travBoard/travBoard-detail2?b_no=${travBoardList.b_no}">
+														<td><a href="${pageContext.request.contextPath}/travBoard/travBoard-detail?b_no=${travBoardList.b_no}">
 																${travBoardList.title}</a></td>
 														<td>${travBoardList.user_id}</td>
 														<td>${travBoardList.reg_date}</td>

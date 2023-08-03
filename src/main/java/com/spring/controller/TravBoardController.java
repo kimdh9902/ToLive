@@ -1,7 +1,13 @@
 package com.spring.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,21 +16,27 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.domain.BoardCommentVO;
+import com.spring.domain.BoardImageVO;
 import com.spring.domain.BoardVO;
 import com.spring.domain.ReportVO;
 import com.spring.domain.TravBoardVO;
+import com.spring.domain.UsersVO;
 import com.spring.mapper.BoardMapper;
 import com.spring.mapper.TravBoardMapper;
+import com.spring.object.CustomUserDetails;
 import com.spring.service.BoardCommentService;
+import com.spring.service.BoardImageService;
+import com.spring.service.BoardService;
 import com.spring.service.ReportService;
 import com.spring.service.TravBoardService;
 
@@ -38,6 +50,8 @@ public class TravBoardController {
 	private final TravBoardService travBoardService;
 	private final ReportService reportService;
 	private final BoardCommentService commentService;
+	private final BoardImageService boardImageService;
+	private final BoardService boardService;
 
 	@Autowired
 	private TravBoardMapper travBoardMapper;
@@ -47,18 +61,23 @@ public class TravBoardController {
 
 	// 여행 후기글 글 상세 페이지로 이동
 	// localhost:8080/trip/travBoard/detail
-	@GetMapping("/travBoard-detail2")
+	@GetMapping("/travBoard-detail")
 	public String openBoard(@RequestParam("b_no") int b_no, HttpServletRequest request, HttpServletResponse response,
 			Model model, HttpSession session) throws IOException {
-		
 		if (request.getParameter("b_no") != null) {
+			travBoardService.modifyTravBoardPlusView(Integer.parseInt(request.getParameter("b_no"))); // 제목 클릭 시 조회수 +1
+
 			TravBoardVO vo = travBoardService.getBoard(Integer.parseInt(request.getParameter("b_no")));
 			model.addAttribute("TravBoardVO", vo);
+			
+			List<BoardImageVO> boardImagevo = boardImageService.getImages(b_no);
+			model.addAttribute("boardImagevo", boardImagevo);
+			
 			List<BoardCommentVO> boardCommentvo = commentService.getComments(Integer.parseInt(request.getParameter("b_no")));
 			model.addAttribute("boardCommentList", boardCommentvo);
 			System.out.println(boardCommentvo);
 		}
-		return "detail";
+		return "travBoard-detail";
 	}
 
 	// 게시글 등록 페이지로 이동
@@ -69,23 +88,63 @@ public class TravBoardController {
 
 	// 등록 처리
 	@RequestMapping(value = "/travBoard-insert", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-	public String insertBoard(BoardVO bvo, TravBoardVO tvo, HttpSession session) throws UnsupportedEncodingException {
-
-		bvo.setUser_id((String) session.getAttribute("SESS_ID"));
+	public String insertBoard(BoardVO bvo, TravBoardVO tvo,BoardImageVO bivo,@RequestParam("uploadFile") List<MultipartFile> uploadFiles, HttpSession session) throws UnsupportedEncodingException {
+		
+		String user_id = null; 
+		SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
+		CustomUserDetails userDetails = (CustomUserDetails) securityContext.getAuthentication().getPrincipal();
+		UsersVO user = userDetails.getUserVO();
+		user_id = user.getId();
+		bvo.setUser_id((String) session.getAttribute("SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id"));
 		bvo.setReg_date(new Date());
-
-		int result = boardMapper.insertBoard(bvo);
-		int result2 = boardMapper.insertToTrav(bvo);
-
-		// 확인용
-		System.out.println("여기01-" + bvo);
-		System.out.println("여기02-" + tvo);
-
-		if (result + result2 > 0) {
-			return "redirect:/menu/travBoard/";
+		
+		// 이미지 저장 경로 설정
+		String defaultPath = System.getProperty("user.dir"); // C:\\STS3\\workspace
+		
+		// uploadFolder: 저장 경로
+		String uploadFolder = defaultPath + "\\src\\main\\webapp\\resources\\TripToLive\\upload";
+		
+		// serverPath: 요청 경로
+		String serverPath = "/resources/TripToLive/upload";
+		
+		File folder = new File(uploadFolder);
+		if (!folder.exists()) {
+			folder.mkdirs();// java에서 디렉토리(폴더)를 생성하기 위한 코드
+		}
+		
+		List<BoardImageVO> imageList = new ArrayList<>();
+		
+		for (MultipartFile uploadFile : uploadFiles) {
+			String originalFilename = uploadFile.getOriginalFilename();
+			String newFilename = "/" + originalFilename;
+			
+			// 로컬 파일 시스템에 저장
+			try (InputStream is = uploadFile.getInputStream()) {
+				Files.copy(is, Paths.get(uploadFolder, newFilename), StandardCopyOption.REPLACE_EXISTING);
+			}catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			BoardImageVO newBivo = new BoardImageVO();
+			// 파일 경로를 BoardImageVO 객체에 설정
+			newBivo.setImg_path(serverPath + newFilename);
+			imageList.add(newBivo);				
+		}
+		
+		//제목, 내용 추가
+		int registerBoardResult = boardService.registerBoard(bvo);		
+		//이미지 추가
+		for (BoardImageVO img : imageList) {
+			boardService.plusImage(img);
+		}		
+		//여행후기글에 번호 부여
+		int registerToTravResult = boardService.registerToTrav(bvo);
+				
+		if (registerBoardResult > 0 && registerToTravResult > 0) {
+			return "redirect:/menu/travBoard?user_id="+user_id;
 		} else {
 			return "redirect:/travBoard/travBoard-write";
-		}
+		}		
 	}
 
 	// 수정 페이지로 이동
@@ -118,22 +177,22 @@ public class TravBoardController {
 			return "redirect:travBoard-detail2?b_no=" + b_no;
 		}
 	}
-	
-	// 글 신고 페이지로 이동
-		@GetMapping("/travBoard-report")
-		public String Report(Model model, @RequestParam("b_no") int b_no) {
-			model.addAttribute("travBoard",travBoardMapper.selectOneBoard(b_no));
-			return "travBoard-report";
-		}
-		
-	// 신고 처리
-		@RequestMapping(value = "/report-processing", method = RequestMethod.POST)
-		public String reportBoard(BoardVO bvo, ReportVO rvo) {	
-			System.out.println("여기 왔니?");
-			reportService.addReportBoard(rvo);
-			System.out.println(rvo);		
-			return "redirect:travBoard-detail2?b_no=" + bvo.getB_no();
 
-		}
+	// 글 신고 페이지로 이동
+	@GetMapping("/travBoard-report")
+	public String Report(Model model, @RequestParam("b_no") int b_no) {
+		model.addAttribute("travBoard", travBoardMapper.selectOneBoard(b_no));
+		return "travBoard-report";
+	}
+
+	// 신고 처리
+	@RequestMapping(value = "/report-processing", method = RequestMethod.POST)
+	public String reportBoard(BoardVO bvo, ReportVO rvo) {
+		System.out.println("여기 왔니?");
+		reportService.addReportBoard(rvo);
+		System.out.println(rvo);
+		return "redirect:travBoard-detail2?b_no=" + bvo.getB_no();
+
+	}
 
 }

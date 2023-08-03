@@ -159,7 +159,7 @@ function makeLeftSlideBar(){
     //프로필 끝
     //메뉴
     let menu_li2 = makeMenuLi(GV_path, "main/","mdi mdi-airballoon", "여행 후기글");
-    let menu_li3 = makeMenuLi(GV_path, "menu/partyBoard","mdi mdi-account-multiple-plus", "파티 찾기");
+    let menu_li3 = makeMenuLi(GV_path, "menu/partyBoard?user_id=" + GV_sess_id,"mdi mdi-account-multiple-plus", "파티 찾기");
     let menu_li4 = makeMenuLi(GV_path, "menu/starBoard","mdi mdi-trophy-variant", "명예의 전당");
     let toggle_menu_name = new Array();
     toggle_menu_name.push("유저 검색");
