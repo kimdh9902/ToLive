@@ -27,15 +27,13 @@
 		<intercept-url pattern="/auth/*" access="permitAll"/> <!-- 로그인 접근 권한 -->
 		<intercept-url pattern="/menu/*" access="hasRole('ROLE_USER_PRIVATE') or hasRole('ROLE_USER_FOLLOWER') or hasRole('ROLE_USER_PUBLIC') or hasRole('ROLE_CELEB_PRIVATE') or hasRole('ROLE_CELEB_FOLLOWER') or hasRole('ROLE_CELEB_PUBLIC')" /> <!-- 로그인 접근 권한 -->
 		<intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/> <!-- 로그인 접근 권한 -->
-<<<<<<< HEAD
+
 		<intercept-url pattern="/travBoard/*" access="hasRole('ROLE_USER_PRIVATE') or hasRole('ROLE_USER_FOLLOWER') or hasRole('ROLE_USER_PUBLIC') or hasRole('ROLE_CELEB_PRIVATE') or hasRole('ROLE_CELEB_FOLLOWER') or hasRole('ROLE_CELEB_PUBLIC')"/><!-- 여행후기글 접근 권한 -->
 		<intercept-url pattern="/partyBoard/*" access="hasRole('ROLE_USER_PRIVATE') or hasRole('ROLE_USER_FOLLOWER') or hasRole('ROLE_USER_PUBLIC') or hasRole('ROLE_CELEB_PRIVATE') or hasRole('ROLE_CELEB_FOLLOWER') or hasRole('ROLE_CELEB_PUBLIC')"/><!-- 파티모집게시판 접근 권한 -->
-			
-=======
 		<intercept-url pattern="/user/*" access="hasRole('ROLE_USER_PRIVATE') or hasRole('ROLE_USER_FOLLOWER') or hasRole('ROLE_USER_PUBLIC') or hasRole('ROLE_CELEB_PRIVATE') or hasRole('ROLE_CELEB_FOLLOWER') or hasRole('ROLE_CELEB_PUBLIC')"/>
 		
 		
->>>>>>> 0e1d9e7621650fb0b3068fc8c54d2760b5dd20ba
+
 		<!-- 성공시 페이지 default-target-url--> <!-- 실패시 페이지 authentication-failure-url -->
 		<form-login login-page="/auth/login"
 		default-target-url="/auth/login-success" 
