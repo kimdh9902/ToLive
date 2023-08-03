@@ -35,5 +35,9 @@ public class ProfileServiceImpl implements ProfileService{
 	public void retouchOndo(ProfileVO vo) {
 		mapper.updateOndo(vo);
 	}
-
+	
+	@Override
+	public void removeProfile(String user_id) {
+		mapper.deleteProfile(user_id);
+	}
 }

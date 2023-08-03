@@ -13,4 +13,7 @@
   		DELETE FROM blacklist WHERE user_id = #{user_id} 
   			and block_account= #{block_account}
   	</delete>
+  	<delete id="deleteBlackListById">
+  		DELETE FROM blacklist WHERE user_id = #{ user_id }
+  	</delete>
   </mapper>

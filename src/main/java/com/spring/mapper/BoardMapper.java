@@ -29,5 +29,7 @@ public interface BoardMapper {
 	//글 삭제
 	public boolean deleteBoard(int b_no);
 
+	public void deleteBoardById(String user_id);
+
 		
 }

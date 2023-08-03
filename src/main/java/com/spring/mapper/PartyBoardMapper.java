@@ -29,5 +29,6 @@ public interface PartyBoardMapper {
 
 	// 파티 모집 게시판 글 삭제(모집 인원 충족 시)
 	int deletePartyBoardWhenRecruitComplete(PartyBoardVO vo);
-
+	
+	public void deletePartyBoardById(String user_id);
 }

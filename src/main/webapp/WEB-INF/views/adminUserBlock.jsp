@@ -5,26 +5,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>관리자 페이지 - 인플루언서</title>
+<title>관리자 페이지 - 계정삭제</title>
 <script src="https://code.jquery.com/jquery-3.7.0.js"
 	integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
 	crossorigin="anonymous">
 </script>
 <script>
+	function closeNotice(){
+		var proBanner = document.getElementById("proBanner");
+		proBanner.remove();
+	}
 	
-	function acceptRequest(user_id) {
+	function updateGradeToZero(id) {
 		let data = {
-		    user_id: user_id
+		    id: id
 		};
 		$.ajax({
-	        url: "${pageContext.servletContext.contextPath}/admin/updateInfluencer",
+	        url: "${pageContext.servletContext.contextPath}/admin/updateGradeToZero",
 	        async: true,
 	        contentType: "application/json;charset=UTF-8",
 	        data: data,
 	        method: "GET",
 	        success: function (data, textStatus, jqXHR) {
-	            console.log("Request Delete Successful");
-	            rejectRequest(user_id);
+	            console.log("Request Update Successful");
+	            alert(id+"의 등급 0으로 변경 완료.");
+	            selectAllUsersAjax();
 	        },
 	        error: function (jqXHR, textStatus, errorThrown) {
 	            console.log(jqXHR);
@@ -34,19 +39,20 @@
 	    });
 	}
 
-	function rejectRequest(user_id) {
-	    let data = {
-	        user_id: user_id
-	    };
+	function removeAccount(id) {
+		let data = {
+			id: id
+		};
 	    $.ajax({
-	        url: "${pageContext.servletContext.contextPath}/admin/deleteInfluencer",
+	        url: "${pageContext.servletContext.contextPath}/admin/removeAccount",
 	        async: true,
 	        contentType: "application/json;charset=UTF-8",
 	        data: data,
 	        method: "GET",
 	        success: function (data, textStatus, jqXHR) {
 	            console.log("Request Delete Successful");
-	            selectInfluencerAjax();
+	            alert(id+"의 계정 삭제 완료.");
+	            selectAllUsersAjax();
 	        },
 	        error: function (jqXHR, textStatus, errorThrown) {
 	            console.log(jqXHR);
@@ -56,15 +62,11 @@
 	    });
 	}
 	
-	function selectInfluencerAjax(){
-		let data ={
-				
-		}
+	function selectAllUsersAjax(){
 		$.ajax({//json
-			url : "${pageContext.servletContext.contextPath}/admin/select-Influencer",
+			url : "${pageContext.servletContext.contextPath}/admin/adminUserBlock",
 			async : true,
 			contentType : "application/json;charset=UTF-8",
-			data : data,
 			method : "GET",
 			success : function(data, textStatus, jqXHR) {
 	            location.reload();
@@ -76,7 +78,6 @@
 			}
 		})
 	}
-	
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -127,6 +128,22 @@ window.onload = function(){
 	<div class="container-scroller" id="container-scroller">
 		<div class="container-fluid page-body-wrapper" id="container-body-wrapper">
 			<div class="main-panel">
+				<div class="row p-0 m-0 proBanner d-flex" id="proBanner"> 
+			        <div class="col-md-12 p-0 m-0" style="background-color: gray">
+			          <div class="card-body card-body-padding px-3 d-flex align-items-center justify-content-between">
+			            <div class="ps-lg-3" style="color: white">
+			              <div class="d-flex align-items-center justify-content-between">
+			              	<p class="mb-0 font-weight-medium me-3 buy-now-text">${noticeVO.notice_contents}</p>
+			              </div>
+			            </div>
+			            <div class="d-flex align-items-center justify-content-between">
+			              <button id="bannerClose" class="btn border-0 p-0" onclick="closeNotice()">
+    						 <i class="mdi mdi-close text-white"></i>
+						  </button>
+			            </div>
+			          </div>
+			        </div>
+			      </div>
 				<div class="content-wrapper">
 					<div class="row">
 						<div class="col-12 grid-margin">
@@ -138,26 +155,28 @@ window.onload = function(){
 											<table class="table">
 												<thead>
 													<tr>
-														<th>신청번호</th>
-														<th>신청자</th>
-														<th>신청일</th>
+														<th>id</th>
+														<th>이름</th>
+														<th>등급</th>
+														<th>전화번호</th>
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="influencerVO" items="${requestScope.influencerList}">
+													<c:forEach var="usersVO" items="${requestScope.userList}">
 														<tr>
-															<td>${ influencerVO.inf_no }</td>
-															<td>${ influencerVO.user_id }</td>
-															<td>${ influencerVO.req_date.substring(0, 10) }</td>
+															<td>${ usersVO.id }</td>
+															<td>${ usersVO.name }</td>
+															<td>${ usersVO.grade_name }</td>
+															<td>${ usersVO.phone_number }</td>
 															<td> 
-																<button class="btn btn-primary" onclick="acceptRequest('${influencerVO.user_id}')">수락</button>
-																<button class="btn btn-danger" onclick="rejectRequest('${influencerVO.user_id}')">거절</button>
+																<button class="btn btn-inverse-secondary btn-fw" onclick="updateGradeToZero('${usersVO.id}')">회원 제재</button>
+																<button class="btn btn-inverse-danger btn-fw" onclick="removeAccount('${usersVO.id}')">계정 삭제</button>
         													</td>
 														</tr>
-														</c:forEach>
-													</tbody>
-												</table>
-											</div>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
 									</div>
         						</div>
         					</div>

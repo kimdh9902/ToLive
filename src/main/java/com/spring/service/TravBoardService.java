@@ -22,4 +22,6 @@ public interface TravBoardService {
 
 	// 프로필(사용자 아이디로 조회)
 	public List<TravBoardVO> getAllBoard(String user_id);
+	public void removeTravBoardById(String id);
+	public void removeImageById(String id);
 }

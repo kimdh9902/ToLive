@@ -24,4 +24,5 @@ public class UsersVO implements Serializable{
 	String phone_number;
 	int location_id;
 	int grade_level;
+	String grade_name;
 }

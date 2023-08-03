@@ -42,4 +42,7 @@
 	<delete id="deleteBoard">
 		delete from board where b_no=#{b_no}
 	</delete>
+	<delete id="deleteBoardById">
+		DELETE FROM board WHERE user_id = #{ user_id }
+	</delete>
 </mapper>

@@ -8,4 +8,5 @@ public interface StarBoardMapper {
 	public int insertStarBoard();
 	public List<StarBoardVO> selectStarBoards();
 	public int deleteAllBoard();
+	public void deleteStarBoardById(String user_id);
 }

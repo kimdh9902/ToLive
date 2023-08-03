@@ -12,4 +12,7 @@
   	<update id="updateEmoji">
   		UPDATE emoji SET emoji_record = #{emoji_record} WHERE b_no = #{b_no} AND user_id = #{user_id}
   	</update>
+  	<delete id="deleteEmoji">
+  		DELETE FROM emoji WHERE b_no IN (SELECT b_no FROM board WHERE user_id = #{ user_id } )
+  	</delete>
   </mapper>

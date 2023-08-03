@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class FollowTest {
 	@Setter (onMethod_ = @Autowired)
 	private FollowMapper mapper;
 	
-	@Test
+	@Test @Ignore
 	public void test() {
 //		int follower = mapper.selectFollowerCount("celeb01");
 ////		FollowVO vo = new FollowVO();
@@ -44,6 +45,13 @@ public class FollowTest {
 		for(int i = 0; i < list.size(); i++) {
 			System.out.println(list.get(i));
 		}
+	}
+	
+	@Test
+	public void testFollower() {
+//		followService.getFollowerCount(sess_id)
+		int howmany = mapper.selectFollowerCount("user101");
+		System.out.println(howmany);
 	}
 
 }

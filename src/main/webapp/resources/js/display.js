@@ -351,7 +351,7 @@ function makeTopNavBar(){
 
     let iconList_li2_div_a = document.createElement("a");
     iconList_li2_div_a.className = "dropdown-item preview-item";
-    iconList_li2_div_a.href = GV_path+"/trip/settings/";
+    iconList_li2_div_a.href = GV_path+"/settings/";
     let iconList_li2_div_a_div = document.createElement("div");
     iconList_li2_div_a_div.className = "preview-thumbnail";
     let iconList_li2_div_a_div_div = document.createElement("div");

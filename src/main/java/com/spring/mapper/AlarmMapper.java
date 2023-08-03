@@ -10,4 +10,5 @@ public interface AlarmMapper {
 	public void updateAlarm(int alarm_no);//알림 확인 후 is_open을 1로 변경
 	public List<AlarmVO> selectAlarmById(String user_id);//알림 20개 출력
 	public int selectIsOpenCount(String user_id);
+	public void deleteAlarmById(String user_id);
 }

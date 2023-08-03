@@ -34,4 +34,19 @@ public class BoardHashServiceImpl implements BoardHashService {
 		return mapper.deleteBoardHash(b_h_no);
 	}
 
+	@Override
+	public void removeUHCById(String user_id) {
+		mapper.deleteUHCById(user_id);
+	}
+
+	@Override
+	public void removeBHById(String user_id) {
+		mapper.deleteBHById(user_id);
+	}
+
+	@Override
+	public void removeUHById(String user_id) {
+		mapper.deleteUHById(user_id);
+	}
+
 }

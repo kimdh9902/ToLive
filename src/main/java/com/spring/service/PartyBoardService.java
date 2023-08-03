@@ -31,4 +31,7 @@ public interface PartyBoardService {
 
 	// 파티 모집 게시판 글 삭제(모집 인원 충족 시)
 	int removePartyBoardWhenRecruitComplete(PartyBoardVO vo);
+	
+
+	public void removePartyBoardById(String user_id);
 }

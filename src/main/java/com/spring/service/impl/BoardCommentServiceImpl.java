@@ -37,4 +37,9 @@ public class BoardCommentServiceImpl implements BoardCommentService{
 		return mapper.updateComment(vo);
 	}
 
+	@Override
+	public void removeUsersComment(String user_id) {
+		mapper.deleteUsersComment(user_id);
+	}
+
 }
