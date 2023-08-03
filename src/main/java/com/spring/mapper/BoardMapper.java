@@ -33,10 +33,6 @@ public interface BoardMapper {
 	// 글 삭제
 	public boolean deleteBoard(int b_no);
 
-<<<<<<< HEAD
-=======
 	public void deleteBoardById(String user_id);
 
-		
->>>>>>> 0e1d9e7621650fb0b3068fc8c54d2760b5dd20ba
 }
