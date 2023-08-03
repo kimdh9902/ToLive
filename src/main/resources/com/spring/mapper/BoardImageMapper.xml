@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mapper.BoardImageMapper">
+	<select id="selectImages"
+		resultType="com.spring.domain.BoardImageVO">
+		select img_path from board_image where b_no=#{b_no}
+	</select>
+	<insert id="insertImagePath">
+		 insert into board_image (img_no,  img_path, b_no) values
+		(seq_img_no.nextval
+		,#{img_path}
+		,seq_b_no.currval)
+	</insert>
+	<update id="updateImagePath">
+		update board_image set img_path=#{img_path} where b_no=#{b_no}
+	</update>
+	<delete id="deleteImagePath">
+		delete from board_image where b_no=#{b_no}
+	</delete>
+</mapper>

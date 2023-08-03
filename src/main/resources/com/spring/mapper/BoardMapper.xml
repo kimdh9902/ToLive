@@ -13,6 +13,15 @@
 		,#{user_id,jdbcType=VARCHAR}
 		,#{reg_date})
 	</insert>
+	<insert id="insertImage" parameterType="com.spring.domain.BoardImageVO">
+	 insert into board_image
+	(img_no
+	,img_path
+	,b_no) values
+	(seq_img_no.nextval
+	,#{img_path, jdbcType=VARCHAR}	
+	,seq_b_no.currval)
+	</insert>
 	<insert id="insertToTrav">
 		Insert into trav_board
 		(trav_b_no) values

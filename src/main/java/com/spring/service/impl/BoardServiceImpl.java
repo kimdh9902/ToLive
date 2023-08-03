@@ -2,6 +2,7 @@ package com.spring.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.domain.BoardImageVO;
 import com.spring.domain.BoardVO;
 import com.spring.mapper.BoardMapper;
 import com.spring.service.BoardService;
@@ -17,6 +18,16 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int registerBoard(BoardVO vo) {
 		return mapper.insertBoard(vo);
+	}
+	
+	@Override
+	public int plusImage(BoardImageVO vo) {
+		return mapper.insertImage(vo);
+	}
+
+	@Override
+	public int registerToTrav(BoardVO vo) {
+		return mapper.insertToTrav(vo);
 	}
 
 	@Override
@@ -39,9 +50,11 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.deleteBoard(b_no);
 	}
 
+
 	@Override
 	public void removeBoardById(String user_id) {
 		mapper.deleteBoardById(user_id);
 	}
+
 
 }
