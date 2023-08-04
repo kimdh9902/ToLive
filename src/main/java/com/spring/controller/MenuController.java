@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.spring.domain.AlarmVO;
 import com.spring.domain.FollowVO;
+import com.spring.domain.NoticeVO;
 import com.spring.domain.PartyBoardVO;
 import com.spring.domain.ProfileVO;
 import com.spring.domain.SearchIdVO;
@@ -33,6 +34,7 @@ import com.spring.domain.UsersVO;
 import com.spring.object.CustomUserDetails;
 import com.spring.service.AlarmService;
 import com.spring.service.FollowService;
+import com.spring.service.NoticeService;
 import com.spring.service.PartyBoardService;
 import com.spring.service.ProfileService;
 import com.spring.service.SearchService;
@@ -54,6 +56,8 @@ public class MenuController {
 	private final FollowService followService;
 	private final TravBoardService travBoardService; 
 	private final StarBoardService starBoardService;
+	private final NoticeService noticeService;
+	
 	
 	@GetMapping("/profile")
 	public String profile(Model model, @RequestParam String user_id, HttpSession session) {
@@ -81,7 +85,8 @@ public class MenuController {
 	
 	@GetMapping("/findUser")
 	public String search(Model model) {
-	
+        NoticeVO notice = noticeService.getNotice();
+        model.addAttribute("noticeVO", notice);
 		return "findUser";
 	}
 	
@@ -116,29 +121,36 @@ public class MenuController {
 	@GetMapping("/partyBoard")
 	public String selectAllPartyBoard(Model model){
 		List<PartyBoardVO> partyBoardVO= partyBoardService.getPartyBoardList();
+		NoticeVO notice = noticeService.getNotice();
 		model.addAttribute("partyBoardVO",partyBoardVO);
+        model.addAttribute("noticeVO", notice);
 		return "partyBoard";		
 	}
 	
 	//여행 후기글로 이동
 	@GetMapping("/travBoard")
 	public String selectTravBoardList(Model model, HttpSession session){
+		NoticeVO notice = noticeService.getNotice();
 		List<TravBoardVO> travBoardList = travBoardService.getTravBoardList((String) session.getAttribute("SESS_ID"));
 		model.addAttribute("travBoardList", travBoardList);
+        model.addAttribute("noticeVO", notice);
 		return "travBoard";		
 	}
+	
 	
 	@GetMapping("/friendList")
 	public String frined(Model model, HttpSession session) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    Object principal = authentication.getPrincipal();
 	    UsersVO uvo = null;
+		NoticeVO notice = noticeService.getNotice();
 	    if (principal instanceof CustomUserDetails) {
 	        CustomUserDetails userDetails = (CustomUserDetails) principal;
 	        uvo = userDetails.getUserVO();
 	        List<String> result = followService.getFollowingNameList(userDetails.getUserVO().getId());
 	        model.addAttribute("friendList", result);
 	    }
+        model.addAttribute("noticeVO", notice);
 		
 		
 		return "friend";

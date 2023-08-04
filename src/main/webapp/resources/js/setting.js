@@ -173,6 +173,60 @@ function makeLeftSlideBar(){
     return left_nav;
 }
 
+//공지
+function closeNotice() {
+  var proBanner = document.getElementById("proBanner");
+  proBanner.remove();
+}
+
+function displayNotice(notice_contents) {
+  var noticeContainer = document.getElementById('noticeContainer');
+
+  var noticeDiv = document.createElement('div');
+  noticeDiv.classList.add('row', 'p-0', 'm-0', 'proBanner', 'd-flex');
+  noticeDiv.id = 'proBanner';
+
+  var colDiv = document.createElement('div');
+  colDiv.classList.add('col-md-12', 'p-0', 'm-0');
+  colDiv.style.backgroundColor = 'gray';
+
+  var cardBodyDiv = document.createElement('div');
+  cardBodyDiv.classList.add('card-body', 'card-body-padding', 'px-3', 'd-flex', 'align-items-center', 'justify-content-between');
+
+  var contentDiv = document.createElement('div');
+  contentDiv.classList.add('ps-lg-3');
+  contentDiv.style.color = 'white';
+
+  var contentPara = document.createElement('p');
+  contentPara.classList.add('mb-0', 'font-weight-medium', 'me-3', 'buy-now-text');
+  contentPara.textContent = notice_contents;
+
+  contentDiv.appendChild(contentPara);
+
+  var buttonDiv = document.createElement('div');
+  buttonDiv.classList.add('d-flex', 'align-items-center', 'justify-content-between');
+
+  var closeButton = document.createElement('button');
+  closeButton.id = 'bannerClose';
+  closeButton.classList.add('btn', 'border-0', 'p-0');
+  closeButton.setAttribute('onclick', 'closeNotice()');
+
+  var closeIcon = document.createElement('i');
+  closeIcon.classList.add('mdi', 'mdi-close', 'text-white');
+  closeButton.appendChild(closeIcon);
+
+  buttonDiv.appendChild(closeButton);
+
+  cardBodyDiv.appendChild(contentDiv);
+  cardBodyDiv.appendChild(buttonDiv);
+
+  colDiv.appendChild(cardBodyDiv);
+  noticeDiv.appendChild(colDiv);
+
+  noticeContainer.appendChild(noticeDiv);
+}
+//공지 끝
+
 function makeToggleMenuLi(icon_name, menu_name, id, tog_nameArr, tog_iconArr, tog_pathArr){
     //nav > ul > li
     let menu_li = document.createElement("li");

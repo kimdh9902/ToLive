@@ -11,10 +11,6 @@
 	crossorigin="anonymous">
 </script>
 <script>
-	function closeNotice(){
-		var proBanner = document.getElementById("proBanner");
-		proBanner.remove();
-	}
 </script>
 <!-- plugins:css -->
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -56,6 +52,7 @@
 <script>
 window.onload = function(){
 	init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}");
+	displayNotice('${noticeVO.notice_contents}');
 }
 
 </script>
@@ -65,22 +62,7 @@ window.onload = function(){
 	<div class="container-scroller" id="container-scroller">
 		<div class="container-fluid page-body-wrapper" id="container-body-wrapper">
 			<div class="main-panel">
-				<div class="row p-0 m-0 proBanner d-flex" id="proBanner"> 
-			        <div class="col-md-12 p-0 m-0" style="background-color: gray">
-			          <div class="card-body card-body-padding px-3 d-flex align-items-center justify-content-between">
-			            <div class="ps-lg-3" style="color: white">
-			              <div class="d-flex align-items-center justify-content-between">
-			              	<p class="mb-0 font-weight-medium me-3 buy-now-text">${noticeVO.notice_contents}</p>
-			              </div>
-			            </div>
-			            <div class="d-flex align-items-center justify-content-between">
-			              <button id="bannerClose" class="btn border-0 p-0" onclick="closeNotice()">
-    						 <i class="mdi mdi-close text-white"></i>
-						  </button>
-			            </div>
-			          </div>
-			        </div>
-			      </div>
+			  <div id="noticeContainer"></div>
 				<div class="content-wrapper">
 					<div class="row">
 						<div class="col-12 grid-margin">

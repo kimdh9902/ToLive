@@ -37,11 +37,17 @@
     	</select>
     	
     	<select id="selectAllUsers" resultType="com.spring.domain.UsersVO">
-    		SELECT u.id, u.name, g.grade_name, u.phone_number
-				FROM users u
-				JOIN grade g ON u.grade_level = g.grade_level
-				WHERE grade_name != '관리자'
-			ORDER BY u.grade_level DESC
+    		SELECT * FROM 
+			    (SELECT u.id, u.name, g.grade_name, u.phone_number, ROW_NUMBER() 
+			        OVER (ORDER BY u.grade_level DESC) rn
+			        FROM users u
+			        JOIN grade g ON u.grade_level = g.grade_level
+			    WHERE grade_name != '관리자')
+			WHERE rn BETWEEN #{offset} + 1 AND #{offset} + #{limit}
+    	</select>
+    	<select id="selectCountUser" resultType="int">
+    		SELECT COUNT(*) FROM users
+			    WHERE grade_level != 7
     	</select>
     	<delete id="deleteUsersAccount">
     		DELETE FROM users WHERE id = #{id}

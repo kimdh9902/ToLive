@@ -2,12 +2,12 @@ package com.spring.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.domain.GradeVO;
 import com.spring.domain.UsersVO;
 import com.spring.mapper.UsersMapper;
+import com.spring.object.PageMaker;
 import com.spring.service.AlarmService;
 import com.spring.service.BlackListService;
 import com.spring.service.BoardCommentService;
@@ -29,6 +29,7 @@ import lombok.Setter;
 @Service
 @RequiredArgsConstructor
 public class UsersServiceImpl implements UsersService{
+	
 	
 	private final UsersMapper mapper;
 	private final InfluencerService influencerService;
@@ -83,15 +84,16 @@ public class UsersServiceImpl implements UsersService{
 	}
 
 	@Override
-	public List<UsersVO> getAllUsers() {
-		return mapper.selectAllUsers();
+//	public List<UsersVO> getAllUsers() {
+//		return mapper.selectAllUsers();
+//	}
+	public List<UsersVO> getAllUsers(PageMaker pageMaker) {
+	    int offset = (pageMaker.getCri().getPageNum() - 1) * pageMaker.getCri().getAmount();
+	    int limit = pageMaker.getCri().getAmount();
+
+        return mapper.selectAllUsers(offset, limit);
 	}
 
-	
-	
-	
-	
-	
 	
 	
 	@Override
@@ -118,6 +120,11 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public int registerUsersGradeZero(String id) {
 		return mapper.updateUsersGradeZero(id);
+	}
+
+	@Override
+	public int getCountUser() {
+		return mapper.selectCountUser();
 	}
 
 }
