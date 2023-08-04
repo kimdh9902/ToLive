@@ -539,6 +539,7 @@
 								input(
 										'<c:out value="${boardComment.user_id}" />',
 										'<c:out value="${boardComment.contents}" />');
+					          			'<c:out value="${boardComment.c_no}" />');
 							</script>
 						</c:forEach>
 					</div>

@@ -2,6 +2,10 @@ package com.spring.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,22 +13,31 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.domain.BoardCommentVO;
+import com.spring.domain.BoardImageVO;
 import com.spring.domain.InfluencerVO;
 import com.spring.domain.NoticeVO;
 import com.spring.domain.ReportVO;
+import com.spring.domain.TravBoardVO;
 import com.spring.domain.UsersVO;
 import com.spring.object.Criteria;
 import com.spring.object.PageMaker;
+import com.spring.service.BoardCommentService;
+import com.spring.service.BoardImageService;
+import com.spring.service.BoardService;
 import com.spring.service.InfluencerService;
 import com.spring.service.NoticeService;
 import com.spring.service.ReportService;
+import com.spring.service.TravBoardService;
 import com.spring.service.UsersService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 
@@ -40,6 +53,11 @@ public class AdminController {
 	private final NoticeService noticeService;
 	private final InfluencerService influencerService;
 	private final UsersService usersService;
+	private final TravBoardService travBoardService;
+	private final BoardImageService boardImageService;
+	private final BoardCommentService commentService;
+	private final BoardService boardService;
+	private final TravBoardService travboardService;
 	
 	@GetMapping("")
     public String adminMain(Model model) {
@@ -91,6 +109,41 @@ public class AdminController {
 		List<ReportVO> reportList = reportService.selectAllReportBoard();
 		model.addAttribute("reportList", reportList);
 		return "report_status";
+	}
+	
+	//신고글 숨기기
+	@RequestMapping(value = "/updatehidden", method = RequestMethod.GET)
+	public String boardHidden(@RequestParam("b_no") int b_no) {
+		boardService.modifyBoardByIsHidden(b_no);
+		reportService.removeReportBoard(b_no);
+		return "redirect:/admin/report-selectAll";
+	}
+	
+	//신고글 삭제
+	@RequestMapping(value = "/adminReportDelete", method = RequestMethod.GET)
+	public String boardDelete(@RequestParam("b_no") int b_no) {
+		travboardService.removeTravBoard(b_no);
+		boardService.removeBoard(b_no);
+		reportService.removeReportBoard(b_no);
+		return "redirect:/admin/report-selectAll";
+	}
+	
+	@GetMapping("/admin-detail")
+	public String openBoard(@RequestParam("b_no") int b_no, HttpServletRequest request, HttpServletResponse response,
+			Model model, HttpSession session) throws IOException {
+		if (request.getParameter("b_no") != null) {
+			TravBoardVO vo = travBoardService.getBoard(Integer.parseInt(request.getParameter("b_no")));
+			model.addAttribute("TravBoardVO", vo);
+
+			List<BoardImageVO> boardImagevo = boardImageService.getImages(b_no);
+			model.addAttribute("boardImagevo", boardImagevo);
+
+			List<BoardCommentVO> boardCommentvo = commentService
+					.getComments(Integer.parseInt(request.getParameter("b_no")));
+			model.addAttribute("boardCommentList", boardCommentvo);
+			System.out.println(boardCommentvo);
+		}
+		return "adminDetail";
 	}
 	
 	@GetMapping("/report-add")

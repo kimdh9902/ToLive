@@ -78,7 +78,7 @@ window.onload = function(){
 												<c:forEach var="ReportVO" items="${requestScope.reportList}">
 													<tr>
 														<td>${ReportVO.report_no}</td>
-														<td><a href="${pageContext.request.contextPath}/travBoard/travBoard-detail?b_no=${ReportVO.b_no}">
+														<td><a href="${pageContext.request.contextPath}/admin/admin-detail?b_no=${ReportVO.b_no}">
 															${ReportVO.title}</a></td>
 														<td>${ReportVO.reported_id}</td>
 														<td>${ReportVO.report_comment}</td>
