@@ -2,11 +2,15 @@
 let GV_path;
 let GV_sess_id;
 let GV_sess_name;
+let GV_csrf_header;
+let GV_csrf_token;
 
-function init(path, sess_id, sess_name){
+function init(path, sess_id, sess_name, csrf_header, csrf_token){
     GV_path = path;
     GV_sess_id = sess_id
     GV_sess_name = sess_name;
+    GV_csrf_header = csrf_header;
+    GV_csrf_token = csrf_token;
 	let base = document.getElementById("container-scroller");
     let base_div = document.getElementById("container-body-wrapper");
     let left_nav = makeLeftSlideBar();
@@ -477,7 +481,7 @@ function makeTopNavBar(){
 }
 
 
-function alarmAjax(path, sess_id) {
+function alarmAjax(path, sess_id, ) {
     let data = {
         user_id : sess_id
     };
@@ -488,6 +492,9 @@ function alarmAjax(path, sess_id) {
         data : data,
         method : "GET",
         dataType : "JSON",
+        beforeSend:function(xhr){
+            xhr.setRequestHeader(GV_csrf_header, GV_csrf_token);
+        },
         success : function(data, textStatus, jqXHR) {
             console.log(data);
             printAlarm(data);
@@ -611,6 +618,9 @@ function alarmIsOpenAjax(path, sess_id) {
         data : data,
         method : "GET",
         dataType : "JSON",
+        beforeSend:function(xhr){
+            xhr.setRequestHeader(GV_csrf_header, GV_csrf_token);
+        },
         success : function(data, textStatus, jqXHR) {
             console.log("알람 체크 "+data);
             if(data)

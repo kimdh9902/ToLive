@@ -616,7 +616,6 @@ function alarmStateChange(){
 }
 
 function alarmIsOpenAjax() {
-    console.log(GV_csrf_header +" "+ GV_csrf_token)
     let data = {
         user_id : GV_sess_id
     };
