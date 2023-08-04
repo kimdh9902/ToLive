@@ -241,12 +241,10 @@
 		let contents = document.getElementById("contents");
 		let string = "" + contents.value;
 		
-
 		if(string[string.search("@")-1] != null && string[string.search("@")-1] == " "){
 			let ment = string.split("@");
 			//console.log(ment);
 			//console.log("@[0]" + ment[0]);
-
 			if (ment[1] != undefined) {
 			//	console.log("@[1]" + ment[1]);
 			}

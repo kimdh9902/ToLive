@@ -37,8 +37,8 @@
 	function addContents() {
 		InsertContentAjax();
 		let content = getValue();
-		if (content != null) {
-		sendAlarmAjax(content);
+		if(content != null){
+			sendAlarmAjax(content);
 		}
 		SelectContentsAjax();
 	}
@@ -46,19 +46,19 @@
 	function InsertContentAjax() {
 		let contents = document.getElementById("contents");
 		let data = {
-			contents: contents.value,
-			b_no: '${param.b_no}',
-			user_id: '${sessionScope.SESS_ID}'
+			contents : contents.value,
+			b_no : '${param.b_no}',
+			user_id : '${sessionScope.SESS_ID}'
 		};
 		$.ajax({//json
-			url: "${pageContext.servletContext.contextPath}/user/insertComment",
-			async: false,//동기로 처리 <<이게 앞에 있으니까 무조건 절차순으로 실행
-			contentType: "application/json;charset=UTF-8",
-			data: data,
-			method: "GET",
-			success: function (data, textStatus, jqXHR) {
+			url : "${pageContext.servletContext.contextPath}/user/insertComment",
+			async : false,//동기로 처리 <<이게 앞에 있으니까 무조건 절차순으로 실행
+			contentType : "application/json;charset=UTF-8",
+			data : data,
+			method : "GET",
+			success : function(data, textStatus, jqXHR) {
 			},
-			error: function (jqXHR, textStatus, errorThrown) {
+			error : function(jqXHR, textStatus, errorThrown) {
 				console.log(jqXHR);
 				console.log(textStatus);
 				console.log(errorThrown);
@@ -66,38 +66,129 @@
 		})
 	}
 
-	function input(user_id, contents) {
+	function textToHtml(str) {
+	    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+	}
+	
+	function input(user_id, contents, c_no) {
 		let comments_box = document.getElementById("comments-box");
+
 		var new_comments = document.createElement("div");
-			new_comments.id = "new-comments";
+		new_comments.id = "new-comments";
+
 		var comments = document.createElement("div");
-			comments.id = "comments";
-			comments.style.display = "flex";
+		comments.id = "comments";
+		comments.style.display = "flex";
 
 		var user_link = document.createElement("a");
-			user_link.href = "${pageContext.request.servletContext.contextPath}/menu/profile?user_id=" + user_id;
-			comments.appendChild(user_link);
+		user_link.href = "${pageContext.request.servletContext.contextPath}/menu/profile?user_id=" + user_id;
+		comments.appendChild(user_link);
 
 		var user_img = document.createElement("span");
-			user_link.appendChild(user_img);
+		user_link.appendChild(user_img);
 
 		var img_default = document.createElement("img");
-			img_default.src = "${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg";
-			img_default.style.marginRight = "20px";
-			img_default.style.width = "47px";
-			img_default.style.height = "47px";
-			user_img.appendChild(img_default);
+		img_default.src = "${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg";
+		img_default.style.marginRight = "20px";
+		img_default.style.width = "47px";
+		img_default.style.height = "47px";
+		user_img.appendChild(img_default);
 
 		var userInfoContent = document.createElement("span");
-			userInfoContent.innerHTML = user_id + "<br>" + contents;
-			comments.appendChild(userInfoContent);
+		userInfoContent.innerHTML = textToHtml(user_id) + "<br>" + textToHtml(contents);
+		comments.appendChild(userInfoContent);
 
 		var div_divider = document.createElement("div");
-			div_divider.className = "dropdown-divider";
-			comments_box.appendChild(div_divider);
+		div_divider.className = "dropdown-divider";
+		comments_box.appendChild(div_divider);
 
-			comments_box.appendChild(new_comments);
-			comments_box.appendChild(comments);
+		comments_box.appendChild(new_comments);
+		comments_box.appendChild(comments);
+		
+		if (user_id == "${sessionScope.SESS_ID}") {
+			var modifyBtn = document.createElement("button");
+		    modifyBtn.innerHTML = "수정";
+		    modifyBtn.dataset.c_no = c_no;
+	        modifyBtn.onclick = function () {
+	        	editComment(this.dataset.c_no);
+		    };
+		    modifyBtn.className = "btn btn-outline-primary";
+		    modifyBtn.style.width = "60px";
+		    modifyBtn.style.height = "25px";
+		    modifyBtn.style.marginTop = "0px";
+		    modifyBtn.style.marginRight = "120px";
+		    modifyBtn.style.position = "absolute";
+		    modifyBtn.style.right = "0";
+	        comments.appendChild(modifyBtn);
+		}
+		
+		if (user_id == "${sessionScope.SESS_ID}" || "${TravBoardVO.user_id}" == "${sessionScope.SESS_ID}") {
+		    var deleteBtn = document.createElement("button");
+	        deleteBtn.innerHTML = "삭제";
+	        deleteBtn.dataset.c_no = c_no;
+		    deleteBtn.onclick = function () {
+	            deleteComment(this.dataset.c_no);
+	        };
+	        deleteBtn.className = "btn btn-outline-primary";
+	        deleteBtn.style.width = "60px";
+	        deleteBtn.style.height = "25px";
+	        deleteBtn.style.marginTop = "0px";
+	        deleteBtn.style.marginRight = "55px";
+	        deleteBtn.style.position = "absolute";
+	        deleteBtn.style.right = "0";
+	        comments.appendChild(deleteBtn);
+	    }
+	}
+	
+	function deleteComment(c_no) {
+		let data = {
+				c_no : c_no,
+		    };
+		    $.ajax({
+		        url: "${pageContext.servletContext.contextPath}/user/deleteComment",
+		        async: false,
+		        contentType: "application/json;charset=UTF-8",
+		        data: data,
+		        method: "GET",
+		        success: function (data, textStatus, jqXHR) {
+	            console.log("Deletion successful");
+	            SelectContentsAjax();
+		    },
+		    error: function (jqXHR, textStatus, errorThrown) {
+		        console.log(jqXHR);
+		        console.log(textStatus);
+		        console.log(errorThrown);
+		    }
+		});
+	}
+	
+	function editComment(c_no) {
+	    var newContent = prompt("새 댓글을 입력하세요:");
+	    if (newContent === null) return;
+	    if (newContent != null && newContent.trim() != '') {
+	        let data = {
+	            c_no: c_no,
+	            contents: newContent
+	        };
+	        $.ajax({
+	        	url : "${pageContext.servletContext.contextPath}/user/updateComment",
+	        	dataType : "json",
+	        	contentType : "application/json; charset=UTF-8",
+	        	data : JSON.stringify(data),
+	        	type : "POST",
+	        	success : function(result) {
+	        		if (result == 1) {
+	        			SelectContentsAjax();
+	                    alert('댓글 수정에 성공했습니다.');
+	        		} else {
+	                    alert('댓글 수정에 실패했습니다.');
+	        		}
+	        	},
+	        	error : function(request, status, error) {
+	        		alert("오류가 발생하였습니다. 다시 시도해주세요.");
+	        	}
+	        });
+	    }
 	}
 
 	function refreshContents(boardCommentList) {
@@ -110,27 +201,25 @@
 
 	function sendAlarmAjax(value) {
 		let data = {
-			user_id: value,
-			b_no: '${param.b_no}',
-			msg: "${sessionScope.SESS_NAME}" + "가 당신을 멘션"
+			user_id : value,
+			b_no : '${param.b_no}',
+			msg : "${sessionScope.SESS_NAME}"+"가 당신을 멘션"
 		};
-		$.ajax(
-				{
-					url: "${pageContext.servletContext.contextPath}/user/send-alarm",
-					async: true,
-					contentType: "application/json;charset=UTF-8",
-					data: JSON.stringify(data),
-					method: "POST",
-					success: function (data, textStatus, jqXHR) {
-
-					},
-					error: function (jqXHR, textStatus, errorThrown) {
-						console.log(jqXHR);
-						console.log(textStatus);
-						console.log(errorThrown);
-					}
-				}
-			);
+		$.ajax({
+			url : "${pageContext.servletContext.contextPath}/user/send-alarm",
+			async : true,
+			contentType : "application/json;charset=UTF-8",
+			data : JSON.stringify(data),
+			method : "POST",
+			success : function(data, textStatus, jqXHR) {
+				
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR);
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		});
 	}
 
 	function SelectContentsAjax() {
@@ -157,35 +246,33 @@
 	function valueCheck() {
 		let contents = document.getElementById("contents");
 		let string = "" + contents.value;
-
-		if (string[string.search("@") - 1] != null && string[string.search("@") - 1] == " ") {
+		
+		if(string[string.search("@")-1] != null && string[string.search("@")-1] == " "){
 			let ment = string.split("@");
 			//console.log(ment);
 			//console.log("@[0]" + ment[0]);
-
 			if (ment[1] != undefined) {
-				//	console.log("@[1]" + ment[1]);
+			//	console.log("@[1]" + ment[1]);
 			}
-				if (ment[1] != undefined) {
-					//	console.log("name 추출 : " + ment[1].split(" ")[0]);
-				}
+			if (ment[1] != undefined) {
+			//	console.log("name 추출 : " + ment[1].split(" ")[0]);
 			}
+		}
+	}
 
-}
-
-	function getValue() {
+	function getValue(){
 		let contents = document.getElementById("contents");
 		let string = "" + contents.value;
 		//console.log("getValue if 1 >>");
-			if (string[string.search("@") - 1] != null && string[string.search("@") - 1] == " ") {
-				//console.log("getValue if 2 != null");
-				let ment = string.split("@");
-				if (ment[1] != undefined) {
-					//console.log("value 추출 : " + ment[1].split(" ")[0]);
-					return ment[1].split(" ")[0];
-				}
+		if(string[string.search("@")-1] != null  && string[string.search("@")-1] == " "){
+			//console.log("getValue if 2 != null");
+			let ment = string.split("@");
+			if (ment[1] != undefined) {
+				//console.log("value 추출 : " + ment[1].split(" ")[0]);
+				return ment[1].split(" ")[0];
 			}
-				return null;
+		}
+		return null;
 	}
 </script>
 	<!-- plugins:css -->
