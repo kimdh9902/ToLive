@@ -112,10 +112,10 @@
 			let friendDiv_div = document.createElement("div");
 			let img = document.createElement("img");
 			img.src = "${pageContext.request.contextPath}"+data[i].profile_img;
-			img.style.width = "40px";
-			img.style.height = "40px";
+			img.style.width = "60px";
+			img.style.height = "65px";
 			let lab = document.createElement("label");
-			lab.innerText = data[i].userid;
+			lab.innerText = data[i].user_id;
 			let br = document.createElement("br");
 			friendDiv_div.appendChild(img);
 			friendDiv_div.appendChild(lab);
