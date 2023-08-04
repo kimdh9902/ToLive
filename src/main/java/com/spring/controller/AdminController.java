@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -78,11 +77,6 @@ public class AdminController {
 	    return "noticeInsert";
 	}
 	
-	@Scheduled(cron = "0 0 0 3 * ?")//순서대로 초,분,시,일,월,요일 초기화 기준 정해줌
-	@GetMapping("/notice-delete")	//cron표현식에서 *은 모든 값, ?는 값을 할당하지 않음
-	public void deleteNotice(){
-	    noticeService.removeNotice();
-	}
 	
 	@GetMapping("/select-Influencer")
 	public String selectInfluencer(Model model) {
@@ -179,7 +173,6 @@ public class AdminController {
 		model.addAttribute("pageMaker", pageMaker);
 		return "adminUserBlock";
 	}
-	
 	
 	
 	

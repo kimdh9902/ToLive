@@ -48,12 +48,12 @@ function makeLeftSlideBar(){
     let logo_a = document.createElement("a");
     logo_a.className = "card-title text-primary";
     logo_a.style.textAlign = "left";
-    logo_a.href = GV_path+"/main/";
+    logo_a.href = GV_path+"/admin/";
     logo_a.innerText = "TriptoLive";
     // nav div > a
     let logo_a2 = document.createElement("a");
     logo_a2.className = "sidebar-brand brand-logo-mini";
-    logo_a2.href = GV_path+"/main/";
+    logo_a2.href = GV_path+"/admin/";
     // nav div > a > img
     let logo_a2_img = document.createElement("img");
     logo_a2_img.src = GV_path+"/assets/images/logo-mini.svg";
@@ -281,7 +281,7 @@ function makeTopNavBar(){
     //nav > div > a
     let logo_a = document.createElement("a");
     logo_a.className = "navbar-brand brand-logo-mini";
-    logo_a.href = GV_path+"/main/";
+    logo_a.href = GV_path+"/admin/";
     //nav > div > a > img
     let logo_a_img = document.createElement("img");
     logo_a_img.src = GV_path+"/assets/images/logo-mini.svg";

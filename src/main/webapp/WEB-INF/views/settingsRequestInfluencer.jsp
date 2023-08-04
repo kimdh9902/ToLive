@@ -48,7 +48,6 @@
 <!-- End custom js for this page -->
 <script src="${ pageContext.servletContext.contextPath }/resources/js/setting.js"></script>
 <script>
-	var isPageFirstLoad = true;
 	
 	function sendRequest() {
 	    $.ajax({
@@ -56,6 +55,7 @@
 	        url: "${pageContext.servletContext.contextPath}/settings/insertInfluencer",
 	        success: function(response) {
 	            alert("신청 완료!")
+		    	document.getElementById("requestButton").disabled = true;
 	            location.reload();
 	        },
 	        error: function(error) {
@@ -65,35 +65,24 @@
 	        }
 	    });
 	}
+
+	var howFoll = ${howFoll};
+	var userGradeLevel = ${userGrade};
 	
-	function checkRequestStatus() {
-		let data = {
-        	user_id: "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}"
-        };
-	    $.ajax({
-	        type: "GET",
-	        url: "${pageContext.servletContext.contextPath}/settings/checkRequestStatus",
-	        data : data,
-	        success: function(response) {
-	            if (response.hasRequest) {
-	                document.getElementById("requestButton").disabled = true;
-	            } else {
-	                document.getElementById("requestButton").disabled = false;
-	            }
-	        },
-	        error: function(error) {
-	            console.log("Error: ", error);
-	        }
-	    });
-	}
 	
 </script>
 <script>
 	window.onload = function(){
-	    if (isPageFirstLoad) {
-	        isPageFirstLoad = false;
-	    }
 	    init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}");
+
+	    
+	    if (userGradeLevel >= 1 && userGradeLevel <= 3 && howFoll >= 50) {
+	        requestButton.disabled = false;
+	        requestButton.innerHTML = "신청";
+	    } else {
+	        requestButton.disabled = true;
+	        requestButton.innerHTML = "신청불가";
+	    }
 	}
 </script>
 </head>
@@ -123,18 +112,9 @@
 					                    </div>
 					                  </div>
 					                  <div class="card-body"> 
-						              	<c:choose>
-		   									<c:when test="${howFoll >= 50}">
-												<button class="btn btn-outline-primary"
-													style="width: 90px; height: 26px; margin-top: 10px;"
-													type="button" onclick="sendRequest()">신청</button>
-											</c:when>
-		   									<c:otherwise>
-												<button class="btn btn-outline-primary"
-													style="width: 90px; height: 26px; margin-top: 10px;"
-													type="button" disabled="disabled">신청</button>
-											</c:otherwise>
-										</c:choose>
+						              	<button id="requestButton" class="btn btn-outline-primary"
+        style="width: 90px; height: 26px; margin-top: 10px;"
+        type="button" onclick="sendRequest()">신청</button>
 					                  </div>
 					                </div>
         						</div>
