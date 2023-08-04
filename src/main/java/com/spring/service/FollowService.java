@@ -2,6 +2,8 @@ package com.spring.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.spring.domain.FollowVO;
 
 public interface FollowService {
@@ -9,6 +11,7 @@ public interface FollowService {
 	public List<String> getFollowingNameList(String user_id);
 	public int getFollowerCount(String user_id);
 	public int getFollowingCount(String user_id);
+	public List<String> getSameFollwing (String me, String user_id);
 	
 //	public int insertFollow(String user_id, String follower_id);
 	public int follow(FollowVO vo);

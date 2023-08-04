@@ -54,8 +54,7 @@ public class MenuController {
 	private final TravBoardService travBoardService;
 	private final StarBoardService starBoardService;
 	private final NoticeService noticeService;
-	
-	
+
 	@GetMapping("/profile")
 	public String profile(Model model, @RequestParam String user_id, HttpSession session) {
 		boolean isSame = false;
@@ -81,8 +80,8 @@ public class MenuController {
 
 	@GetMapping("/findUser")
 	public String search(Model model) {
-        NoticeVO notice = noticeService.getNotice();
-        model.addAttribute("noticeVO", notice);
+		NoticeVO notice = noticeService.getNotice();
+		model.addAttribute("noticeVO", notice);
 		return "findUser";
 	}
 
@@ -115,18 +114,19 @@ public class MenuController {
 
 	// 파티 모집 게시판으로 이동
 	@GetMapping("/partyBoard")
-	public String selectAllPartyBoard(Model model){
-		List<PartyBoardVO> partyBoardVO= partyBoardService.getPartyBoardList();
+	public String selectAllPartyBoard(Model model) {
+		List<PartyBoardVO> partyBoardVO = partyBoardService.getPartyBoardList();
 		NoticeVO notice = noticeService.getNotice();
-		model.addAttribute("partyBoardVO",partyBoardVO);
-        model.addAttribute("noticeVO", notice);
-		return "partyBoard";		
+		model.addAttribute("partyBoardVO", partyBoardVO);
+		model.addAttribute("noticeVO", notice);
+		return "partyBoard";
 	}
 
 	// 여행 후기글로 이동
 	@GetMapping("/travBoard")
-	public String selectTravBoardList(Model model, HttpSession session){
+	public String selectTravBoardList(Model model, HttpSession session) {
 		NoticeVO notice = noticeService.getNotice();
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Object principal = authentication.getPrincipal();
 		CustomUserDetails userDetails = (CustomUserDetails) principal;
@@ -134,44 +134,23 @@ public class MenuController {
 		String sess_id = user.getId();
 		List<TravBoardVO> travBoardList = travBoardService.getTravBoardList(sess_id);
 		model.addAttribute("travBoardList", travBoardList);
-        model.addAttribute("noticeVO", notice);
-		return "travBoard";		
-	}
-	
-	
-	public String selectTravBoardList(Model model, @RequestParam("user_id") String user_id, HttpSession session) {
-		boolean isSame = false;
-		List<TravBoardVO> travBoardList = travBoardService.getTravBoardList(user_id);
-		System.out.println("user_id-" + user_id);
-
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Object principal = authentication.getPrincipal();
-		CustomUserDetails userDetails = (CustomUserDetails) principal;
-		UsersVO user = userDetails.getUserVO();
-
-		String sess_id = user.getId();
-
-		if (sess_id.equals(user_id)) {
-			isSame = true;
-		}
-		model.addAttribute("travBoardList", travBoardList);
+		model.addAttribute("noticeVO", notice);
 		return "travBoard";
 	}
-
 
 	@GetMapping("/friendList")
 	public String frined(Model model, HttpSession session) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    Object principal = authentication.getPrincipal();
-	    UsersVO uvo = null;
+		Object principal = authentication.getPrincipal();
+		UsersVO uvo = null;
 		NoticeVO notice = noticeService.getNotice();
-	    if (principal instanceof CustomUserDetails) {
-	        CustomUserDetails userDetails = (CustomUserDetails) principal;
-	        uvo = userDetails.getUserVO();
-	        List<String> result = followService.getFollowingNameList(userDetails.getUserVO().getId());
-	        model.addAttribute("friendList", result);
-	    }
-        model.addAttribute("noticeVO", notice);
+		if (principal instanceof CustomUserDetails) {
+			CustomUserDetails userDetails = (CustomUserDetails) principal;
+			uvo = userDetails.getUserVO();
+			List<String> result = followService.getFollowingNameList(userDetails.getUserVO().getId());
+			model.addAttribute("friendList", result);
+		}
+		model.addAttribute("noticeVO", notice);
 		return "friend";
 	}
 }

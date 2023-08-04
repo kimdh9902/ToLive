@@ -7,10 +7,14 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.spring.domain.FollowVO;
+import com.spring.domain.FriendRecommendVO;
+import com.spring.object.CustomUserDetails;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -22,28 +26,14 @@ public class FollowServiceTest {
 	
 	@Setter (onMethod_ = @Autowired)
 	private FollowService service;
+	@Setter (onMethod_ = @Autowired)
+	private SearchService searchService;
 	
 	@Test
 	public void test() {
-//		int follower = mapper.selectFollowerCount("celeb01");
-////		FollowVO vo = new FollowVO();
-////		vo.setFollower_id("user01");
-////		vo.setUser_id("celeb01");
-////		mapper.insertFollow(vo);
-//		int following = mapper.selectFollowingCount("celeb01");
-//		List<String> folN =  mapper.selectFollower("user01");
-////		
-//		assertNotNull(follower);
-//		assertNotNull(following);
-//		assertNotNull(folN);
-////		
-//		log.info("flw------"+follower);
-//		log.info("flwn------"+following);
-//		log.info("flL--------"+folN);
-		List<String> list = service.getfollowerNameList("user01");
-		for(int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
-		}
+		List<FriendRecommendVO> result = null;
+	    result = searchService.getFriendRecommend("qwe");
+	    System.out.println(result);
 	}
 
 }

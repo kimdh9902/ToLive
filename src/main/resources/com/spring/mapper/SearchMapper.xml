@@ -11,7 +11,7 @@
   	</select>
   	
   	<select id="selectFriendRecommend" resultType="com.spring.domain.ProfileVO">
-  		WITH
+		WITH
 			-- 사용자들
 			another_u AS (
 			SELECT *
@@ -50,12 +50,21 @@
 			WHERE user_id != #{user_id}
 			GROUP BY user_id
 			HAVING COUNT(user_hash_id) >= 3
-			) -- user01~ user 59
-			
-			select *
-			from profile p
-			where p.user_id in(select * from sel_u_same_hash_users) and p.user_id in(select * from sel_u_same_loc_users)
-
+			),
+			-- 받은 추천
+            sel_u_friend_recommend AS(
+            select * from 
+			(select * from profile p
+			where p.user_id in(select * from sel_u_same_hash_users) and p.user_id in(select * from sel_u_same_loc_users))
+            ),
+            --추천 받은 사람중 팔로우중인 사람
+            sel_u_friend_recommend_not_follow AS(
+            select * from follow
+            where follower_id = #{user_id} and user_id in(select user_id from sel_u_friend_recommend)
+            )
+            
+            select * from sel_u_friend_recommend
+            where user_id not in (select user_id from sel_u_friend_recommend_not_follow)
   	</select>
   </mapper>
  

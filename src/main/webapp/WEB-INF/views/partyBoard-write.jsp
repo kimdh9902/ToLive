@@ -94,7 +94,7 @@
                   <div class="mb-3 mt-3 col p-3">
                      <label for="id">작성자:</label>
                      <div class="form-control" id="id">${requestScope.partyBoardVO.user_id == null ?
-                        sessionScope.SESS_ID : requestScope.partyBoardVO.user_id}</div>
+                       SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id : requestScope.partyBoardVO.user_id}</div>
                   </div>
                </div>
                <div>
@@ -107,7 +107,6 @@
                      <tr>
                         <td valgn="top">
                            <select name="max_people">
-                              <option value="1">1</option>
                               <option value="2">2</option>
                               <option value="3">3</option>
                               <option value="4">4</option>
@@ -143,7 +142,8 @@
                   </div>
                </div>
                <input type="hidden" name="id"
-                  value="${requestScope.partyBoardVO.user_id == null ? sessionScope.SESS_ID : requestScope.partyBoardVO.user_id}">
+                  value="${requestScope.partyBoardVO.user_id == null ? SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id : requestScope.partyBoardVO.user_id}">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form>
          </div>
       </body>

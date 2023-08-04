@@ -10,6 +10,9 @@
 		integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 <script>
 
+var loggedInUser = "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}";
+var travBoardUser = "${TravBoardVO.user_id}";
+
 	function goWrite() {
 	location.href = "${pageContext.servletContext.contextPath}/travBoard/travBoard-write";
 	}
@@ -29,10 +32,10 @@
 		location.href = "${pageContext.servletContext.contextPath}/travBoard/travBoard-report?b_no=" + b_no;
 	}
 
-	function goMain() {
-		var user_id="${TravBoardVO.user_id}";
-		location.href = "${pageContext.request.contextPath}/menu/travBoard?user_id="+user_id;
-	}
+	 function goMain() {		
+		location.href = "${pageContext.request.contextPath}/menu/travBoard?user_id="+loggedInUser;
+	} 
+	
 
 
 
