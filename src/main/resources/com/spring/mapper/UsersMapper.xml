@@ -37,12 +37,13 @@
     	</select>
     	
     	<select id="selectAllUsers" resultType="com.spring.domain.UsersVO">
-    		SELECT * FROM 
-			    (SELECT u.id, u.name, g.grade_name, u.phone_number, ROW_NUMBER() 
-			        OVER (ORDER BY u.grade_level DESC) rn
-			        FROM users u
-			        JOIN grade g ON u.grade_level = g.grade_level
-			    WHERE grade_name != '관리자')
+    		SELECT * FROM (
+				SELECT u.id, u.name, g.grade_name, u.phone_number, ROW_NUMBER()
+			    OVER (ORDER BY u.grade_level DESC, u.name ASC) rn
+				FROM users u
+				JOIN grade g ON u.grade_level = g.grade_level
+				WHERE grade_name != '관리자'
+				) tmp
 			WHERE rn BETWEEN #{offset} + 1 AND #{offset} + #{limit}
     	</select>
     	<select id="selectCountUser" resultType="int">

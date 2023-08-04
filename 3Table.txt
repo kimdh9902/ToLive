@@ -227,13 +227,12 @@ CREATE TABLE notice (
     n_no NUMBER PRIMARY KEY,
     notice_contents NVARCHAR2(100),
     notice_date DATE unique,
-    end_date DATE,
-    CONSTRAINT date_unique UNIQUE (notice_date)
+    end_date DATE
 );
 -- 포맷을 YYYY-MM-DD로 설정
 ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD';
 -- notice_date 컬럼의 포맷을 YYYY-MM-DD로 변경
-ALTER TABLE notice MODIFY notice_date DATE;
+ALTER TABLE notice MODIFY notice_date DATE unique;
 -- end_date 컬럼의 포맷을 YYYY-MM-DD로 변경
 ALTER TABLE notice MODIFY end_date DATE;
 
