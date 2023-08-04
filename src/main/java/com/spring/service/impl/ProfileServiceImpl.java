@@ -1,5 +1,7 @@
 package com.spring.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,11 @@ public class ProfileServiceImpl implements ProfileService{
 	}
 
 	@Override
+	public List<ProfileVO> getFriends(String user_id) {
+		return mapper.selectFriend(user_id);
+	}
+	
+	@Override
 	public void retouchProfile(String img, String contents) {
 		mapper.updateProfile(img, contents);
 	}
@@ -40,4 +47,5 @@ public class ProfileServiceImpl implements ProfileService{
 	public void removeProfile(String user_id) {
 		mapper.deleteProfile(user_id);
 	}
+
 }

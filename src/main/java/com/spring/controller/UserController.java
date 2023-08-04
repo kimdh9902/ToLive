@@ -49,13 +49,13 @@ public class UserController {
 	private final SearchService searchService;
 	
 	@PostMapping(value = "/friend", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public List<String> friendList(){
-		List<String> result = null;
+	public List<ProfileVO> friendList(){
+		List<ProfileVO> result = null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    Object principal = authentication.getPrincipal();
 	    if (principal instanceof CustomUserDetails) {
 	        CustomUserDetails userDetails = (CustomUserDetails) principal;
-	         result = followService.getFollowingNameList(userDetails.getUserVO().getId());
+	        result = profileService.getFriends(userDetails.getUserVO().getId());
 	    }
 		
 		return result;
