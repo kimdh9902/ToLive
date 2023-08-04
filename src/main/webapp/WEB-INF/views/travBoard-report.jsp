@@ -141,9 +141,11 @@
 																</div> -->
 																<div class="text-center mt-4">
 																	<button type="submit" class="btn btn-primary" onclick="submitForm();">신고 제출</button>
+																	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 																</div>
 															</div>	
 														</div>
+														<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 													  </form>
 													  <!-- form end -->									 
 												</div>

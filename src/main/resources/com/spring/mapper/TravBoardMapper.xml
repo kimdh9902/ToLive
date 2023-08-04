@@ -15,14 +15,14 @@
 		WHERE b.user_id IN (
 		SELECT user_id
 		FROM follow
-		WHERE follower_id = 'user01'
+		WHERE follower_id = #{user_id}
 		)
 		OR b.user_id IN (
 		SELECT id
 		FROM users
 		WHERE grade_level = 6
 		)
-		OR b.user_id = 'user01'
+		OR b.user_id = #{b.user_id}
 		ORDER BY b.b_no DESC
 	</select>
 	<select id="selectOneBoard"

@@ -86,7 +86,7 @@
             </div>
             <div class="mb-3 mt-3 col p-3">
                <label for="id">작성자:</label>
-               <div class="form-control" id="id">${requestScope.travBoardList.user_id == null ? sessionScope.SESS_ID : requestScope.travBoardList.user_id}</div>
+               <div class="form-control" id="id">${requestScope.travBoardList.user_id == null ? SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id : requestScope.travBoardList.user_id}</div>
             </div>
          </div>
 
@@ -96,7 +96,7 @@
          </div>
          <div class="row">
             <div class="col p-3">
-            <a href="${pageContext.request.contextPath}/menu/travBoard">
+            <a href="${pageContext.request.contextPath}/menu/travBoard?user_id=${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}">
                <button id="back" type="button" class="get col p-3 btn btn-primary">여행 후기글 목록</button>
             </a>
             </div>
@@ -108,7 +108,8 @@
             class="register col p-3 btn btn-primary">수정 저장</button>
             </div>
          </div>
-          <input type="hidden" name="id" value="${requestScope.travBoardList.user_id == null ? sessionScope.SESS_ID : requestScope.travBoardList.user_id}">
+          <input type="hidden" name="id" value="${requestScope.travBoardList.user_id == null ? SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id : requestScope.travBoardList.user_id}">
+           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
       </form>
    </div>
 </body>

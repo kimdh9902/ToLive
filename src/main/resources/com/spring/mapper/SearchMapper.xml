@@ -9,5 +9,53 @@
   		WHERE user_name LIKE ('%' || #{name} || '%') or user_id LIKE ('%' || #{name} || '%')
   		order by user_name asc
   	</select>
+  	
+  	<select id="selectFriendRecommend" resultType="com.spring.domain.ProfileVO">
+  		WITH
+			-- 사용자들
+			another_u AS (
+			SELECT *
+			FROM users
+			WHERE id != #{user_id}
+			),
+			-- 요청자
+			sel_u AS (
+			SELECT *
+			FROM users
+			WHERE id = #{user_id}
+			),
+			-- 요청자 지역
+			sel_u_location AS (
+			SELECT DISTINCT SUBSTR(location_name, 1, INSTR(location_name, ' ')-1) AS location_sido
+			FROM location
+			WHERE location_id IN (SELECT location_id FROM sel_u)
+			),
+			-- 요청자 시,도 의 경우의 수
+			sel_u_location_list AS(
+			SELECT l.location_id
+			FROM location l
+			WHERE l.location_name LIKE '%' || (SELECT location_sido FROM sel_u_location) || '%'
+			),
+			-- 요청자와 같은 시,도에 사는 사람
+			sel_u_same_loc_users AS(
+			SELECT a_u.id
+			FROM another_u a_u
+			WHERE a_u.location_id in(SELECT * FROM sel_u_location_list)
+			order by id asc
+			),
+			-- 유저 2차 필터링
+			sel_u_same_hash_users AS(
+			SELECT user_id
+			FROM user_hash
+			WHERE user_id != #{user_id}
+			GROUP BY user_id
+			HAVING COUNT(user_hash_id) >= 3
+			) -- user01~ user 59
+			
+			select *
+			from profile p
+			where p.user_id in(select * from sel_u_same_hash_users) and p.user_id in(select * from sel_u_same_loc_users)
+
+  	</select>
   </mapper>
  

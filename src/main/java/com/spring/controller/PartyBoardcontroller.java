@@ -42,29 +42,19 @@ public class PartyBoardcontroller {
 
 	@Autowired
 	private ReportMapper reportMapper;
-	
+
 	private final ReportService reportService;
 
 	// 파티 모집 게시판 상세 글 페이지로 이동
 	@GetMapping("/partyBoard-detail")
 	public String PartyBoardPlusMember(HttpServletRequest request, HttpServletResponse response, Model model,
 			HttpSession session) throws IOException {
-		int SESS_GRADE = (int) session.getAttribute("SESS_GRADE");
+
 		if ((request.getParameter("b_no")) != null) {
-			if (SESS_GRADE != 7) {
-
-				partyBoardService.modifyPartyBoardPlusMember(Integer.parseInt(request.getParameter("b_no")));
-
-				PartyBoardVO vo = partyBoardService.getOnePartyBoard(Integer.parseInt(request.getParameter("b_no")));
-				model.addAttribute("partyBoardVO", vo);
-
-				return "partyBoard-detail";
-
-			} else {
-				PartyBoardVO vo = partyBoardService.getOnePartyBoard(Integer.parseInt(request.getParameter("b_no")));
-				model.addAttribute("partyBoardVO", vo);
-
-			}
+			partyBoardService.modifyPartyBoardPlusMember(Integer.parseInt(request.getParameter("b_no")));// 제목 클릭 시 참여인원
+																											// +1
+			PartyBoardVO vo = partyBoardService.getOnePartyBoard(Integer.parseInt(request.getParameter("b_no")));
+			model.addAttribute("partyBoardVO", vo);
 
 		}
 		return "partyBoard-detail";
@@ -143,10 +133,10 @@ public class PartyBoardcontroller {
 
 	// 신고 처리
 	@RequestMapping(value = "/report-processing", method = RequestMethod.POST)
-	public String reportBoard(BoardVO bvo, ReportVO rvo) {	
+	public String reportBoard(BoardVO bvo, ReportVO rvo) {
 		System.out.println("여기 왔니?");
 		reportService.addReportBoard(rvo);
-		System.out.println(rvo);		
+		System.out.println(rvo);
 		return "redirect:partyBoard-detail?b_no=" + bvo.getB_no();
 
 	}
