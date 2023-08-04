@@ -88,10 +88,32 @@ public class TravBoardController {
 	}
 
 	// 등록 처리
-//	@RequestMapping(value = "/travBoard-insert", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-//	public String insertBoard(BoardVO bvo, TravBoardVO tvo,BoardImageVO bivo,@RequestParam("uploadFile") List<MultipartFile> uploadFiles, HttpSession session) throws UnsupportedEncodingException {
-//
-//	}
+	@RequestMapping(value = "/travBoard-insert", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+	public String insertBoard(BoardVO bvo, TravBoardVO tvo, HttpSession session)
+			throws UnsupportedEncodingException {
+
+		String user_id = null;
+		SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
+		CustomUserDetails userDetails = (CustomUserDetails) securityContext.getAuthentication().getPrincipal();
+		UsersVO user = userDetails.getUserVO();
+		user_id = user.getId();
+
+		bvo.setUser_id(user_id);
+		bvo.setReg_date(new Date()); // 작성일
+
+		// 제목, 내용 추가
+		int registerBoardResult = boardService.registerBoard(bvo);
+
+		// 여행후기글에 번호 부여
+		int registerToTravResult = boardService.registerToTrav(bvo);
+
+		if (registerBoardResult > 0 && registerToTravResult > 0) {
+			return "redirect:/menu/travBoard?user_id=" + user_id;
+		} else {
+			return "redirect:/travBoard/travBoard-write";
+		}
+
+	}
 
 	// 수정 페이지로 이동
 	@RequestMapping(value = "/travBoard-update", method = RequestMethod.GET)
@@ -104,9 +126,9 @@ public class TravBoardController {
 	@RequestMapping(value = "/travBoard-modify", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
 	public String updateBoard(BoardVO bvo, TravBoardVO tvo) {
 
-		int result = boardMapper.updateBoard(bvo);
+		int updateBaordResult = boardMapper.updateBoard(bvo);
 
-		if (result > 0) {
+		if (updateBaordResult > 0) {
 			return "redirect:travBoard-detail?b_no=" + bvo.getB_no();
 		} else {
 			return "redirect:travBoard/travBoard-update?b_no=" + bvo.getB_no();
@@ -142,7 +164,6 @@ public class TravBoardController {
 	// 신고 처리
 	@RequestMapping(value = "/report-processing", method = RequestMethod.POST)
 	public String reportBoard(BoardVO bvo, ReportVO rvo) {
-		System.out.println("여기 왔니?");
 		reportService.addReportBoard(rvo);
 		System.out.println(rvo);
 		return "redirect:travBoard-detail?b_no=" + bvo.getB_no();

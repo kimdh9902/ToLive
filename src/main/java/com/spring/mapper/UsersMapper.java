@@ -17,4 +17,6 @@ public interface UsersMapper {
 	public List<UsersVO> selectAllUsers();
 	public int deleteUsersAccount(String id);
 	public int updateUsersGradeZero(String id);
+	
+	public int changeUserGrade(UsersVO vo);//공개범위 변경(회원 등급 변경)
 }

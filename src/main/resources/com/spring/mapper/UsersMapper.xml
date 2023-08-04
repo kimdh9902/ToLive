@@ -49,4 +49,7 @@
     	<update id="updateUsersGradeZero">
     		UPDATE users SET grade_level = 0 WHERE id = #{id}
     	</update>
+    	<update id="changeUserGrade">
+    		UPDATE users SET grade_level = #{grade_level} WHERE id = #{id}
+    	</update>
     </mapper>

@@ -12,17 +12,13 @@ public interface UsersService {
 	public UsersVO findById(String id);
 	public GradeVO getAccountAuthorities(String id);
 	
-	public List<UsersVO> getAllUsers();
-	
-	
-	
-	
-	
-	
-	
+	public List<UsersVO> getAllUsers();	
 	
 	public int removeUsersAccount(String id);
 	public int registerUsersGradeZero(String id);
 	
+	public int modifyUsersGradeZero(String id);//비매너 등급으로 변경
+	
+	public int changeUserGrade(UsersVO vo);//공개범위 변경(회원 등급 변경)
 	
 }

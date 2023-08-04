@@ -86,10 +86,6 @@ public class UsersServiceImpl implements UsersService{
 	public List<UsersVO> getAllUsers() {
 		return mapper.selectAllUsers();
 	}
-
-	
-	
-	
 	
 	
 	
@@ -119,5 +115,17 @@ public class UsersServiceImpl implements UsersService{
 	public int registerUsersGradeZero(String id) {
 		return mapper.updateUsersGradeZero(id);
 	}
+
+	@Override
+	public int modifyUsersGradeZero(String id) {
+		return mapper.updateUsersGradeZero(id);
+	}
+
+	@Override
+	public int changeUserGrade(UsersVO vo) {
+		return mapper.changeUserGrade(vo);
+	}
+	
+	
 
 }
