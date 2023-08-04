@@ -110,16 +110,21 @@
 		let friendDiv = document.getElementById("plus-friend");
 		for(var i = 0; i < data.length; i++){
 			let friendDiv_div = document.createElement("div");
-			let img = document.createElement("img");
-			img.src = "${pageContext.request.contextPath}"+data[i].profile_img;
-			img.style.width = "40px";
-			img.style.height = "40px";
-			let lab = document.createElement("label");
-			lab.innerText = data[i].userid;
-			let br = document.createElement("br");
-			friendDiv_div.appendChild(img);
-			friendDiv_div.appendChild(lab);
-			friendDiv_div.appendChild(br);
+			friendDiv_div.style.cssText = "display: flex; align-items: center; flex-direction: column;";
+			// let friendDiv_div_span = document.createElement("span");
+			// friendDiv_div_span.style.display = "block"
+			let friendDiv_div_span = document.createElement("span");
+			let friendDiv_div_span_img = document.createElement("img");
+			friendDiv_div_span_img.src = "${pageContext.request.contextPath}"+data[i].profile_img;
+			friendDiv_div_span_img.style.cssText = "width: 70px; height: 70px;";
+			let friendDiv_div_lab = document.createElement("label");
+			friendDiv_div_lab.innerText = data[i].user_name;
+			let friendDiv_div_lab2 = document.createElement("label");
+			friendDiv_div_lab2.innerText = "함께 팔로우 중 "+data[i].follower;
+			friendDiv_div_span.appendChild(friendDiv_div_span_img);
+			friendDiv_div.appendChild(friendDiv_div_span);
+			friendDiv_div.appendChild(friendDiv_div_lab);
+			friendDiv_div.appendChild(friendDiv_div_lab2);
 			friendDiv.appendChild(friendDiv_div);
 		}
 		
@@ -146,7 +151,7 @@
 						<div class="col-12 grid-margin">
 							<div class="card">
 								<div class="card-body" style="width: 100%; height: 100%;">
-                                    <div id="plus-friend" style="height: 120px; display: flex;">
+                                    <div id="plus-friend" style="height: 150px; display: flex;">
                                         
                                     </div>
                                     <div id="friends">

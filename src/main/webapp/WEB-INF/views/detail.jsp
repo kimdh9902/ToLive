@@ -39,10 +39,11 @@
 
 	function InsertContentAjax() {
 		let contents = document.getElementById("contents");
+		console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}');
 		let data = {
 			contents : contents.value,
 			b_no : '${param.b_no}',
-			user_id : '${sessionScope.SESS_ID}'
+			user_id : '${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}'
 		};
 		$.ajax({//json
 			url : "${pageContext.servletContext.contextPath}/user/insertComment",
@@ -99,7 +100,7 @@
 		comments_box.appendChild(new_comments);
 		comments_box.appendChild(comments);
 		
-		if (user_id == "${sessionScope.SESS_ID}") {
+		if (user_id == "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}") {
 			var modifyBtn = document.createElement("button");
 		    modifyBtn.innerHTML = "수정";
 		    modifyBtn.dataset.c_no = c_no;
@@ -116,7 +117,7 @@
 	        comments.appendChild(modifyBtn);
 		}
 		
-		if (user_id == "${sessionScope.SESS_ID}" || "${TravBoardVO.user_id}" == "${sessionScope.SESS_ID}") {
+		if (user_id == "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}" || "${TravBoardVO.user_id}" == "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}") {
 		    var deleteBtn = document.createElement("button");
 	        deleteBtn.innerHTML = "삭제";
 	        deleteBtn.dataset.c_no = c_no;
@@ -197,7 +198,7 @@
 		let data = {
 			user_id : value,
 			b_no : '${param.b_no}',
-			msg : "${sessionScope.SESS_NAME}"+"가 당신을 멘션"
+			msg : "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}"+"가 당신을 멘션"
 		};
 		$.ajax({
 			url : "${pageContext.servletContext.contextPath}/user/send-alarm",
@@ -205,6 +206,9 @@
 			contentType : "application/json;charset=UTF-8",
 			data : JSON.stringify(data),
 			method : "POST",
+			beforeSend:function(xhr){
+            	xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+            },
 			success : function(data, textStatus, jqXHR) {
 				
 			},

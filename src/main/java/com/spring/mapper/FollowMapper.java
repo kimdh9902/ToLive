@@ -9,6 +9,7 @@ public interface FollowMapper {
 	public List<String> selectFollowing(String user_id);
 	public int selectFollowerCount(String user_id);
 	public int selectFollowingCount(String user_id);
+	public List<String> sameFollwing(String user_id);
 	
 //	public int insertFollow(String user_id, String follower_id);
 	public int insertFollow(FollowVO vo);
