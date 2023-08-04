@@ -127,7 +127,12 @@ public class MenuController {
 	@GetMapping("/travBoard")
 	public String selectTravBoardList(Model model, HttpSession session){
 		NoticeVO notice = noticeService.getNotice();
-		List<TravBoardVO> travBoardList = travBoardService.getTravBoardList((String) session.getAttribute("SESS_ID"));
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Object principal = authentication.getPrincipal();
+		CustomUserDetails userDetails = (CustomUserDetails) principal;
+		UsersVO user = userDetails.getUserVO();
+		String sess_id = user.getId();
+		List<TravBoardVO> travBoardList = travBoardService.getTravBoardList(sess_id);
 		model.addAttribute("travBoardList", travBoardList);
         model.addAttribute("noticeVO", notice);
 		return "travBoard";		
