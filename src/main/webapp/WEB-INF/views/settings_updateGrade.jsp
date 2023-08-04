@@ -72,7 +72,8 @@
 <!-- End custom js for this page -->
 <script
 	src="${ pageContext.servletContext.contextPath }/resources/js/setting.js"></script>
-	<script src="${ pageContext.servletContext.contextPath }/resources/js/display.js"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/resources/js/display.js"></script>
 
 <script>
 	window.onload = function() {
@@ -82,7 +83,17 @@
 				"${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}");
 	}
 </script>
+
 <style type="text/css">
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.form-group {
+  margin-bottom: 1rem;
+}
+
 .profile-content {
 	border: 5px solid #212634;
 	color: rgb(255, 255, 255);
@@ -91,7 +102,7 @@
 }
 
 .image {
-	display: flex;	
+	display: flex;
 }
 
 .contents {
@@ -103,10 +114,9 @@
 	margin-top: 30px;
 }
 
-.contents2 :not(:nth-child(1), span){
+.contents2 :not(:nth-child(1), span) {
 	margin-left: 100px;
 }
-
 </style>
 <style>
 .custom-btn {
@@ -129,58 +139,56 @@
 			id="container-body-wrapper">
 			<div class="main-panel">
 				<div class="content-wrapper">
-						<div class="row">
+					<div class="row">
 						<div class="col-md-12" style="height: 1200px;">
 							<div class="card">
 								<div class="card-body" style="overflow: hidden;">
 									<div class="image">
 										<img src="${pageContext.request.contextPath}/resources/TripToLive/default/default.jpg"
-										alt="no">
+											alt="no">
 										<div class="contents">
 											<div class="contents2">
-												<p style="padding-right: 100px">
-													이름:${UsersVO.name}</p>
-												<p>
-													ID:${UsersVO.id}</p>
+												<p style="padding-right: 100px">이름:${UsersVO.name}</p>
+												<p>ID:${UsersVO.id}</p>
 											</div>
-											<div class="contents2">
-												
-											</div>
-											<div id="inform" class="contents2" style="margin-top: 40px;">
-												 <p>권한 레벨: ${UsersVO.grade_level}</p><br>
-												 <p>공개 범위: ${GradeVO.authority}</p>
+											<div class="contents2"></div>
+											<div id="inform" class="contents2" style="margin-top: 40px;">												
+												<p>공개 범위: ${GradeVO.authority}</p>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="card-body" style="min-height: 500px;">
-									<form action="${pageContext.request.contextPath}/settings/settings-changeGrade" method="post">
-									<fieldset>
-									<legend>공개범위 변경</legend>
-									<input type="checkbox" id="일반비공개" name="grade_level" value="1">
-									<label for="일반비공개">일반비공개</label>
-									<br>
-									<input type="checkbox" id="일반친구공개" name="grade_level" value="2">
-									<label for="일반친구공개">일반친구공개</label>
-									<br>
-									<input type="checkbox" id="일반공개" name="grade_level" value="3">
-									<label for="일반공개">일반공개</label>
-									<br>
-									<input type="checkbox" id="셀럽비공개" name="grade_level" value="4">
-									<label for="셀럽비공개">셀럽비공개</label>
-									<br>
-									<input type="checkbox" id="셀럽친구공개" name="grade_level" value="5">
-									<label for="셀럽친구공개">셀럽친구공개</label>
-									<br>
-									<input type="checkbox" id="셀럽공개" name="grade_level" value="6">
-									<label for="셀럽공개">셀럽공개</label>
-									</fieldset>
-
-									<div class="col p-3">
-										<button id="sub" type="submit" class="custom-btn">선택완료</button>
-										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-									</div>
-								</form>									
+									<form class="d-flex flex-wrap justify-content-between" action="${pageContext.request.contextPath}/settings/settings_changeGrade" method="post">
+										<fieldset>
+										<legend>공개범위 변경</legend>
+										<c:if test="${UsersVO.grade_level le 3}">
+										<input type="radio" id="일반비공개" name="grade_level" value="1">
+										<label for="일반비공개">일반비공개</label>
+										<br>
+										<input type="radio" id="일반친구공개" name="grade_level" value="2">
+										<label for="일반친구공개">일반친구공개</label>
+										<br>
+										<input type="radio" id="일반공개" name="grade_level" value="3">
+										<label for="일반공개">일반공개</label>
+										<br>
+										</c:if>
+										<c:if test="${UsersVO.grade_level ge 4}">										
+										<input type="radio" id="셀럽비공개" name="grade_level" value="4">
+										<label for="셀럽비공개">셀럽비공개</label>
+										<br>
+										<input type="radio" id="셀럽친구공개" name="grade_level" value="5">
+										<label for="셀럽친구공개">셀럽친구공개</label>
+										<br>
+										<input type="radio" id="셀럽공개" name="grade_level" value="6">
+										<label for="셀럽공개">셀럽공개</label>
+										</c:if>																			
+										</fieldset>	
+										<div class="col p-3" >
+											<button id="sub" type="submit" class="custom-btn">선택완료</button>
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+										</div>						
+									</form>
 								</div>
 							</div>
 						</div>
