@@ -38,6 +38,11 @@ public class FollowServiceImpl implements FollowService{
 	}
 
 	@Override
+	public List<String> getSameFollwing(String me, String user_id) {
+		return mapper.selectSameFollwing(me, user_id);
+	}
+	
+	@Override
 	public int follow(FollowVO vo) {
 		return mapper.insertFollow(vo);
 	}
@@ -63,5 +68,6 @@ public class FollowServiceImpl implements FollowService{
 	public void removeFollowById(String user_id) {
 		mapper.deleteFollowById(user_id);
 	}
+
 	
 }

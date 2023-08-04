@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.domain.AlarmVO;
 import com.spring.domain.BoardCommentVO;
 import com.spring.domain.FollowVO;
+import com.spring.domain.FriendRecommendVO;
 import com.spring.domain.ProfileVO;
 import com.spring.domain.TravBoardVO;
 import com.spring.object.CustomUserDetails;
@@ -61,8 +62,8 @@ public class UserController {
 	}
 	
 	@PostMapping(value = "/friendRecommend", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public List<ProfileVO> friendRecommendList(){
-		List<ProfileVO> result = null;
+	public List<FriendRecommendVO> friendRecommendList(){
+		List<FriendRecommendVO> result = null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    Object principal = authentication.getPrincipal();
 	    if (principal instanceof CustomUserDetails) {

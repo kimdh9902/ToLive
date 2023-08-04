@@ -7,6 +7,7 @@
 		<select id="selectFollower" resultType="String"> 
   			select follower_id from follow where user_id = #{user_id}
   		</select>
+  		
   		<select id="selectFollowing" resultType="String"> 
   			select user_id from follow where follower_id = #{user_id}
   		</select> 
@@ -14,9 +15,15 @@
   		<select id="selectFollowerCount" resultType="int"> 
   			select count(f_no) from follow where user_id = #{user_id}
   		</select> 
+  		
   		<select id="selectFollowingCount" resultType="int"> 
   			select count(f_no) from follow where follower_id = #{user_id}
-  		</select> 
+  		</select>
+  		
+  		<select id="selectSameFollwing" resultType="String"> 
+  			select user_id from follow where follower_id = #{me}
+  				and user_id in(select f1.user_id from follow f1 where f1.follower_id = #{user_id})
+  		</select>
   		
   		<insert id="insertFollow">
   			INSERT INTO follow(f_no, user_id, follower_id) VALUES(seq_f_no.nextval, #{user_id}, #{follower_id})

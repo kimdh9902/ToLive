@@ -47,11 +47,16 @@ public class FollowTest {
 		}
 	}
 	
-	@Test
+	@Test @Ignore
 	public void testFollower() {
 //		followService.getFollowerCount(sess_id)
-		int howmany = mapper.selectFollowerCount("user101");
+		int howmany = mapper.selectFollowingCount("qwe");
 		System.out.println(howmany);
+	}
+	
+	@Test
+	public void testadsf() {
+		log.info("\n\n\n\n\n\n\n"+ mapper.selectSameFollwing("qwe", "asdqwe"));
 	}
 
 }
