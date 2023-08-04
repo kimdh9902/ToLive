@@ -49,13 +49,13 @@ public class UserController {
 	private final SearchService searchService;
 	
 	@PostMapping(value = "/friend", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public List<String> friendList(){
-		List<String> result = null;
+	public List<ProfileVO> friendList(){
+		List<ProfileVO> result = null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    Object principal = authentication.getPrincipal();
 	    if (principal instanceof CustomUserDetails) {
 	        CustomUserDetails userDetails = (CustomUserDetails) principal;
-	         result = followService.getFollowingNameList(userDetails.getUserVO().getId());
+	        result = profileService.getFriends(userDetails.getUserVO().getId());
 	    }
 		
 		return result;
@@ -135,13 +135,12 @@ public class UserController {
 	@GetMapping("/deleteComment")
 	public void DeleteComment(int c_no) {
 		commentService.removeComment(c_no);
-		System.out.println("좀 먹어라");
-		System.out.println(c_no);
 	}
 	
-	@PostMapping("/updateComment")
+	@PostMapping(value = "/updateComment", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public int UpdateComment(@RequestBody BoardCommentVO vo) {
 		System.out.println("좀 먹어라 수정");
 		return commentService.alterComment(vo);
 	}
+	
 }

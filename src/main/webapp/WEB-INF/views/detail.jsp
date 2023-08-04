@@ -171,6 +171,9 @@
 	        	contentType : "application/json; charset=UTF-8",
 	        	data : JSON.stringify(data),
 	        	type : "POST",
+	        	beforeSend:function(xhr){
+                	xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+                },
 	        	success : function(result) {
 	        		if (result == 1) {
 	        			SelectContentsAjax();

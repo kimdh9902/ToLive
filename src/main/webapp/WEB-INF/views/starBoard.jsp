@@ -193,9 +193,8 @@
 											<c:forEach var="starVO" items="${starList }">
 												<tr>
 													<td>${starVO.b_no }</td>
-													<td><a href="${pageContext.request.servletContext.contextPath}/travBoard/detail?b_no=${starVO.b_no }">${starVO.title }</a></td>
+													<td><a href="${pageContext.request.servletContext.contextPath}/travBoard/travBoard-detail?b_no=${starVO.b_no }">${starVO.title }</a></td>
 													<td>${starVO.user_id }</td>
-													<%-- <td>${starVO.b_no }</td> --%>
 												</tr>
 											</c:forEach>
 										</tbody>

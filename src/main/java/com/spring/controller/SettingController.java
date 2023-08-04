@@ -55,28 +55,26 @@ public class SettingController {
 	}
 
 	@GetMapping("/settings_requestInfluencer")
-	public String settingInfluencer(Model model, HttpSession session) {
+    public String settingInfluencer(Model model, HttpSession session) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Object principal = authentication.getPrincipal();
-		CustomUserDetails userDetails = (CustomUserDetails) principal;
-		UsersVO user = userDetails.getUserVO();
+        Object principal = authentication.getPrincipal();
+        CustomUserDetails userDetails = (CustomUserDetails) principal;
+        UsersVO user = userDetails.getUserVO();
 		String sess_id = user.getId();
 		System.out.println(sess_id);
 		int howFoll = followService.getFollowerCount(sess_id);
-		System.out.println("#######################3");
-		System.out.println(followService.getFollowerCount(sess_id));
-		System.out.println(howFoll);
-		System.out.println("#######################3");
+		int userGrade = user.getGrade_level();
+		model.addAttribute("userGrade", userGrade);
 		model.addAttribute("howFoll", howFoll);
-		return "settingsRequestInfluencer";
-	}
+        return "settingsRequestInfluencer";
+    }
 
 	@GetMapping("/insertInfluencer")
 	public String addInfluencer(Model model, HttpSession session) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Object principal = authentication.getPrincipal();
-		CustomUserDetails userDetails = (CustomUserDetails) principal;
-		UsersVO user = userDetails.getUserVO();
+        Object principal = authentication.getPrincipal();
+        CustomUserDetails userDetails = (CustomUserDetails) principal;
+        UsersVO user = userDetails.getUserVO();
 		String user_id = user.getId();
 		influencerService.setInfluencer(user_id);
 		return "settingsRequestInfluencer";

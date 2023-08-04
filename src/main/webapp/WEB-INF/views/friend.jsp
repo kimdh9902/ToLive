@@ -210,22 +210,28 @@
 
 	function print(data){
 		let mainDiv = document.getElementById("friends");
+
 		console.log(mainDiv);
 		for(var i = 0; i < data.length; i++){
 			let friendDiv = document.createElement("div");
+			friendDiv.style.cssText = "margin-top: 15px; margin-right: 10px; margin-bottom: 15px";
 			let friendDiv_span = document.createElement("span");
-			// let fiendDiv_span_img = document.createElement("img");
-			// fiendDiv_span_img.src = "";
+			let fiendDiv_span_img = document.createElement("img");
+			fiendDiv_span_img.style.cssText = "height: 80px; width: 80px";
+			fiendDiv_span_img.src = "${pageContext.request.contextPath}"+data[i].profile_img;
 			let friendDiv_span2 = document.createElement("span");
-			friendDiv_span2.innerText = data[i];
-			let br = document.createElement("br");
-			// friendDiv_span.appendChild(fiendDiv_span_img);
+			friendDiv_span2.innerText = data[i].user_name;
+			
+			friendDiv_span.appendChild(fiendDiv_span_img);
 			friendDiv.appendChild(friendDiv_span);
 			friendDiv.appendChild(friendDiv_span2);
-			friendDiv.appendChild(br);
 			console.log(friendDiv);
 			mainDiv.appendChild(friendDiv);
+			let br1 = document.createElement("div");
+			br1.className = "dropdown-divider";
+			mainDiv.appendChild(br1);
 		}
+		
 	}
    
 	
@@ -243,6 +249,7 @@
                                     <div id="plus-friend" style="height: 165px; display: flex;">
                                         
                                     </div>
+									<div class="dropdown-divider"></div>
                                     <div id="friends" style="height: 200px;">
                                         
                                     </div>
