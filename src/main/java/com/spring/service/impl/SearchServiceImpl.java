@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.domain.ProfileVO;
 import com.spring.domain.SearchIdVO;
 import com.spring.mapper.SearchMapper;
 import com.spring.service.SearchService;
@@ -24,6 +25,11 @@ public class SearchServiceImpl implements SearchService{
 			result = mapper.selectId(name);
 		
 		return result;
+	}
+
+	@Override
+	public List<ProfileVO> getFriendRecommend(String user_id) {
+		return mapper.selectFriendRecommend(user_id);
 	}
 
 }

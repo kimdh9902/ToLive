@@ -15,12 +15,15 @@ import com.spring.domain.InfluencerVO;
 import com.spring.domain.NoticeVO;
 import com.spring.domain.ReportVO;
 import com.spring.domain.UsersVO;
+import com.spring.object.Criteria;
+import com.spring.object.PageMaker;
 import com.spring.service.InfluencerService;
 import com.spring.service.NoticeService;
 import com.spring.service.ReportService;
 import com.spring.service.UsersService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -29,6 +32,7 @@ import oracle.sql.DATE;
 
 @Controller
 @RequiredArgsConstructor
+@Log4j
 @RequestMapping("/admin/*")
 public class AdminController {
 	
@@ -115,9 +119,11 @@ public class AdminController {
 	}
 	
 	@GetMapping("/adminUserBlock")
-	public String showAllUsers(Model model) {
-		List<UsersVO> userList = usersService.getAllUsers();
-		model.addAttribute("userList", userList);
+	public String showAllUsers(Model model, Criteria cri) {
+		log.info("board-all - " + cri.getPageNum());
+		PageMaker pageMaker = new PageMaker(cri, usersService.getCountUser());
+		model.addAttribute("userList", usersService.getAllUsers(pageMaker));
+		model.addAttribute("pageMaker", pageMaker);
 		return "adminUserBlock";
 	}
 	

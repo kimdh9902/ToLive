@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,11 +12,7 @@
 	crossorigin="anonymous">
 </script>
 <script>
-	function closeNotice(){
-		var proBanner = document.getElementById("proBanner");
-		proBanner.remove();
-	}
-	
+
 	function updateGradeToZero(id) {
 		let data = {
 		    id: id
@@ -79,6 +76,9 @@
 		})
 	}
 </script>
+
+<link href="${ pageContext.servletContext.contextPath }/resources/pagenation/css/styles.css" rel="stylesheet" />
+<link href="${ pageContext.servletContext.contextPath }/resources/pagenation/css/page-nation.css" rel="stylesheet" />
 <!-- plugins:css -->
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/css/vendor.bundle.base.css">
@@ -128,29 +128,13 @@ window.onload = function(){
 	<div class="container-scroller" id="container-scroller">
 		<div class="container-fluid page-body-wrapper" id="container-body-wrapper">
 			<div class="main-panel">
-				<div class="row p-0 m-0 proBanner d-flex" id="proBanner"> 
-			        <div class="col-md-12 p-0 m-0" style="background-color: gray">
-			          <div class="card-body card-body-padding px-3 d-flex align-items-center justify-content-between">
-			            <div class="ps-lg-3" style="color: white">
-			              <div class="d-flex align-items-center justify-content-between">
-			              	<p class="mb-0 font-weight-medium me-3 buy-now-text">${noticeVO.notice_contents}</p>
-			              </div>
-			            </div>
-			            <div class="d-flex align-items-center justify-content-between">
-			              <button id="bannerClose" class="btn border-0 p-0" onclick="closeNotice()">
-    						 <i class="mdi mdi-close text-white"></i>
-						  </button>
-			            </div>
-			          </div>
-			        </div>
-			      </div>
 				<div class="content-wrapper">
 					<div class="row">
 						<div class="col-12 grid-margin">
 							<div class="card">
 								<div class="card-body">
 									<div id="comments-box">
-										<h2 class="card-title">신청내역</h2>
+										<h2 class="card-title">사용자 리스트</h2>
 										<div class="table-responsive">
 											<table class="table">
 												<thead>
@@ -179,6 +163,7 @@ window.onload = function(){
 										</div>
 									</div>
         						</div>
+        						<%@ include file="../views/import/page-nation.jsp" %>
         					</div>
         				</div>
         			</div>

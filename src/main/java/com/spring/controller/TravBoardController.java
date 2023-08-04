@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.spring.domain.BoardCommentVO;
 import com.spring.domain.BoardImageVO;
 import com.spring.domain.BoardVO;
+import com.spring.domain.NoticeVO;
 import com.spring.domain.ReportVO;
 import com.spring.domain.TravBoardVO;
 import com.spring.domain.UsersVO;
@@ -35,6 +36,7 @@ import com.spring.mapper.BoardMapper;
 import com.spring.mapper.TravBoardMapper;
 import com.spring.object.CustomUserDetails;
 import com.spring.service.BoardCommentService;
+import com.spring.service.NoticeService;
 import com.spring.service.BoardImageService;
 import com.spring.service.BoardService;
 import com.spring.service.ReportService;
@@ -50,6 +52,7 @@ public class TravBoardController {
 	private final TravBoardService travBoardService;
 	private final ReportService reportService;
 	private final BoardCommentService commentService;
+	private final NoticeService noticeService;
 	private final BoardImageService boardImageService;
 	private final BoardService boardService;
 
@@ -58,7 +61,8 @@ public class TravBoardController {
 
 	@Autowired
 	private BoardMapper boardMapper;
-
+	
+	
 	// 여행 후기글 글 상세 페이지로 이동
 	// localhost:8080/trip/travBoard/detail
 	@GetMapping("/travBoard-detail")

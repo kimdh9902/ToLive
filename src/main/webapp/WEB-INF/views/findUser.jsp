@@ -157,13 +157,16 @@
 
     window.onload = function(){
     	init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}", "${_csrf.headerName}", "${_csrf.token}");
-	}
+    	displayNotice('${noticeVO.notice_contents}');
+    }
     </script>
 </head>
 <body>
 	<div class="container-scroller" id="container-scroller">
 		<div class="container-fluid page-body-wrapper" id="container-body-wrapper">
 			<div class="main-panel">
+			    <!-- 공지 -->
+			    <div id="noticeContainer"></div>
 				<!-- 컨텐츠 간격 컨테이너 -->
 				<div class="content-wrapper">
 					<!-- 실제 컨텐츠 박스 -->

@@ -27,10 +27,23 @@
         .hash {
             background-color: #d8db1a;
         }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container-form {
+                width: 100%;
+                left: 0;
+            }
+        }
     </style>
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>회원가입</title>
         <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
                 <!-- plugins:css -->
@@ -439,7 +452,7 @@
         <div class="container-scroller" style="position: absolute; top: 10%; left: 25%;">
             <!-- 왼쪽 슬라이드 바 로고 -->
             <!-- <div class="container-fluid page-body-wrapper"> -->
-            <form id="register-form" class="forms-sample" action="${pageContext.request.contextPath}/auth/login" method="get" style="text-align: center; width: 80%; height: 100%; position: absolute; left: 10%;" onsubmit="return isSuccess()">
+            <form id="register-form" class="forms-sample container-form" action="${pageContext.request.contextPath}/auth/login" method="get" style="text-align: center; width: 80%; height: 100%; position: absolute; left: 10%;" onsubmit="return isSuccess()">
                 <div class="form-group">
                     <label for="id">아이디</label>
                     <input class="form-control" type="text" id="id" name="id" required>

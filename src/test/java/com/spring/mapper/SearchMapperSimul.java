@@ -5,12 +5,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.spring.domain.ProfileVO;
 import com.spring.domain.SearchIdVO;
 
 import lombok.Setter;
@@ -25,7 +27,7 @@ public class SearchMapperSimul {
 	@Setter (onMethod_ = @Autowired)
 	private SearchMapper mapper;
 	
-	@Test
+	@Test @Ignore
 	public void test() {
 		List<SearchIdVO> list = mapper.selectId("user");
 		
@@ -37,4 +39,10 @@ public class SearchMapperSimul {
 		}
 	}
 
+	@Test
+	public void test2() {
+		//mapper.selectFriendRecommend();
+		List<ProfileVO> list = mapper.selectFriendRecommend("qwer");
+		log.info("result = \n\n\n\n\n"+list);
+	}
 }

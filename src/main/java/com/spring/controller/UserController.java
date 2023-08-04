@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.domain.AlarmVO;
 import com.spring.domain.BoardCommentVO;
 import com.spring.domain.FollowVO;
+import com.spring.domain.ProfileVO;
 import com.spring.domain.TravBoardVO;
 import com.spring.object.CustomUserDetails;
 import com.spring.service.AlarmService;
@@ -29,6 +30,7 @@ import com.spring.service.BlackListService;
 import com.spring.service.BoardCommentService;
 import com.spring.service.FollowService;
 import com.spring.service.ProfileService;
+import com.spring.service.SearchService;
 import com.spring.service.TravBoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -43,6 +45,7 @@ public class UserController {
 	private final ProfileService profileService;
 	private final AlarmService alarmService;
 	private final BoardCommentService commentService;
+	private final SearchService searchService;
 	
 	@PostMapping(value = "/friend", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public List<String> friendList(){
@@ -57,18 +60,18 @@ public class UserController {
 		return result;
 	}
 	
-//	@PostMapping(value = "/friendRecommend", produces = {MediaType.APPLICATION_JSON_VALUE})
-//	public List<String> friendRecommendList(){
-//		List<String> result = null;
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//	    Object principal = authentication.getPrincipal();
-//	    if (principal instanceof CustomUserDetails) {
-//	        CustomUserDetails userDetails = (CustomUserDetails) principal;
-//	         result = profileService.(userDetails.getUserVO().getId());
-//	    }
-//		
-//		return result;
-//	}
+	@PostMapping(value = "/friendRecommend", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public List<ProfileVO> friendRecommendList(){
+		List<ProfileVO> result = null;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    Object principal = authentication.getPrincipal();
+	    if (principal instanceof CustomUserDetails) {
+	        CustomUserDetails userDetails = (CustomUserDetails) principal;
+	         result = searchService.getFriendRecommend(userDetails.getUserVO().getId());
+	    }
+		
+		return result;
+	}
 	
 	@PostMapping(value = "/onFollow", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public boolean followCheck(@RequestBody FollowVO vo, HttpSession session) {
