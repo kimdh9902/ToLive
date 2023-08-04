@@ -23,10 +23,12 @@
 	        data: data,
 	        method: "GET",
 	        success: function (data, textStatus, jqXHR) {
+	        	alert(user_id+"의 요청 수락완료.");
 	            console.log("Request Delete Successful");
 	            rejectRequest(user_id);
 	        },
 	        error: function (jqXHR, textStatus, errorThrown) {
+	        	alert("수락할 수 없습니다. 이미 influencer인지 확인하십시오.");
 	            console.log(jqXHR);
 	            console.log(textStatus);
 	            console.log(errorThrown);

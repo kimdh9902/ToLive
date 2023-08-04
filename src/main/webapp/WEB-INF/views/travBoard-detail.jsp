@@ -34,6 +34,8 @@
 		location.href = "${pageContext.request.contextPath}/menu/travBoard?user_id="+user_id;
 	}
 
+
+
 	function addContents() {
 		InsertContentAjax();
 		let content = getValue();
@@ -45,6 +47,7 @@
 
 	function InsertContentAjax() {
 		let contents = document.getElementById("contents");
+		console.log('${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}');
 		let data = {
 			contents : contents.value,
 			b_no : '${param.b_no}',
@@ -65,7 +68,7 @@
 			}
 		})
 	}
-
+	
 	function textToHtml(str) {
 	    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 	}
@@ -176,9 +179,9 @@
 	        	contentType : "application/json; charset=UTF-8",
 	        	data : JSON.stringify(data),
 	        	type : "POST",
-	        	 beforeSend:function(xhr){
-	                	xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
-	                },
+	        	beforeSend:function(xhr){
+                	xhr.setRequestHeader('${_csrf.headerName}', '${_csrf.token}');
+                },
 	        	success : function(result) {
 	        		if (result == 1) {
 	        			SelectContentsAjax();
@@ -196,10 +199,10 @@
 
 	function refreshContents(boardCommentList) {
 		const comments_box = document.getElementById("comments-box");
-		comments_box.innerHTML = "";
-		for (var i = 0; i < boardCommentList.length; i++) {
-			input(boardCommentList[i].user_id, boardCommentList[i].contents);
-			}
+        comments_box.innerHTML = "";
+		for(var i=0; i<boardCommentList.length; i++){
+			input(boardCommentList[i].user_id, boardCommentList[i].contents, boardCommentList[i].c_no);
+		}
 	}
 
 	function sendAlarmAjax(value) {
@@ -230,18 +233,18 @@
 
 	function SelectContentsAjax() {
 		let data = {
-			b_no: '${param.b_no}'
+			b_no : '${param.b_no}'
 		};
 		$.ajax({//json
-			url: "${pageContext.servletContext.contextPath}/user/selectComments",
-			async: true,
-			contentType: "application/json;charset=UTF-8",
-			data: data,
-			method: "GET",
-			success: function (data, textStatus, jqXHR) {
+			url : "${pageContext.servletContext.contextPath}/user/selectComments",
+			async : true,
+			contentType : "application/json;charset=UTF-8",
+			data : data,
+			method : "GET",
+			success : function(data, textStatus, jqXHR) {
 				refreshContents(data);
 			},
-			error: function (jqXHR, textStatus, errorThrown) {
+			error : function(jqXHR, textStatus, errorThrown) {
 				console.log(jqXHR);
 				console.log(textStatus);
 				console.log(errorThrown);
@@ -528,26 +531,27 @@
 						</div>
 						<!-- 후기글 컨테이너 end -->
 					</div>
-					<!-- 컨텐츠 박스 end -->
 
-					<!-- 댓글 입력창 start-->
+					<!-- 댓글 입력창 -->
 					<div class="card-body">
-						<textarea class="form-control" id="contents" rows="4" cols="80" onkeyup="valueCheck()"></textarea>
-							<button type="submit" class="btn btn-primary me-2" onclick="addContents()">등록</button>
-					</div>					
-					<!-- 댓글 입력창 end-->
-					
-					<!--댓글 start-->
-					<h3 class="card-title"></h3>
-					<div id="comments-box">
-						<c:forEach var="boardComment" items="${requestScope.boardCommentList}">
-							<script type="text/javascript">
-								input(
-										'<c:out value="${boardComment.user_id}" />',
-										'<c:out value="${boardComment.contents}" />');
-					          			'<c:out value="${boardComment.c_no}" />');
-							</script>
-						</c:forEach>
+						<textarea class="form-control" id="contents" rows="4"
+							cols="80" onkeyup="valueCheck()"></textarea>
+						<button type="submit" class="btn btn-primary me-2"
+							onclick="addContents()">등록</button>
+						<!-- 댓글 입력창 끝 -->
+
+
+						<!--댓글-->
+						<h3 class="card-title"></h3>
+						<div id="comments-box">
+							<c:forEach var="boardComment" items="${requestScope.boardCommentList}">
+								<script type="text/javascript">
+								input('<c:out value="${boardComment.user_id}" />',
+								          '<c:out value="${boardComment.contents}" />',
+								          '<c:out value="${boardComment.c_no}" />');
+											</script>
+							</c:forEach>
+						</div>
 					</div>
 					<!--댓글 end-->
 

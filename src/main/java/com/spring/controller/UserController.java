@@ -134,13 +134,12 @@ public class UserController {
 	@GetMapping("/deleteComment")
 	public void DeleteComment(int c_no) {
 		commentService.removeComment(c_no);
-		System.out.println("좀 먹어라");
-		System.out.println(c_no);
 	}
 	
-	@PostMapping("/updateComment")
+	@PostMapping(value = "/updateComment", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public int UpdateComment(@RequestBody BoardCommentVO vo) {
 		System.out.println("좀 먹어라 수정");
 		return commentService.alterComment(vo);
 	}
+	
 }

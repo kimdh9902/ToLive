@@ -54,10 +54,8 @@ public class SettingController {
 		String sess_id = user.getId();
 		System.out.println(sess_id);
 		int howFoll = followService.getFollowerCount(sess_id);
-		System.out.println("#######################3");
-		System.out.println(followService.getFollowerCount(sess_id));
-		System.out.println(howFoll);
-		System.out.println("#######################3");
+		int userGrade = user.getGrade_level();
+		model.addAttribute("userGrade", userGrade);
 		model.addAttribute("howFoll", howFoll);
         return "settingsRequestInfluencer";
     }
