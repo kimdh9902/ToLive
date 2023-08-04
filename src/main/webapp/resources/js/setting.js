@@ -480,7 +480,6 @@ function makeTopNavBar(){
     return topNav;
 }
 
-
 function alarmAjax(path, sess_id, ) {
     let data = {
         user_id : sess_id
