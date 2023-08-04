@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -61,8 +62,7 @@ public class TravBoardController {
 
 	@Autowired
 	private BoardMapper boardMapper;
-	
-	
+
 	// 여행 후기글 글 상세 페이지로 이동
 	// localhost:8080/trip/travBoard/detail
 	@GetMapping("/travBoard-detail")
@@ -93,8 +93,8 @@ public class TravBoardController {
 
 	// 등록 처리
 	@RequestMapping(value = "/travBoard-insert", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-	public String insertBoard(BoardVO bvo, TravBoardVO tvo, HttpSession session)
-			throws UnsupportedEncodingException {
+	public String insertBoard(BoardVO bvo, TravBoardVO tvo, HttpSession session) throws UnsupportedEncodingException {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
 		String user_id = null;
 		SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
@@ -112,6 +112,7 @@ public class TravBoardController {
 		int registerToTravResult = boardService.registerToTrav(bvo);
 
 		if (registerBoardResult > 0 && registerToTravResult > 0) {
+
 			return "redirect:/menu/travBoard?user_id=" + user_id;
 		} else {
 			return "redirect:/travBoard/travBoard-write";
