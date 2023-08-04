@@ -28,6 +28,7 @@ import lombok.Setter;
 
 @Service
 @RequiredArgsConstructor
+
 public class UsersServiceImpl implements UsersService {
 
 	private final UsersMapper mapper;
@@ -87,6 +88,7 @@ public class UsersServiceImpl implements UsersService {
 //		return mapper.selectAllUsers();
 //	}
 	public List<UsersVO> getAllUsers(PageMaker pageMaker) {
+
 		int offset = (pageMaker.getCri().getPageNum() - 1) * pageMaker.getCri().getAmount();
 		int limit = pageMaker.getCri().getAmount();
 
