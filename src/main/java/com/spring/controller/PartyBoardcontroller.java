@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.spring.domain.BoardVO;
 import com.spring.domain.PartyBoardVO;
 import com.spring.domain.ReportVO;
+import com.spring.domain.UsersVO;
 import com.spring.mapper.BoardMapper;
 import com.spring.mapper.PartyBoardMapper;
 import com.spring.mapper.ReportMapper;
+import com.spring.object.CustomUserDetails;
 import com.spring.service.PartyBoardService;
 import com.spring.service.ReportService;
 
@@ -71,20 +74,21 @@ public class PartyBoardcontroller {
 	public String insertPartyBoard(BoardVO bvo, PartyBoardVO pvo, HttpSession session)
 			throws UnsupportedEncodingException {
 
-		bvo.setUser_id((String) session.getAttribute("SESS_ID"));
+		String user_id = null;
+		SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
+		CustomUserDetails userDetails = (CustomUserDetails) securityContext.getAuthentication().getPrincipal();
+		UsersVO user = userDetails.getUserVO();
+		user_id = user.getId();
+
+		bvo.setUser_id(user_id);
 		bvo.setReg_date(new Date());
 
-		int result = boardMapper.insertBoard(bvo);
+		int registerBoard = boardMapper.insertBoard(bvo);
 
-		System.out.println("여기-" + result);
-		System.out.println("여기-" + boardMapper.insertBoard(bvo));
+		int registerPartyBoard = boardMapper.insertToParty(pvo);
 
-		int result2 = boardMapper.insertToParty(pvo);
-
-		System.out.println("여기2-" + result2);
-
-		if (result + result2 > 0) {
-			return "redirect:/menu/partyBoard/";
+		if (registerBoard > 0 && +registerPartyBoard > 0) {
+			return "redirect:/menu/partyBoard?user_id=" + user_id;
 		} else {
 			return "redirect:/partyBoard/partyBoard-write";
 		}
@@ -100,12 +104,12 @@ public class PartyBoardcontroller {
 
 	// 수정 처리
 	@RequestMapping(value = "/partyBoard-modify", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-	public String updatePBoard(BoardVO bvo, PartyBoardVO pvo) {
+	public String updatePartyBoard(BoardVO bvo, PartyBoardVO pvo) {
 
-		int result = boardMapper.updateBoard(bvo);
-		int result2 = boardMapper.updatePartyBoard(pvo);
+		int updateBaordResult = boardMapper.updateBoard(bvo);
+		int updatePartyBaordResult = boardMapper.updatePartyBoard(pvo);
 
-		if (result + result2 > 0) {
+		if (updateBaordResult > 0 && updatePartyBaordResult > 0) {
 			return "redirect:partyBoard-detail?b_no=" + bvo.getB_no();
 		} else {
 			return "redirect:partyBoard/partyBoard-update?b_no=" + bvo.getB_no();
@@ -114,10 +118,17 @@ public class PartyBoardcontroller {
 
 	// 삭제 처리
 	@GetMapping(value = "/partyBoard-delete")
-	public String delete(@RequestParam("b_no") int b_no) {
+	public String deletePartyBoard(@RequestParam("b_no") int b_no, HttpSession session) {
 		boolean success = mapper.deletePartyBoard(b_no);
+		boolean deleteBaord = boardMapper.deleteBoard(b_no);
 
-		if (success) {
+		String user_id = null;
+		SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
+		CustomUserDetails userDetails = (CustomUserDetails) securityContext.getAuthentication().getPrincipal();
+		UsersVO user = userDetails.getUserVO();
+		user_id = user.getId();
+
+		if (success && deleteBaord) {
 			return "redirect:/menu/partyBoard/";
 		} else {
 			return "redirect:partyBoard-detail?b_no=" + b_no;

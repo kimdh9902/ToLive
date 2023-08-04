@@ -28,9 +28,9 @@ import lombok.Setter;
 
 @Service
 @RequiredArgsConstructor
-public class UsersServiceImpl implements UsersService{
-	
-	
+
+public class UsersServiceImpl implements UsersService {
+
 	private final UsersMapper mapper;
 	private final InfluencerService influencerService;
 	private final ProfileService profileService;
@@ -45,14 +45,14 @@ public class UsersServiceImpl implements UsersService{
 	private final PartyBoardService partyBoardService;
 	private final BoardService boardService;
 	private final FollowService followService;
-	
+
 	@Override
 	public int registerAccount(UsersVO vo) {
 		System.out.println("ori:" + vo.getPw());
 //		vo.setPw(passwordEncoderUtil.passwordEncoder().encode(vo.getPw()));
-		System.out.println("encode:" +vo.getPw());
+		System.out.println("encode:" + vo.getPw());
 		int result = mapper.insertAccount(vo);
-		if(result > 0) {
+		if (result > 0) {
 			profileService.makeProfile(vo.getId());
 		}
 		return result;
@@ -66,7 +66,7 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public boolean isIdCheck(String id) {
 		int result = mapper.selectByIdCount(id);
-		if(result > 0) {
+		if (result > 0) {
 			return true;
 		}
 		return false;
@@ -88,14 +88,13 @@ public class UsersServiceImpl implements UsersService{
 //		return mapper.selectAllUsers();
 //	}
 	public List<UsersVO> getAllUsers(PageMaker pageMaker) {
-	    int offset = (pageMaker.getCri().getPageNum() - 1) * pageMaker.getCri().getAmount();
-	    int limit = pageMaker.getCri().getAmount();
 
-        return mapper.selectAllUsers(offset, limit);
+		int offset = (pageMaker.getCri().getPageNum() - 1) * pageMaker.getCri().getAmount();
+		int limit = pageMaker.getCri().getAmount();
+
+		return mapper.selectAllUsers(offset, limit);
 	}
 
-	
-	
 	@Override
 	public int removeUsersAccount(String id) {
 		influencerService.removeInfluencer(id);
@@ -123,6 +122,16 @@ public class UsersServiceImpl implements UsersService{
 	}
 
 	@Override
+
+	public int modifyUsersGradeZero(String id) {
+		return mapper.updateUsersGradeZero(id);
+	}
+
+	@Override
+	public int changeUserGrade(UsersVO vo) {
+		return mapper.changeUserGrade(vo);
+	}
+
 	public int getCountUser() {
 		return mapper.selectCountUser();
 	}
