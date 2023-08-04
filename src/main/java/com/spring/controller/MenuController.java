@@ -126,6 +126,7 @@ public class MenuController {
 	@GetMapping("/travBoard")
 	public String selectTravBoardList(Model model, HttpSession session) {
 		NoticeVO notice = noticeService.getNotice();
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Object principal = authentication.getPrincipal();
 		CustomUserDetails userDetails = (CustomUserDetails) principal;

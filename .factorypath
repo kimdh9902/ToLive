@@ -46,6 +46,7 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/org/codehaus/woodstox/stax2-api/4.2.1/stax2-api-4.2.1.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/fasterxml/woodstox/woodstox-core/6.5.1/woodstox-core-6.5.1.jar" enabled="true" runInBatchMode="false"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <factorypathentry kind="EXTJAR" id="C:\STS3\apache-tomcat-9.0.76\lib\annotations-api.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="EXTJAR" id="C:\STS3\apache-tomcat-9.0.76\lib\catalina-ant.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="EXTJAR" id="C:\STS3\apache-tomcat-9.0.76\lib\catalina-ha.jar" enabled="true" runInBatchMode="false"/>
@@ -79,6 +80,8 @@
     <factorypathentry kind="EXTJAR" id="C:\STS3\apache-tomcat-9.0.76\lib\tomcat-websocket.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="EXTJAR" id="C:\STS3\apache-tomcat-9.0.76\lib\websocket-api.jar" enabled="true" runInBatchMode="false"/>
 =======
+=======
+>>>>>>> 67311601f6e68599b15bb9a0d44413ae99b0236c
     <factorypathentry kind="EXTJAR" id="C:\spring-tool-suite-3.9.18\apache-tomcat-9.0.76\lib\annotations-api.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="EXTJAR" id="C:\spring-tool-suite-3.9.18\apache-tomcat-9.0.76\lib\catalina-ant.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="EXTJAR" id="C:\spring-tool-suite-3.9.18\apache-tomcat-9.0.76\lib\catalina-ha.jar" enabled="true" runInBatchMode="false"/>
@@ -111,6 +114,9 @@
     <factorypathentry kind="EXTJAR" id="C:\spring-tool-suite-3.9.18\apache-tomcat-9.0.76\lib\tomcat-util.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="EXTJAR" id="C:\spring-tool-suite-3.9.18\apache-tomcat-9.0.76\lib\tomcat-websocket.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="EXTJAR" id="C:\spring-tool-suite-3.9.18\apache-tomcat-9.0.76\lib\websocket-api.jar" enabled="true" runInBatchMode="false"/>
+<<<<<<< HEAD
+>>>>>>> 67311601f6e68599b15bb9a0d44413ae99b0236c
+=======
 >>>>>>> 67311601f6e68599b15bb9a0d44413ae99b0236c
     <factorypathentry kind="PLUGIN" id="org.eclipse.jst.ws.annotations.core" enabled="true" runInBatchMode="false"/>
 </factorypath>
