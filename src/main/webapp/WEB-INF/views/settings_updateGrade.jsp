@@ -77,10 +77,7 @@
 
 <script>
 	window.onload = function() {
-		init(
-				"${pageContext.request.servletContext.contextPath }",
-				"${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}",
-				"${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}");
+		init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}", "${_csrf.headerName}", "${_csrf.token}");
 	}
 </script>
 
