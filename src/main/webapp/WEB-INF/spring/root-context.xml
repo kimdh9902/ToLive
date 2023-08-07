@@ -13,7 +13,7 @@
       <!-- <property name="driverClassName" value="oracle.jdbc.OracleDriver"></property> oracle.jdbc.driver.OracleDriver 를 HikariCP에서 못 찾는다고 하여 다른 패키지에 있는 driver를 연결해줬더니 해결 
          <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe"></property> -->
       <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-      <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe"></property>
+      <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@192.168.0.179:1521:xe"></property>
       <property name="username" value="C##TRIP"></property>
       <property name="password" value="trip"></property>
    </bean>

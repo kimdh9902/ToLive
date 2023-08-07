@@ -73,7 +73,7 @@
 </script>
 <script>
 	window.onload = function(){
-	    init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}");
+	    init("${pageContext.request.servletContext.contextPath }", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}", "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.name}", "${_csrf.headerName}", "${_csrf.token}");
 
 	    
 	    if (userGradeLevel >= 1 && userGradeLevel <= 3 && howFoll >= 50) {
@@ -113,8 +113,8 @@
 					                  </div>
 					                  <div class="card-body"> 
 						              	<button id="requestButton" class="btn btn-outline-primary"
-        style="width: 90px; height: 26px; margin-top: 10px;"
-        type="button" onclick="sendRequest()">신청</button>
+									        style="width: 90px; height: 26px; margin-top: 10px;"
+									        type="button" onclick="sendRequest()">신청</button>
 					                  </div>
 					                </div>
         						</div>
