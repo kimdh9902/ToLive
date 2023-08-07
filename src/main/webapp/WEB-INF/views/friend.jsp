@@ -250,7 +250,7 @@
                                         
                                     </div>
 									<div class="dropdown-divider"></div>
-                                    <div id="friends" style="height: 200px;">
+                                    <div id="friends" style="height: 100%px;">
                                         
                                     </div>
         						</div>
