@@ -245,7 +245,6 @@ CREATE TABLE influencer(
 );
 
 
-
 --시퀀스
 CREATE SEQUENCE seq_c_no  START WITH 1 INCREMENT BY 1; --댓글번호 
 CREATE SEQUENCE seq_b_no  START WITH 1 INCREMENT BY 1; --통합글번호 
@@ -253,12 +252,13 @@ CREATE SEQUENCE seq_alarm_no  START WITH 1 INCREMENT BY 1; --알림번호
 CREATE SEQUENCE seq_b_h_no START WITH 1 INCREMENT BY 1; --게시글 해쉬태그
 CREATE SEQUENCE seq_f_no START WITH 1 INCREMENT BY 1; --팔로우 식별번호 증가
 CREATE SEQUENCE seq_hash_id START WITH 1 INCREMENT BY 1; --해시태그 아이디(식별번호) 증가
-CREATE SEQUENCE seq_user_hash_id START WITH 1 INCREMENT BY 1; --유저 해시태그 아이디(식별번호) 증가
 CREATE SEQUENCE seq_blist_no START WITH 1 INCREMENT BY 1; --블랙리스트 번호
 CREATE SEQUENCE seq_report_no  START WITH 1 INCREMENT BY 1; --신고내역 글번호 
 CREATE SEQUENCE seq_n_no  START WITH 1 INCREMENT BY 1; --공지글 번호 
 CREATE SEQUENCE seq_img_no  START WITH 1 INCREMENT BY 1; --이미지번호 
 CREATE SEQUENCE seq_inf_no  START WITH 1 INCREMENT BY 1; --인플루언서신청번호 
+CREATE SEQUENCE seq_user_hash_id START WITH 1 INCREMENT BY 1; --해시태그(회원가입)
+
 
 commit;
 
