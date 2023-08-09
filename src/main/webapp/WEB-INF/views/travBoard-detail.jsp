@@ -13,6 +13,7 @@
 var loggedInUser = "${SPRING_SECURITY_CONTEXT.authentication.principal.userVO.id}";
 var travBoardUser = "${TravBoardVO.user_id}";
 
+
 	function goWrite() {
 	location.href = "${pageContext.servletContext.contextPath}/travBoard/travBoard-write";
 	}
@@ -286,6 +287,25 @@ var travBoardUser = "${TravBoardVO.user_id}";
 		}
 		return null;
 	}
+	
+	
+	
+	function loadContents(){
+		var boardContent = "${BoardContentsvo.contents}";
+		var viewerPath = boardContent.replace(".zip","");
+	$.ajax({
+		  url: "${pageContext.servletContext.contextPath}/marzipano/marzipanoViewer"
+		  ,type: "GET"
+		  ,data: {
+		  viewerPath: viewerPath
+		  }
+		  ,success: function(data) {
+			  var url = "${pageContext.servletContext.contextPath}/marzipano/marzipanoViewer?viewerPath=" + viewerPath;
+				location.href = url;
+		  }
+		});
+	}
+	
 </script>
 	<!-- plugins:css -->
 	<link rel="stylesheet" 	href="${ pageContext.servletContext.contextPath }/resources/assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -518,6 +538,11 @@ var travBoardUser = "${TravBoardVO.user_id}";
 									<!-- 언어: 한글, 폰트 설정 -->
 									<div class="board_viewer theme_default" lang="ko-KR">
 										<!-- 메인 컨테이너 start -->
+										<c:if test="${isContentsBtn}">
+											<div id="viewerORimage">
+											<button onclick="loadContents()">뷰어로 이동</button>
+											</div>
+										</c:if>
 										<div class="main_container">
 											<div>${TravBoardVO.contents}</div>
 										</div>
@@ -529,6 +554,9 @@ var travBoardUser = "${TravBoardVO.user_id}";
 										</div>
 										<!-- 메인 컨테이너 end -->
 									</div>
+								</div>
+								<div id="contents_container" >
+								
 								</div>
 							</div>
 						</div>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.spring.mapper.BoardContentsMapper">
+  <insert id="insertBoardContents">
+  		INSERT INTO board_contents values( seq_b_c_no.nextval, #{ contents }, #{ type }, #{ contents_no} )
+  	</insert>
+  	<select id="selectBoardContents" resultType="com.spring.domain.BoardContentsVO">
+  	 	SELECT * from board_contents where b_no = #{ b_no }
+  	</select>
+  	<delete id="deleteBoardContents">
+  		DELETE board_contents WHERE b_no = #{ b_no } 
+  	</delete>
+  	
+  	<select id="selectCount" resultType="int">
+  		select count(*) from board_contents where b_no=#{b_no}
+  	</select>
+  </mapper>

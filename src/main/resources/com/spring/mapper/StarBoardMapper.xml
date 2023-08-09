@@ -10,11 +10,12 @@
 		<insert id="insertStarBoard">
 			<![CDATA[
 		    INSERT INTO star_board (b_no, title, user_id) 
-			    SELECT tb.trav_b_no, b.title, b.user_id 
-			    FROM board b
-			    JOIN trav_board tb ON tb.trav_b_no = b.b_no
-			    WHERE ROWNUM <= 10 and b.is_hidden = 0
-		    ORDER BY tb.views desc
+				SELECT tb.trav_b_no, b.title, b.user_id 
+				FROM board b
+				JOIN trav_board tb ON tb.trav_b_no = b.b_no
+				WHERE b.is_hidden = 0
+				ORDER BY tb.views DESC
+		    FETCH FIRST 10 ROWS ONLY
     		]]>
 		</insert>
 		

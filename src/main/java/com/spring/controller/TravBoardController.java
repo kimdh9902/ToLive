@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.domain.BoardCommentVO;
+import com.spring.domain.BoardContentsVO;
 import com.spring.domain.BoardImageVO;
 import com.spring.domain.BoardVO;
 import com.spring.domain.NoticeVO;
@@ -37,6 +38,7 @@ import com.spring.mapper.BoardMapper;
 import com.spring.mapper.TravBoardMapper;
 import com.spring.object.CustomUserDetails;
 import com.spring.service.BoardCommentService;
+import com.spring.service.BoardContentsService;
 import com.spring.service.NoticeService;
 import com.spring.service.BoardImageService;
 import com.spring.service.BoardService;
@@ -56,6 +58,7 @@ public class TravBoardController {
 	private final NoticeService noticeService;
 	private final BoardImageService boardImageService;
 	private final BoardService boardService;
+	private final BoardContentsService boardContentsService;
 
 	@Autowired
 	private TravBoardMapper travBoardMapper;
@@ -80,7 +83,12 @@ public class TravBoardController {
 			List<BoardCommentVO> boardCommentvo = commentService
 					.getComments(Integer.parseInt(request.getParameter("b_no")));
 			model.addAttribute("boardCommentList", boardCommentvo);
-			System.out.println(boardCommentvo);
+			BoardContentsVO  boardContentsvo = boardContentsService.selectBoardContents(b_no);
+			System.out.println(boardContentsvo);
+			model.addAttribute("BoardContentsvo", boardContentsvo);
+			
+			boolean is_btn = boardContentsService.isContents(b_no);
+			model.addAttribute("isContentsBtn", is_btn);
 		}
 		return "travBoard-detail";
 //		return "detail";
@@ -145,15 +153,15 @@ public class TravBoardController {
 	@RequestMapping(value = "/travBoard-delete", method = RequestMethod.GET)
 	public String delete(@RequestParam("b_no") int b_no, HttpSession session) {
 		boolean success = travBoardMapper.deleteTravBoard(b_no);
-		boolean deleteBaord = boardMapper.deleteBoard(b_no);
-
+		boolean deleteBoard = boardMapper.deleteBoard(b_no);
+		boolean deleteBoardContents = boardContentsService.deleteBoardContents(b_no);
 		String user_id = null;
 		SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
 		CustomUserDetails userDetails = (CustomUserDetails) securityContext.getAuthentication().getPrincipal();
 		UsersVO user = userDetails.getUserVO();
 		user_id = user.getId();
 
-		if (success && deleteBaord) {
+		if (success && deleteBoard && deleteBoardContents) {
 			return "redirect:/menu/travBoard?user_id=" + user_id;
 		} else {
 			return "redirect:travBoard-detail?b_no=" + b_no + "&user_id=" + user_id;
