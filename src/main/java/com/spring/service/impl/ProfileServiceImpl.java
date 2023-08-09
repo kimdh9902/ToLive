@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.domain.ProfileVO;
+import com.spring.domain.UsersVO;
 import com.spring.mapper.ProfileMapper;
 import com.spring.service.ProfileService;
 
@@ -19,8 +20,8 @@ public class ProfileServiceImpl implements ProfileService{
 	private final ProfileMapper mapper;
 	
 	@Override
-	public void makeProfile(String user_id) {
-		mapper.insertProfile(user_id);
+	public void makeProfile(UsersVO user) {
+		mapper.insertProfile(user);
 	}
 
 	@Override

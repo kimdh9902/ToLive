@@ -21,7 +21,7 @@
 		</select>
 		
 		<insert id="insertProfile">
-			insert into profile(user_id, user_name) values(#{user_id}, #{user_name})
+			insert into profile(user_id, user_name) values(#{id}, #{name})
 		</insert>
 		
 		<update id="updateProfile">

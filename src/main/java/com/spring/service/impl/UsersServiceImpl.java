@@ -48,12 +48,9 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public int registerAccount(UsersVO vo) {
-		System.out.println("ori:" + vo.getPw());
-//		vo.setPw(passwordEncoderUtil.passwordEncoder().encode(vo.getPw()));
-		System.out.println("encode:" + vo.getPw());
 		int result = mapper.insertAccount(vo);
 		if (result > 0) {
-			profileService.makeProfile(vo.getId());
+			profileService.makeProfile(vo);
 		}
 		return result;
 	}
