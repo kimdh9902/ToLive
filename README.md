@@ -1,5 +1,9 @@
 <h2>동작</h2>
 
+![register](https://github.com/kimdh9902/ToLive/assets/107189248/999361f1-795b-4dc9-b41b-6aa782bddac1)
+
+![hash](https://github.com/kimdh9902/ToLive/assets/107189248/6b4e8c30-4af4-4b58-96de-f2c604e50415)
+
 ![profile](https://github.com/kimdh9902/ToLive/assets/107189248/18077692-1d57-4296-86aa-08635355b971)
 
 ![alarm](https://github.com/kimdh9902/ToLive/assets/107189248/04313b30-eb17-4881-9848-6a1c606108d3)

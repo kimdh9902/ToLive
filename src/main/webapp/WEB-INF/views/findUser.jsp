@@ -93,6 +93,7 @@
                 },
                 success:function(data, textStatus, jqXHR)
                 {
+                	console.log(data);
                 	searchUser(data);					
                 },
                 error:function(jqXHR, textStatus, errorThrown ){

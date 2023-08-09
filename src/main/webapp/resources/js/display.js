@@ -32,11 +32,6 @@ function init(path, sess_id, sess_name, csrf_header, csrf_token){
     }
     alarmIsOpenAjax(); // 안읽은 알람 체크 ●
     alarmAjax();
-    //추가 이벤트 작업
-    // let alarm_a = document.getElementById("alarmDropdown");
-    // alarm_a.onclick = function() {
-    //     alarmAjax(path, sess_id);
-    // }
 }
 
 function makeLeftSlideBar(){
